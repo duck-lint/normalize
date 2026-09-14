@@ -1,0 +1,55 @@
+tracker:
+  kind: github
+  provider:
+    repo: "duck-lint/normalize"
+    token: $SYMPHONY_GITHUB_TOKEN
+  required_labels:
+    - symphony:auto
+  active_states:
+    - open
+  terminal_states:
+    - closed
+
+polling:
+  interval_ms: 5000
+
+workspace:
+  root: ~/code/symphony-workspaces/normalize
+
+hooks:
+  after_create: |
+    set -eu
+
+    git clone --depth 1 https://github.com/duck-lint/normalize.git .
+
+    mkdir -p fixtures
+
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 10.pdf" fixtures/
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 17.pdf" fixtures/
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 23.pdf" fixtures/
+
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf" fixtures/
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf" fixtures/
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" fixtures/
+
+  before_run: |
+    set -eu
+
+    test -f "fixtures/Einstein, Albert - Relativity 10.pdf"
+    test -f "fixtures/Einstein, Albert - Relativity 17.pdf"
+    test -f "fixtures/Einstein, Albert - Relativity 23.pdf"
+
+    test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 3.pdf"
+    test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 6.pdf"
+    test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 18.pdf"
+
+agent:
+  max_concurrent_agents: 1
+
+codex:
+  command: codex --config 'model="gpt-5.6-luna"' --config 'model_reasoning_effort="high"' app-server
+  approval_policy: on-request
+  thread_sandbox: workspace-write
+  turn_sandbox_policy:
+    type: workspaceWrite
+    networkAccess: false
