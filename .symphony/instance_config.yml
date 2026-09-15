@@ -17,6 +17,8 @@ workspace:
   root: ~/code/symphony-workspaces/normalize
 
 hooks:
+  timeout_ms: 180000
+  
   after_create: |
     set -eu
 
@@ -32,6 +34,13 @@ hooks:
     cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf" fixtures/
     cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" fixtures/
 
+    python3 -m venv .venv
+
+    .venv/bin/python -m pip install \
+      --no-index \
+      --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
+      PyMuPDF Pillow pytesseract RapidFuzz NumPy opencv-python-headless pytest
+
   before_run: |
     set -eu
 
@@ -42,6 +51,11 @@ hooks:
     test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 3.pdf"
     test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 6.pdf"
     test -f "fixtures/McCarthy, Cormac - Stella Maris.pt2 18.pdf"
+
+    test -x .venv/bin/python
+    command -v tesseract >/dev/null
+
+    .venv/bin/python -c "import fitz, PIL, pytesseract, rapidfuzz, numpy, cv2, pytest"
 
 agent:
   max_concurrent_agents: 1
