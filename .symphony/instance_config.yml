@@ -19,49 +19,49 @@ workspace:
 hooks:
   timeout_ms: 180000
   
-after_create: |
-  set -eu
+  after_create: |
+    set -eu
 
-  git clone --depth 1 https://github.com/duck-lint/normalize.git .
+    git clone --depth 1 https://github.com/duck-lint/normalize.git .
 
-  mkdir -p fixtures/einstein fixtures/mccarthy
+    mkdir -p fixtures/einstein fixtures/mccarthy
 
-  cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 10.pdf" \
-    "fixtures/einstein/"
-  cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 17.pdf" \
-    "fixtures/einstein/"
-  cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 23.pdf" \
-    "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 10.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 17.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/Einstein, Albert - Relativity 23.pdf" \
+      "fixtures/einstein/"
 
-  cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf" \
-    "fixtures/mccarthy/"
-  cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf" \
-    "fixtures/mccarthy/"
-  cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" \
-    "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" \
+      "fixtures/mccarthy/"
 
-  python3 -m venv .venv
+    python3 -m venv .venv
 
-  .venv/bin/python -m pip install \
-    --no-index \
-    --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
-    PyMuPDF Pillow pytesseract RapidFuzz NumPy opencv-python-headless pytest
+    .venv/bin/python -m pip install \
+      --no-index \
+      --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
+      PyMuPDF Pillow pytesseract RapidFuzz NumPy opencv-python-headless pytest
 
-before_run: |
-  set -eu
+  before_run: |
+    set -eu
 
-  test -f "fixtures/einstein/Einstein, Albert - Relativity 10.pdf"
-  test -f "fixtures/einstein/Einstein, Albert - Relativity 17.pdf"
-  test -f "fixtures/einstein/Einstein, Albert - Relativity 23.pdf"
+    test -f "fixtures/einstein/Einstein, Albert - Relativity 10.pdf"
+    test -f "fixtures/einstein/Einstein, Albert - Relativity 17.pdf"
+    test -f "fixtures/einstein/Einstein, Albert - Relativity 23.pdf"
 
-  test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf"
-  test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf"
-  test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf"
+    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf"
+    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf"
+    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf"
 
-  test -x .venv/bin/python
-  command -v tesseract >/dev/null
+    test -x .venv/bin/python
+    command -v tesseract >/dev/null
 
-  .venv/bin/python -c "import fitz, PIL, pytesseract, rapidfuzz, numpy, cv2, pytest"
+    .venv/bin/python -c "import fitz, PIL, pytesseract, rapidfuzz, numpy, cv2, pytest"
 
 agent:
   max_concurrent_agents: 1
