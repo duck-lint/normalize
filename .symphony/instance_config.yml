@@ -46,6 +46,11 @@ hooks:
       --no-index \
       --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
       PyMuPDF Pillow pytesseract RapidFuzz NumPy opencv-python-headless pytest
+    
+    .venv/bin/python -m pip install \
+      --no-index \
+      --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
+      'setuptools>=68' 'wheel>=0.41'
 
   before_run: |
     set -eu
