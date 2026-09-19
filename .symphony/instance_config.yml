@@ -16,6 +16,33 @@ polling:
 workspace:
   root: ~/code/symphony-workspaces/normalize
 
+environment:
+  capabilities:
+    - id: normalize-python-dependencies
+      command:
+        executable: .venv/bin/python
+        args:
+          - -c
+          - import fitz, PIL, pytesseract, rapidfuzz, numpy, cv2, pytest
+    - id: normalize-cli
+      command:
+        executable: .venv/bin/normalize
+        args:
+          - check-env
+    - id: tesseract
+      command:
+        executable: tesseract
+        args:
+          - --version
+    - id: normalize-fixture-pdfs
+      resources:
+        - fixtures/einstein/Einstein, Albert - Relativity 10.pdf
+        - fixtures/einstein/Einstein, Albert - Relativity 17.pdf
+        - fixtures/einstein/Einstein, Albert - Relativity 23.pdf
+        - fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf
+        - fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf
+        - fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf
+
 hooks:
   timeout_ms: 180000
   
@@ -40,7 +67,7 @@ hooks:
     cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" \
       "fixtures/mccarthy/"
 
-    python3 -m venv .venv
+    python3 -m venv --copies .venv
 
     .venv/bin/python -m pip install \
       --no-index \
@@ -57,22 +84,6 @@ hooks:
       --no-deps \
       --no-build-isolation \
       .
-
-  before_run: |
-    set -eu
-
-    test -f "fixtures/einstein/Einstein, Albert - Relativity 10.pdf"
-    test -f "fixtures/einstein/Einstein, Albert - Relativity 17.pdf"
-    test -f "fixtures/einstein/Einstein, Albert - Relativity 23.pdf"
-
-    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf"
-    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf"
-    test -f "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf"
-
-    test -x .venv/bin/python
-    command -v tesseract >/dev/null
-
-    .venv/bin/python -c "import fitz, PIL, pytesseract, rapidfuzz, numpy, cv2, pytest"
 
 agent:
   max_concurrent_agents: 1
