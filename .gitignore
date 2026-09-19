@@ -1,2 +1,8 @@
 # Local PDFs are required for geometry-dependent tests but intentionally untracked; see fixtures/README.md.
 fixtures/*/*.pdf
+
+# Local development environment and generated Python files.
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
