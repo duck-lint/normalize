@@ -52,6 +52,12 @@ hooks:
       --find-links "/home/duck-lint/.local/share/normalize/wheelhouse/linux-py312" \
       'setuptools>=68' 'wheel>=0.41'
 
+    .venv/bin/python -m pip install \
+      --no-index \
+      --no-deps \
+      --no-build-isolation \
+      .
+
   before_run: |
     set -eu
 
