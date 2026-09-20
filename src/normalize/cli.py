@@ -9,6 +9,7 @@ from pathlib import Path
 
 from .environment import check_tesseract
 from .fixtures import FixtureCatalog, MetadataError
+from .geometry import run_geometry
 from .rendering import (
     FAILURE,
     SUCCESS,
@@ -28,6 +29,11 @@ def _parser() -> argparse.ArgumentParser:
     preprocess.add_argument("fixture_id")
     preprocess.add_argument("--config", type=Path, required=True)
     preprocess.add_argument("--output", "-o", type=Path, required=True)
+    geometry = commands.add_parser(
+        "geometry", help="extract inspectable Tesseract geometry from one preprocessed fixture"
+    )
+    geometry.add_argument("--preprocessed", type=Path, required=True)
+    geometry.add_argument("--output", "-o", type=Path, required=True)
     return parser
 
 
@@ -37,6 +43,13 @@ def _run(args: argparse.Namespace) -> int:
         stream = sys.stdout if report.tesseract_available else sys.stderr
         print(report.message, file=stream)
         return 0 if report.tesseract_available else 1
+
+    if args.command == "geometry":
+        # Geometry consumes a complete preprocessing directory and must not
+        # require repository fixture discovery or a repository cwd.
+        result = run_geometry(args.preprocessed, args.output)
+        print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+        return {SUCCESS: 0, UNCERTAIN: 3, FAILURE: 2}[result["status"]]
 
     catalog = FixtureCatalog.load()
     if args.command == "fixtures":
