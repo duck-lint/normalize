@@ -7,6 +7,14 @@ from .fixtures import (
     MetadataError,
     load_fixture_metadata,
 )
+from .geometry import (
+    GEOMETRY_ERROR_CODES,
+    GEOMETRY_SCHEMA,
+    GEOMETRY_UNCERTAINTY_CODES,
+    group_physical_lines,
+    parse_tsv_rows,
+    run_geometry,
+)
 from .rendering import (
     FAILURE,
     SUCCESS,
@@ -32,6 +40,9 @@ __all__ = [
     "CONFIG_SCHEMA",
     "METADATA_SCHEMA",
     "MetadataError",
+    "GEOMETRY_ERROR_CODES",
+    "GEOMETRY_SCHEMA",
+    "GEOMETRY_UNCERTAINTY_CODES",
     "FAILURE",
     "SUCCESS",
     "UNCERTAIN",
@@ -39,4 +50,7 @@ __all__ = [
     "load_fixture_metadata",
     "load_preprocessing_config",
     "preprocess_fixture",
+    "group_physical_lines",
+    "parse_tsv_rows",
+    "run_geometry",
 ]
