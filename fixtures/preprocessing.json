@@ -1,0 +1,66 @@
+{
+  "schema": "preprocessing-config-v1",
+  "dpi": 144,
+  "profiles": {
+    "relativity_pdf10_pp26-27": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": [],
+      "uncertainty": null
+    },
+    "relativity_pdf17_pp40-41": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": [],
+      "uncertainty": null
+    },
+    "relativity_pdf23_pp52-53": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": [],
+      "uncertainty": null
+    },
+    "stella_maris_pdf03_session-I": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": ["left"],
+      "uncertainty": null
+    },
+    "stella_maris_pdf06_dense-dialogue": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": [],
+      "uncertainty": null
+    },
+    "stella_maris_pdf18_session-II_p35": {
+      "result_kind": "spread",
+      "rotation_degrees": 0,
+      "crop": null,
+      "deskew_degrees": 0,
+      "split_boundary": 792,
+      "output_order": ["left", "right"],
+      "blank_sides": [],
+      "uncertainty": null
+    }
+  }
+}

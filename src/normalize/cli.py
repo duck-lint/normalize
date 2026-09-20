@@ -1,30 +1,33 @@
-"""Small deterministic command-line surface for Slice 0."""
+"""Deterministic command-line surface for the Normalize project."""
 
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 from pathlib import Path
 
 from .environment import check_tesseract
 from .fixtures import FixtureCatalog, MetadataError
-from .rendering import FixtureUnavailableError, render_fixture_page
+from .rendering import (
+    FAILURE,
+    SUCCESS,
+    UNCERTAIN,
+    PreprocessingConfigError,
+    preprocess_fixture,
+)
 
 
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="normalize")
     commands = parser.add_subparsers(dest="command", required=True)
-
     commands.add_parser("check-env", help="check Tesseract availability and version")
-
     fixtures = commands.add_parser("fixtures", help="list validated fixture metadata")
     fixtures.add_argument("--json", action="store_true", dest="as_json")
-
-    render = commands.add_parser("render", help="render one exact local fixture PDF page")
-    render.add_argument("fixture_id")
-    render.add_argument("--output", "-o", type=Path, help="optional path for a derived PNG")
+    preprocess = commands.add_parser("preprocess", help="preprocess one exact local fixture PDF")
+    preprocess.add_argument("fixture_id")
+    preprocess.add_argument("--config", type=Path, required=True)
+    preprocess.add_argument("--output", "-o", type=Path, required=True)
     return parser
 
 
@@ -57,28 +60,15 @@ def _run(args: argparse.Namespace) -> int:
         return 0
 
     metadata = catalog.get(args.fixture_id)
-    rendered = render_fixture_page(metadata)
-    if args.output is None:
-        print(
-            f"Rendered {rendered.fixture_id}: {rendered.image.width}x{rendered.image.height} "
-            f"from local page {rendered.fixture_pdf_page_index_1_based} "
-            f"(source page {rendered.source_pdf_page_index_1_based})"
-        )
-        return 0
-
-    output = args.output.resolve()
-    if output.exists() and os.path.samefile(output, metadata.source_pdf):
-        raise FixtureUnavailableError("refusing to overwrite the source PDF with derived output")
-    output.parent.mkdir(parents=True, exist_ok=True)
-    rendered.image.save(output, format="PNG")
-    print(f"Rendered {rendered.fixture_id} to {output}")
-    return 0
+    result = preprocess_fixture(metadata, args.config, args.output)
+    print(json.dumps(result, sort_keys=True))
+    return {SUCCESS: 0, UNCERTAIN: 3, FAILURE: 2}[result["status"]]
 
 
 def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         return _run(args)
-    except (MetadataError, FixtureUnavailableError, OSError) as exc:
+    except (MetadataError, PreprocessingConfigError, OSError) as exc:
         print(f"normalize: {exc}", file=sys.stderr)
         return 2

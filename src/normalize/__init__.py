@@ -1,4 +1,4 @@
-"""Repository-owned Slice 0 runtime for the Normalize project."""
+"""Repository-owned preprocessing runtime for the Normalize project."""
 
 from .environment import EnvironmentReport, check_tesseract
 from .fixtures import (
@@ -7,16 +7,36 @@ from .fixtures import (
     MetadataError,
     load_fixture_metadata,
 )
-from .rendering import FixtureUnavailableError, RenderedPage, render_fixture_page
+from .rendering import (
+    FAILURE,
+    SUCCESS,
+    UNCERTAIN,
+    CONFIG_SCHEMA,
+    METADATA_SCHEMA,
+    FixtureUnavailableError,
+    PreprocessingConfig,
+    PreprocessingConfigError,
+    PreprocessingProfile,
+    load_preprocessing_config,
+    preprocess_fixture,
+)
 
 __all__ = [
     "EnvironmentReport",
     "FixtureCatalog",
     "FixtureMetadata",
     "FixtureUnavailableError",
+    "PreprocessingConfig",
+    "PreprocessingConfigError",
+    "PreprocessingProfile",
+    "CONFIG_SCHEMA",
+    "METADATA_SCHEMA",
     "MetadataError",
-    "RenderedPage",
+    "FAILURE",
+    "SUCCESS",
+    "UNCERTAIN",
     "check_tesseract",
     "load_fixture_metadata",
-    "render_fixture_page",
+    "load_preprocessing_config",
+    "preprocess_fixture",
 ]
