@@ -285,6 +285,141 @@ def test_fully_assigned_measurements_keep_numeric_values():
     ]
 
 
+def _canonical_grouping(tokens, lines, unresolved):
+    token_text = {token.source_row: token.text for token in tokens}
+    line_members = {
+        line["line_id"]: tuple(sorted(token_text[int(token_id.removeprefix("token-"))] for token_id in line["token_ids"]))
+        for line in lines
+    }
+    assignments = {
+        token_text[item["token_source_row"]]: tuple(item["candidate_line_ids"])
+        for item in unresolved
+    }
+    return tuple(sorted(line_members.items())), tuple(sorted(assignments.items()))
+
+
+def test_vertical_grouping_repairs_continuous_retained_row_without_ambiguity():
+    rows = [
+        _row("a", x="149", y="483", width="8", height="9"),
+        _row("particular", x="169", y="478", width="82", height="20"),
+        _row("body", x="262", y="479", width="40", height="20"),
+        _row("of", x="317", y="480", width="19", height="15"),
+        _row("reference", x="346", y="480", width="85", height="20"),
+        _row("which", x="443", y="482", width="51", height="15"),
+        _row("we", x="506", y="489", width="23", height="9"),
+        _row("have", x="541", y="484", width="40", height="15"),
+        _row("styled", x="593", y="485", width="48", height="20"),
+        _row("a", x="654", y="491", width="7", height="9"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 700, 600)
+    assert errors == []
+
+    lines, unresolved, _ = group_physical_lines(tokens)
+
+    assert unresolved == []
+    assert len(lines) == 1
+    assert len(lines[0]["token_ids"]) == 10
+
+
+def test_vertical_grouping_semantics_are_invariant_under_token_permutation():
+    rows = [
+        _row("left-a", x="10", y="20", word="1"),
+        _row("left-b", x="60", y="22", word="2"),
+        _row("left-c", x="110", y="24", word="3"),
+        _row("right-a", x="10", y="60", word="4", line="2"),
+        _row("right-b", x="60", y="62", word="5", line="2"),
+        _row("right-c", x="110", y="64", word="6", line="2"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 200, 100)
+    assert errors == []
+    baseline = _canonical_grouping(tokens, *group_physical_lines(tokens)[:2])
+
+    permuted = [tokens[index] for index in (4, 1, 5, 0, 3, 2)]
+    permuted_result = group_physical_lines(permuted)
+
+    assert _canonical_grouping(permuted, *permuted_result[:2]) == baseline
+
+
+def test_vertical_grouping_keeps_genuinely_separate_neighboring_rows_separate():
+    rows = [
+        _row("upper-a", x="10", y="20", word="1"),
+        _row("upper-b", x="60", y="20", word="2"),
+        _row("lower-a", x="10", y="45", word="3", line="2"),
+        _row("lower-b", x="60", y="45", word="4", line="2"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 200, 100)
+    assert errors == []
+
+    lines, unresolved, _ = group_physical_lines(tokens)
+
+    assert unresolved == []
+    assert [sorted(line["token_ids"]) for line in lines] == [
+        ["token-0001", "token-0002"],
+        ["token-0003", "token-0004"],
+    ]
+
+
+def test_horizontal_grouping_uses_covered_extent_for_retained_dense_dialogue():
+    rows = [
+        _row("or", x="38", y="880", width="25", height="37", word="1"),
+        _row("man", x="71", y="880", width="29", height="37", word="2"),
+        _row("alike", x="108", y="880", width="57", height="37", word="3"),
+        _row("Something", x="42", y="884", width="312", height="24", word="4"),
+        _row("like", x="269", y="880", width="35", height="37", word="5"),
+        _row("that", x="312", y="880", width="44", height="37", word="6"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 500, 1000)
+    assert errors == []
+
+    lines, unresolved, _ = group_physical_lines(tokens)
+
+    assert unresolved == []
+    assert len(lines) == 1
+    assert len(lines[0]["token_ids"]) == 6
+
+
+def test_horizontal_grouping_splits_disconnected_regions_and_unsupported_bridge_box():
+    rows = [
+        _row("left", x="10", y="20", width="10", word="1"),
+        _row("bridge", x="10", y="20", width="250", word="2"),
+        _row("right", x="250", y="20", width="10", word="3"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 400, 100)
+    assert errors == []
+
+    lines, unresolved, _ = group_physical_lines(tokens)
+
+    assert unresolved == []
+    assert len(lines) == 2
+    assert lines[0]["token_ids"] == ["token-0001", "token-0002"]
+    assert lines[1]["token_ids"] == ["token-0003"]
+
+    disconnected_rows = [
+        _row("left", x="10", y="50", width="20", word="1"),
+        _row("right", x="200", y="50", width="20", word="2"),
+    ]
+    disconnected, errors = parse_tsv_rows(_tsv(*disconnected_rows), 300, 100)
+    assert errors == []
+    disconnected_lines, disconnected_unresolved, _ = group_physical_lines(disconnected)
+    assert disconnected_unresolved == []
+    assert len(disconnected_lines) == 2
+
+
+def test_provisional_membership_has_consistent_final_assignment_support():
+    rows = [
+        _row("first", x="10", y="20", width="30", height="10", word="1"),
+        _row("second", x="50", y="23", width="30", height="10", word="2"),
+        _row("third", x="90", y="24", width="30", height="10", word="3"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 200, 100)
+    assert errors == []
+
+    lines, unresolved, _ = group_physical_lines(tokens)
+
+    assert unresolved == []
+    assert [line["token_ids"] for line in lines] == [["token-0001", "token-0002", "token-0003"]]
+
+
 def test_annotation_skips_line_rectangles_with_withheld_bounds(tmp_path: Path):
     image_path = tmp_path / "left.png"
     destination = tmp_path / "annotated.png"
