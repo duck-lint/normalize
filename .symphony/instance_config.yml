@@ -18,6 +18,13 @@ workspace:
   repository: github.com/duck-lint/normalize
   branch: slice2/geometry-probe-checkpoint
 
+human_response:
+  authorized_user_ids:
+    - 250741170
+
+lifecycle:
+  integrity_secret: "$SYMPHONY_LIFECYCLE_INTEGRITY_SECRET"
+
 environment:
   capabilities:
     - id: normalize-python-dependencies
