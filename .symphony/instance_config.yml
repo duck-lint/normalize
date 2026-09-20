@@ -16,7 +16,7 @@ polling:
 workspace:
   root: ~/code/symphony-workspaces/normalize
   repository: github.com/duck-lint/normalize
-  branch: slice2/geometry-probe-checkpoint
+  branch: guh
 
 human_response:
   authorized_user_ids:
@@ -59,7 +59,7 @@ hooks:
     set -eu
 
     git clone --depth 1 --single-branch \
-      --branch slice2/geometry-probe-checkpoint \
+      --branch guh \
       https://github.com/duck-lint/normalize.git .
 
     mkdir -p fixtures/einstein fixtures/mccarthy
