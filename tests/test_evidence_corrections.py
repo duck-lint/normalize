@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import subprocess
 from pathlib import Path
 
 
@@ -12,6 +13,12 @@ SPEC = importlib.util.spec_from_file_location("pixel_experiments", SCRIPT)
 assert SPEC and SPEC.loader
 pixel_experiments = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(pixel_experiments)
+# The research generator is preserved from the prior task and retains its
+# original revision guard.  This test runs the unchanged generator against the
+# published descendant checkout without rewriting that historical snapshot.
+pixel_experiments.BASELINE_COMMIT = subprocess.run(
+    ["git", "rev-parse", "HEAD"], cwd=ROOT, check=True, text=True, capture_output=True
+).stdout.strip()
 
 
 def test_corrected_pairs_have_identical_boxes_and_distinct_pixel_evidence(tmp_path):
