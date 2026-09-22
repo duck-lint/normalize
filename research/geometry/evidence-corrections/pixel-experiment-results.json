@@ -1,0 +1,2768 @@
+{
+  "schema": "normalize-pixel-discrimination-experiment-v1",
+  "authority": "Synthetic pixels are controlled illustrations; preserved scan-derived geometry remains the observed source evidence.",
+  "baseline_commit": "d2dbea8e8e1a51ad92b38bb2caddb7f209542e72",
+  "geometry_module_import_path": "/home/duck-lint/projects/normalize/src/normalize/geometry.py",
+  "pairs": [
+    {
+      "pair_id": "two_ordinary_tokens_each_side",
+      "input": {
+        "schema": "normalize-synthetic-tsv-input-v1",
+        "dimensions_px": {
+          "width": 220,
+          "height": 70
+        },
+        "metadata": {
+          "page_num": 1,
+          "side": "synthetic",
+          "source": "controlled synthetic input; not a scan observation"
+        },
+        "tsv_header": [
+          "level",
+          "page_num",
+          "block_num",
+          "par_num",
+          "line_num",
+          "word_num",
+          "left",
+          "top",
+          "width",
+          "height",
+          "conf",
+          "text"
+        ],
+        "rows": [
+          "5\t1\t1\t1\t1\t1\t10\t20\t10\t10\t95\tsame",
+          "5\t1\t1\t1\t1\t2\t25\t20\t10\t10\t95\tsame",
+          "5\t1\t1\t1\t1\t3\t30\t20\t115\t10\t95\tocr-wide",
+          "5\t1\t1\t1\t1\t4\t145\t20\t10\t10\t95\tsame",
+          "5\t1\t1\t1\t1\t5\t160\t20\t10\t10\t95\tsame"
+        ]
+      },
+      "input_sha256": "fbc89c063b9ce65a306e1e9bd2df1d4ba667824a8f813be9605db6394a369304",
+      "region_of_interest": {
+        "x0": 35,
+        "x1": 145,
+        "y0": 20,
+        "y1": 30
+      },
+      "continuous": {
+        "source_image": {
+          "dimensions_px": [
+            220,
+            70
+          ]
+        },
+        "measurements": {
+          "roi": {
+            "x0": 35,
+            "x1": 145,
+            "y0": 20,
+            "y1": 30
+          },
+          "dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "ink_pixels": 420,
+          "ink_occupancy": 0.38181818181818183,
+          "occupied_column_fraction": 1.0,
+          "column_ink_counts": [
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2
+          ],
+          "row_ink_counts": [
+            0,
+            0,
+            50,
+            50,
+            110,
+            110,
+            50,
+            50,
+            0,
+            0
+          ],
+          "empty_column_runs_px": [],
+          "max_empty_column_run_px": 0,
+          "occupied_row_bounds_px": {
+            "y0": 22,
+            "y1": 28
+          },
+          "connected_components_8_native": {
+            "count": 1,
+            "largest_area_px": 420
+          },
+          "connected_components_8_half_scale": {
+            "count": 1,
+            "largest_area_px": 95
+          }
+        },
+        "box_only_output": {
+          "physical_lines": [
+            {
+              "line_id": "line-0001",
+              "token_ids": [
+                "token-0001",
+                "token-0002",
+                "token-0003",
+                "token-0004",
+                "token-0005"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 10,
+              "right_px": 170,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": null
+            }
+          ],
+          "unresolved": [],
+          "measurements": {
+            "token_height_median_px": 10.0,
+            "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+            "tolerance_px": 3,
+            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+            "horizontal_gap_limit_px": 20.0,
+            "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+            "baseline_slope_px_per_px": 0.0,
+            "line_height_median_px": 10.0,
+            "line_gaps": []
+          },
+          "canonical_state": [
+            [
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  1
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                10,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  2
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                25,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  3
+                ],
+                "ocr-wide",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                30,
+                20,
+                115,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  4
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                145,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  5
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                160,
+                20,
+                10,
+                10,
+                95.0
+              ]
+            ],
+            [
+              [
+                "physical-line-0001",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    1
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    2
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    3
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    4
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    5
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    10
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    170
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    null
+                  ]
+                ]
+              ]
+            ],
+            [
+              [
+                "baseline_slope_formula",
+                "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion"
+              ],
+              [
+                "baseline_slope_px_per_px",
+                0.0
+              ],
+              [
+                "horizontal_gap_formula",
+                "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split"
+              ],
+              [
+                "horizontal_gap_limit_px",
+                20.0
+              ],
+              [
+                "line_gaps",
+                []
+              ],
+              [
+                "line_height_median_px",
+                10.0
+              ],
+              [
+                "token_height_median_px",
+                10.0
+              ],
+              [
+                "tolerance_formula",
+                "max(1, floor(token_height_median_px / 4 + 0.5))"
+              ],
+              [
+                "tolerance_px",
+                3
+              ]
+            ]
+          ],
+          "canonical_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61",
+          "identity_complete_assignments": [
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                1
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 10,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                2
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 25,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                3
+              ],
+              "text": "ocr-wide",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 30,
+                "y": 20,
+                "width": 115,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                4
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 145,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                5
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 160,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            }
+          ],
+          "reversed_input_same_state": true,
+          "reversed_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61"
+        }
+      },
+      "disconnected": {
+        "source_image": {
+          "dimensions_px": [
+            220,
+            70
+          ]
+        },
+        "measurements": {
+          "roi": {
+            "x0": 35,
+            "x1": 145,
+            "y0": 20,
+            "y1": 30
+          },
+          "dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "ink_pixels": 0,
+          "ink_occupancy": 0.0,
+          "occupied_column_fraction": 0.0,
+          "column_ink_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "row_ink_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "empty_column_runs_px": [
+            110
+          ],
+          "max_empty_column_run_px": 110,
+          "occupied_row_bounds_px": null,
+          "connected_components_8_native": {
+            "count": 0,
+            "largest_area_px": 0
+          },
+          "connected_components_8_half_scale": {
+            "count": 0,
+            "largest_area_px": 0
+          }
+        },
+        "box_only_output": {
+          "physical_lines": [
+            {
+              "line_id": "line-0001",
+              "token_ids": [
+                "token-0001",
+                "token-0002",
+                "token-0003",
+                "token-0004",
+                "token-0005"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 10,
+              "right_px": 170,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": null
+            }
+          ],
+          "unresolved": [],
+          "measurements": {
+            "token_height_median_px": 10.0,
+            "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+            "tolerance_px": 3,
+            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+            "horizontal_gap_limit_px": 20.0,
+            "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+            "baseline_slope_px_per_px": 0.0,
+            "line_height_median_px": 10.0,
+            "line_gaps": []
+          },
+          "canonical_state": [
+            [
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  1
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                10,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  2
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                25,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  3
+                ],
+                "ocr-wide",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                30,
+                20,
+                115,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  4
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                145,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  5
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                160,
+                20,
+                10,
+                10,
+                95.0
+              ]
+            ],
+            [
+              [
+                "physical-line-0001",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    1
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    2
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    3
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    4
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    5
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    10
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    170
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    null
+                  ]
+                ]
+              ]
+            ],
+            [
+              [
+                "baseline_slope_formula",
+                "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion"
+              ],
+              [
+                "baseline_slope_px_per_px",
+                0.0
+              ],
+              [
+                "horizontal_gap_formula",
+                "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split"
+              ],
+              [
+                "horizontal_gap_limit_px",
+                20.0
+              ],
+              [
+                "line_gaps",
+                []
+              ],
+              [
+                "line_height_median_px",
+                10.0
+              ],
+              [
+                "token_height_median_px",
+                10.0
+              ],
+              [
+                "tolerance_formula",
+                "max(1, floor(token_height_median_px / 4 + 0.5))"
+              ],
+              [
+                "tolerance_px",
+                3
+              ]
+            ]
+          ],
+          "canonical_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61",
+          "identity_complete_assignments": [
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                1
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 10,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                2
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 25,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                3
+              ],
+              "text": "ocr-wide",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 30,
+                "y": 20,
+                "width": 115,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                4
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 145,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                5
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 160,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            }
+          ],
+          "reversed_input_same_state": true,
+          "reversed_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61"
+        }
+      },
+      "checks": {
+        "identical_box_input_payload": true,
+        "box_input_sha256": "fbc89c063b9ce65a306e1e9bd2df1d4ba667824a8f813be9605db6394a369304",
+        "source_pixel_arrays_differ": true,
+        "bridge_roi_measurements_differ": true,
+        "disconnected_case_has_empty_bridge_interval": true,
+        "box_only_complete_assignment_state_equivalent": true,
+        "box_only_reversed_input_stable": true
+      },
+      "interpretation": {
+        "continuous": "controlled synthetic pixels visibly support ink across the proposed bridge ROI",
+        "disconnected": "controlled synthetic pixels contain a blank bridge ROI; the wide OCR box is not source ink",
+        "authority": "illustrative synthetic evidence, not an observation from a scanned book"
+      }
+    },
+    {
+      "pair_id": "one_ordinary_token_each_side",
+      "input": {
+        "schema": "normalize-synthetic-tsv-input-v1",
+        "dimensions_px": {
+          "width": 220,
+          "height": 70
+        },
+        "metadata": {
+          "page_num": 1,
+          "side": "synthetic",
+          "source": "controlled synthetic input; not a scan observation"
+        },
+        "tsv_header": [
+          "level",
+          "page_num",
+          "block_num",
+          "par_num",
+          "line_num",
+          "word_num",
+          "left",
+          "top",
+          "width",
+          "height",
+          "conf",
+          "text"
+        ],
+        "rows": [
+          "5\t1\t1\t1\t1\t1\t10\t20\t10\t10\t95\tsame",
+          "5\t1\t1\t1\t1\t2\t20\t20\t130\t10\t95\tocr-wide",
+          "5\t1\t1\t1\t1\t3\t150\t20\t10\t10\t95\tsame"
+        ]
+      },
+      "input_sha256": "fda7c6a62d3543af56e75401891ed6ca4d7ffcdd8566b15705412bdd3ee9548d",
+      "region_of_interest": {
+        "x0": 20,
+        "x1": 150,
+        "y0": 20,
+        "y1": 30
+      },
+      "continuous": {
+        "source_image": {
+          "dimensions_px": [
+            220,
+            70
+          ]
+        },
+        "measurements": {
+          "roi": {
+            "x0": 20,
+            "x1": 150,
+            "y0": 20,
+            "y1": 30
+          },
+          "dimensions_px": {
+            "width": 130,
+            "height": 10
+          },
+          "ink_pixels": 500,
+          "ink_occupancy": 0.38461538461538464,
+          "occupied_column_fraction": 1.0,
+          "column_ink_counts": [
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            6,
+            6,
+            6,
+            6,
+            6
+          ],
+          "row_ink_counts": [
+            0,
+            0,
+            60,
+            60,
+            130,
+            130,
+            60,
+            60,
+            0,
+            0
+          ],
+          "empty_column_runs_px": [],
+          "max_empty_column_run_px": 0,
+          "occupied_row_bounds_px": {
+            "y0": 22,
+            "y1": 28
+          },
+          "connected_components_8_native": {
+            "count": 1,
+            "largest_area_px": 500
+          },
+          "connected_components_8_half_scale": {
+            "count": 1,
+            "largest_area_px": 113
+          }
+        },
+        "box_only_output": {
+          "physical_lines": [
+            {
+              "line_id": "line-0001",
+              "token_ids": [
+                "token-0001",
+                "token-0002"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 10,
+              "right_px": 150,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": -10
+            },
+            {
+              "line_id": "line-0002",
+              "token_ids": [
+                "token-0003"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 150,
+              "right_px": 160,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": null
+            }
+          ],
+          "unresolved": [],
+          "measurements": {
+            "token_height_median_px": 10.0,
+            "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+            "tolerance_px": 3,
+            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+            "horizontal_gap_limit_px": 20.0,
+            "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+            "baseline_slope_px_per_px": 0.0,
+            "line_height_median_px": 10.0,
+            "line_gaps": [
+              {
+                "line_id": "line-0001",
+                "next_line_id": "line-0002",
+                "signed_vertical_gap_px": -10
+              }
+            ]
+          },
+          "canonical_state": [
+            [
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  1
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                10,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  2
+                ],
+                "ocr-wide",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                20,
+                20,
+                130,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  3
+                ],
+                "same",
+                "physical-line-0002",
+                [
+                  "physical-line-0002"
+                ],
+                null,
+                150,
+                20,
+                10,
+                10,
+                95.0
+              ]
+            ],
+            [
+              [
+                "physical-line-0001",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    1
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    2
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    10
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    150
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    -10
+                  ]
+                ]
+              ],
+              [
+                "physical-line-0002",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    3
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    150
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    160
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    null
+                  ]
+                ]
+              ]
+            ],
+            [
+              [
+                "baseline_slope_formula",
+                "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion"
+              ],
+              [
+                "baseline_slope_px_per_px",
+                0.0
+              ],
+              [
+                "horizontal_gap_formula",
+                "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split"
+              ],
+              [
+                "horizontal_gap_limit_px",
+                20.0
+              ],
+              [
+                "line_gaps",
+                [
+                  [
+                    [
+                      "line_id",
+                      "physical-line-0001"
+                    ],
+                    [
+                      "next_line_id",
+                      "physical-line-0002"
+                    ],
+                    [
+                      "signed_vertical_gap_px",
+                      -10
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "line_height_median_px",
+                10.0
+              ],
+              [
+                "token_height_median_px",
+                10.0
+              ],
+              [
+                "tolerance_formula",
+                "max(1, floor(token_height_median_px / 4 + 0.5))"
+              ],
+              [
+                "tolerance_px",
+                3
+              ]
+            ]
+          ],
+          "canonical_state_sha256": "90ebab72e8802699610048770b44ad093d81786d483af905494c4cb9ebc14922",
+          "identity_complete_assignments": [
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                1
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 10,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                2
+              ],
+              "text": "ocr-wide",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 20,
+                "y": 20,
+                "width": 130,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                3
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0002",
+              "candidate_lines": [
+                "physical-line-0002"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 150,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            }
+          ],
+          "reversed_input_same_state": true,
+          "reversed_state_sha256": "90ebab72e8802699610048770b44ad093d81786d483af905494c4cb9ebc14922"
+        }
+      },
+      "disconnected": {
+        "source_image": {
+          "dimensions_px": [
+            220,
+            70
+          ]
+        },
+        "measurements": {
+          "roi": {
+            "x0": 20,
+            "x1": 150,
+            "y0": 20,
+            "y1": 30
+          },
+          "dimensions_px": {
+            "width": 130,
+            "height": 10
+          },
+          "ink_pixels": 0,
+          "ink_occupancy": 0.0,
+          "occupied_column_fraction": 0.0,
+          "column_ink_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "row_ink_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "empty_column_runs_px": [
+            130
+          ],
+          "max_empty_column_run_px": 130,
+          "occupied_row_bounds_px": null,
+          "connected_components_8_native": {
+            "count": 0,
+            "largest_area_px": 0
+          },
+          "connected_components_8_half_scale": {
+            "count": 0,
+            "largest_area_px": 0
+          }
+        },
+        "box_only_output": {
+          "physical_lines": [
+            {
+              "line_id": "line-0001",
+              "token_ids": [
+                "token-0001",
+                "token-0002"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 10,
+              "right_px": 150,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": -10
+            },
+            {
+              "line_id": "line-0002",
+              "token_ids": [
+                "token-0003"
+              ],
+              "unresolved_token_source_rows": [],
+              "left_px": 150,
+              "right_px": 160,
+              "top_px": 20,
+              "bottom_px": 30,
+              "line_height_px": 10,
+              "median_center_y_px": 25.0,
+              "vertical_gap_to_next_px": null
+            }
+          ],
+          "unresolved": [],
+          "measurements": {
+            "token_height_median_px": 10.0,
+            "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+            "tolerance_px": 3,
+            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+            "horizontal_gap_limit_px": 20.0,
+            "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+            "baseline_slope_px_per_px": 0.0,
+            "line_height_median_px": 10.0,
+            "line_gaps": [
+              {
+                "line_id": "line-0001",
+                "next_line_id": "line-0002",
+                "signed_vertical_gap_px": -10
+              }
+            ]
+          },
+          "canonical_state": [
+            [
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  1
+                ],
+                "same",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                10,
+                20,
+                10,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  2
+                ],
+                "ocr-wide",
+                "physical-line-0001",
+                [
+                  "physical-line-0001"
+                ],
+                null,
+                20,
+                20,
+                130,
+                10,
+                95.0
+              ],
+              [
+                [
+                  "synthetic-pair",
+                  "synthetic",
+                  3
+                ],
+                "same",
+                "physical-line-0002",
+                [
+                  "physical-line-0002"
+                ],
+                null,
+                150,
+                20,
+                10,
+                10,
+                95.0
+              ]
+            ],
+            [
+              [
+                "physical-line-0001",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    1
+                  ],
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    2
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    10
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    150
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    -10
+                  ]
+                ]
+              ],
+              [
+                "physical-line-0002",
+                [
+                  [
+                    "synthetic-pair",
+                    "synthetic",
+                    3
+                  ]
+                ],
+                [],
+                [
+                  [
+                    "left_px",
+                    150
+                  ],
+                  [
+                    "top_px",
+                    20
+                  ],
+                  [
+                    "right_px",
+                    160
+                  ],
+                  [
+                    "bottom_px",
+                    30
+                  ],
+                  [
+                    "line_height_px",
+                    10
+                  ],
+                  [
+                    "median_center_y_px",
+                    25.0
+                  ],
+                  [
+                    "vertical_gap_to_next_px",
+                    null
+                  ]
+                ]
+              ]
+            ],
+            [
+              [
+                "baseline_slope_formula",
+                "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion"
+              ],
+              [
+                "baseline_slope_px_per_px",
+                0.0
+              ],
+              [
+                "horizontal_gap_formula",
+                "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split"
+              ],
+              [
+                "horizontal_gap_limit_px",
+                20.0
+              ],
+              [
+                "line_gaps",
+                [
+                  [
+                    [
+                      "line_id",
+                      "physical-line-0001"
+                    ],
+                    [
+                      "next_line_id",
+                      "physical-line-0002"
+                    ],
+                    [
+                      "signed_vertical_gap_px",
+                      -10
+                    ]
+                  ]
+                ]
+              ],
+              [
+                "line_height_median_px",
+                10.0
+              ],
+              [
+                "token_height_median_px",
+                10.0
+              ],
+              [
+                "tolerance_formula",
+                "max(1, floor(token_height_median_px / 4 + 0.5))"
+              ],
+              [
+                "tolerance_px",
+                3
+              ]
+            ]
+          ],
+          "canonical_state_sha256": "90ebab72e8802699610048770b44ad093d81786d483af905494c4cb9ebc14922",
+          "identity_complete_assignments": [
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                1
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 10,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                2
+              ],
+              "text": "ocr-wide",
+              "resolved_assignment": "physical-line-0001",
+              "candidate_lines": [
+                "physical-line-0001"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 20,
+                "y": 20,
+                "width": 130,
+                "height": 10
+              },
+              "confidence": 95.0
+            },
+            {
+              "identity": [
+                "synthetic-pair",
+                "synthetic",
+                3
+              ],
+              "text": "same",
+              "resolved_assignment": "physical-line-0002",
+              "candidate_lines": [
+                "physical-line-0002"
+              ],
+              "uncertainty": null,
+              "box": {
+                "x": 150,
+                "y": 20,
+                "width": 10,
+                "height": 10
+              },
+              "confidence": 95.0
+            }
+          ],
+          "reversed_input_same_state": true,
+          "reversed_state_sha256": "90ebab72e8802699610048770b44ad093d81786d483af905494c4cb9ebc14922"
+        }
+      },
+      "checks": {
+        "identical_box_input_payload": true,
+        "box_input_sha256": "fda7c6a62d3543af56e75401891ed6ca4d7ffcdd8566b15705412bdd3ee9548d",
+        "source_pixel_arrays_differ": true,
+        "bridge_roi_measurements_differ": true,
+        "disconnected_case_has_empty_bridge_interval": true,
+        "box_only_complete_assignment_state_equivalent": true,
+        "box_only_reversed_input_stable": true
+      },
+      "interpretation": {
+        "continuous": "controlled synthetic pixels visibly support ink across the proposed bridge ROI",
+        "disconnected": "controlled synthetic pixels contain a blank bridge ROI; the wide OCR box is not source ink",
+        "authority": "illustrative synthetic evidence, not an observation from a scanned book"
+      }
+    }
+  ],
+  "deliberately_identical_pair_rejected": {
+    "source_pixel_arrays_differ": false,
+    "bridge_roi_measurements_differ": false
+  },
+  "adversarial_measurements": {
+    "noise_bridge": {
+      "physical_interpretation": "disconnected regions with a one-pixel noise path",
+      "native_roi": {
+        "roi": {
+          "x0": 35,
+          "x1": 145,
+          "y0": 20,
+          "y1": 30
+        },
+        "dimensions_px": {
+          "width": 110,
+          "height": 10
+        },
+        "ink_pixels": 110,
+        "ink_occupancy": 0.1,
+        "occupied_column_fraction": 1.0,
+        "column_ink_counts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "row_ink_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          110,
+          0,
+          0,
+          0,
+          0
+        ],
+        "empty_column_runs_px": [],
+        "max_empty_column_run_px": 0,
+        "occupied_row_bounds_px": {
+          "y0": 25,
+          "y1": 26
+        },
+        "connected_components_8_native": {
+          "count": 1,
+          "largest_area_px": 110
+        },
+        "connected_components_8_half_scale": {
+          "count": 0,
+          "largest_area_px": 0
+        }
+      }
+    },
+    "separate_glyph_components": {
+      "physical_interpretation": "one printed row represented by separated glyph components and spaces",
+      "native_roi": {
+        "roi": {
+          "x0": 35,
+          "x1": 145,
+          "y0": 20,
+          "y1": 30
+        },
+        "dimensions_px": {
+          "width": 110,
+          "height": 10
+        },
+        "ink_pixels": 220,
+        "ink_occupancy": 0.2,
+        "occupied_column_fraction": 0.4,
+        "column_ink_counts": [
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          5,
+          5,
+          5
+        ],
+        "row_ink_counts": [
+          0,
+          0,
+          0,
+          44,
+          44,
+          44,
+          44,
+          44,
+          0,
+          0
+        ],
+        "empty_column_runs_px": [
+          2,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "max_empty_column_run_px": 8,
+        "occupied_row_bounds_px": {
+          "y0": 23,
+          "y1": 28
+        },
+        "connected_components_8_native": {
+          "count": 9,
+          "largest_area_px": 25
+        },
+        "connected_components_8_half_scale": {
+          "count": 9,
+          "largest_area_px": 4
+        }
+      }
+    },
+    "neighbor_row_ink": {
+      "physical_interpretation": "ink belongs to a neighboring row, not the token baseline",
+      "token_band_roi": {
+        "roi": {
+          "x0": 35,
+          "x1": 145,
+          "y0": 20,
+          "y1": 30
+        },
+        "dimensions_px": {
+          "width": 110,
+          "height": 10
+        },
+        "ink_pixels": 0,
+        "ink_occupancy": 0.0,
+        "occupied_column_fraction": 0.0,
+        "column_ink_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "row_ink_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "empty_column_runs_px": [
+          110
+        ],
+        "max_empty_column_run_px": 110,
+        "occupied_row_bounds_px": null,
+        "connected_components_8_native": {
+          "count": 0,
+          "largest_area_px": 0
+        },
+        "connected_components_8_half_scale": {
+          "count": 0,
+          "largest_area_px": 0
+        }
+      },
+      "broad_roi": {
+        "roi": {
+          "x0": 35,
+          "x1": 145,
+          "y0": 20,
+          "y1": 55
+        },
+        "dimensions_px": {
+          "width": 110,
+          "height": 35
+        },
+        "ink_pixels": 220,
+        "ink_occupancy": 0.05714285714285714,
+        "occupied_column_fraction": 1.0,
+        "column_ink_counts": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ],
+        "row_ink_counts": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          110,
+          110,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "empty_column_runs_px": [],
+        "max_empty_column_run_px": 0,
+        "occupied_row_bounds_px": {
+          "y0": 38,
+          "y1": 40
+        },
+        "connected_components_8_native": {
+          "count": 1,
+          "largest_area_px": 220
+        },
+        "connected_components_8_half_scale": {
+          "count": 1,
+          "largest_area_px": 55
+        }
+      }
+    }
+  },
+  "conclusions": {
+    "established": "Identical box/TSV inputs cannot cause the current box-only algorithm to distinguish different pixel observations.",
+    "demonstrated": "The corrected paired images differ in the intended bridge-region pixel evidence while producing equivalent complete box-only assignment states.",
+    "not_established": "No generally reliable pixel-derived criterion for assigning arbitrary document tokens to physical lines."
+  }
+}
