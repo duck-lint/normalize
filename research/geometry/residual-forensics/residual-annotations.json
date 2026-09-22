@@ -1,0 +1,199 @@
+[
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "left",
+    "source_row": 213,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "left",
+      213
+    ],
+    "text": "system",
+    "uncertainty": "unassigned_line_assignment",
+    "candidate_line_ids": [],
+    "token_box_px": {
+      "x_px": 297,
+      "y_px": 951,
+      "right_px": 354,
+      "bottom_px": 967
+    },
+    "crop_bounds_px": [
+      217,
+      871,
+      434,
+      1047
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/left-row-0213-system.png"
+  },
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "left",
+    "source_row": 216,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "left",
+      216
+    ],
+    "text": "that",
+    "uncertainty": "ambiguous_line_assignment",
+    "candidate_line_ids": [
+      "line-0046",
+      "line-0047"
+    ],
+    "token_box_px": {
+      "x_px": 475,
+      "y_px": 938,
+      "right_px": 515,
+      "bottom_px": 971
+    },
+    "crop_bounds_px": [
+      395,
+      858,
+      595,
+      1051
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/left-row-0216-that.png"
+  },
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "left",
+    "source_row": 217,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "left",
+      217
+    ],
+    "text": "the",
+    "uncertainty": "ambiguous_line_assignment",
+    "candidate_line_ids": [
+      "line-0046",
+      "line-0047"
+    ],
+    "token_box_px": {
+      "x_px": 522,
+      "y_px": 938,
+      "right_px": 550,
+      "bottom_px": 971
+    },
+    "crop_bounds_px": [
+      442,
+      858,
+      630,
+      1051
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/left-row-0217-the.png"
+  },
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "left",
+    "source_row": 226,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "left",
+      226
+    ],
+    "text": "with",
+    "uncertainty": "ambiguous_line_assignment",
+    "candidate_line_ids": [
+      "line-0049",
+      "line-0050"
+    ],
+    "token_box_px": {
+      "x_px": 489,
+      "y_px": 968,
+      "right_px": 530,
+      "bottom_px": 1002
+    },
+    "crop_bounds_px": [
+      409,
+      888,
+      610,
+      1082
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/left-row-0226-with.png"
+  },
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "left",
+    "source_row": 227,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "left",
+      227
+    ],
+    "text": "respect",
+    "uncertainty": "ambiguous_line_assignment",
+    "candidate_line_ids": [
+      "line-0049",
+      "line-0050"
+    ],
+    "token_box_px": {
+      "x_px": 537,
+      "y_px": 972,
+      "right_px": 601,
+      "bottom_px": 992
+    },
+    "crop_bounds_px": [
+      457,
+      892,
+      681,
+      1072
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/left-row-0227-respect.png"
+  },
+  {
+    "fixture_id": "relativity_pdf10_pp26-27",
+    "side": "right",
+    "source_row": 246,
+    "stable_identity": [
+      "relativity_pdf10_pp26-27",
+      "right",
+      246
+    ],
+    "text": "impossible",
+    "uncertainty": "unassigned_line_assignment",
+    "candidate_line_ids": [],
+    "token_box_px": {
+      "x_px": 406,
+      "y_px": 735,
+      "right_px": 499,
+      "bottom_px": 758
+    },
+    "crop_bounds_px": [
+      326,
+      655,
+      579,
+      838
+    ],
+    "crop_path": "relativity_pdf10_pp26-27/crops/right-row-0246-impossible.png"
+  },
+  {
+    "fixture_id": "relativity_pdf17_pp40-41",
+    "side": "right",
+    "source_row": 23,
+    "stable_identity": [
+      "relativity_pdf17_pp40-41",
+      "right",
+      23
+    ],
+    "text": "A",
+    "uncertainty": "ambiguous_line_assignment",
+    "candidate_line_ids": [
+      "line-0003",
+      "line-0004"
+    ],
+    "token_box_px": {
+      "x_px": 509,
+      "y_px": 118,
+      "right_px": 521,
+      "bottom_px": 146
+    },
+    "crop_bounds_px": [
+      429,
+      38,
+      601,
+      226
+    ],
+    "crop_path": "relativity_pdf17_pp40-41/crops/right-row-0023-a.png"
+  }
+]

@@ -1,0 +1,498 @@
+{
+  "schema": "normalize-residual-geometry-forensics-v1",
+  "generated_at_utc": "2026-09-22T00:12:19.642279+00:00",
+  "experiment_start": {
+    "git_commit_sha": "a2ccdb1f06f3e97fbcc437fb969636305031355f",
+    "git_branch": "guh",
+    "git_status": "clean",
+    "historical_revision_confirmed": true,
+    "current_source_geometry_sha256": "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5"
+  },
+  "manifest_generation_state": {
+    "git_commit_sha": "a2ccdb1f06f3e97fbcc437fb969636305031355f",
+    "git_branch": "geometry-forensics-identity-oracle",
+    "git_status_porcelain": "M .gitignore\n M tests/test_slice2.py\n?? research/geometry/residual-forensics/evaluate_invariance.py\n?? research/geometry/residual-forensics/forensic-report.md\n?? research/geometry/residual-forensics/invariance-diagnostics.json\n?? research/geometry/residual-forensics/make_diagnostic_crops.py\n?? research/geometry/residual-forensics/make_manifest.py\n?? research/geometry/residual-forensics/manifest.json\n?? research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json\n?? research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json\n?? research/geometry/residual-forensics/relativity_pdf23_pp52-53/geometry.json\n?? research/geometry/residual-forensics/residual-annotations.json\n?? research/geometry/residual-forensics/stella_maris_pdf03_session-I/geometry.json\n?? research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/geometry.json\n?? research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/geometry.json\n?? tests/geometry_oracle.py",
+    "dedicated_task_branch": true,
+    "branch_reason": "Dedicated branch created after the initial ref-write attempt was rejected by the read-only Git metadata layer."
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/duck-lint/projects/normalize/.venv/bin/python",
+    "packages": {
+      "normalize": "0.1.0",
+      "PyMuPDF": "1.28.2",
+      "Pillow": "12.3.0",
+      "pytesseract": "0.3.13",
+      "rapidfuzz": "3.14.6",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "pytest": "9.1.1"
+    },
+    "tesseract": "tesseract 5.3.4",
+    "geometry_module_import_path": "/home/duck-lint/projects/normalize/src/normalize/geometry.py",
+    "geometry_schema": "geometry-probe-v1"
+  },
+  "configuration": {
+    "preprocessing_config": "fixtures/preprocessing.json",
+    "preprocessing_config_sha256": "e80391df4b6b5f8a6f92aa62b21156d824b6be39a4be904d2d3736c9207ae064",
+    "dpi": 144,
+    "work_root": "/tmp/normalize-residual-forensics",
+    "source_pdfs_copied_to_research_directory": false
+  },
+  "commands": [
+    ".venv/bin/normalize check-env",
+    ".venv/bin/normalize preprocess <fixture_id> --config fixtures/preprocessing.json --output /tmp/normalize-residual-forensics/<fixture_id>/preprocessed",
+    ".venv/bin/normalize geometry --preprocessed /tmp/normalize-residual-forensics/<fixture_id>/preprocessed --output research/geometry/residual-forensics/<fixture_id>",
+    ".venv/bin/python research/geometry/residual-forensics/make_diagnostic_crops.py",
+    ".venv/bin/python research/geometry/residual-forensics/evaluate_invariance.py",
+    ".venv/bin/python -m pytest -q tests/test_slice2.py -k 'permutation or identity_complete'",
+    ".venv/bin/python -m pytest -q"
+  ],
+  "historical_comparison": {
+    "previous_report": {
+      "revision": "a2ccdb1f06f3e97fbcc437fb969636305031355f",
+      "tests_passing": 84,
+      "successful_fixtures": 4,
+      "relativity_10": {
+        "ambiguous": 4,
+        "unassigned": 2
+      },
+      "relativity_17": {
+        "ambiguous": 1,
+        "unassigned": 0
+      }
+    },
+    "historical_twelve_token_control": "kept distinct; not regenerated or treated as current evidence",
+    "artifact_hashes_from_previous_report": "not supplied"
+  },
+  "fixtures": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "status": "uncertain",
+      "uncertainty_counts": {
+        "unassigned_line_assignment": 2,
+        "ambiguous_line_assignment": 4
+      },
+      "residual_token_count": 6,
+      "residual_tokens": [
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "left",
+            213
+          ],
+          "side": "left",
+          "source_row": 213,
+          "text": "system",
+          "state": "unassigned_line_assignment",
+          "candidate_line_ids": []
+        },
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "left",
+            216
+          ],
+          "side": "left",
+          "source_row": 216,
+          "text": "that",
+          "state": "ambiguous_line_assignment",
+          "candidate_line_ids": [
+            "line-0046",
+            "line-0047"
+          ]
+        },
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "left",
+            217
+          ],
+          "side": "left",
+          "source_row": 217,
+          "text": "the",
+          "state": "ambiguous_line_assignment",
+          "candidate_line_ids": [
+            "line-0046",
+            "line-0047"
+          ]
+        },
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "left",
+            226
+          ],
+          "side": "left",
+          "source_row": 226,
+          "text": "with",
+          "state": "ambiguous_line_assignment",
+          "candidate_line_ids": [
+            "line-0049",
+            "line-0050"
+          ]
+        },
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "left",
+            227
+          ],
+          "side": "left",
+          "source_row": 227,
+          "text": "respect",
+          "state": "ambiguous_line_assignment",
+          "candidate_line_ids": [
+            "line-0049",
+            "line-0050"
+          ]
+        },
+        {
+          "identity": [
+            "relativity_pdf10_pp26-27",
+            "right",
+            246
+          ],
+          "side": "right",
+          "source_row": 246,
+          "text": "impossible",
+          "state": "unassigned_line_assignment",
+          "candidate_line_ids": []
+        }
+      ],
+      "source_references": {
+        "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+        "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+        "raw_fixture": "fixtures/einstein/pdf10_pp26-27.raw.md",
+        "raw_fixture_sha256": "309a803d555113f1fce0146f9ae08ae7fd53e0a9e83ff4309f1763a501ba93b3",
+        "normalized_reference": "fixtures/einstein/pdf10_pp26-27.normalized.md",
+        "normalized_reference_sha256": "277cd6b88b27f3f797dc2411269396404a9447a3e9446942d39df7fa884bc1f0",
+        "expected_metadata": "fixtures/einstein/relativity_pdf10_pp26-27.expected.json",
+        "expected_metadata_sha256": "a9d8c84018a7b44046b1b45b4c2bed6287aef3002c9a3260d24d69d99bdd5020",
+        "source_pdf_page_index_1_based": 10,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/annotations/left.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/annotations/right.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0213-system.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0216-that.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0217-the.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0226-with.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0227-respect.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/right-row-0246-impossible.png",
+        "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json"
+      ]
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "status": "uncertain",
+      "uncertainty_counts": {
+        "ambiguous_line_assignment": 1
+      },
+      "residual_token_count": 1,
+      "residual_tokens": [
+        {
+          "identity": [
+            "relativity_pdf17_pp40-41",
+            "right",
+            23
+          ],
+          "side": "right",
+          "source_row": 23,
+          "text": "A",
+          "state": "ambiguous_line_assignment",
+          "candidate_line_ids": [
+            "line-0003",
+            "line-0004"
+          ]
+        }
+      ],
+      "source_references": {
+        "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+        "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+        "raw_fixture": "fixtures/einstein/pdf17_pp40-41.raw.md",
+        "raw_fixture_sha256": "24adf25c5dc327634142473f8d9cb78365e4cbec18d77e8b6a8759ac05506c49",
+        "normalized_reference": "fixtures/einstein/pdf17_pp40-41.normalized.md",
+        "normalized_reference_sha256": "409dceba2220b5998741a42031d3256860b27073275941a9bd041d6b6250ac2d",
+        "expected_metadata": "fixtures/einstein/relativity_pdf17_pp40-41.expected.json",
+        "expected_metadata_sha256": "69387764b6c6fbd678866930fe2941fa4e616ed6cbad078a911c03da3e6a2ee0",
+        "source_pdf_page_index_1_based": 17,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/relativity_pdf17_pp40-41/annotations/left.png",
+        "research/geometry/residual-forensics/relativity_pdf17_pp40-41/annotations/right.png",
+        "research/geometry/residual-forensics/relativity_pdf17_pp40-41/crops/right-row-0023-a.png",
+        "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json"
+      ]
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "status": "success",
+      "uncertainty_counts": {},
+      "residual_token_count": 0,
+      "residual_tokens": [],
+      "source_references": {
+        "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+        "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+        "raw_fixture": "fixtures/einstein/pdf23_pp52-53.raw.md",
+        "raw_fixture_sha256": "bdf78e075c132d36504cb2df9160df58f41618b0bbdc05b4894de360a7583667",
+        "normalized_reference": "fixtures/einstein/pdf23_pp52-53.normalized.md",
+        "normalized_reference_sha256": "5200f35e00999844d408cb6a1990729aff8f14538228fd1d81d7341e6147d751",
+        "expected_metadata": "fixtures/einstein/relativity_pdf23_pp52-53.expected.json",
+        "expected_metadata_sha256": "0d186c54480f3aecbb66be682efa8da027cee1ed336beceb8344d9d265111c22",
+        "source_pdf_page_index_1_based": 23,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/relativity_pdf23_pp52-53/annotations/left.png",
+        "research/geometry/residual-forensics/relativity_pdf23_pp52-53/annotations/right.png",
+        "research/geometry/residual-forensics/relativity_pdf23_pp52-53/geometry.json"
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "status": "success",
+      "uncertainty_counts": {},
+      "residual_token_count": 0,
+      "residual_tokens": [],
+      "source_references": {
+        "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+        "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+        "raw_fixture": "fixtures/mccarthy/pdf03.raw.md",
+        "raw_fixture_sha256": "e45037641e9a49f5dbbcaf19a1cc522ed0c22c82f3c9d3e9ae47bfe5eab22cf9",
+        "normalized_reference": "fixtures/mccarthy/pdf03.normalized.md",
+        "normalized_reference_sha256": "4069a3d81debb0c9b2b0764461a36b91522728110ef2c8f9dce9fd1df1ccacb1",
+        "expected_metadata": "fixtures/mccarthy/stella_maris_pdf03_session-I.expected.json",
+        "expected_metadata_sha256": "64490fd15d630a44ec7037662bc31f2f5c15c46fdd48f5ece5c8612de227fd5a",
+        "source_pdf_page_index_1_based": 3,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/stella_maris_pdf03_session-I/annotations/left.png",
+        "research/geometry/residual-forensics/stella_maris_pdf03_session-I/annotations/right.png",
+        "research/geometry/residual-forensics/stella_maris_pdf03_session-I/geometry.json"
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "status": "success",
+      "uncertainty_counts": {},
+      "residual_token_count": 0,
+      "residual_tokens": [],
+      "source_references": {
+        "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+        "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+        "raw_fixture": "fixtures/mccarthy/pdf06.raw.md",
+        "raw_fixture_sha256": "cf7191bbd973309e46183d84b9887118106951af1aabd5f90d32ce8b13632e92",
+        "normalized_reference": "fixtures/mccarthy/pdf06.normalized.md",
+        "normalized_reference_sha256": "744e9c0d1131b5504b3a19546db1610319b7caceb891276cd754b5f556909a24",
+        "expected_metadata": "fixtures/mccarthy/stella_maris_pdf06_dense-dialogue.expected.json",
+        "expected_metadata_sha256": "4f39c3c084a06cc917993b0e107500d2338a44f976ecda02b4916bfd0040368f",
+        "source_pdf_page_index_1_based": 6,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/annotations/left.png",
+        "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/annotations/right.png",
+        "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/geometry.json"
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "status": "success",
+      "uncertainty_counts": {},
+      "residual_token_count": 0,
+      "residual_tokens": [],
+      "source_references": {
+        "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+        "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+        "raw_fixture": "fixtures/mccarthy/pdf18.raw.md",
+        "raw_fixture_sha256": "f9eea3bc66896e38c299841fb90742c6568899df15578e01ca15da9c91fbf164",
+        "normalized_reference": "fixtures/mccarthy/pdf18.normalized.md",
+        "normalized_reference_sha256": "96acb7bde50dbb7620f9c24c3d8b6aa5e1ad95ed28aecf1f1e8ad6e6731c0f4e",
+        "expected_metadata": "fixtures/mccarthy/stella_maris_pdf18_session-II_p35.expected.json",
+        "expected_metadata_sha256": "af5f62457fa8021b3c55b7077b43c24f306be39d0bdfe0acecd12a4c33bfd415",
+        "source_pdf_page_index_1_based": 18,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "artifacts": [
+        "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/annotations/left.png",
+        "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/annotations/right.png",
+        "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/geometry.json"
+      ]
+    }
+  ],
+  "output_artifacts": [
+    {
+      "path": "research/geometry/residual-forensics/invariance-diagnostics.json",
+      "sha256": "08d1589fe9ca01a712e3e1e32e315af47de18c3b745cc9029503bb6a93921cb4",
+      "size_bytes": 2545,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/annotations/left.png",
+      "sha256": "e9c8744c659bbefad5765882433be68dc2d82eb8b46d10a0137e1dd0078abc23",
+      "size_bytes": 1305197,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/annotations/right.png",
+      "sha256": "7e86fe64c24b40abd5c2b01aaf775addaf4746cf7054b45f5986f312afba1c6b",
+      "size_bytes": 1312035,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0213-system.png",
+      "sha256": "743dfb31c4b753ec9005558799d994e58bcbcbd790be9f14e80a0c67d5abd102",
+      "size_bytes": 68649,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0216-that.png",
+      "sha256": "416acd437b0844646032310d65edab6d3c6d717fa59cc8a2c46b571938b8f0c9",
+      "size_bytes": 69758,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0217-the.png",
+      "sha256": "d375846e27b8147165401ea6230fb8cb7f8eb754fe11a83358d46a81c8073d81",
+      "size_bytes": 65077,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0226-with.png",
+      "sha256": "be999fd6fe681797d9d633177a3e97705aa8dc1bc4a534cdfba38871173435c9",
+      "size_bytes": 67152,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/left-row-0227-respect.png",
+      "sha256": "518927af3530026433ea38ee73b49eabf4aed1b202f69da4ce0d1385f4b65528",
+      "size_bytes": 66498,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/crops/right-row-0246-impossible.png",
+      "sha256": "3df06a7c95729b448f7ff86ccc10db02d77b0efab8a5a61ee80fe0f38d265ff1",
+      "size_bytes": 89368,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json",
+      "sha256": "a5d57cc02aea30dc809bdbd7fc0394c0ddad219a20255c33ea7697640b5007d4",
+      "size_bytes": 439310,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/annotations/left.png",
+      "sha256": "9f96f79b0b0e78b230b65dc1a50cee2f1ef365bcbc34cb508bf239e5bd5bc14c",
+      "size_bytes": 1254539,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/annotations/right.png",
+      "sha256": "5888d39a8e634e72c37212d4754a9f34f8df37d65d635938a8e652045ef474d5",
+      "size_bytes": 1261213,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/crops/right-row-0023-a.png",
+      "sha256": "bac1f498533a2faa1dc546f0883ebff240a2f6e5e817b7301e2ca7bafdc472fe",
+      "size_bytes": 55350,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+      "sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5",
+      "size_bytes": 420301,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf23_pp52-53/annotations/left.png",
+      "sha256": "f2fd3c1b1734db0aef85700cefb5ff2a177d525d68fc5a453931b67711c2f066",
+      "size_bytes": 1237397,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf23_pp52-53/annotations/right.png",
+      "sha256": "0427dcc7e677d037cd324387ceb150f44c13fd3d1c0de7c8e5ddeb2499f65742",
+      "size_bytes": 1259850,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf23_pp52-53/geometry.json",
+      "sha256": "6fe6e0c1fbb9ef347c2ca7a4fda74135b369b0299fd99519d2a8a64d59759c56",
+      "size_bytes": 383251,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/residual-annotations.json",
+      "sha256": "2c72d69494759b914d3d8cb16886c6dbf6d64c2cfbd94b44d15f413e0117ab42",
+      "size_bytes": 4060,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf03_session-I/annotations/left.png",
+      "sha256": "e0180dddd8e7a2acdc6ffd073f2eeefe6c7a73a0e79c7005677f1ff02da06369",
+      "size_bytes": 740277,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf03_session-I/annotations/right.png",
+      "sha256": "7a2cc580ebd29a736d8bb1ac1aacd60666823fbecd0c809726eb052aa99bc6c3",
+      "size_bytes": 817623,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf03_session-I/geometry.json",
+      "sha256": "61c4958d4102b7b68340e9be0232c04508c48fbec958a4456668469526451513",
+      "size_bytes": 119851,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/annotations/left.png",
+      "sha256": "4f258ce61baafc1b1be11a132cc6655373585344381c98b04e7112c0fc557d69",
+      "size_bytes": 1068339,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/annotations/right.png",
+      "sha256": "223558b844b687261a461e61a7f2a4550b0af040abf2128c4eb51153e9b65f8b",
+      "size_bytes": 936434,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/geometry.json",
+      "sha256": "b834721f181ef06286ebbb36f0cfc9242cf7505b1d4781380342496ccaf8a976",
+      "size_bytes": 434614,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/annotations/left.png",
+      "sha256": "3cfaa5f91eb36ff16f3613b546bbefec53f15f5ea8bbabe6ab7b813fc64418b7",
+      "size_bytes": 815266,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/annotations/right.png",
+      "sha256": "150f0277bc0ed01b9dd1528f2337c7a160defe7763eedd77475a74f506533ab3",
+      "size_bytes": 843370,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/geometry.json",
+      "sha256": "7353bd8a56908f9abfad18b19569450241dc67d9d13c78479f483b52e88d2255",
+      "size_bytes": 197287,
+      "generated_at_utc": "2026-09-22T00:12:19.642279+00:00"
+    }
+  ],
+  "supporting_code": [
+    "research/geometry/residual-forensics/make_manifest.py",
+    "research/geometry/residual-forensics/make_diagnostic_crops.py",
+    "research/geometry/residual-forensics/evaluate_invariance.py",
+    "tests/geometry_oracle.py",
+    "tests/test_slice2.py"
+  ]
+}
