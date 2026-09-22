@@ -25,10 +25,15 @@ from PIL import Image, ImageDraw
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 RESEARCH_ROOT = Path(__file__).resolve().parent
 DEFAULT_REAL_ROOT = Path("/tmp/normalize-residual-forensics")
-BASELINE_COMMIT = "699771d01c1a83c6f89c6a7eb2102e79a709b671"
+HISTORICAL_BASELINE_COMMIT = "699771d01c1a83c6f89c6a7eb2102e79a709b671"
+# The prototype itself was introduced by this descendant.  Ordinary reusable
+# tests may run from later descendants, subject to the content contract below.
+MINIMUM_DESCENDANT_COMMIT = "c0f7ea88493a07e6139e9c71d413a2eda130c17b"
+BASELINE_COMMIT = HISTORICAL_BASELINE_COMMIT
 PRIOR_RESULTS = REPOSITORY_ROOT / "research/geometry/evidence-corrections/pixel-experiment-results.json"
 PRIOR_PIXEL_ROOT = REPOSITORY_ROOT / "research/geometry/evidence-corrections/pixel-cases"
 PRIOR_RESIDUAL_ROOT = REPOSITORY_ROOT / "research/geometry/residual-forensics"
+VERIFICATION_CONTRACT = REPOSITORY_ROOT / "research/geometry/vertical-stage-ablation/verification-contract.json"
 CANVAS = (220, 70)
 
 PARAMETERS: dict[str, Any] = {
@@ -82,6 +87,80 @@ def _git(*args: str) -> str:
     return subprocess.run(
         ["git", *args], cwd=REPOSITORY_ROOT, check=True, text=True, capture_output=True
     ).stdout.strip()
+
+
+def _is_ancestor(ancestor: str, revision: str) -> bool:
+    return subprocess.run(
+        ["git", "merge-base", "--is-ancestor", ancestor, revision],
+        cwd=REPOSITORY_ROOT,
+    ).returncode == 0
+
+
+def _load_verification_contract() -> dict[str, Any]:
+    try:
+        return json.loads(VERIFICATION_CONTRACT.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise AssertionError(f"cannot load verification contract: {VERIFICATION_CONTRACT}: {exc}") from exc
+
+
+def verify_research_contract(*, require_exact_revision: bool = False) -> dict[str, Any]:
+    """Verify revision ancestry and only the content that this prototype uses.
+
+    The historical revision remains an explicit opt-in check.  Reusable tests
+    instead require it as an ancestor and validate the evidence/prototype
+    content contract.  Unrelated repository changes are intentionally ignored.
+    """
+
+    current_revision = _git("rev-parse", "HEAD")
+    if require_exact_revision:
+        if current_revision != HISTORICAL_BASELINE_COMMIT:
+            raise AssertionError(
+                "historical reproduction requires exact revision "
+                f"{HISTORICAL_BASELINE_COMMIT}; found {current_revision}"
+            )
+    elif not _is_ancestor(HISTORICAL_BASELINE_COMMIT, current_revision):
+        raise AssertionError(
+            "reusable prototype execution requires a descendant of the "
+            f"historical baseline {HISTORICAL_BASELINE_COMMIT}; found {current_revision}"
+        )
+    elif not _is_ancestor(MINIMUM_DESCENDANT_COMMIT, current_revision):
+        raise AssertionError(
+            "reusable prototype execution requires the implementation-introducing "
+            f"descendant {MINIMUM_DESCENDANT_COMMIT} or later; found {current_revision}"
+        )
+
+    contract = _load_verification_contract()
+    expected = contract["content_hashes"]
+    checks = {
+        "production_geometry": REPOSITORY_ROOT / "src/normalize/geometry.py",
+        "identity_complete_oracle": REPOSITORY_ROOT / "tests/geometry_oracle.py",
+        "prior_experiment_results": PRIOR_RESULTS,
+        "prototype_source": Path(__file__).resolve(),
+    }
+    for name, path in checks.items():
+        actual = sha256(path)
+        if actual != expected[name]:
+            raise AssertionError(
+                f"research content mismatch for {name}: expected {expected[name]}, found {actual}"
+            )
+    for record in contract["preserved_inputs"]:
+        path = REPOSITORY_ROOT / record["path"]
+        actual = sha256(path)
+        if actual != record["sha256"]:
+            raise AssertionError(
+                f"preserved input mismatch for {record['path']}: expected {record['sha256']}, found {actual}"
+            )
+    if contract["historical_result_sha256"] != sha256(REPOSITORY_ROOT / contract["historical_result_path"]):
+        raise AssertionError("historical pixel-prototype result hash changed")
+    if contract["historical_manifest_sha256"] != sha256(REPOSITORY_ROOT / contract["historical_manifest_path"]):
+        raise AssertionError("historical pixel-prototype manifest changed")
+    return {
+        "current_revision": current_revision,
+        "historical_baseline": HISTORICAL_BASELINE_COMMIT,
+        "exact_revision_required": require_exact_revision,
+        "content_hashes": expected,
+        "preserved_inputs": contract["preserved_inputs"],
+    }
 
 
 def _package_versions() -> dict[str, str]:
@@ -619,17 +698,16 @@ def run_prototype(
     real_root: Path = DEFAULT_REAL_ROOT,
     include_real: bool = True,
     write_manifest: bool = True,
+    require_exact_revision: bool = False,
 ) -> dict[str, Any]:
-    if _git("rev-parse", "HEAD") != BASELINE_COMMIT:
-        raise AssertionError("prototype must run against the published baseline commit")
-    if sha256(REPOSITORY_ROOT / "tests/geometry_oracle.py") != "58e47415dc21e285debda2a4d0112d3289ea781387704f04e8d55c2552b2bf44":
-        raise AssertionError("identity-complete oracle changed from the verified baseline")
+    verification = verify_research_contract(require_exact_revision=require_exact_revision)
     output_root.mkdir(parents=True, exist_ok=True)
     synthetic = _synthetic_cases(output_root)
     real = _real_scan_results(real_root) if include_real else {"available": False, "skipped": True, "cases": []}
     result = {
         "schema": "normalize-pixel-evidence-prototype-v1",
         "baseline_commit": BASELINE_COMMIT,
+        "verification": verification,
         "geometry_module_used": False,
         "identity_complete_oracle_used_for_assignments": False,
         "measurement_interface": {
@@ -670,6 +748,7 @@ def run_prototype(
                 "git_branch": _git("branch", "--show-current"),
                 "git_status_porcelain": _git("status", "--short"),
             },
+            "verification": verification,
             "environment": {
                 "python": sys.version,
                 "python_executable": sys.executable,
@@ -725,8 +804,18 @@ def main() -> None:
     parser.add_argument("--output-root", type=Path, default=RESEARCH_ROOT)
     parser.add_argument("--real-root", type=Path, default=DEFAULT_REAL_ROOT)
     parser.add_argument("--skip-real", action="store_true")
+    parser.add_argument(
+        "--exact-historical-revision",
+        action="store_true",
+        help="require the historical baseline revision instead of a verified descendant",
+    )
     args = parser.parse_args()
-    result = run_prototype(args.output_root, real_root=args.real_root, include_real=not args.skip_real)
+    result = run_prototype(
+        args.output_root,
+        real_root=args.real_root,
+        include_real=not args.skip_real,
+        require_exact_revision=args.exact_historical_revision,
+    )
     print(json.dumps({"output": str(args.output_root), "synthetic_cases": len(result["synthetic"]["adversarial_cases"]), "real_scan_available": result["real_scan"]["available"]}, indent=2))
 
 
