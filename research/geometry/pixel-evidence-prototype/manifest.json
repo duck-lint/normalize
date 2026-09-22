@@ -1,0 +1,172 @@
+{
+  "schema": "normalize-pixel-evidence-prototype-manifest-v1",
+  "generated_at_utc": "2026-09-22T01:37:14.639907+00:00",
+  "experiment_start": {
+    "git_commit_sha": "699771d01c1a83c6f89c6a7eb2102e79a709b671",
+    "git_branch": "pixel-evidence-prototype",
+    "git_status": "clean (verified before research edits)"
+  },
+  "generation_state": {
+    "git_commit_sha": "699771d01c1a83c6f89c6a7eb2102e79a709b671",
+    "git_branch": "pixel-evidence-prototype",
+    "git_status_porcelain": "A  research/geometry/pixel-evidence-prototype/investigation-report.md\nA  research/geometry/pixel-evidence-prototype/manifest.json\nAM research/geometry/pixel-evidence-prototype/prototype.py\nA  research/geometry/pixel-evidence-prototype/results.json\nA  research/geometry/pixel-evidence-prototype/synthetic/disconnected_glyphs_same_row.png\nA  research/geometry/pixel-evidence-prototype/synthetic/genuinely_long_printed_word.png\nA  research/geometry/pixel-evidence-prototype/synthetic/neighboring_row_ink.png\nA  research/geometry/pixel-evidence-prototype/synthetic/ordinary_word_spaces.png\nA  research/geometry/pixel-evidence-prototype/synthetic/single_pixel_noise_bridge.png\nA  research/geometry/pixel-evidence-prototype/synthetic/skewed_continuous_text.png\nA  research/geometry/pixel-evidence-prototype/synthetic/threshold_sensitive_low_resolution_ink.png\nM  tests/test_evidence_corrections.py\nA  tests/test_pixel_evidence_prototype.py"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/duck-lint/projects/normalize/.venv/bin/python",
+    "packages": {
+      "normalize": "0.1.0",
+      "Pillow": "12.3.0",
+      "pytest": "9.1.1",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "PyMuPDF": "1.28.2",
+      "pytesseract": "0.3.13",
+      "rapidfuzz": "3.14.6"
+    },
+    "geometry_module_import_path": "/home/duck-lint/projects/normalize/src/normalize/geometry.py",
+    "tesseract": "tesseract 5.3.4"
+  },
+  "commands": [
+    ".venv/bin/python research/geometry/pixel-evidence-prototype/prototype.py --real-root /tmp/normalize-residual-forensics",
+    ".venv/bin/python -m pytest -q tests/test_pixel_evidence_prototype.py",
+    ".venv/bin/python -m pytest -q"
+  ],
+  "input_provenance": {
+    "prior_corrected_experiment_results": {
+      "path": "research/geometry/evidence-corrections/pixel-experiment-results.json",
+      "sha256": "3d48c53d7e86a668d8024560ee164636276ba44abc03bef0531161ecae6ba198"
+    },
+    "synthetic_box_input_sha256": "fbc89c063b9ce65a306e1e9bd2df1d4ba667824a8f813be9605db6394a369304",
+    "prior_corrected_pixel_inputs": [
+      {
+        "path": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__continuous.png",
+        "sha256": "3353ac5407b17452868e71dc776bdf235c7b4170afb79a1de6d39228991a2e5e",
+        "source": "preserved synthetic source image"
+      },
+      {
+        "path": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__disconnected.png",
+        "sha256": "b648063d3ec5a0a20cdd3a1913ef638a036f4dff0f616372e6b29e5c834f3355",
+        "source": "preserved synthetic source image"
+      },
+      {
+        "path": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__continuous.png",
+        "sha256": "19ba82e5a1bb3e972468051d10658b2e5184a3697bde9a4a0af68e5d559ada5c",
+        "source": "preserved synthetic source image"
+      },
+      {
+        "path": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__disconnected.png",
+        "sha256": "afabd602773692809de1939e67b989152cea73a93d02fb927dcedf83f988e372",
+        "source": "preserved synthetic source image"
+      }
+    ],
+    "preserved_real_scan_references": [
+      {
+        "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5"
+      },
+      {
+        "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json",
+        "sha256": "a5d57cc02aea30dc809bdbd7fc0394c0ddad219a20255c33ea7697640b5007d4"
+      }
+    ],
+    "real_scan_external_local_root": "/tmp/normalize-residual-forensics",
+    "real_scan_image_inputs": [
+      {
+        "reference": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.right.png",
+        "sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e"
+      }
+    ],
+    "source_pdfs_copied": false
+  },
+  "measurement_parameters": {
+    "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+    "thresholds": [
+      64,
+      128,
+      192
+    ],
+    "component_scales": [
+      1,
+      2,
+      4
+    ],
+    "component_connectivity": [
+      4,
+      8
+    ],
+    "downsample_resampling": "BOX",
+    "baseline_tolerance_px": 3.0,
+    "ink_predicate": "pixel_value < threshold",
+    "source_assumptions": [
+      "source image is already the preserved preprocessed page image",
+      "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+      "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+    ]
+  },
+  "real_scan_availability": {
+    "available": true,
+    "root": "/tmp/normalize-residual-forensics"
+  },
+  "artifact_paths_and_hashes": [
+    {
+      "path": "research/geometry/pixel-evidence-prototype/investigation-report.md",
+      "sha256": "60d368b8d6392aab04e8bf0d907bfac0ef8717257b2aa2cdac6c97f3dfb21909",
+      "size_bytes": 8352
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/prototype.py",
+      "sha256": "2cbd7ced37eece4ff27a925ce7434a24c45b8e9e38bd6c29e70901dbd2295e62",
+      "size_bytes": 33346
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/results.json",
+      "sha256": "9cb713b636dcd013b248636970c9f2d9329733ee4094399f880425794d4cb7bf",
+      "size_bytes": 188228
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/disconnected_glyphs_same_row.png",
+      "sha256": "cb8590fe545fc6238b9e293a9c2cabd335fc9c82a51b7f86f400d691191d5aba",
+      "size_bytes": 221
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/genuinely_long_printed_word.png",
+      "sha256": "ccb1f4b0901addc9ba8489a12031cb8625a01cf2b5472206816882ff1456fc95",
+      "size_bytes": 206
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/neighboring_row_ink.png",
+      "sha256": "25db9ef59c550604560dd92d75da0b66bd6f1bb3d3c4181ddda4cace7010fbf2",
+      "size_bytes": 215
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/ordinary_word_spaces.png",
+      "sha256": "87f7445ae3ac9c6d442015167c01c70870c5e55a6b32f77cf045dd7e72405a82",
+      "size_bytes": 221
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/single_pixel_noise_bridge.png",
+      "sha256": "10f82be4c7bcd247e3aaa81634f900bd8cf6db5c0387a40f52c50f3176f5f52b",
+      "size_bytes": 219
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/skewed_continuous_text.png",
+      "sha256": "d4166b0b82737adad1739d09fbb98998839298b77dfe6896affacad06fafec91",
+      "size_bytes": 252
+    },
+    {
+      "path": "research/geometry/pixel-evidence-prototype/synthetic/threshold_sensitive_low_resolution_ink.png",
+      "sha256": "96a524590a289d31512d58c1f453b7176d32cade91cf0d8b8b8e59e7284e7b36",
+      "size_bytes": 217
+    }
+  ],
+  "restrictions": {
+    "production_geometry_modified": false,
+    "identity_complete_oracle_modified": false,
+    "existing_research_snapshots_modified": false,
+    "fixture_contracts_modified": false,
+    "source_pdfs_committed": false,
+    "dependencies_installed": false,
+    "symphony_modified": false
+  }
+}

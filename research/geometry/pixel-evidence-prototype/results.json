@@ -1,0 +1,7223 @@
+{
+  "schema": "normalize-pixel-evidence-prototype-v1",
+  "baseline_commit": "699771d01c1a83c6f89c6a7eb2102e79a709b671",
+  "geometry_module_used": false,
+  "identity_complete_oracle_used_for_assignments": false,
+  "measurement_interface": {
+    "function": "measure_bridge",
+    "returns": "raw observations only",
+    "assignment_decision": false,
+    "same_line_classifier": false,
+    "combined_score": false
+  },
+  "parameters": {
+    "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+    "thresholds": [
+      64,
+      128,
+      192
+    ],
+    "component_scales": [
+      1,
+      2,
+      4
+    ],
+    "component_connectivity": [
+      4,
+      8
+    ],
+    "downsample_resampling": "BOX",
+    "baseline_tolerance_px": 3.0,
+    "ink_predicate": "pixel_value < threshold",
+    "source_assumptions": [
+      "source image is already the preserved preprocessed page image",
+      "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+      "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+    ]
+  },
+  "synthetic": {
+    "shared_input": {
+      "schema": "normalize-synthetic-tsv-input-v1",
+      "dimensions_px": {
+        "width": 220,
+        "height": 70
+      },
+      "metadata": {
+        "page_num": 1,
+        "side": "synthetic",
+        "source": "controlled synthetic input; not a scan observation"
+      },
+      "tsv_header": [
+        "level",
+        "page_num",
+        "block_num",
+        "par_num",
+        "line_num",
+        "word_num",
+        "left",
+        "top",
+        "width",
+        "height",
+        "conf",
+        "text"
+      ],
+      "rows": [
+        "5\t1\t1\t1\t1\t1\t10\t20\t10\t10\t95\tsame",
+        "5\t1\t1\t1\t1\t2\t25\t20\t10\t10\t95\tsame",
+        "5\t1\t1\t1\t1\t3\t30\t20\t115\t10\t95\tocr-wide",
+        "5\t1\t1\t1\t1\t4\t145\t20\t10\t10\t95\tsame",
+        "5\t1\t1\t1\t1\t5\t160\t20\t10\t10\t95\tsame"
+      ]
+    },
+    "shared_input_sha256": "fbc89c063b9ce65a306e1e9bd2df1d4ba667824a8f813be9605db6394a369304",
+    "box_only_reference": {
+      "source": "research/geometry/evidence-corrections/pixel-experiment-results.json",
+      "complete_state_equal": true,
+      "continuous_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61",
+      "disconnected_state_sha256": "519a47397a32f4cffda7bac17ab3821087cb65b9ab969c3f2d3f174f1eb3cc61"
+    },
+    "controls": {
+      "corrected_two_sided_pair": {
+        "continuous_source": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__continuous.png",
+        "continuous_sha256": "19ba82e5a1bb3e972468051d10658b2e5184a3697bde9a4a0af68e5d559ada5c",
+        "disconnected_source": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__disconnected.png",
+        "disconnected_sha256": "afabd602773692809de1939e67b989152cea73a93d02fb927dcedf83f988e372",
+        "measurement_comparison": {
+          "raw_field_differences": {
+            "64": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "128": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "192": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "components": true
+          },
+          "any_raw_difference": true,
+          "interpretation": "difference means the measured observations differ; it does not establish physical-line identity"
+        },
+        "continuous_measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 420,
+                "ink_occupancy": 0.38181818181818183,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  50,
+                  50,
+                  110,
+                  110,
+                  50,
+                  50,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.97619047619048,
+                  "y": 24.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 420,
+                "ink_occupancy": 0.38181818181818183,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  50,
+                  50,
+                  110,
+                  110,
+                  50,
+                  50,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.97619047619048,
+                  "y": 24.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 420,
+                "ink_occupancy": 0.38181818181818183,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  2,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  50,
+                  50,
+                  110,
+                  110,
+                  50,
+                  50,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.97619047619048,
+                  "y": 24.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 95
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 95
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 10,
+                    "largest_area_px": 1
+                  },
+                  "8": {
+                    "count": 10,
+                    "largest_area_px": 1
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 95
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 95
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 8,
+                    "largest_area_px": 4
+                  },
+                  "8": {
+                    "count": 8,
+                    "largest_area_px": 4
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 420
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 115
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 115
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 48
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 48
+                  }
+                }
+              }
+            }
+          }
+        },
+        "disconnected_measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "corrected_one_sided_pair": {
+        "continuous_source": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__continuous.png",
+        "continuous_sha256": "3353ac5407b17452868e71dc776bdf235c7b4170afb79a1de6d39228991a2e5e",
+        "disconnected_source": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__disconnected.png",
+        "disconnected_sha256": "b648063d3ec5a0a20cdd3a1913ef638a036f4dff0f616372e6b29e5c834f3355",
+        "measurement_comparison": {
+          "raw_field_differences": {
+            "64": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "128": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "192": {
+              "ink_occupancy": true,
+              "occupied_column_fraction": true,
+              "max_empty_column_run_px": true,
+              "row_ink_counts": true,
+              "baseline_aligned_ink_fraction": true
+            },
+            "components": true
+          },
+          "any_raw_difference": true,
+          "interpretation": "difference means the measured observations differ; it does not establish physical-line identity"
+        },
+        "box_only_state_equal": true
+      },
+      "identical_pixel_negative_control": {
+        "measurement_comparison": {
+          "raw_field_differences": {
+            "64": {
+              "ink_occupancy": false,
+              "occupied_column_fraction": false,
+              "max_empty_column_run_px": false,
+              "row_ink_counts": false,
+              "baseline_aligned_ink_fraction": false
+            },
+            "128": {
+              "ink_occupancy": false,
+              "occupied_column_fraction": false,
+              "max_empty_column_run_px": false,
+              "row_ink_counts": false,
+              "baseline_aligned_ink_fraction": false
+            },
+            "192": {
+              "ink_occupancy": false,
+              "occupied_column_fraction": false,
+              "max_empty_column_run_px": false,
+              "row_ink_counts": false,
+              "baseline_aligned_ink_fraction": false
+            },
+            "components": false
+          },
+          "any_raw_difference": false,
+          "interpretation": "difference means the measured observations differ; it does not establish physical-line identity"
+        },
+        "rejected_as_distinct": true
+      },
+      "different_box_input_negative_control": {
+        "original_input_sha256": "fbc89c063b9ce65a306e1e9bd2df1d4ba667824a8f813be9605db6394a369304",
+        "altered_input_sha256": "63569e2e8658382ab046df8f5ae02f50de20ea0db277e2012e0e5d5039124e23",
+        "rejected_as_same_input": false
+      }
+    },
+    "adversarial_cases": [
+      {
+        "case_id": "single_pixel_noise_bridge",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/single_pixel_noise_bridge.png",
+        "source_image_sha256": "10f82be4c7bcd247e3aaa81634f900bd8cf6db5c0387a40f52c50f3176f5f52b",
+        "physical_interpretation_by_construction": "disconnected regions with a one-pixel noise path",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 110,
+                "ink_occupancy": 0.1,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  110,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 25,
+                  "y1": 26
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 110,
+                "ink_occupancy": 0.1,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  110,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 25,
+                  "y1": 26
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 110,
+                "ink_occupancy": 0.1,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  110,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 25,
+                  "y1": 26
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 110
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 55
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 55
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 28
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 28
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "disconnected_glyphs_same_row",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/disconnected_glyphs_same_row.png",
+        "source_image_sha256": "cb8590fe545fc6238b9e293a9c2cabd335fc9c82a51b7f86f400d691191d5aba",
+        "physical_interpretation_by_construction": "separate glyph components in one genuine physical row",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 220,
+                "ink_occupancy": 0.2,
+                "occupied_column_fraction": 0.4,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                "empty_column_runs_px": [
+                  2,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "max_empty_column_run_px": 8,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  44,
+                  44,
+                  44,
+                  44,
+                  44,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 23,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.77272727272727,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 220,
+                "ink_occupancy": 0.2,
+                "occupied_column_fraction": 0.4,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                "empty_column_runs_px": [
+                  2,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "max_empty_column_run_px": 8,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  44,
+                  44,
+                  44,
+                  44,
+                  44,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 23,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.77272727272727,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 220,
+                "ink_occupancy": 0.2,
+                "occupied_column_fraction": 0.4,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  5,
+                  5,
+                  5
+                ],
+                "empty_column_runs_px": [
+                  2,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8,
+                  8
+                ],
+                "max_empty_column_run_px": 8,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  44,
+                  44,
+                  44,
+                  44,
+                  44,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 23,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 89.77272727272727,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 4
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 4
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 5,
+                    "largest_area_px": 1
+                  },
+                  "8": {
+                    "count": 5,
+                    "largest_area_px": 1
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 4
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 4
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 2
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 25
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 8
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 8
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 9,
+                    "largest_area_px": 3
+                  },
+                  "8": {
+                    "count": 9,
+                    "largest_area_px": 3
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "ordinary_word_spaces",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/ordinary_word_spaces.png",
+        "source_image_sha256": "87f7445ae3ac9c6d442015167c01c70870c5e55a6b32f77cf045dd7e72405a82",
+        "physical_interpretation_by_construction": "ordinary spaces interrupt ink although the printed row is continuous",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 112,
+                "ink_occupancy": 0.10181818181818182,
+                "occupied_column_fraction": 0.2545454545454545,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  3,
+                  18,
+                  21,
+                  21,
+                  19
+                ],
+                "max_empty_column_run_px": 21,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  28,
+                  28,
+                  28,
+                  28,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 24,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 80.75,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 112,
+                "ink_occupancy": 0.10181818181818182,
+                "occupied_column_fraction": 0.2545454545454545,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  3,
+                  18,
+                  21,
+                  21,
+                  19
+                ],
+                "max_empty_column_run_px": 21,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  28,
+                  28,
+                  28,
+                  28,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 24,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 80.75,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 112,
+                "ink_occupancy": 0.10181818181818182,
+                "occupied_column_fraction": 0.2545454545454545,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  3,
+                  18,
+                  21,
+                  21,
+                  19
+                ],
+                "max_empty_column_run_px": 21,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  28,
+                  28,
+                  28,
+                  28,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 24,
+                  "y1": 28
+                },
+                "ink_centroid_px": {
+                  "x": 80.75,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 6
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 6
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 6
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 6
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 2
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 28
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 8
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 8
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 4
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 4
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "genuinely_long_printed_word",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/genuinely_long_printed_word.png",
+        "source_image_sha256": "ccb1f4b0901addc9ba8489a12031cb8625a01cf2b5472206816882ff1456fc95",
+        "physical_interpretation_by_construction": "one genuinely long printed word fills the wide OCR rectangle",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 462,
+                "ink_occupancy": 0.42,
+                "occupied_column_fraction": 0.6,
+                "column_ink_counts": [
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  1,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "max_empty_column_run_px": 2,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 29
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 462,
+                "ink_occupancy": 0.42,
+                "occupied_column_fraction": 0.6,
+                "column_ink_counts": [
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  1,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "max_empty_column_run_px": 2,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 29
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 462,
+                "ink_occupancy": 0.42,
+                "occupied_column_fraction": 0.6,
+                "column_ink_counts": [
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0,
+                  0,
+                  7,
+                  7,
+                  7,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  1,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  2,
+                  1
+                ],
+                "max_empty_column_run_px": 2,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  66,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 29
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  },
+                  "8": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 22,
+                    "largest_area_px": 3
+                  },
+                  "8": {
+                    "count": 22,
+                    "largest_area_px": 3
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  },
+                  "8": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 22,
+                    "largest_area_px": 3
+                  },
+                  "8": {
+                    "count": 22,
+                    "largest_area_px": 3
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 7,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 7,
+                    "largest_area_px": 2
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  },
+                  "8": {
+                    "count": 22,
+                    "largest_area_px": 21
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 12,
+                    "largest_area_px": 14
+                  },
+                  "8": {
+                    "count": 12,
+                    "largest_area_px": 14
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 65
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 65
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "neighboring_row_ink",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/neighboring_row_ink.png",
+        "source_image_sha256": "25db9ef59c550604560dd92d75da0b66bd6f1bb3d3c4181ddda4cace7010fbf2",
+        "physical_interpretation_by_construction": "ink crosses the horizontal span but belongs to a neighboring row",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "skewed_continuous_text",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/skewed_continuous_text.png",
+        "source_image_sha256": "d4166b0b82737adad1739d09fbb98998839298b77dfe6896affacad06fafec91",
+        "physical_interpretation_by_construction": "continuous support follows a sloped baseline",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 116,
+                "ink_occupancy": 0.10545454545454545,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  1,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  1
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 30
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.9913793103448276
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 116,
+                "ink_occupancy": 0.10545454545454545,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  1,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  1
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 30
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.9913793103448276
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 116,
+                "ink_occupancy": 0.10545454545454545,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  2
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  1,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  19,
+                  1
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 22,
+                  "y1": 30
+                },
+                "ink_centroid_px": {
+                  "x": 89.5,
+                  "y": 25.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.9913793103448276
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 58
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 116
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 58
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 116
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 1
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 1
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 58
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 116
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 4,
+                    "largest_area_px": 18
+                  },
+                  "8": {
+                    "count": 2,
+                    "largest_area_px": 27
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 18
+                  },
+                  "8": {
+                    "count": 2,
+                    "largest_area_px": 18
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "case_id": "threshold_sensitive_low_resolution_ink",
+        "source_image": "research/geometry/pixel-evidence-prototype/synthetic/threshold_sensitive_low_resolution_ink.png",
+        "source_image_sha256": "96a524590a289d31512d58c1f453b7176d32cade91cf0d8b8b8e59e7284e7b36",
+        "physical_interpretation_by_construction": "low-contrast sparse ink changes visibility with threshold",
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 35,
+            "y0": 20,
+            "x1": 145,
+            "y1": 30
+          },
+          "region_dimensions_px": {
+            "width": 110,
+            "height": 10
+          },
+          "token_boxes": [
+            {
+              "source_row": 1,
+              "text": "same",
+              "x": 10,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 2,
+              "text": "same",
+              "x": 25,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 3,
+              "text": "ocr-wide",
+              "x": 30,
+              "y": 20,
+              "width": 115,
+              "height": 10
+            },
+            {
+              "source_row": 4,
+              "text": "same",
+              "x": 145,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            },
+            {
+              "source_row": 5,
+              "text": "same",
+              "x": 160,
+              "y": 20,
+              "width": 10,
+              "height": 10
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 20,
+            "band_y1": 30,
+            "baseline_y": 25.0,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 90.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  110
+                ],
+                "max_empty_column_run_px": 110,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 222,
+                "ink_occupancy": 0.2018181818181818,
+                "occupied_column_fraction": 0.6727272727272727,
+                "column_ink_counts": [
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3
+                ],
+                "empty_column_runs_px": [
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ],
+                "max_empty_column_run_px": 3,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  74,
+                  74,
+                  74,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 24,
+                  "y1": 27
+                },
+                "ink_centroid_px": {
+                  "x": 88.52702702702703,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 222,
+                "ink_occupancy": 0.2018181818181818,
+                "occupied_column_fraction": 0.6727272727272727,
+                "column_ink_counts": [
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  0,
+                  0,
+                  0,
+                  3,
+                  3
+                ],
+                "empty_column_runs_px": [
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3,
+                  3
+                ],
+                "max_empty_column_run_px": 3,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  74,
+                  74,
+                  74,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 24,
+                  "y1": 27
+                },
+                "ink_centroid_px": {
+                  "x": 88.52702702702703,
+                  "y": 25.0
+                },
+                "baseline_geometry": {
+                  "baseline_y": 25.0,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 90.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 1.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 13,
+                    "largest_area_px": 18
+                  },
+                  "8": {
+                    "count": 13,
+                    "largest_area_px": 18
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 13,
+                    "largest_area_px": 3
+                  },
+                  "8": {
+                    "count": 13,
+                    "largest_area_px": 3
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 13,
+                    "largest_area_px": 18
+                  },
+                  "8": {
+                    "count": 13,
+                    "largest_area_px": 18
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 13,
+                    "largest_area_px": 6
+                  },
+                  "8": {
+                    "count": 13,
+                    "largest_area_px": 6
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 12,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 12,
+                    "largest_area_px": 2
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "measurement_relationships": {
+      "ink_occupancy__occupied_column_fraction": {
+        "sample_count": 7,
+        "pearson_r": 0.22037236293288284,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      },
+      "ink_occupancy__max_empty_column_run_px": {
+        "sample_count": 7,
+        "pearson_r": -0.5626733472962558,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      },
+      "ink_occupancy__native_8_component_count": {
+        "sample_count": 7,
+        "pearson_r": 0.9578604219434095,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      },
+      "occupied_column_fraction__max_empty_column_run_px": {
+        "sample_count": 7,
+        "pearson_r": -0.7691954389278854,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      },
+      "occupied_column_fraction__native_8_component_count": {
+        "sample_count": 7,
+        "pearson_r": 0.028196932014044152,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      },
+      "max_empty_column_run_px__native_8_component_count": {
+        "sample_count": 7,
+        "pearson_r": -0.4043702737206252,
+        "interpretation": "exploratory correlation across constructed cases; not independent evidence or a production combination"
+      }
+    }
+  },
+  "real_scan": {
+    "available": true,
+    "root": "/tmp/normalize-residual-forensics",
+    "cases": [
+      {
+        "case_id": "lightning_A_contact",
+        "fixture_id": "relativity_pdf17_pp40-41",
+        "side": "right",
+        "stable_token_identities": [
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            22
+          ],
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            23
+          ]
+        ],
+        "geometry_source": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "geometry_source_sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5",
+        "image_reference": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.right.png",
+        "image_sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e",
+        "image_dimensions_px": [
+          792,
+          1224
+        ],
+        "region_of_interest": {
+          "x0": 509,
+          "x1": 517,
+          "y0": 118,
+          "y1": 146
+        },
+        "candidate_token_band": {
+          "band_y0": 118,
+          "band_y1": 146,
+          "baseline_y": 131.5,
+          "baseline_slope_px_per_px": 0.0,
+          "reference_x": 515.0
+        },
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 509,
+            "y0": 118,
+            "x1": 517,
+            "y1": 146
+          },
+          "region_dimensions_px": {
+            "width": 8,
+            "height": 28
+          },
+          "token_boxes": [
+            {
+              "source_row": 22,
+              "x": 407,
+              "y": 122,
+              "width": 110,
+              "height": 20
+            },
+            {
+              "source_row": 23,
+              "x": 509,
+              "y": 118,
+              "width": 12,
+              "height": 28
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 118,
+            "band_y1": 146,
+            "baseline_y": 131.5,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 515.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 7,
+                "ink_occupancy": 0.03125,
+                "occupied_column_fraction": 0.25,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  5,
+                  2
+                ],
+                "empty_column_runs_px": [
+                  6
+                ],
+                "max_empty_column_run_px": 6,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  1,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  1,
+                  0,
+                  1,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 123,
+                  "y1": 136
+                },
+                "ink_centroid_px": {
+                  "x": 515.2857142857143,
+                  "y": 128.71428571428572
+                },
+                "baseline_geometry": {
+                  "baseline_y": 131.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 515.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.42857142857142855
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 43,
+                "ink_occupancy": 0.19196428571428573,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  3,
+                  1,
+                  1,
+                  2,
+                  3,
+                  5,
+                  13,
+                  15
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  2,
+                  3,
+                  3,
+                  3,
+                  3,
+                  6,
+                  2,
+                  2,
+                  2,
+                  3,
+                  4,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 122,
+                  "y1": 137
+                },
+                "ink_centroid_px": {
+                  "x": 514.3255813953489,
+                  "y": 129.46511627906978
+                },
+                "baseline_geometry": {
+                  "baseline_y": 131.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 515.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.4186046511627907
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 61,
+                "ink_occupancy": 0.27232142857142855,
+                "occupied_column_fraction": 1.0,
+                "column_ink_counts": [
+                  3,
+                  4,
+                  4,
+                  5,
+                  6,
+                  9,
+                  15,
+                  15
+                ],
+                "empty_column_runs_px": [],
+                "max_empty_column_run_px": 0,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  2,
+                  2,
+                  3,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  8,
+                  8,
+                  3,
+                  3,
+                  3,
+                  4,
+                  5,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 122,
+                  "y1": 137
+                },
+                "ink_centroid_px": {
+                  "x": 513.7704918032787,
+                  "y": 129.62295081967213
+                },
+                "baseline_geometry": {
+                  "baseline_y": 131.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 515.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.47540983606557374
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 6,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 4,
+                    "largest_area_px": 3
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 5,
+                    "largest_area_px": 37
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 43
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 7
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 7
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 1
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 1
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 61
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 61
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 15
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 16
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 6
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 6
+                  }
+                }
+              }
+            }
+          }
+        },
+        "assignment_observation": {
+          "recorded_geometry_state": [
+            {
+              "source_row": 22,
+              "physical_line_id": "line-0003",
+              "candidate_line_ids": [
+                "line-0003"
+              ]
+            },
+            {
+              "source_row": 23,
+              "physical_line_id": null,
+              "candidate_line_ids": [
+                "line-0003",
+                "line-0004"
+              ]
+            }
+          ],
+          "authority": "preserved assignment observation, not a pixel-derived result"
+        },
+        "interpretation": "Ink is present in the overlap corridor and partly baseline-aligned, but the boxes overlap and provide no positive blank bridge interval; continuity remains inconclusive."
+      },
+      {
+        "case_id": "same_band_of_lightning",
+        "fixture_id": "relativity_pdf17_pp40-41",
+        "side": "right",
+        "stable_token_identities": [
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            21
+          ],
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            22
+          ]
+        ],
+        "geometry_source": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "geometry_source_sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5",
+        "image_reference": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.right.png",
+        "image_sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e",
+        "image_dimensions_px": [
+          792,
+          1224
+        ],
+        "region_of_interest": {
+          "x0": 404,
+          "x1": 407,
+          "y0": 122,
+          "y1": 142
+        },
+        "candidate_token_band": {
+          "band_y0": 122,
+          "band_y1": 142,
+          "baseline_y": 132.25,
+          "baseline_slope_px_per_px": 0.0,
+          "reference_x": 405.0
+        },
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 404,
+            "y0": 122,
+            "x1": 407,
+            "y1": 142
+          },
+          "region_dimensions_px": {
+            "width": 3,
+            "height": 20
+          },
+          "token_boxes": [
+            {
+              "source_row": 21,
+              "x": 395,
+              "y": 128,
+              "width": 9,
+              "height": 9
+            },
+            {
+              "source_row": 22,
+              "x": 407,
+              "y": 122,
+              "width": 110,
+              "height": 20
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 122,
+            "band_y1": 142,
+            "baseline_y": 132.25,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 405.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  3
+                ],
+                "max_empty_column_run_px": 3,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 132.25,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 405.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  3
+                ],
+                "max_empty_column_run_px": 3,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 132.25,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 405.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 8,
+                "ink_occupancy": 0.13333333333333333,
+                "occupied_column_fraction": 0.6666666666666666,
+                "column_ink_counts": [
+                  5,
+                  0,
+                  3
+                ],
+                "empty_column_runs_px": [
+                  1
+                ],
+                "max_empty_column_run_px": 1,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  0,
+                  1,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 128,
+                  "y1": 137
+                },
+                "ink_centroid_px": {
+                  "x": 404.75,
+                  "y": 131.625
+                },
+                "baseline_geometry": {
+                  "baseline_y": 132.25,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 405.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.625
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 3,
+                    "largest_area_px": 5
+                  },
+                  "8": {
+                    "count": 3,
+                    "largest_area_px": 5
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 2,
+                    "largest_area_px": 1
+                  },
+                  "8": {
+                    "count": 2,
+                    "largest_area_px": 1
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "assignment_observation": {
+          "recorded_geometry_state": [
+            {
+              "source_row": 21,
+              "physical_line_id": "line-0003",
+              "candidate_line_ids": [
+                "line-0003"
+              ]
+            },
+            {
+              "source_row": 22,
+              "physical_line_id": "line-0003",
+              "candidate_line_ids": [
+                "line-0003"
+              ]
+            }
+          ],
+          "authority": "preserved assignment observation, not a pixel-derived result"
+        },
+        "interpretation": "The same preserved band has a blank inter-token gap; blank space is compatible with ordinary word spacing and does not refute one physical row."
+      },
+      {
+        "case_id": "nearby_distinct_rows_29_30",
+        "fixture_id": "relativity_pdf17_pp40-41",
+        "side": "right",
+        "stable_token_identities": [
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            29
+          ],
+          [
+            "relativity_pdf17_pp40-41",
+            "right",
+            30
+          ]
+        ],
+        "geometry_source": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "geometry_source_sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5",
+        "image_reference": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.right.png",
+        "image_sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e",
+        "image_dimensions_px": [
+          792,
+          1224
+        ],
+        "region_of_interest": {
+          "x0": 356,
+          "x1": 366,
+          "y0": 151,
+          "y1": 166
+        },
+        "candidate_token_band": {
+          "band_y0": 151,
+          "band_y1": 166,
+          "baseline_y": 158.5,
+          "baseline_slope_px_per_px": 0.0,
+          "reference_x": 361.0
+        },
+        "measurements": {
+          "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+          "region_of_interest": {
+            "x0": 356,
+            "y0": 151,
+            "x1": 366,
+            "y1": 166
+          },
+          "region_dimensions_px": {
+            "width": 10,
+            "height": 15
+          },
+          "token_boxes": [
+            {
+              "source_row": 29,
+              "x": 242,
+              "y": 151,
+              "width": 114,
+              "height": 15
+            },
+            {
+              "source_row": 30,
+              "x": 366,
+              "y": 151,
+              "width": 32,
+              "height": 15
+            }
+          ],
+          "candidate_token_band": {
+            "band_y0": 151,
+            "band_y1": 166,
+            "baseline_y": 158.5,
+            "baseline_slope_px_per_px": 0.0,
+            "reference_x": 361.0
+          },
+          "parameters": {
+            "coordinate_convention": "top-left origin; all rectangles and intervals are half-open",
+            "thresholds": [
+              64,
+              128,
+              192
+            ],
+            "component_scales": [
+              1,
+              2,
+              4
+            ],
+            "component_connectivity": [
+              4,
+              8
+            ],
+            "downsample_resampling": "BOX",
+            "baseline_tolerance_px": 3.0,
+            "ink_predicate": "pixel_value < threshold",
+            "source_assumptions": [
+              "source image is already the preserved preprocessed page image",
+              "no deskew, thresholding, denoising, or morphology is applied by this prototype",
+              "synthetic images are controlled illustrations, not arbitrary-scan performance evidence"
+            ]
+          },
+          "raw_observations": {
+            "thresholds": {
+              "64": {
+                "threshold": 64,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  10
+                ],
+                "max_empty_column_run_px": 10,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 158.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 361.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "128": {
+                "threshold": 128,
+                "ink_pixels": 0,
+                "ink_occupancy": 0.0,
+                "occupied_column_fraction": 0.0,
+                "column_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  10
+                ],
+                "max_empty_column_run_px": 10,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": null,
+                "ink_centroid_px": null,
+                "baseline_geometry": {
+                  "baseline_y": 158.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 361.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": null
+              },
+              "192": {
+                "threshold": 192,
+                "ink_pixels": 2,
+                "ink_occupancy": 0.013333333333333334,
+                "occupied_column_fraction": 0.1,
+                "column_ink_counts": [
+                  2,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "empty_column_runs_px": [
+                  9
+                ],
+                "max_empty_column_run_px": 9,
+                "row_ink_counts": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  1,
+                  0,
+                  0
+                ],
+                "occupied_row_bounds_px": {
+                  "y0": 162,
+                  "y1": 164
+                },
+                "ink_centroid_px": {
+                  "x": 356.0,
+                  "y": 162.5
+                },
+                "baseline_geometry": {
+                  "baseline_y": 158.5,
+                  "baseline_slope_px_per_px": 0.0,
+                  "reference_x": 361.0,
+                  "tolerance_px": 3.0
+                },
+                "baseline_aligned_ink_fraction": 0.0
+              }
+            },
+            "components": {
+              "64": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "128": {
+                "1": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              },
+              "192": {
+                "1": {
+                  "4": {
+                    "count": 1,
+                    "largest_area_px": 2
+                  },
+                  "8": {
+                    "count": 1,
+                    "largest_area_px": 2
+                  }
+                },
+                "2": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                },
+                "4": {
+                  "4": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  },
+                  "8": {
+                    "count": 0,
+                    "largest_area_px": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "assignment_observation": {
+          "recorded_geometry_state": [
+            {
+              "source_row": 29,
+              "physical_line_id": "line-0005",
+              "candidate_line_ids": [
+                "line-0005"
+              ]
+            },
+            {
+              "source_row": 30,
+              "physical_line_id": "line-0006",
+              "candidate_line_ids": [
+                "line-0006"
+              ]
+            }
+          ],
+          "authority": "preserved assignment observation, not a pixel-derived result"
+        },
+        "interpretation": "The nearby distinct-row interval is blank in its candidate band; this is a negative geometric control, not a general separation proof."
+      }
+    ],
+    "relativity10_horizontal_reference": {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "image_sha256": "b1e565113b99fe716ec1338868717f11129acb8957417405e3da1a52ad102820",
+      "image_reference": "/tmp/normalize-residual-forensics/relativity_pdf10_pp26-27/preprocessed/relativity_pdf10_pp26-27.left.png",
+      "note": "available as a possible horizontal observation; no vertical residual was resolved"
+    }
+  },
+  "information_boundary": {
+    "established": [
+      "occupancy, occupied columns, empty runs, vertical distributions, baseline-relative alignment, and components distinguish the corrected constructed pairs",
+      "the box-only assignment state is inherited from the preserved identity-complete evidence and remains equivalent for those pairs"
+    ],
+    "not_established": [
+      "a measurement that identifies physical-line identity for arbitrary scans",
+      "a threshold independent of scale, noise, skew, text size, spacing, neighboring rows, and preprocessing",
+      "that detected ink belongs to the same physical line rather than a neighboring row or artifact"
+    ]
+  }
+}
