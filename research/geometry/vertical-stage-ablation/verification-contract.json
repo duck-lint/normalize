@@ -1,0 +1,57 @@
+{
+  "schema": "normalize-pixel-evidence-verification-contract-v1",
+  "historical_baseline_commit": "699771d01c1a83c6f89c6a7eb2102e79a709b671",
+  "minimum_descendant_commit": "c0f7ea88493a07e6139e9c71d413a2eda130c17b",
+  "historical_result_path": "research/geometry/pixel-evidence-prototype/results.json",
+  "historical_result_sha256": "9cb713b636dcd013b248636970c9f2d9329733ee4094399f880425794d4cb7bf",
+  "historical_manifest_path": "research/geometry/pixel-evidence-prototype/manifest.json",
+  "historical_manifest_sha256": "f5011780232530901b5337fc737ff0cea8ce00ad0bc08a39a45811a8b552d8bc",
+  "content_hashes": {
+    "production_geometry": "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5",
+    "identity_complete_oracle": "58e47415dc21e285debda2a4d0112d3289ea781387704f04e8d55c2552b2bf44",
+    "prior_experiment_results": "3d48c53d7e86a668d8024560ee164636276ba44abc03bef0531161ecae6ba198",
+    "prototype_source": "4a155f6148d438b311bb3dd694ae1664242b24ec6872faf1571695fab0bb0845"
+  },
+  "preserved_inputs": [
+    {
+      "path": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__continuous.png",
+      "sha256": "3353ac5407b17452868e71dc776bdf235c7b4170afb79a1de6d39228991a2e5e"
+    },
+    {
+      "path": "research/geometry/evidence-corrections/pixel-cases/one_ordinary_token_each_side__disconnected.png",
+      "sha256": "b648063d3ec5a0a20cdd3a1913ef638a036f4dff0f616372e6b29e5c834f3355"
+    },
+    {
+      "path": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__continuous.png",
+      "sha256": "19ba82e5a1bb3e972468051d10658b2e5184a3697bde9a4a0af68e5d559ada5c"
+    },
+    {
+      "path": "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__disconnected.png",
+      "sha256": "afabd602773692809de1939e67b989152cea73a93d02fb927dcedf83f988e372"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json",
+      "sha256": "a5d57cc02aea30dc809bdbd7fc0394c0ddad219a20255c33ea7697640b5007d4"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+      "sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5"
+    },
+    {
+      "path": "research/geometry/residual-forensics/relativity_pdf23_pp52-53/geometry.json",
+      "sha256": "6fe6e0c1fbb9ef347c2ca7a4fda74135b369b0299fd99519d2a8a64d59759c56"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf03_session-I/geometry.json",
+      "sha256": "61c4958d4102b7b68340e9be0232c04508c48fbec958a4456668469526451513"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/geometry.json",
+      "sha256": "b834721f181ef06286ebbb36f0cfc9242cf7505b1d4781380342496ccaf8a976"
+    },
+    {
+      "path": "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/geometry.json",
+      "sha256": "7353bd8a56908f9abfad18b19569450241dc67d9d13c78479f483b52e88d2255"
+    }
+  ]
+}
