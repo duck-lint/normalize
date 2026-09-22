@@ -1,0 +1,114 @@
+{
+  "synthetic": {
+    "separate": {
+      "permutation_same": true,
+      "translation_same": true,
+      "scale_2_same": true,
+      "scale_half_same": true
+    },
+    "ambiguous": {
+      "permutation_same": true,
+      "translation_same": true,
+      "scale_2_same": false,
+      "scale_half_same": false
+    },
+    "sloped": {
+      "permutation_same": true,
+      "translation_same": true,
+      "scale_2_same": true,
+      "scale_half_same": true
+    }
+  },
+  "fixtures": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 203,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 280,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 142,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 331,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 155,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 264,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 0,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 133,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 233,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 271,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "pages": [
+        {
+          "side": "left",
+          "token_count": 70,
+          "permuted_serialized_tokens_same": true
+        },
+        {
+          "side": "right",
+          "token_count": 137,
+          "permuted_serialized_tokens_same": true
+        }
+      ]
+    }
+  ]
+}
