@@ -1,0 +1,147 @@
+{
+  "schema": "preprocessing-metadata-v1",
+  "status": "success",
+  "fixture_id": "relativity_pdf10_pp26-27",
+  "source_pdf": "/home/duck-lint/projects/normalize/fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+  "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+  "fixture_pdf_page_index_1_based": 1,
+  "source_pdf_page_index_1_based": 10,
+  "dpi": 144,
+  "source_pdf_dimensions_pt": {
+    "width": 792.0,
+    "height": 612.0
+  },
+  "source_raster": {
+    "width_px": 1584,
+    "height_px": 1224,
+    "declared_pdf_rotation_degrees": 90
+  },
+  "result": {
+    "kind": "spread",
+    "output_order": [
+      "left",
+      "right"
+    ],
+    "blank_sides": []
+  },
+  "transforms": {
+    "rotation": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "crop": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "deskew": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "split": {
+      "operation": "split",
+      "parameters": {
+        "split_x": 792,
+        "left_source_rect_px": [
+          0,
+          0,
+          792,
+          1224
+        ],
+        "right_source_rect_px": [
+          792,
+          0,
+          1584,
+          1224
+        ]
+      },
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "order": {
+      "operation": "order",
+      "parameters": {
+        "output_order": [
+          "left",
+          "right"
+        ]
+      },
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    }
+  },
+  "pages": [
+    {
+      "side": "left",
+      "output_path": "relativity_pdf10_pp26-27.left.png",
+      "width_px": 792,
+      "height_px": 1224,
+      "source_stage": "post_deskew",
+      "source_rect_px": [
+        0,
+        0,
+        792,
+        1224
+      ],
+      "blank": false
+    },
+    {
+      "side": "right",
+      "output_path": "relativity_pdf10_pp26-27.right.png",
+      "width_px": 792,
+      "height_px": 1224,
+      "source_stage": "post_deskew",
+      "source_rect_px": [
+        792,
+        0,
+        1584,
+        1224
+      ],
+      "blank": false
+    }
+  ],
+  "spread_output": "relativity_pdf10_pp26-27.spread.png",
+  "output_files": {
+    "spread": "relativity_pdf10_pp26-27.spread.png",
+    "page": null,
+    "left": "relativity_pdf10_pp26-27.left.png",
+    "right": "relativity_pdf10_pp26-27.right.png"
+  },
+  "uncertainty": null,
+  "error": null
+}

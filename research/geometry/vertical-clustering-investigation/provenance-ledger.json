@@ -1,0 +1,72 @@
+{
+  "schema": "normalize-vertical-clustering-recovery-ledger-v1",
+  "baseline_commit": "c0f7ea88493a07e6139e9c71d413a2eda130c17b",
+  "recovery": {
+    "recovery_status": "exact files recovered before experiments",
+    "recovered": [
+      {
+        "kind": "derived_unannotated_preprocessed_page",
+        "temporary_source_at_recovery": "/tmp/normalize-residual-forensics/relativity_pdf10_pp26-27/preprocessed/relativity_pdf10_pp26-27.left.png",
+        "source_was_present_at_recovery": true,
+        "source_sha256": "b1e565113b99fe716ec1338868717f11129acb8957417405e3da1a52ad102820",
+        "repository_destination": "research/geometry/vertical-clustering-investigation/recovered-inputs/relativity_pdf10_pp26-27/relativity_pdf10_pp26-27.left.png",
+        "repository_sha256": "b1e565113b99fe716ec1338868717f11129acb8957417405e3da1a52ad102820",
+        "source_pdf_committed": false,
+        "permission_basis": "AUTHORITY.md permits derived page rendering/layout evidence; source PDFs remain untracked and are not copied"
+      },
+      {
+        "kind": "derived_unannotated_preprocessed_page",
+        "temporary_source_at_recovery": "/tmp/normalize-residual-forensics/relativity_pdf10_pp26-27/preprocessed/relativity_pdf10_pp26-27.right.png",
+        "source_was_present_at_recovery": true,
+        "source_sha256": "fa7c69021d1f6c5c269154b1ae53bc602acedd05965beee3f9d480592d997eeb",
+        "repository_destination": "research/geometry/vertical-clustering-investigation/recovered-inputs/relativity_pdf10_pp26-27/relativity_pdf10_pp26-27.right.png",
+        "repository_sha256": "fa7c69021d1f6c5c269154b1ae53bc602acedd05965beee3f9d480592d997eeb",
+        "source_pdf_committed": false,
+        "permission_basis": "AUTHORITY.md permits derived page rendering/layout evidence; source PDFs remain untracked and are not copied"
+      },
+      {
+        "kind": "preprocessing_metadata",
+        "temporary_source_at_recovery": "/tmp/normalize-residual-forensics/relativity_pdf10_pp26-27/preprocessed/relativity_pdf10_pp26-27.preprocess.json",
+        "source_was_present_at_recovery": true,
+        "source_sha256": "ee3365aeb0aecb71569249c088a86572804be277288de1a75500fc63419e81e1",
+        "repository_destination": "research/geometry/vertical-clustering-investigation/recovered-inputs/relativity_pdf10_pp26-27/relativity_pdf10_pp26-27.preprocess.json",
+        "repository_sha256": "ee3365aeb0aecb71569249c088a86572804be277288de1a75500fc63419e81e1",
+        "source_pdf_committed": false,
+        "permission_basis": "AUTHORITY.md permits derived page rendering/layout evidence; source PDFs remain untracked and are not copied"
+      },
+      {
+        "kind": "derived_unannotated_preprocessed_page",
+        "temporary_source_at_recovery": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.right.png",
+        "source_was_present_at_recovery": true,
+        "source_sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e",
+        "repository_destination": "research/geometry/vertical-clustering-investigation/recovered-inputs/relativity_pdf17_pp40-41/relativity_pdf17_pp40-41.right.png",
+        "repository_sha256": "8c9d22680260bb86d76c06cb134f1383dbffbecc6cdb8a23730823f05b8db80e",
+        "source_pdf_committed": false,
+        "permission_basis": "AUTHORITY.md permits derived page rendering/layout evidence; source PDFs remain untracked and are not copied"
+      },
+      {
+        "kind": "preprocessing_metadata",
+        "temporary_source_at_recovery": "/tmp/normalize-residual-forensics/relativity_pdf17_pp40-41/preprocessed/relativity_pdf17_pp40-41.preprocess.json",
+        "source_was_present_at_recovery": true,
+        "source_sha256": "15c977994eb090842321efe38e280c2fa180b064aaf99d4a4f39c2cf227da95b",
+        "repository_destination": "research/geometry/vertical-clustering-investigation/recovered-inputs/relativity_pdf17_pp40-41/relativity_pdf17_pp40-41.preprocess.json",
+        "repository_sha256": "15c977994eb090842321efe38e280c2fa180b064aaf99d4a4f39c2cf227da95b",
+        "source_pdf_committed": false,
+        "permission_basis": "AUTHORITY.md permits derived page rendering/layout evidence; source PDFs remain untracked and are not copied"
+      }
+    ],
+    "not_recovered_from_related_temp_tree": [
+      {
+        "artifact_class": "spread PNGs and other preprocessed page sides",
+        "decision": "not imported; not required for the selected residual traces or four geometry regression controls"
+      },
+      {
+        "artifact_class": "temporary manifest stdout and disposable intermediates",
+        "decision": "not imported; versioned manifests and repository artifacts are sufficient"
+      }
+    ],
+    "missing_expected_files": [],
+    "temporary_originals_modified_or_deleted": false,
+    "limitation": "The recovered derived images are versioned research evidence; source PDFs remain local inputs referenced only by recorded hashes and metadata."
+  }
+}
