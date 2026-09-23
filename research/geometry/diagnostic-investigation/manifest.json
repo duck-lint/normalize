@@ -1,0 +1,168 @@
+{
+  "schema": "normalize-diagnostic-investigation-v1",
+  "generated_at_utc": "2026-09-22T00:31:34.586866+00:00",
+  "experiment_start": {
+    "git_commit_sha": "6453d2890fce5799640d7219effdd090ea6aed2d",
+    "git_branch": "geometry-forensics-identity-oracle",
+    "git_status": "clean",
+    "isolated_task_branch": "diagnostic-investigation-sparse-vertical",
+    "production_geometry_sha256": "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/duck-lint/projects/normalize/.venv/bin/python",
+    "packages": {
+      "normalize": "0.1.0",
+      "PyMuPDF": "1.28.2",
+      "Pillow": "12.3.0",
+      "pytesseract": "0.3.13",
+      "rapidfuzz": "3.14.6",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "pytest": "9.1.1"
+    },
+    "tesseract": "tesseract 5.3.4",
+    "geometry_module_import_path": "/home/duck-lint/projects/normalize/src/normalize/geometry.py",
+    "oracle_path": "tests/geometry_oracle.py"
+  },
+  "commands": [
+    ".venv/bin/python -m pytest -q",
+    ".venv/bin/python research/geometry/diagnostic-investigation/investigate.py",
+    ".venv/bin/python research/geometry/diagnostic-investigation/make_manifest.py",
+    "git diff --check"
+  ],
+  "provenance": {
+    "prior_residual_forensics_manifest": {
+      "path": "research/geometry/residual-forensics/manifest.json",
+      "sha256": "c0dab943904ccfdf3fe81f4cad3b30f74d582eef6e99597696abd4d3266170cf"
+    },
+    "selected_scan_references": {
+      "relativity_pdf10_pp26-27": {
+        "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+        "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+        "raw_fixture": "fixtures/einstein/pdf10_pp26-27.raw.md",
+        "raw_fixture_sha256": "309a803d555113f1fce0146f9ae08ae7fd53e0a9e83ff4309f1763a501ba93b3",
+        "normalized_reference": "fixtures/einstein/pdf10_pp26-27.normalized.md",
+        "normalized_reference_sha256": "277cd6b88b27f3f797dc2411269396404a9447a3e9446942d39df7fa884bc1f0",
+        "expected_metadata": "fixtures/einstein/relativity_pdf10_pp26-27.expected.json",
+        "expected_metadata_sha256": "a9d8c84018a7b44046b1b45b4c2bed6287aef3002c9a3260d24d69d99bdd5020",
+        "source_pdf_page_index_1_based": 10,
+        "fixture_pdf_page_index_1_based": 1
+      },
+      "relativity_pdf17_pp40-41": {
+        "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+        "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+        "raw_fixture": "fixtures/einstein/pdf17_pp40-41.raw.md",
+        "raw_fixture_sha256": "24adf25c5dc327634142473f8d9cb78365e4cbec18d77e8b6a8759ac05506c49",
+        "normalized_reference": "fixtures/einstein/pdf17_pp40-41.normalized.md",
+        "normalized_reference_sha256": "409dceba2220b5998741a42031d3256860b27073275941a9bd041d6b6250ac2d",
+        "expected_metadata": "fixtures/einstein/relativity_pdf17_pp40-41.expected.json",
+        "expected_metadata_sha256": "69387764b6c6fbd678866930fe2941fa4e616ed6cbad078a911c03da3e6a2ee0",
+        "source_pdf_page_index_1_based": 17,
+        "fixture_pdf_page_index_1_based": 1
+      }
+    },
+    "prior_geometry_artifacts": {
+      "relativity_pdf10_pp26-27": {
+        "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json",
+        "sha256": "a5d57cc02aea30dc809bdbd7fc0394c0ddad219a20255c33ea7697640b5007d4"
+      },
+      "relativity_pdf17_pp40-41": {
+        "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5"
+      }
+    },
+    "source_pdfs_copied": false
+  },
+  "diagnostic_summary": {
+    "horizontal_case_count": 7,
+    "vertical_fixture_trace_count": 3,
+    "synthetic_vertical_case_count": 3,
+    "rel17_observed_example": {
+      "identity": [
+        "relativity_pdf17_pp40-41",
+        "right",
+        23
+      ],
+      "text": "A",
+      "description": "Observed residual crop contains the end of 'lightning' and the token A; this is evidence, not a special-case specification.",
+      "geometry_artifact": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+      "crop_artifact": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/crops/right-row-0023-a.png",
+      "current_state": "ambiguous_line_assignment",
+      "candidate_line_ids": [
+        "line-0003",
+        "line-0004"
+      ]
+    }
+  },
+  "artifact_paths_and_hashes": [
+    {
+      "path": "research/geometry/diagnostic-investigation/diagnostics.json",
+      "sha256": "ea445dbae7792a8753ada23ca29f1caff84fb607cd846c93932eb4635dc6f787",
+      "size_bytes": 550828,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/investigate.py",
+      "sha256": "44b053e6df56d4ac013f5d448e68cf8a62d3e9ca437949ce7e1c388cd6890447",
+      "size_bytes": 23366,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/investigation-report.md",
+      "sha256": "879a058a0a56f48959c3fc00c5c22d3d8db4de96b3541c5ab346ee272b6e5d5d",
+      "size_bytes": 14755,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/genuine_long_printed_word.png",
+      "sha256": "35aac33714a933bc82a8ca60d56dc2a047389c47d9bb6e1e00f601ef2d1de8fa",
+      "size_bytes": 370,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/ocr_rectangle_over_disconnected_regions.png",
+      "sha256": "1eed21134de72187451d200f7eff7c7c9b82493e72637e1d157f3a419317a297",
+      "size_bytes": 400,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/one_ordinary_token_each_side.png",
+      "sha256": "ed2226893898cf634089b46983d4ce2fc34adf6b91533ac07dd671f24ae00332",
+      "size_bytes": 368,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/one_sided_left_support.png",
+      "sha256": "0ef7f15a0f584f345318178249557312c7d7265ff72a687c93fba0e2aa2cefae",
+      "size_bytes": 379,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/one_sided_right_support.png",
+      "sha256": "5a11efa7fafae8d0b46ecdf3c7a3a22fd206a90ee833768a0d57184ef2e11eca",
+      "size_bytes": 373,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/sparse_visibly_continuous_line.png",
+      "sha256": "f7e8543445a2712088612f9ab6095a0cfe22383ce17756761683247a530893a8",
+      "size_bytes": 386,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    },
+    {
+      "path": "research/geometry/diagnostic-investigation/pixel-cases/two_ordinary_tokens_each_side.png",
+      "sha256": "1eed21134de72187451d200f7eff7c7c9b82493e72637e1d157f3a419317a297",
+      "size_bytes": 400,
+      "generated_at_utc": "2026-09-22T00:31:34.586866+00:00"
+    }
+  ],
+  "restrictions": {
+    "production_geometry_modified": false,
+    "identity_complete_oracle_modified": false,
+    "fixture_contracts_modified": false,
+    "source_pdfs_committed": false,
+    "dependencies_installed": false,
+    "symphony_modified": false
+  }
+}
