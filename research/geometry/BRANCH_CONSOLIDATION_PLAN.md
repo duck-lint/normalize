@@ -1,7 +1,8 @@
 # Slice 2 branch topology and consolidation plan
 
-Audit basis: local and remote refs inspected on 2026-09-22 from
-`verification-reconciliation-slice2-decision`, with no merge, rebase, deletion,
+Audit basis: local and remote refs inspected on 2026-09-22 from the candidate
+before this task's commit; the final candidate tip is
+`b45d32b9d7e5f26de9d680866019c46e84c653b9`. No merge, rebase, deletion,
 remote-ref update, or force-push performed.
 
 ## Repository topology
@@ -27,7 +28,7 @@ commit at that stage.
 | `pixel-evidence-prototype` / origin | `c0f7ea88493a07e6139e9c71d413a2eda130c17b` | tracked, up to date | ancestor; +4 | research pixel measurements | archive after integration approval |
 | `vertical-clustering-investigation` / origin | `dfa6cd1ef2387364dded5ba86f92635d94875b4d` | tracked, up to date | ancestor; +5 | non-greedy comparison | archive after integration approval |
 | `verification-repair-stage-ablation` / origin | `00fcabf7f01557fb81b3aafdf04711aff13d2e48` | tracked, up to date | parent of candidate; +6 | verification repair and stage ablation | retain until candidate is accepted; then archive |
-| `verification-reconciliation-slice2-decision` | `00fcabf7f01557fb81b3aafdf04711aff13d2e48` | no upstream; current worktree | candidate; +6 before this task's commit | this reconciliation, tests, and records | proposed PR source |
+| `verification-reconciliation-slice2-decision` | `b45d32b9d7e5f26de9d680866019c46e84c653b9` | no upstream; current worktree | candidate; +7 from default | this reconciliation, tests, and records | proposed PR source |
 | `origin/master` | `93c6ef1ead9fd30aaf94b210a79aa2c6a39a16ff` | remote only | ancestor of default; not destination | older default line | retain unless repository owner changes policy |
 | `origin/slice2/geometry-probe-checkpoint` | `4998f8c9d2a40bf6e9b62d04ec916ca382ea693c` | remote stale ref | ancestor of default; +4 behind default | historical checkpoint | do not prune without owner approval |
 
