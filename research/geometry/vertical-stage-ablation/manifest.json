@@ -1,0 +1,105 @@
+{
+  "schema": "normalize-vertical-stage-ablation-manifest-v1",
+  "generated_at_utc": "2026-09-22T23:40:11.038375+00:00",
+  "experiment_start": {
+    "git_commit_sha": "dfa6cd1ef2387364dded5ba86f92635d94875b4d",
+    "git_branch": "verification-repair-stage-ablation",
+    "git_status": "clean before task edits"
+  },
+  "generation_state": {
+    "git_commit_sha": "dfa6cd1ef2387364dded5ba86f92635d94875b4d",
+    "git_branch": "verification-repair-stage-ablation",
+    "git_status_porcelain": "M research/geometry/pixel-evidence-prototype/prototype.py\n?? research/geometry/vertical-stage-ablation/\n?? tests/test_verification_repair.py\n?? tests/test_vertical_stage_ablation.py"
+  },
+  "environment": {
+    "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+    "python_executable": "/home/duck-lint/projects/normalize/.venv/bin/python",
+    "packages": {
+      "normalize": "0.1.0",
+      "Pillow": "12.3.0",
+      "pytest": "9.1.1",
+      "numpy": "2.5.3",
+      "opencv-python-headless": "5.0.0.93",
+      "PyMuPDF": "1.28.2",
+      "pytesseract": "0.3.13",
+      "rapidfuzz": "3.14.6"
+    },
+    "production_geometry_import_path": "/home/duck-lint/projects/normalize/src/normalize/geometry.py",
+    "tesseract": "tesseract 5.3.4"
+  },
+  "commands": [
+    ".venv/bin/python research/geometry/vertical-stage-ablation/stage_ablation.py",
+    ".venv/bin/python -m pytest -q tests/test_verification_repair.py tests/test_vertical_stage_ablation.py",
+    ".venv/bin/python -m pytest -q"
+  ],
+  "input_hashes": {
+    "production_geometry": "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5",
+    "identity_complete_oracle": "58e47415dc21e285debda2a4d0112d3289ea781387704f04e8d55c2552b2bf44",
+    "prior_investigation_script": {
+      "path": "research/geometry/vertical-clustering-investigation/investigate.py",
+      "sha256": "41c473a9d79f87add991df221c9652e0f06624673035d3ba270e63cce11bceb3"
+    },
+    "geometry_artifacts": [
+      {
+        "path": "research/geometry/residual-forensics/relativity_pdf10_pp26-27/geometry.json",
+        "sha256": "a5d57cc02aea30dc809bdbd7fc0394c0ddad219a20255c33ea7697640b5007d4"
+      },
+      {
+        "path": "research/geometry/residual-forensics/relativity_pdf17_pp40-41/geometry.json",
+        "sha256": "17bad81b60a8ccb1a893200f316e5c749571ce4410f0302278227e1ca2fd59f5"
+      },
+      {
+        "path": "research/geometry/residual-forensics/relativity_pdf23_pp52-53/geometry.json",
+        "sha256": "6fe6e0c1fbb9ef347c2ca7a4fda74135b369b0299fd99519d2a8a64d59759c56"
+      },
+      {
+        "path": "research/geometry/residual-forensics/stella_maris_pdf03_session-I/geometry.json",
+        "sha256": "61c4958d4102b7b68340e9be0232c04508c48fbec958a4456668469526451513"
+      },
+      {
+        "path": "research/geometry/residual-forensics/stella_maris_pdf06_dense-dialogue/geometry.json",
+        "sha256": "b834721f181ef06286ebbb36f0cfc9242cf7505b1d4781380342496ccaf8a976"
+      },
+      {
+        "path": "research/geometry/residual-forensics/stella_maris_pdf18_session-II_p35/geometry.json",
+        "sha256": "7353bd8a56908f9abfad18b19569450241dc67d9d13c78479f483b52e88d2255"
+      }
+    ]
+  },
+  "model_parameters": {
+    "shared_tolerance_formula": "max(1, floor(median(token.height_px) / 4 + 0.5))",
+    "shared_horizontal_gap_formula": "2 * median(token.width_px)",
+    "pairwise_predicate": "adjusted-center tolerance plus production horizontal adjacency",
+    "fixed_anchor_predicate": "adjusted-center tolerance to fixed first-token anchor"
+  },
+  "artifact_paths_and_hashes": [
+    {
+      "path": "research/geometry/vertical-stage-ablation/investigation-report.md",
+      "sha256": "1ed8d8b504b5beb570268bfdc52ee4d707372e7e42cec0e7bf3ba66f1689001a",
+      "size_bytes": 11419
+    },
+    {
+      "path": "research/geometry/vertical-stage-ablation/results.json",
+      "sha256": "f7cd0c880b06220306842bb94448642f165ee7b90059f195826539d9d419a422",
+      "size_bytes": 8859940
+    },
+    {
+      "path": "research/geometry/vertical-stage-ablation/stage_ablation.py",
+      "sha256": "a054dad5b4b18c81cdc43c53f7bb39db4ad41069fc3e3947dba1710c064cb690",
+      "size_bytes": 41396
+    },
+    {
+      "path": "research/geometry/vertical-stage-ablation/verification-contract.json",
+      "sha256": "2dcb401fb27a72d79d7ed888a78c03508c5d4e55cb20185cd898e2c8600f3ad4",
+      "size_bytes": 3033
+    }
+  ],
+  "restrictions": {
+    "production_geometry_modified": false,
+    "production_assignments_modified": false,
+    "identity_complete_oracle_modified": false,
+    "fixture_expectations_modified": false,
+    "pixel_evidence_integrated": false,
+    "source_pdfs_committed": false
+  }
+}

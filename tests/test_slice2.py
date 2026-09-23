@@ -20,6 +20,7 @@ from normalize.geometry import (
 )
 from normalize.fixtures import FixtureCatalog
 from normalize.rendering import SUCCESS, preprocess_fixture
+from tests.geometry_oracle import canonical_geometry_state
 
 
 ROOT = Path(__file__).parents[1]
@@ -285,19 +286,6 @@ def test_fully_assigned_measurements_keep_numeric_values():
     ]
 
 
-def _canonical_grouping(tokens, lines, unresolved):
-    token_text = {token.source_row: token.text for token in tokens}
-    line_members = {
-        line["line_id"]: tuple(sorted(token_text[int(token_id.removeprefix("token-"))] for token_id in line["token_ids"]))
-        for line in lines
-    }
-    assignments = {
-        token_text[item["token_source_row"]]: tuple(item["candidate_line_ids"])
-        for item in unresolved
-    }
-    return tuple(sorted(line_members.items())), tuple(sorted(assignments.items()))
-
-
 def test_vertical_grouping_repairs_continuous_retained_row_without_ambiguity():
     rows = [
         _row("a", x="149", y="483", width="8", height="9"),
@@ -332,12 +320,95 @@ def test_vertical_grouping_semantics_are_invariant_under_token_permutation():
     ]
     tokens, errors = parse_tsv_rows(_tsv(*rows), 200, 100)
     assert errors == []
-    baseline = _canonical_grouping(tokens, *group_physical_lines(tokens)[:2])
+    baseline_result = group_physical_lines(tokens)
+    baseline = canonical_geometry_state("synthetic", "left", tokens, *baseline_result)
 
     permuted = [tokens[index] for index in (4, 1, 5, 0, 3, 2)]
     permuted_result = group_physical_lines(permuted)
 
-    assert _canonical_grouping(permuted, *permuted_result[:2]) == baseline
+    assert canonical_geometry_state("synthetic", "left", permuted, *permuted_result) == baseline
+
+
+def _duplicate_text_tokens():
+    rows = [
+        _row("same", x="10", y="20", word="1"),
+        _row("same", x="10", y="60", word="2", line="2"),
+        _row("anchor-a", x="60", y="20", word="3"),
+        _row("anchor-b", x="60", y="60", word="4", line="2"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 200, 100)
+    assert errors == []
+    result = group_physical_lines(tokens)
+    return tokens, result
+
+
+def test_identity_complete_oracle_detects_duplicate_text_identity_swap():
+    tokens, result = _duplicate_text_tokens()
+    baseline = canonical_geometry_state("synthetic", "left", tokens, *result)
+    lines, unresolved, measurements = result
+    swapped_lines = [dict(line) for line in lines]
+    first_members = swapped_lines[0]["token_ids"]
+    second_members = swapped_lines[1]["token_ids"]
+    swapped_lines[0]["token_ids"] = [token_id for token_id in first_members if token_id != "token-0001"] + ["token-0002"]
+    swapped_lines[1]["token_ids"] = [token_id for token_id in second_members if token_id != "token-0002"] + ["token-0001"]
+
+    assert canonical_geometry_state("synthetic", "left", tokens, swapped_lines, unresolved, measurements) != baseline
+
+
+def test_identity_complete_oracle_detects_resolved_assignment_change_with_same_uncertainty_count():
+    tokens, result = _duplicate_text_tokens()
+    baseline = canonical_geometry_state("synthetic", "left", tokens, *result)
+    lines, unresolved, measurements = result
+    changed_lines = [dict(line) for line in lines]
+    changed_lines[0]["token_ids"] = [token_id for token_id in changed_lines[0]["token_ids"] if token_id != "token-0003"]
+    changed_lines[1]["token_ids"] = [*changed_lines[1]["token_ids"], "token-0003"]
+
+    assert len(unresolved) == 0
+    assert canonical_geometry_state("synthetic", "left", tokens, changed_lines, unresolved, measurements) != baseline
+
+
+def test_identity_complete_oracle_detects_candidate_set_change():
+    rows = [
+        _row("same", x="10", y="15", word="1"),
+        _row("same", x="10", y="20", word="2", line="2"),
+        _row("same", x="10", y="21", word="3", line="3"),
+        _row("anchor", x="10", y="24", word="4", line="4"),
+    ]
+    tokens, errors = parse_tsv_rows(_tsv(*rows), 100, 100)
+    assert errors == []
+    result = group_physical_lines(tokens)
+    lines, unresolved, measurements = result
+    ambiguous = next(item for item in unresolved if item["token_source_row"] == 3)
+    baseline = canonical_geometry_state("synthetic", "left", tokens, *result)
+    changed_unresolved = [dict(item) for item in unresolved]
+    changed_item = next(item for item in changed_unresolved if item["token_source_row"] == 3)
+    changed_item["candidate_line_ids"] = changed_item["candidate_line_ids"][:1]
+
+    assert len(ambiguous["candidate_line_ids"]) > 1
+    assert canonical_geometry_state("synthetic", "left", tokens, lines, changed_unresolved, measurements) != baseline
+
+
+def test_identity_complete_oracle_ignores_consistent_generated_line_label_renaming():
+    tokens, result = _duplicate_text_tokens()
+    baseline = canonical_geometry_state("synthetic", "left", tokens, *result)
+    lines, unresolved, measurements = result
+    renaming = {line["line_id"]: f"renamed-{index}" for index, line in enumerate(lines, start=1)}
+    renamed_lines = []
+    for line in lines:
+        renamed = dict(line)
+        renamed["line_id"] = renaming[line["line_id"]]
+        renamed_lines.append(renamed)
+    renamed_unresolved = []
+    for item in unresolved:
+        renamed = dict(item)
+        renamed["candidate_line_ids"] = [renaming[line_id] for line_id in item["candidate_line_ids"]]
+        renamed_unresolved.append(renamed)
+    renamed_measurements = json.loads(json.dumps(measurements))
+    for item in renamed_measurements["line_gaps"]:
+        item["line_id"] = renaming[item["line_id"]]
+        item["next_line_id"] = renaming[item["next_line_id"]]
+
+    assert canonical_geometry_state("synthetic", "left", tokens, renamed_lines, renamed_unresolved, renamed_measurements) == baseline
 
 
 def test_vertical_grouping_keeps_genuinely_separate_neighboring_rows_separate():
