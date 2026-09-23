@@ -7,6 +7,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "research/geometry/vertical-stage-ablation/stage_ablation.py"
@@ -30,6 +32,37 @@ def test_fidelity_gate_covers_all_six_fixtures_and_all_pages() -> None:
     assert gate["page_count"] == 12
     assert gate["all_complete_states_equal"]
     assert gate["all_horizontal_splits_equal"]
+
+
+def test_fidelity_gate_executes_direct_production_comparison() -> None:
+    """Exercise the gate against repository inputs rather than stored flags."""
+
+    gate = ablation._fidelity_gate()
+    assert gate["fixture_count"] == 6
+    assert gate["page_count"] == 12
+    assert gate["all_complete_states_equal"]
+    assert gate["all_horizontal_splits_equal"]
+
+
+def test_fidelity_gate_rejects_an_injected_control_mismatch(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Ensure a real control-state mismatch fails before results are written."""
+
+    original = ablation._control_pipeline
+    injected = False
+
+    def mismatching_control(fixture_id, page, tokens):
+        nonlocal injected
+        result = copy.deepcopy(original(fixture_id, page, tokens))
+        # Change an assignment field, not a derived digest, so the failure is
+        # a genuine fidelity mismatch rather than a bookkeeping discrepancy.
+        if result["canonical_state"] and not injected:
+            result["canonical_state"][0][0][2] = "injected-mismatch-line"
+            injected = True
+        return result
+
+    monkeypatch.setattr(ablation, "_control_pipeline", mismatching_control)
+    with pytest.raises(AssertionError, match="production-fidelity gate"):
+        ablation.run(write_manifest=False)
 
 
 def test_coordinate_change_can_leave_assignment_semantics_stable() -> None:
