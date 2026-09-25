@@ -1,0 +1,147 @@
+{
+  "schema": "preprocessing-metadata-v1",
+  "status": "success",
+  "fixture_id": "stella_maris_pdf06_dense-dialogue",
+  "source_pdf": "/home/duck-lint/projects/normalize/fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+  "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+  "fixture_pdf_page_index_1_based": 1,
+  "source_pdf_page_index_1_based": 6,
+  "dpi": 144,
+  "source_pdf_dimensions_pt": {
+    "width": 792.0,
+    "height": 612.0
+  },
+  "source_raster": {
+    "width_px": 1584,
+    "height_px": 1224,
+    "declared_pdf_rotation_degrees": 90
+  },
+  "result": {
+    "kind": "spread",
+    "output_order": [
+      "left",
+      "right"
+    ],
+    "blank_sides": []
+  },
+  "transforms": {
+    "rotation": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "crop": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "deskew": {
+      "operation": "none",
+      "parameters": null,
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "split": {
+      "operation": "split",
+      "parameters": {
+        "split_x": 792,
+        "left_source_rect_px": [
+          0,
+          0,
+          792,
+          1224
+        ],
+        "right_source_rect_px": [
+          792,
+          0,
+          1584,
+          1224
+        ]
+      },
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    },
+    "order": {
+      "operation": "order",
+      "parameters": {
+        "output_order": [
+          "left",
+          "right"
+        ]
+      },
+      "input_dimensions_px": [
+        1584,
+        1224
+      ],
+      "output_dimensions_px": [
+        1584,
+        1224
+      ]
+    }
+  },
+  "pages": [
+    {
+      "side": "left",
+      "output_path": "stella_maris_pdf06_dense-dialogue.left.png",
+      "width_px": 792,
+      "height_px": 1224,
+      "source_stage": "post_deskew",
+      "source_rect_px": [
+        0,
+        0,
+        792,
+        1224
+      ],
+      "blank": false
+    },
+    {
+      "side": "right",
+      "output_path": "stella_maris_pdf06_dense-dialogue.right.png",
+      "width_px": 792,
+      "height_px": 1224,
+      "source_stage": "post_deskew",
+      "source_rect_px": [
+        792,
+        0,
+        1584,
+        1224
+      ],
+      "blank": false
+    }
+  ],
+  "spread_output": "stella_maris_pdf06_dense-dialogue.spread.png",
+  "output_files": {
+    "spread": "stella_maris_pdf06_dense-dialogue.spread.png",
+    "page": null,
+    "left": "stella_maris_pdf06_dense-dialogue.left.png",
+    "right": "stella_maris_pdf06_dense-dialogue.right.png"
+  },
+  "uncertainty": null,
+  "error": null
+}
