@@ -1,0 +1,3081 @@
+{
+  "audit_version": "accuracy-audit-v1",
+  "source_revision": "0ad8944f376059454da96a321f479218363535e1",
+  "root": "/home/duck-lint/projects/normalize/.worktrees/accuracy-audit",
+  "oracle_model": {
+    "primary": "expected.json",
+    "atomicity": {
+      "expected_sequence": "one assertion per sequence record",
+      "page_furniture": "one assertion per furniture record",
+      "visible_annotation_noise": "one assertion per noise record",
+      "critical_assertions": "one assertion per narrative record",
+      "fixture_level_lists": "one exact whole-list assertion per fixture",
+      "expected_dialogue_turn_count": "one scalar assertion per fixture"
+    },
+    "excluded_metadata_fields": [
+      "authority_note",
+      "fixture_id",
+      "fixture_pdf_page_index_1_based",
+      "normalized_reference",
+      "raw_fixture",
+      "raw_input_mode",
+      "review_status",
+      "schema_version",
+      "selection_reason",
+      "source_pdf",
+      "source_pdf_page_index_1_based"
+    ]
+  },
+  "evaluator_sha256": "ec188d8653efd637ae81d269b6a59badaad97d5a10da22750c1e67bb4bf87863",
+  "score": {
+    "total_explicit_assertions": 186,
+    "scoreable_assertions": 7,
+    "correct_resolved_decisions": 7,
+    "silent_wrong_decisions": 0,
+    "explicit_abstentions": 0,
+    "not_yet_produced_by_pipeline": 154,
+    "out_of_current_slice_scope": 25,
+    "ambiguous_oracle_mapping": 0,
+    "scoreable_decision_coverage": 1.0,
+    "decision_precision": 1.0,
+    "abstention_rate": 0.0,
+    "silent_error_rate": 0.0,
+    "extra_asserted_structure": 0,
+    "extra_asserted_structure_reason": "the current pipeline emits no structural assertion records",
+    "geometry_admitted_tokens": 2219,
+    "geometry_resolved_tokens": 2212,
+    "geometry_residual_tokens": 7,
+    "geometry_token_line_oracle_validated": 0,
+    "geometry_token_line_oracle_unscorable": 2212
+  },
+  "fixtures": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "oracle_assertions": [
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "chapter_heading",
+            "scan_visible_text": "5 The Principle of Relativity (In the Restricted Sense)",
+            "raw_anchor": "5 The Principle of Relativity (In the Restricted Sense)"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "paragraph_start",
+            "raw_anchor": "In order to attain the greatest possible clearness",
+            "continues_across_spread": true
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_continuation",
+            "raw_anchor": "K. In accordance with the discussion contained in the preceding section",
+            "boundary_before": false,
+            "note": "Continuation of the paragraph begun on printed page 26."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "If Kis a Galileian co-ordinate system",
+            "note": "raw source has 'Kis' merged; do not repair lexically during structural reconstruction."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "We advance a step farther in our generalisation"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "As long as one was convinced"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "expected_sequence",
+          "ordinal": 7,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "Nevertheless, there are two general facts"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "page_furniture",
+          "ordinal": 1,
+          "expected": {
+            "side": "right",
+            "type": "running_header",
+            "scan_visible_text": "Relativity: The Special and The General Theory",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "page_furniture",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "page_number",
+            "scan_visible_text": "26",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "page_furniture",
+          "ordinal": 3,
+          "expected": {
+            "side": "right",
+            "type": "page_number",
+            "scan_visible_text": "27",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            "26",
+            "27"
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "visible_annotation_noise",
+          "ordinal": 1,
+          "expected": {
+            "type": "cyan_highlight",
+            "expected_structural_effect": "none"
+          },
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "highlight/annotation inspection is explicitly excluded from this audit"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "The printed-page boundary between 26 and 27 is not a paragraph boundary.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "The right-page running header must not be aligned as body prose.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "Highlighting must not create a block or paragraph boundary.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 1,
+        "not_yet_produced_by_pipeline": 11,
+        "out_of_current_slice_scope": 4
+      },
+      "geometry": {
+        "status": "uncertain",
+        "admitted_token_count": 483,
+        "resolved_token_count": 477,
+        "ambiguous_token_count": 4,
+        "unassigned_token_count": 2,
+        "residual_token_count": 6,
+        "physical_line_count": 126,
+        "pages": [
+          {
+            "side": "left",
+            "status": "uncertain",
+            "token_count": 203,
+            "resolved_token_count": 198,
+            "ambiguous_token_count": 4,
+            "unassigned_token_count": 1,
+            "physical_line_count": 54
+          },
+          {
+            "side": "right",
+            "status": "uncertain",
+            "token_count": 280,
+            "resolved_token_count": 279,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 1,
+            "physical_line_count": 72
+          }
+        ],
+        "uncertainties": [
+          "ambiguous_line_assignment",
+          "unassigned_line_assignment"
+        ],
+        "errors": []
+      },
+      "geometry_residuals": [
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "left",
+            "source_row": 213,
+            "token_id": "token-0213"
+          },
+          "observed_ocr_token": "system",
+          "current_uncertainty_state": "unassigned_line_assignment",
+          "candidate_production_answers": [],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 5,
+          "oracle_sequence_record_count": 7
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "left",
+            "source_row": 216,
+            "token_id": "token-0216"
+          },
+          "observed_ocr_token": "that",
+          "current_uncertainty_state": "ambiguous_line_assignment",
+          "candidate_production_answers": [
+            {
+              "line_id": "line-0046",
+              "token_ids": [
+                "token-0218",
+                "token-0219"
+              ],
+              "median_center_y_px": 953.25
+            },
+            {
+              "line_id": "line-0047",
+              "token_ids": [
+                "token-0214",
+                "token-0215"
+              ],
+              "median_center_y_px": 954.5
+            }
+          ],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 8,
+          "oracle_sequence_record_count": 7
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "left",
+            "source_row": 217,
+            "token_id": "token-0217"
+          },
+          "observed_ocr_token": "the",
+          "current_uncertainty_state": "ambiguous_line_assignment",
+          "candidate_production_answers": [
+            {
+              "line_id": "line-0046",
+              "token_ids": [
+                "token-0218",
+                "token-0219"
+              ],
+              "median_center_y_px": 953.25
+            },
+            {
+              "line_id": "line-0047",
+              "token_ids": [
+                "token-0214",
+                "token-0215"
+              ],
+              "median_center_y_px": 954.5
+            }
+          ],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 47,
+          "oracle_sequence_record_count": 7
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "left",
+            "source_row": 226,
+            "token_id": "token-0226"
+          },
+          "observed_ocr_token": "with",
+          "current_uncertainty_state": "ambiguous_line_assignment",
+          "candidate_production_answers": [
+            {
+              "line_id": "line-0049",
+              "token_ids": [
+                "token-0225"
+              ],
+              "median_center_y_px": 982.0
+            },
+            {
+              "line_id": "line-0050",
+              "token_ids": [
+                "token-0228"
+              ],
+              "median_center_y_px": 982.0
+            }
+          ],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 8,
+          "oracle_sequence_record_count": 7
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "left",
+            "source_row": 227,
+            "token_id": "token-0227"
+          },
+          "observed_ocr_token": "respect",
+          "current_uncertainty_state": "ambiguous_line_assignment",
+          "candidate_production_answers": [
+            {
+              "line_id": "line-0049",
+              "token_ids": [
+                "token-0225"
+              ],
+              "median_center_y_px": 982.0
+            },
+            {
+              "line_id": "line-0050",
+              "token_ids": [
+                "token-0228"
+              ],
+              "median_center_y_px": 982.0
+            }
+          ],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 5,
+          "oracle_sequence_record_count": 7
+        },
+        {
+          "fixture_id": "relativity_pdf10_pp26-27",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf10_pp26-27",
+            "side": "right",
+            "source_row": 246,
+            "token_id": "token-0246"
+          },
+          "observed_ocr_token": "impossible",
+          "current_uncertainty_state": "unassigned_line_assignment",
+          "candidate_production_answers": [],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 1,
+          "oracle_sequence_record_count": 7
+        }
+      ],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "uncertain"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "a9d8c84018a7b44046b1b45b4c2bed6287aef3002c9a3260d24d69d99bdd5020",
+        "raw_sha256": "309a803d555113f1fce0146f9ae08ae7fd53e0a9e83ff4309f1763a501ba93b3",
+        "normalized_reference_sha256": "277cd6b88b27f3f797dc2411269396404a9447a3e9446942d39df7fa884bc1f0",
+        "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+        "preprocess_output_sha256": "8f411b09e236f84d8ef9c8c43c72f52eb786b608e45ab36530d48f9db970b55a",
+        "geometry_output_sha256": "13edc13b4a9d9cdc1c70ed374bfe98f4a7f7c599c2951a5d5c8a564bd5815757"
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "oracle_assertions": [
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "chapter_heading",
+            "scan_visible_text": "9 The Relativity of Simultaneity",
+            "raw_anchor": "9 The Relativity of Simultaneity"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "paragraph_start",
+            "raw_anchor": "Up to now our considerations have been referred to a particular body of reference"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "left",
+            "type": "figure",
+            "scan_visible_label": "Fig. 1",
+            "include_in_clean_body": false,
+            "interrupts_surrounding_paragraph": true,
+            "note": "Figure occurs inside the paragraph begun above it; its presence must not force a new prose paragraph."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "left",
+            "type": "paragraph_continuation",
+            "raw_anchor": "reference to the train. Then every event which takes place",
+            "boundary_before": false,
+            "note": "Same paragraph as 'Up to now our considerations...'; resumes below Fig. 1."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "Are two events (e.g. the two strokes of lightning A and B)"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "When we say that the lightning strokes A and B are simultaneous"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "page_furniture",
+          "ordinal": 1,
+          "expected": {
+            "side": "right",
+            "type": "running_header",
+            "scan_visible_text": "Relativity: The Special and The General Theory",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "page_furniture",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "page_number",
+            "scan_visible_text": "40",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "page_furniture",
+          "ordinal": 3,
+          "expected": {
+            "side": "right",
+            "type": "page_number",
+            "scan_visible_text": "41",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            "40",
+            "41"
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "Fig. 1 is a non-prose block embedded within a single paragraph.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "The prose after Fig. 1 is a continuation, not a new paragraph.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "The first body block on printed page 41 is a new paragraph, not continuation from printed page 40.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 1,
+        "not_yet_produced_by_pipeline": 10,
+        "out_of_current_slice_scope": 3
+      },
+      "geometry": {
+        "status": "uncertain",
+        "admitted_token_count": 473,
+        "resolved_token_count": 472,
+        "ambiguous_token_count": 1,
+        "unassigned_token_count": 0,
+        "residual_token_count": 1,
+        "physical_line_count": 106,
+        "pages": [
+          {
+            "side": "left",
+            "status": "success",
+            "token_count": 142,
+            "resolved_token_count": 142,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 37
+          },
+          {
+            "side": "right",
+            "status": "uncertain",
+            "token_count": 331,
+            "resolved_token_count": 330,
+            "ambiguous_token_count": 1,
+            "unassigned_token_count": 0,
+            "physical_line_count": 69
+          }
+        ],
+        "uncertainties": [
+          "ambiguous_line_assignment"
+        ],
+        "errors": []
+      },
+      "geometry_residuals": [
+        {
+          "fixture_id": "relativity_pdf17_pp40-41",
+          "stable_token_identity": {
+            "fixture_id": "relativity_pdf17_pp40-41",
+            "side": "right",
+            "source_row": 23,
+            "token_id": "token-0023"
+          },
+          "observed_ocr_token": "A",
+          "current_uncertainty_state": "ambiguous_line_assignment",
+          "candidate_production_answers": [
+            {
+              "line_id": "line-0003",
+              "token_ids": [
+                "token-0014",
+                "token-0015",
+                "token-0016",
+                "token-0017",
+                "token-0018",
+                "token-0019",
+                "token-0020",
+                "token-0021",
+                "token-0022"
+              ],
+              "median_center_y_px": 131.5
+            },
+            {
+              "line_id": "line-0004",
+              "token_ids": [],
+              "median_center_y_px": 132.0
+            }
+          ],
+          "oracle_expected_answer": null,
+          "oracle_expected_answer_available": false,
+          "correct_answer_among_candidates": "not_determinable",
+          "oracle_insufficiency_reason": "expected.json identifies structural anchors and page sides, but no OCR source row, token identity, physical-line identity, or geometry candidate; raw lexical occurrence counts are locators only and cannot select a line",
+          "raw_lexical_occurrence_count": 161,
+          "oracle_sequence_record_count": 6
+        }
+      ],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "uncertain"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "69387764b6c6fbd678866930fe2941fa4e616ed6cbad078a911c03da3e6a2ee0",
+        "raw_sha256": "24adf25c5dc327634142473f8d9cb78365e4cbec18d77e8b6a8759ac05506c49",
+        "normalized_reference_sha256": "409dceba2220b5998741a42031d3256860b27073275941a9bd041d6b6250ac2d",
+        "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+        "preprocess_output_sha256": "39531eb5c0e440a3fdf57d08a5f61fe05a7e9298b4f4a8899684f242100f92d2",
+        "geometry_output_sha256": "8a3b6b7afdab0c990bd13e048703dd8bf2f534dccba72811fead131477024125"
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "oracle_assertions": [
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "chapter_heading",
+            "scan_visible_text": "12 The Behaviour of Measuring-Rods and Clocks in Motion",
+            "raw_anchor": "12 The Behaviour of Measuring-Rods and Clocks in Motion"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "paragraph_start",
+            "raw_anchor": "Place a metre-rod in the x'-axis of K'"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "left",
+            "type": "display_math_group",
+            "expected_block_count": 2,
+            "surrounding_text_before": "can be shown to be",
+            "surrounding_text_after": "the distance between the points being",
+            "include_in_clean_body": false,
+            "note": "Two vertically separated displayed equations; neither is a prose paragraph."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "left",
+            "type": "paragraph_continuation",
+            "raw_anchor": "the distance between the points being",
+            "boundary_before": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "right",
+            "type": "display_math",
+            "position": "top_of_page",
+            "continues_from_left_page": true,
+            "include_in_clean_body": false,
+            "note": "Displayed distance expression completes the prose phrase from the bottom of printed page 52."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "But the metre-rod is moving with the velocity v relative to K"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 7,
+          "expected": {
+            "side": "right",
+            "type": "display_math",
+            "include_in_clean_body": false,
+            "note": "Displayed expression occurs within the preceding paragraph; do not turn it into a paragraph boundary."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 8,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "The rigid rod is thus shorter when in motion"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 9,
+          "expected": {
+            "side": "right",
+            "type": "display_math",
+            "include_in_clean_body": false,
+            "note": "The '= 0' expression interrupts the paragraph."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 10,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_continuation",
+            "raw_anchor": "and for still greater velocities the square-root becomes imaginary",
+            "boundary_before": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 11,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "Of course this feature of the velocity c as a limiting velocity"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 12,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "If, on the contrary, we had considered a metre-rod at rest"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 13,
+          "expected": {
+            "side": "right",
+            "type": "display_math",
+            "include_in_clean_body": false,
+            "note": "Displayed expression interrupts the preceding paragraph."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 14,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "This is quite in accordance with the principle of relativity"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "expected_sequence",
+          "ordinal": 15,
+          "expected": {
+            "side": "right",
+            "type": "paragraph_start",
+            "raw_anchor": "A Priori it is quite clear",
+            "continues_beyond_fixture": true
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "page_furniture",
+          "ordinal": 1,
+          "expected": {
+            "side": "right",
+            "type": "running_header",
+            "scan_visible_text": "Relativity: The Special and The General Theory",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "page_furniture",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "page_number",
+            "scan_visible_text": "52",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "page_furniture",
+          "ordinal": 3,
+          "expected": {
+            "side": "right",
+            "type": "page_number",
+            "scan_visible_text": "53",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            "52",
+            "53"
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "visible_annotation_noise",
+          "ordinal": 1,
+          "expected": {
+            "type": "cyan_highlight",
+            "expected_structural_effect": "none"
+          },
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "highlight/annotation inspection is explicitly excluded from this audit"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "Display math is structural content but must not be interpreted as prose paragraph starts.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "The page boundary from 52 to 53 occurs inside a prose-plus-display-math continuation.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "relativity_pdf23_pp52-53",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "Formula OCR quality is not an acceptance criterion for this fixture.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 1,
+        "not_yet_produced_by_pipeline": 19,
+        "out_of_current_slice_scope": 4
+      },
+      "geometry": {
+        "status": "success",
+        "admitted_token_count": 419,
+        "resolved_token_count": 419,
+        "ambiguous_token_count": 0,
+        "unassigned_token_count": 0,
+        "residual_token_count": 0,
+        "physical_line_count": 115,
+        "pages": [
+          {
+            "side": "left",
+            "status": "success",
+            "token_count": 155,
+            "resolved_token_count": 155,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 43
+          },
+          {
+            "side": "right",
+            "status": "success",
+            "token_count": 264,
+            "resolved_token_count": 264,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 72
+          }
+        ],
+        "uncertainties": [],
+        "errors": []
+      },
+      "geometry_residuals": [],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "success"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "0d186c54480f3aecbb66be682efa8da027cee1ed336beceb8344d9d265111c22",
+        "raw_sha256": "bdf78e075c132d36504cb2df9160df58f41618b0bbdc05b4894de360a7583667",
+        "normalized_reference_sha256": "5200f35e00999844d408cb6a1990729aff8f14538228fd1d81d7341e6147d751",
+        "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+        "preprocess_output_sha256": "3a8925c2567570b4cc6075c45f94d3d2c0988ca006e1ac7dda2331128489859d",
+        "geometry_output_sha256": "4fd59c7258f545333f3bc61ac50e505702860966ed91cdf3f5f081a17b000c6c"
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "oracle_assertions": [
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "blank_page_sides",
+          "ordinal": null,
+          "expected": [
+            "left"
+          ],
+          "observed": [
+            "left"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "right",
+            "type": "session_heading",
+            "scan_visible_text": "I",
+            "decorative_rule_below": true,
+            "raw_observation": {
+              "raw_nearby_text": "T Hi. I'm Dr Cohen.",
+              "note": "raw appears to have recognized the visible Roman numeral I as T. Do not use this fixture to justify general lexical rewriting."
+            }
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 1,
+            "raw_anchor": "Hi. I'm Dr Cohen."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 2,
+            "raw_anchor": "You're not the Dr Cohen I was expecting."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 3,
+            "raw_anchor": "Sorry about that. That would be Dr Robert Cohen."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 4,
+            "raw_anchor": "Yes. I guess there's no shortage of Dr Cohens."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 5,
+            "raw_anchor": "Probably not. How are you? Are you all right?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 7,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 6,
+            "raw_anchor": "Am I all right."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 8,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 7,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 9,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 8,
+            "raw_anchor": "I'm in the looney bin."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 10,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 9,
+            "raw_anchor": "Well. Other than that, I suppose."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 11,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 10,
+            "raw_anchor": "How long have you been doing this?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 12,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 11,
+            "raw_anchor": "About fourteen years."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 13,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 12,
+            "raw_anchor": "You're going to record this."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 14,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 13,
+            "raw_anchor": "I think that was the agreement. Is that all right?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 15,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 14,
+            "raw_anchor": "I suppose. At the time I thought you were somebody else."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 16,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 15,
+            "raw_anchor": "It's not all right."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 17,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 16,
+            "raw_anchor": "No. It's okay. Although I should say that I only agreed to chat."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 18,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 17,
+            "raw_anchor": "Yes. Is there anything you'd like to ask me? Before we begin."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_sequence",
+          "ordinal": 19,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 18,
+            "raw_anchor": "We have begun. Such as what?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            null,
+            null
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "expected_dialogue_turn_count",
+          "ordinal": null,
+          "expected": 18,
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no dialogue-turn records or count"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "Every listed dialogue turn is a distinct typographic block despite the absence of speaker labels.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "The turn beginning 'No. It's okay...' wraps onto a second physical line but remains one dialogue turn.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "The blank left page contributes no body text.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf03_session-I",
+          "field": "critical_assertions",
+          "ordinal": 4,
+          "expected": "The session heading is structurally before all dialogue on the right page.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 2,
+        "not_yet_produced_by_pipeline": 21,
+        "out_of_current_slice_scope": 4
+      },
+      "geometry": {
+        "status": "success",
+        "admitted_token_count": 133,
+        "resolved_token_count": 133,
+        "ambiguous_token_count": 0,
+        "unassigned_token_count": 0,
+        "residual_token_count": 0,
+        "physical_line_count": 23,
+        "pages": [
+          {
+            "side": "left",
+            "status": "success",
+            "token_count": 0,
+            "resolved_token_count": 0,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 0
+          },
+          {
+            "side": "right",
+            "status": "success",
+            "token_count": 133,
+            "resolved_token_count": 133,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 23
+          }
+        ],
+        "uncertainties": [],
+        "errors": []
+      },
+      "geometry_residuals": [],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "success"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "64490fd15d630a44ec7037662bc31f2f5c15c46fdd48f5ece5c8612de227fd5a",
+        "raw_sha256": "e45037641e9a49f5dbbcaf19a1cc522ed0c22c82f3c9d3e9ae47bfe5eab22cf9",
+        "normalized_reference_sha256": "4069a3d81debb0c9b2b0764461a36b91522728110ef2c8f9dce9fd1df1ccacb1",
+        "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+        "preprocess_output_sha256": "a648173dd0eca49bbf207175e43efb7451e0c440d811f970c07b21f02bbce8be",
+        "geometry_output_sha256": "848913bc16baaea8d19bfb09651d927135b84d3d650750d2593ea00206ddcaba"
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "oracle_assertions": [
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 1,
+            "raw_anchor": "Later Tanaroff. He has no citizenship."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 2,
+            "raw_anchor": "Where do you send the letters?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 3,
+            "raw_anchor": "To IHES. You dont know who he is, do you?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 4,
+            "raw_anchor": "No."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 5,
+            "raw_anchor": "It's all right. We were friends. We are friends. We share a common skepticism."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 6,
+            "raw_anchor": "About what?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 7,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 7,
+            "raw_anchor": "About mathematics."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 8,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 8,
+            "raw_anchor": "I'm not sure that I follow you."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 9,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 9,
+            "raw_anchor": "It's all right."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 10,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 10,
+            "raw_anchor": "You're skeptical about mathematics?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 11,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 11,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 12,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 12,
+            "raw_anchor": "You feel disappointed in the discipline in some way?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 13,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 13,
+            "raw_anchor": "I know."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 14,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 14,
+            "raw_anchor": "But it has disappointed you."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 15,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 15,
+            "raw_anchor": "That would be one way to put it."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 16,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 16,
+            "raw_anchor": "How would it do that?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 17,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 17,
+            "raw_anchor": "Well. In this case it was led by a group of evil and aberrant"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 18,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 18,
+            "raw_anchor": "You think my questions are naive."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 19,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 19,
+            "raw_anchor": "I'm sorry. No. I dont. The failure doesnt lie with the querent."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 20,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 20,
+            "raw_anchor": "Is he a prominent mathematician? Your friend."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 21,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 21,
+            "raw_anchor": "Grothendieck. He's widely regarded as the foremost mathematician"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 22,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 22,
+            "raw_anchor": "I'm sorry but I dont know those names."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 23,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 23,
+            "raw_anchor": "I know. It's all right. Well, not really. But it's okay."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 24,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 24,
+            "raw_anchor": "Grothendieck."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 25,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 25,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 26,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 26,
+            "raw_anchor": "Did you work with him?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 27,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 27,
+            "raw_anchor": "I dont know if you would call it work."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 28,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 28,
+            "raw_anchor": "I take it it was not a good experience."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 29,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 29,
+            "raw_anchor": "It was fantastic. Even at Chicago I'd had a certain amount of trouble."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 30,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 30,
+            "raw_anchor": "How old were you?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 31,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 31,
+            "raw_anchor": "Seventeen."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 32,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 32,
+            "raw_anchor": "And that wasnt an issue. Your age."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 33,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 33,
+            "raw_anchor": "It wouldnt even occur to him."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 34,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 34,
+            "raw_anchor": "Why doesnt he write?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 35,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 35,
+            "raw_anchor": "Mostly because he's given up mathematics."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 36,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 36,
+            "raw_anchor": "As have you."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 37,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 37,
+            "raw_anchor": "Yes. As have I."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 38,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 38,
+            "raw_anchor": "Was that hard?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_sequence",
+          "ordinal": 39,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 39,
+            "raw_anchor": "Well. I think maybe it's harder to lose just one thing than to lose everything."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "page_furniture",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "running_header",
+            "scan_visible_text": "STELLA MARIS",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "page_furniture",
+          "ordinal": 2,
+          "expected": {
+            "side": "right",
+            "type": "page_number",
+            "scan_visible_text": "11",
+            "raw_raw_form": "-11-",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            null,
+            "11"
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "expected_dialogue_turn_count",
+          "ordinal": null,
+          "expected": 39,
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no dialogue-turn records or count"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "visible_annotation_noise",
+          "ordinal": 1,
+          "expected": {
+            "type": "cyan_highlight",
+            "expected_structural_effect": "none"
+          },
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "highlight/annotation inspection is explicitly excluded from this audit"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "Wrapped physical lines inside long replies remain one dialogue turn.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "The running header and page number are not dialogue.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "Short one-line responses such as 'Yes.' are separate dialogue turns.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf06_dense-dialogue",
+          "field": "critical_assertions",
+          "ordinal": 4,
+          "expected": "Highlighting must not alter turn segmentation.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 1,
+        "not_yet_produced_by_pipeline": 43,
+        "out_of_current_slice_scope": 5
+      },
+      "geometry": {
+        "status": "success",
+        "admitted_token_count": 504,
+        "resolved_token_count": 504,
+        "ambiguous_token_count": 0,
+        "unassigned_token_count": 0,
+        "residual_token_count": 0,
+        "physical_line_count": 87,
+        "pages": [
+          {
+            "side": "left",
+            "status": "success",
+            "token_count": 233,
+            "resolved_token_count": 233,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 44
+          },
+          {
+            "side": "right",
+            "status": "success",
+            "token_count": 271,
+            "resolved_token_count": 271,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 43
+          }
+        ],
+        "uncertainties": [],
+        "errors": []
+      },
+      "geometry_residuals": [],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "success"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "4f39c3c084a06cc917993b0e107500d2338a44f976ecda02b4916bfd0040368f",
+        "raw_sha256": "cf7191bbd973309e46183d84b9887118106951af1aabd5f90d32ce8b13632e92",
+        "normalized_reference_sha256": "744e9c0d1131b5504b3a19546db1610319b7caceb891276cd754b5f556909a24",
+        "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+        "preprocess_output_sha256": "23f1261921c97bfe37881d26aaf26b82551145b708e10d9d79ef735c5c8217ac",
+        "geometry_output_sha256": "aebda81e260008395e88e37add226b1b7e95f565eeb17a53e9c0628a8382a7d7"
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "oracle_assertions": [
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "spread_reading_order",
+          "ordinal": null,
+          "expected": [
+            "left",
+            "right"
+          ],
+          "observed": [
+            "left",
+            "right"
+          ],
+          "status": "scoreable_now",
+          "reason": "exact list equality against the corresponding preprocessing contract field",
+          "decision": "correct"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 1,
+          "expected": {
+            "side": "left",
+            "type": "session_heading",
+            "scan_visible_text": "II",
+            "decorative_rule_below": true,
+            "raw_observation": {
+              "raw_relative_order": "The token 'II' appears after 'So what's been on your mind?' in the raw extraction.",
+              "expected_layout_order": "The session heading precedes 'How have you been?' and all dialogue on this spread."
+            }
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 2,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 1,
+            "raw_anchor": "How have you been?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 3,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 2,
+            "raw_anchor": "I'm okay."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 4,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 3,
+            "raw_anchor": "I missed you last week."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 5,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 4,
+            "raw_anchor": "Yeah, well. You know. Busy."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 6,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 5,
+            "raw_anchor": "Busy."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 7,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 6,
+            "raw_anchor": "Just kidding."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 8,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 7,
+            "raw_anchor": "All right."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 9,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 8,
+            "raw_anchor": "All right."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 10,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 9,
+            "raw_anchor": "So what's been on your mind?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 11,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 10,
+            "raw_anchor": "I dont know. What's your wife like?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 12,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 11,
+            "raw_anchor": "My wife."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 13,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 12,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 14,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 13,
+            "raw_anchor": "She's Italian. What's she like?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 15,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 14,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 16,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 15,
+            "raw_anchor": "She's attractive. She likes Bach."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 17,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 16,
+            "raw_anchor": "Is she a good cook?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 18,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 17,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 19,
+          "expected": {
+            "side": "left",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 18,
+            "raw_anchor": "She's not Jewish."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 20,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 19,
+            "raw_anchor": "She is Jewish."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 21,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 20,
+            "raw_anchor": "She's nice."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 22,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 21,
+            "raw_anchor": "Very nice."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 23,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 22,
+            "raw_anchor": "Something you're not telling me."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 24,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 23,
+            "raw_anchor": "We were divorced. For three years. Then we remarried."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 25,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 24,
+            "raw_anchor": "You treated her badly."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 26,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 25,
+            "raw_anchor": "Yes. I did."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 27,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 26,
+            "raw_anchor": "Why did you?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 28,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 27,
+            "raw_anchor": "Because I was an idiot."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 29,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 28,
+            "raw_anchor": "That's what Oppenheimer said. At the hearings."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 30,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 29,
+            "raw_anchor": "He seems a strange candidate for"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 31,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 30,
+            "raw_anchor": "I think that's why the quote is memorable."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 32,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 31,
+            "raw_anchor": "Oppenheimer."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 33,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 32,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 34,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 33,
+            "raw_anchor": "I assume your father knew him."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 35,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 34,
+            "raw_anchor": "My father worked for him."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 36,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 35,
+            "raw_anchor": "What was his opinion?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 37,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 36,
+            "raw_anchor": "Of Oppenheimer."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 38,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 37,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 39,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 38,
+            "raw_anchor": "He found him engaging, charming, erudite."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 40,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 39,
+            "raw_anchor": "Frightening?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 41,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 40,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 42,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 41,
+            "raw_anchor": "In what sense?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 43,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 42,
+            "raw_anchor": "He thought that Oppenheimer's intelligence was not entirely contained."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 44,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 43,
+            "raw_anchor": "Was he?"
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 45,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 44,
+            "raw_anchor": "Yes."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 46,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 45,
+            "raw_anchor": "But not Satanic."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_sequence",
+          "ordinal": 47,
+          "expected": {
+            "side": "right",
+            "type": "dialogue_turn_start",
+            "turn_index_on_spread": 46,
+            "raw_anchor": "That would be a stretch."
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no structural sequence records or source-text spans"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "page_furniture",
+          "ordinal": 1,
+          "expected": {
+            "side": "right",
+            "type": "page_number",
+            "scan_visible_text": "35",
+            "include_in_clean_body": false
+          },
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no page-furniture classifier"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "visible_printed_page_labels",
+          "ordinal": null,
+          "expected": [
+            null,
+            "35"
+          ],
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no printed-page-label field"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "expected_dialogue_turn_count",
+          "ordinal": null,
+          "expected": 46,
+          "observed": null,
+          "status": "not_yet_produced_by_pipeline",
+          "reason": "the current output has no dialogue-turn records or count"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "visible_annotation_noise",
+          "ordinal": 1,
+          "expected": {
+            "type": "cyan_highlight",
+            "expected_structural_effect": "none"
+          },
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "highlight/annotation inspection is explicitly excluded from this audit"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "critical_assertions",
+          "ordinal": 1,
+          "expected": "The session heading II is structurally first even though raw places its token later in the raw extraction.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "critical_assertions",
+          "ordinal": 2,
+          "expected": "Every listed turn is a distinct typographic dialogue block.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "critical_assertions",
+          "ordinal": 3,
+          "expected": "Wrapped turns remain single dialogue blocks.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        },
+        {
+          "fixture_id": "stella_maris_pdf18_session-II_p35",
+          "field": "critical_assertions",
+          "ordinal": 4,
+          "expected": "The page number is not dialogue.",
+          "observed": null,
+          "status": "out_of_current_slice_scope",
+          "reason": "these are narrative fixture notes, not machine-matchable output records"
+        }
+      ],
+      "oracle_assertion_counts": {
+        "scoreable_now": 1,
+        "not_yet_produced_by_pipeline": 50,
+        "out_of_current_slice_scope": 5
+      },
+      "geometry": {
+        "status": "success",
+        "admitted_token_count": 207,
+        "resolved_token_count": 207,
+        "ambiguous_token_count": 0,
+        "unassigned_token_count": 0,
+        "residual_token_count": 0,
+        "physical_line_count": 65,
+        "pages": [
+          {
+            "side": "left",
+            "status": "success",
+            "token_count": 70,
+            "resolved_token_count": 70,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 25
+          },
+          {
+            "side": "right",
+            "status": "success",
+            "token_count": 137,
+            "resolved_token_count": 137,
+            "ambiguous_token_count": 0,
+            "unassigned_token_count": 0,
+            "physical_line_count": 40
+          }
+        ],
+        "uncertainties": [],
+        "errors": []
+      },
+      "geometry_residuals": [],
+      "pipeline_status": {
+        "preprocess": "success",
+        "geometry": "success"
+      },
+      "hashes": {
+        "expected_oracle_sha256": "af5f62457fa8021b3c55b7077b43c24f306be39d0bdfe0acecd12a4c33bfd415",
+        "raw_sha256": "f9eea3bc66896e38c299841fb90742c6568899df15578e01ca15da9c91fbf164",
+        "normalized_reference_sha256": "96acb7bde50dbb7620f9c24c3d8b6aa5e1ad95ed28aecf1f1e8ad6e6731c0f4e",
+        "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+        "preprocess_output_sha256": "dd8d22547069b95af119b613b98c3fc9ef59bb77e8835f8fa85d17f9b55a7a66",
+        "geometry_output_sha256": "f15c5703157a48165440f7c1341fd1e9b3ba828f2153ca1b2c6367396533036f"
+      }
+    }
+  ],
+  "secondary_normalized_reference": {
+    "comparable_current_projection": false,
+    "reason": "the current pipeline does not emit a source-text structural projection comparable to normalized.md"
+  }
+}
