@@ -1,0 +1,4373 @@
+{
+  "side": "right",
+  "image_path": "inputs/stella_maris_pdf18_session-II_p35.right.png",
+  "width_px": 1292,
+  "height_px": 2274,
+  "blank": false,
+  "provenance": {
+    "fixture_id": "stella_maris_pdf18_session-II_p35",
+    "fixture_pdf_page_index_1_based": 1,
+    "source_pdf_page_index_1_based": 1,
+    "dpi": 300,
+    "metadata_order": [
+      "right"
+    ],
+    "source_stage": "user_manual_crop",
+    "source_rect_px": null
+  },
+  "coordinate_system": {
+    "origin": "top-left",
+    "units": "px"
+  },
+  "status": "success",
+  "errors": [],
+  "error_details": [],
+  "uncertainties": [],
+  "tokens": [
+    {
+      "token_id": "token-0005",
+      "source_row": 5,
+      "text": "45",
+      "confidence": 70.683281,
+      "x_px": 631,
+      "y_px": 17,
+      "width_px": 33,
+      "height_px": 24,
+      "right_px": 664,
+      "bottom_px": 41,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0001",
+      "candidate_line_ids": [
+        "line-0001"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 1,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0008",
+      "source_row": 8,
+      "text": "She",
+      "confidence": 96.313217,
+      "x_px": 63,
+      "y_px": 120,
+      "width_px": 67,
+      "height_px": 32,
+      "right_px": 130,
+      "bottom_px": 152,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0002",
+      "candidate_line_ids": [
+        "line-0002"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 2,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0009",
+      "source_row": 9,
+      "text": "is",
+      "confidence": 96.902618,
+      "x_px": 146,
+      "y_px": 122,
+      "width_px": 25,
+      "height_px": 31,
+      "right_px": 171,
+      "bottom_px": 153,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0002",
+      "candidate_line_ids": [
+        "line-0002"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 2,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0010",
+      "source_row": 10,
+      "text": "Jewish.",
+      "confidence": 96.382774,
+      "x_px": 185,
+      "y_px": 121,
+      "width_px": 135,
+      "height_px": 36,
+      "right_px": 320,
+      "bottom_px": 157,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0002",
+      "candidate_line_ids": [
+        "line-0002"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 2,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0013",
+      "source_row": 13,
+      "text": "She’s",
+      "confidence": 88.177513,
+      "x_px": 62,
+      "y_px": 188,
+      "width_px": 94,
+      "height_px": 32,
+      "right_px": 156,
+      "bottom_px": 220,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0003",
+      "candidate_line_ids": [
+        "line-0003"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 3,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0014",
+      "source_row": 14,
+      "text": "nice.",
+      "confidence": 96.519272,
+      "x_px": 171,
+      "y_px": 190,
+      "width_px": 86,
+      "height_px": 31,
+      "right_px": 257,
+      "bottom_px": 221,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0003",
+      "candidate_line_ids": [
+        "line-0003"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 3,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0017",
+      "source_row": 17,
+      "text": "Very",
+      "confidence": 96.137306,
+      "x_px": 66,
+      "y_px": 256,
+      "width_px": 82,
+      "height_px": 43,
+      "right_px": 148,
+      "bottom_px": 299,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0004",
+      "candidate_line_ids": [
+        "line-0004"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 4,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0018",
+      "source_row": 18,
+      "text": "nice.",
+      "confidence": 96.582367,
+      "x_px": 165,
+      "y_px": 258,
+      "width_px": 86,
+      "height_px": 31,
+      "right_px": 251,
+      "bottom_px": 289,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0004",
+      "candidate_line_ids": [
+        "line-0004"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 4,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0021",
+      "source_row": 21,
+      "text": "Something",
+      "confidence": 96.380707,
+      "x_px": 62,
+      "y_px": 324,
+      "width_px": 206,
+      "height_px": 44,
+      "right_px": 268,
+      "bottom_px": 368,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0005",
+      "candidate_line_ids": [
+        "line-0005"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 5,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0022",
+      "source_row": 22,
+      "text": "you're",
+      "confidence": 9.539932,
+      "x_px": 282,
+      "y_px": 324,
+      "width_px": 112,
+      "height_px": 44,
+      "right_px": 394,
+      "bottom_px": 368,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0005",
+      "candidate_line_ids": [
+        "line-0005"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 5,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0023",
+      "source_row": 23,
+      "text": "not",
+      "confidence": 96.985504,
+      "x_px": 409,
+      "y_px": 333,
+      "width_px": 58,
+      "height_px": 25,
+      "right_px": 467,
+      "bottom_px": 358,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0005",
+      "candidate_line_ids": [
+        "line-0005"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 5,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0024",
+      "source_row": 24,
+      "text": "telling",
+      "confidence": 96.641953,
+      "x_px": 482,
+      "y_px": 325,
+      "width_px": 121,
+      "height_px": 44,
+      "right_px": 603,
+      "bottom_px": 369,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0005",
+      "candidate_line_ids": [
+        "line-0005"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 5,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0025",
+      "source_row": 25,
+      "text": "me.",
+      "confidence": 96.987785,
+      "x_px": 618,
+      "y_px": 338,
+      "width_px": 66,
+      "height_px": 21,
+      "right_px": 684,
+      "bottom_px": 359,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0005",
+      "candidate_line_ids": [
+        "line-0005"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 5,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0028",
+      "source_row": 28,
+      "text": "We",
+      "confidence": 96.756607,
+      "x_px": 64,
+      "y_px": 391,
+      "width_px": 56,
+      "height_px": 33,
+      "right_px": 120,
+      "bottom_px": 424,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0029",
+      "source_row": 29,
+      "text": "were",
+      "confidence": 96.083153,
+      "x_px": 134,
+      "y_px": 404,
+      "width_px": 85,
+      "height_px": 20,
+      "right_px": 219,
+      "bottom_px": 424,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0030",
+      "source_row": 30,
+      "text": "divorced.",
+      "confidence": 96.444763,
+      "x_px": 234,
+      "y_px": 391,
+      "width_px": 172,
+      "height_px": 34,
+      "right_px": 406,
+      "bottom_px": 425,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0031",
+      "source_row": 31,
+      "text": "For",
+      "confidence": 96.607704,
+      "x_px": 423,
+      "y_px": 392,
+      "width_px": 62,
+      "height_px": 34,
+      "right_px": 485,
+      "bottom_px": 426,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0032",
+      "source_row": 32,
+      "text": "three",
+      "confidence": 96.810425,
+      "x_px": 498,
+      "y_px": 392,
+      "width_px": 98,
+      "height_px": 34,
+      "right_px": 596,
+      "bottom_px": 426,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0033",
+      "source_row": 33,
+      "text": "years.",
+      "confidence": 96.617561,
+      "x_px": 609,
+      "y_px": 406,
+      "width_px": 109,
+      "height_px": 31,
+      "right_px": 718,
+      "bottom_px": 437,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0034",
+      "source_row": 34,
+      "text": "Then",
+      "confidence": 96.040894,
+      "x_px": 734,
+      "y_px": 393,
+      "width_px": 99,
+      "height_px": 34,
+      "right_px": 833,
+      "bottom_px": 427,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0035",
+      "source_row": 35,
+      "text": "we",
+      "confidence": 96.545189,
+      "x_px": 846,
+      "y_px": 406,
+      "width_px": 49,
+      "height_px": 21,
+      "right_px": 895,
+      "bottom_px": 427,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 8
+      }
+    },
+    {
+      "token_id": "token-0036",
+      "source_row": 36,
+      "text": "remarried.",
+      "confidence": 96.571243,
+      "x_px": 909,
+      "y_px": 394,
+      "width_px": 200,
+      "height_px": 34,
+      "right_px": 1109,
+      "bottom_px": 428,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0006",
+      "candidate_line_ids": [
+        "line-0006"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 6,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 9
+      }
+    },
+    {
+      "token_id": "token-0039",
+      "source_row": 39,
+      "text": "You",
+      "confidence": 96.821434,
+      "x_px": 64,
+      "y_px": 458,
+      "width_px": 69,
+      "height_px": 33,
+      "right_px": 133,
+      "bottom_px": 491,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0007",
+      "candidate_line_ids": [
+        "line-0007"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 7,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0040",
+      "source_row": 40,
+      "text": "treated",
+      "confidence": 96.578583,
+      "x_px": 148,
+      "y_px": 459,
+      "width_px": 131,
+      "height_px": 33,
+      "right_px": 279,
+      "bottom_px": 492,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0007",
+      "candidate_line_ids": [
+        "line-0007"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 7,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0041",
+      "source_row": 41,
+      "text": "her",
+      "confidence": 96.65226,
+      "x_px": 294,
+      "y_px": 459,
+      "width_px": 60,
+      "height_px": 34,
+      "right_px": 354,
+      "bottom_px": 493,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0007",
+      "candidate_line_ids": [
+        "line-0007"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 7,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0042",
+      "source_row": 42,
+      "text": "badly.",
+      "confidence": 96.703033,
+      "x_px": 368,
+      "y_px": 459,
+      "width_px": 111,
+      "height_px": 45,
+      "right_px": 479,
+      "bottom_px": 504,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0007",
+      "candidate_line_ids": [
+        "line-0007"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 7,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0045",
+      "source_row": 45,
+      "text": "Yes.",
+      "confidence": 96.618683,
+      "x_px": 64,
+      "y_px": 526,
+      "width_px": 72,
+      "height_px": 33,
+      "right_px": 136,
+      "bottom_px": 559,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0008",
+      "candidate_line_ids": [
+        "line-0008"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 8,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0046",
+      "source_row": 46,
+      "text": "I",
+      "confidence": 90.207451,
+      "x_px": 153,
+      "y_px": 526,
+      "width_px": 13,
+      "height_px": 33,
+      "right_px": 166,
+      "bottom_px": 559,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0008",
+      "candidate_line_ids": [
+        "line-0008"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 8,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0047",
+      "source_row": 47,
+      "text": "did.",
+      "confidence": 93.439201,
+      "x_px": 181,
+      "y_px": 526,
+      "width_px": 70,
+      "height_px": 34,
+      "right_px": 251,
+      "bottom_px": 560,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0008",
+      "candidate_line_ids": [
+        "line-0008"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 8,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0050",
+      "source_row": 50,
+      "text": "Why",
+      "confidence": 95.839615,
+      "x_px": 63,
+      "y_px": 593,
+      "width_px": 88,
+      "height_px": 45,
+      "right_px": 151,
+      "bottom_px": 638,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0009",
+      "candidate_line_ids": [
+        "line-0009"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 9,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0051",
+      "source_row": 51,
+      "text": "did",
+      "confidence": 96.697083,
+      "x_px": 166,
+      "y_px": 593,
+      "width_px": 58,
+      "height_px": 34,
+      "right_px": 224,
+      "bottom_px": 627,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0009",
+      "candidate_line_ids": [
+        "line-0009"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 9,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0052",
+      "source_row": 52,
+      "text": "you?",
+      "confidence": 96.893806,
+      "x_px": 239,
+      "y_px": 594,
+      "width_px": 85,
+      "height_px": 44,
+      "right_px": 324,
+      "bottom_px": 638,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0009",
+      "candidate_line_ids": [
+        "line-0009"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 9,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0055",
+      "source_row": 55,
+      "text": "Because",
+      "confidence": 96.626991,
+      "x_px": 65,
+      "y_px": 661,
+      "width_px": 147,
+      "height_px": 34,
+      "right_px": 212,
+      "bottom_px": 695,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0010",
+      "candidate_line_ids": [
+        "line-0010"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 10,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0056",
+      "source_row": 56,
+      "text": "I",
+      "confidence": 88.514374,
+      "x_px": 227,
+      "y_px": 661,
+      "width_px": 13,
+      "height_px": 34,
+      "right_px": 240,
+      "bottom_px": 695,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0010",
+      "candidate_line_ids": [
+        "line-0010"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 10,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0057",
+      "source_row": 57,
+      "text": "was",
+      "confidence": 95.945084,
+      "x_px": 255,
+      "y_px": 675,
+      "width_px": 68,
+      "height_px": 20,
+      "right_px": 323,
+      "bottom_px": 695,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0010",
+      "candidate_line_ids": [
+        "line-0010"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 10,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0058",
+      "source_row": 58,
+      "text": "an",
+      "confidence": 95.945084,
+      "x_px": 336,
+      "y_px": 675,
+      "width_px": 43,
+      "height_px": 20,
+      "right_px": 379,
+      "bottom_px": 695,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0010",
+      "candidate_line_ids": [
+        "line-0010"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 10,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0059",
+      "source_row": 59,
+      "text": "idiot.",
+      "confidence": 96.41169,
+      "x_px": 393,
+      "y_px": 662,
+      "width_px": 96,
+      "height_px": 34,
+      "right_px": 489,
+      "bottom_px": 696,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0010",
+      "candidate_line_ids": [
+        "line-0010"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 10,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0062",
+      "source_row": 62,
+      "text": "That’s",
+      "confidence": 33.669106,
+      "x_px": 60,
+      "y_px": 729,
+      "width_px": 115,
+      "height_px": 33,
+      "right_px": 175,
+      "bottom_px": 762,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0063",
+      "source_row": 63,
+      "text": "what",
+      "confidence": 96.387421,
+      "x_px": 190,
+      "y_px": 729,
+      "width_px": 88,
+      "height_px": 34,
+      "right_px": 278,
+      "bottom_px": 763,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0064",
+      "source_row": 64,
+      "text": "Oppenheimer",
+      "confidence": 95.881073,
+      "x_px": 293,
+      "y_px": 729,
+      "width_px": 260,
+      "height_px": 45,
+      "right_px": 553,
+      "bottom_px": 774,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0065",
+      "source_row": 65,
+      "text": "said.",
+      "confidence": 96.830292,
+      "x_px": 567,
+      "y_px": 731,
+      "width_px": 84,
+      "height_px": 34,
+      "right_px": 651,
+      "bottom_px": 765,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0066",
+      "source_row": 66,
+      "text": "At",
+      "confidence": 97.013145,
+      "x_px": 667,
+      "y_px": 731,
+      "width_px": 45,
+      "height_px": 34,
+      "right_px": 712,
+      "bottom_px": 765,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0067",
+      "source_row": 67,
+      "text": "the",
+      "confidence": 97.012726,
+      "x_px": 726,
+      "y_px": 731,
+      "width_px": 58,
+      "height_px": 34,
+      "right_px": 784,
+      "bottom_px": 765,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0068",
+      "source_row": 68,
+      "text": "hearings.",
+      "confidence": 96.24884,
+      "x_px": 798,
+      "y_px": 731,
+      "width_px": 174,
+      "height_px": 45,
+      "right_px": 972,
+      "bottom_px": 776,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0011",
+      "candidate_line_ids": [
+        "line-0011"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 11,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0071",
+      "source_row": 71,
+      "text": "He",
+      "confidence": 96.080124,
+      "x_px": 64,
+      "y_px": 796,
+      "width_px": 48,
+      "height_px": 33,
+      "right_px": 112,
+      "bottom_px": 829,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0072",
+      "source_row": 72,
+      "text": "seems",
+      "confidence": 96.734467,
+      "x_px": 127,
+      "y_px": 809,
+      "width_px": 111,
+      "height_px": 21,
+      "right_px": 238,
+      "bottom_px": 830,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0073",
+      "source_row": 73,
+      "text": "a",
+      "confidence": 96.79483,
+      "x_px": 252,
+      "y_px": 809,
+      "width_px": 18,
+      "height_px": 21,
+      "right_px": 270,
+      "bottom_px": 830,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0074",
+      "source_row": 74,
+      "text": "strange",
+      "confidence": 96.295227,
+      "x_px": 284,
+      "y_px": 804,
+      "width_px": 137,
+      "height_px": 38,
+      "right_px": 421,
+      "bottom_px": 842,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0075",
+      "source_row": 75,
+      "text": "candidate",
+      "confidence": 96.870796,
+      "x_px": 435,
+      "y_px": 798,
+      "width_px": 183,
+      "height_px": 34,
+      "right_px": 618,
+      "bottom_px": 832,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0076",
+      "source_row": 76,
+      "text": "for",
+      "confidence": 96.778091,
+      "x_px": 632,
+      "y_px": 798,
+      "width_px": 52,
+      "height_px": 34,
+      "right_px": 684,
+      "bottom_px": 832,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0077",
+      "source_row": 77,
+      "text": "idiocy.",
+      "confidence": 96.350052,
+      "x_px": 697,
+      "y_px": 798,
+      "width_px": 121,
+      "height_px": 45,
+      "right_px": 818,
+      "bottom_px": 843,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0012",
+      "candidate_line_ids": [
+        "line-0012"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 12,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0080",
+      "source_row": 80,
+      "text": "I",
+      "confidence": 91.393738,
+      "x_px": 64,
+      "y_px": 864,
+      "width_px": 6,
+      "height_px": 32,
+      "right_px": 70,
+      "bottom_px": 896,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0081",
+      "source_row": 81,
+      "text": "think",
+      "confidence": 96.429543,
+      "x_px": 98,
+      "y_px": 864,
+      "width_px": 100,
+      "height_px": 33,
+      "right_px": 198,
+      "bottom_px": 897,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0082",
+      "source_row": 82,
+      "text": "that’s",
+      "confidence": 96.900131,
+      "x_px": 220,
+      "y_px": 864,
+      "width_px": 101,
+      "height_px": 34,
+      "right_px": 321,
+      "bottom_px": 898,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0083",
+      "source_row": 83,
+      "text": "why",
+      "confidence": 96.591255,
+      "x_px": 342,
+      "y_px": 865,
+      "width_px": 74,
+      "height_px": 44,
+      "right_px": 416,
+      "bottom_px": 909,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0084",
+      "source_row": 84,
+      "text": "the",
+      "confidence": 96.879082,
+      "x_px": 437,
+      "y_px": 865,
+      "width_px": 59,
+      "height_px": 34,
+      "right_px": 496,
+      "bottom_px": 899,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0085",
+      "source_row": 85,
+      "text": "quote",
+      "confidence": 96.590324,
+      "x_px": 517,
+      "y_px": 873,
+      "width_px": 105,
+      "height_px": 37,
+      "right_px": 622,
+      "bottom_px": 910,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0086",
+      "source_row": 86,
+      "text": "is",
+      "confidence": 96.03611,
+      "x_px": 643,
+      "y_px": 868,
+      "width_px": 28,
+      "height_px": 31,
+      "right_px": 671,
+      "bottom_px": 899,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0087",
+      "source_row": 87,
+      "text": "memorable.",
+      "confidence": 96.03611,
+      "x_px": 693,
+      "y_px": 867,
+      "width_px": 221,
+      "height_px": 34,
+      "right_px": 914,
+      "bottom_px": 901,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 8
+      }
+    },
+    {
+      "token_id": "token-0088",
+      "source_row": 88,
+      "text": "People",
+      "confidence": 96.634781,
+      "x_px": 938,
+      "y_px": 867,
+      "width_px": 124,
+      "height_px": 45,
+      "right_px": 1062,
+      "bottom_px": 912,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 9
+      }
+    },
+    {
+      "token_id": "token-0089",
+      "source_row": 89,
+      "text": "who",
+      "confidence": 96.2948,
+      "x_px": 1083,
+      "y_px": 868,
+      "width_px": 75,
+      "height_px": 34,
+      "right_px": 1158,
+      "bottom_px": 902,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 10
+      }
+    },
+    {
+      "token_id": "token-0090",
+      "source_row": 90,
+      "text": "knew",
+      "confidence": 96.2948,
+      "x_px": 1181,
+      "y_px": 868,
+      "width_px": 96,
+      "height_px": 34,
+      "right_px": 1277,
+      "bottom_px": 902,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0013",
+      "candidate_line_ids": [
+        "line-0013"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 11
+      }
+    },
+    {
+      "token_id": "token-0092",
+      "source_row": 92,
+      "text": "Minstein,",
+      "confidence": 0.0,
+      "x_px": 15,
+      "y_px": 931,
+      "width_px": 165,
+      "height_px": 40,
+      "right_px": 180,
+      "bottom_px": 971,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0093",
+      "source_row": 93,
+      "text": "Dirac,",
+      "confidence": 96.706047,
+      "x_px": 197,
+      "y_px": 932,
+      "width_px": 117,
+      "height_px": 41,
+      "right_px": 314,
+      "bottom_px": 973,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0094",
+      "source_row": 94,
+      "text": "von",
+      "confidence": 96.414749,
+      "x_px": 330,
+      "y_px": 946,
+      "width_px": 66,
+      "height_px": 20,
+      "right_px": 396,
+      "bottom_px": 966,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0095",
+      "source_row": 95,
+      "text": "Neumann,",
+      "confidence": 96.457382,
+      "x_px": 413,
+      "y_px": 933,
+      "width_px": 199,
+      "height_px": 41,
+      "right_px": 612,
+      "bottom_px": 974,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0096",
+      "source_row": 96,
+      "text": "said",
+      "confidence": 96.384079,
+      "x_px": 629,
+      "y_px": 934,
+      "width_px": 73,
+      "height_px": 34,
+      "right_px": 702,
+      "bottom_px": 968,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0097",
+      "source_row": 97,
+      "text": "that",
+      "confidence": 96.550095,
+      "x_px": 718,
+      "y_px": 934,
+      "width_px": 73,
+      "height_px": 34,
+      "right_px": 791,
+      "bottom_px": 968,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0098",
+      "source_row": 98,
+      "text": "he",
+      "confidence": 96.812019,
+      "x_px": 806,
+      "y_px": 934,
+      "width_px": 43,
+      "height_px": 34,
+      "right_px": 849,
+      "bottom_px": 968,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0099",
+      "source_row": 99,
+      "text": "was",
+      "confidence": 96.098061,
+      "x_px": 864,
+      "y_px": 948,
+      "width_px": 67,
+      "height_px": 20,
+      "right_px": 931,
+      "bottom_px": 968,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 8
+      }
+    },
+    {
+      "token_id": "token-0100",
+      "source_row": 100,
+      "text": "the",
+      "confidence": 96.456863,
+      "x_px": 945,
+      "y_px": 935,
+      "width_px": 58,
+      "height_px": 34,
+      "right_px": 1003,
+      "bottom_px": 969,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 9
+      }
+    },
+    {
+      "token_id": "token-0101",
+      "source_row": 101,
+      "text": "smartest",
+      "confidence": 96.096275,
+      "x_px": 1018,
+      "y_px": 943,
+      "width_px": 161,
+      "height_px": 26,
+      "right_px": 1179,
+      "bottom_px": 969,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 10
+      }
+    },
+    {
+      "token_id": "token-0102",
+      "source_row": 102,
+      "text": "man",
+      "confidence": 96.096275,
+      "x_px": 1197,
+      "y_px": 949,
+      "width_px": 79,
+      "height_px": 21,
+      "right_px": 1276,
+      "bottom_px": 970,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0014",
+      "candidate_line_ids": [
+        "line-0014"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 11
+      }
+    },
+    {
+      "token_id": "token-0104",
+      "source_row": 104,
+      "text": "they'd",
+      "confidence": 25.209129,
+      "x_px": 12,
+      "y_px": 998,
+      "width_px": 114,
+      "height_px": 44,
+      "right_px": 126,
+      "bottom_px": 1042,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0015",
+      "candidate_line_ids": [
+        "line-0015"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 3,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0105",
+      "source_row": 105,
+      "text": "ever",
+      "confidence": 96.551308,
+      "x_px": 141,
+      "y_px": 1012,
+      "width_px": 78,
+      "height_px": 20,
+      "right_px": 219,
+      "bottom_px": 1032,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0015",
+      "candidate_line_ids": [
+        "line-0015"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 3,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0106",
+      "source_row": 106,
+      "text": "met.",
+      "confidence": 96.407814,
+      "x_px": 232,
+      "y_px": 1007,
+      "width_px": 82,
+      "height_px": 26,
+      "right_px": 314,
+      "bottom_px": 1033,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0015",
+      "candidate_line_ids": [
+        "line-0015"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 13,
+        "tesseract_line_num": 3,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0109",
+      "source_row": 109,
+      "text": "Oppenheimer.",
+      "confidence": 96.618904,
+      "x_px": 60,
+      "y_px": 1067,
+      "width_px": 268,
+      "height_px": 43,
+      "right_px": 328,
+      "bottom_px": 1110,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0016",
+      "candidate_line_ids": [
+        "line-0016"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 14,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0112",
+      "source_row": 112,
+      "text": "Yes.",
+      "confidence": 94.850983,
+      "x_px": 63,
+      "y_px": 1135,
+      "width_px": 71,
+      "height_px": 32,
+      "right_px": 134,
+      "bottom_px": 1167,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0017",
+      "candidate_line_ids": [
+        "line-0017"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 15,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0115",
+      "source_row": 115,
+      "text": "I",
+      "confidence": 68.768059,
+      "x_px": 64,
+      "y_px": 1202,
+      "width_px": 6,
+      "height_px": 31,
+      "right_px": 70,
+      "bottom_px": 1233,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0116",
+      "source_row": 116,
+      "text": "assume",
+      "confidence": 94.961151,
+      "x_px": 88,
+      "y_px": 1214,
+      "width_px": 136,
+      "height_px": 21,
+      "right_px": 224,
+      "bottom_px": 1235,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0117",
+      "source_row": 117,
+      "text": "your",
+      "confidence": 94.961151,
+      "x_px": 238,
+      "y_px": 1215,
+      "width_px": 86,
+      "height_px": 31,
+      "right_px": 324,
+      "bottom_px": 1246,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0118",
+      "source_row": 118,
+      "text": "father",
+      "confidence": 96.124527,
+      "x_px": 337,
+      "y_px": 1202,
+      "width_px": 111,
+      "height_px": 34,
+      "right_px": 448,
+      "bottom_px": 1236,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0119",
+      "source_row": 119,
+      "text": "knew",
+      "confidence": 96.124527,
+      "x_px": 461,
+      "y_px": 1203,
+      "width_px": 100,
+      "height_px": 34,
+      "right_px": 561,
+      "bottom_px": 1237,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0120",
+      "source_row": 120,
+      "text": "him.",
+      "confidence": 96.795456,
+      "x_px": 574,
+      "y_px": 1204,
+      "width_px": 86,
+      "height_px": 33,
+      "right_px": 660,
+      "bottom_px": 1237,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0018",
+      "candidate_line_ids": [
+        "line-0018"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 16,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0123",
+      "source_row": 123,
+      "text": "My",
+      "confidence": 96.412483,
+      "x_px": 63,
+      "y_px": 1270,
+      "width_px": 50,
+      "height_px": 43,
+      "right_px": 113,
+      "bottom_px": 1313,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0019",
+      "candidate_line_ids": [
+        "line-0019"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 17,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0124",
+      "source_row": 124,
+      "text": "father",
+      "confidence": 96.222099,
+      "x_px": 130,
+      "y_px": 1269,
+      "width_px": 110,
+      "height_px": 34,
+      "right_px": 240,
+      "bottom_px": 1303,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0019",
+      "candidate_line_ids": [
+        "line-0019"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 17,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0125",
+      "source_row": 125,
+      "text": "worked",
+      "confidence": 96.222099,
+      "x_px": 253,
+      "y_px": 1270,
+      "width_px": 136,
+      "height_px": 34,
+      "right_px": 389,
+      "bottom_px": 1304,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0019",
+      "candidate_line_ids": [
+        "line-0019"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 17,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0126",
+      "source_row": 126,
+      "text": "for",
+      "confidence": 96.870689,
+      "x_px": 404,
+      "y_px": 1270,
+      "width_px": 51,
+      "height_px": 34,
+      "right_px": 455,
+      "bottom_px": 1304,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0019",
+      "candidate_line_ids": [
+        "line-0019"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 17,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0127",
+      "source_row": 127,
+      "text": "him.",
+      "confidence": 95.807846,
+      "x_px": 469,
+      "y_px": 1271,
+      "width_px": 86,
+      "height_px": 34,
+      "right_px": 555,
+      "bottom_px": 1305,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0019",
+      "candidate_line_ids": [
+        "line-0019"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 17,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0130",
+      "source_row": 130,
+      "text": "W",
+      "confidence": 93.275375,
+      "x_px": 62,
+      "y_px": 1337,
+      "width_px": 19,
+      "height_px": 33,
+      "right_px": 81,
+      "bottom_px": 1370,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0020",
+      "candidate_line_ids": [
+        "line-0020"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 18,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0131",
+      "source_row": 131,
+      "text": "hat",
+      "confidence": 96.767258,
+      "x_px": 107,
+      "y_px": 1337,
+      "width_px": 53,
+      "height_px": 34,
+      "right_px": 160,
+      "bottom_px": 1371,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0020",
+      "candidate_line_ids": [
+        "line-0020"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 18,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0132",
+      "source_row": 132,
+      "text": "was",
+      "confidence": 96.934753,
+      "x_px": 177,
+      "y_px": 1350,
+      "width_px": 65,
+      "height_px": 21,
+      "right_px": 242,
+      "bottom_px": 1371,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0020",
+      "candidate_line_ids": [
+        "line-0020"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 18,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0133",
+      "source_row": 133,
+      "text": "his",
+      "confidence": 96.934753,
+      "x_px": 257,
+      "y_px": 1338,
+      "width_px": 54,
+      "height_px": 33,
+      "right_px": 311,
+      "bottom_px": 1371,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0020",
+      "candidate_line_ids": [
+        "line-0020"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 18,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0134",
+      "source_row": 134,
+      "text": "opinion?",
+      "confidence": 96.522224,
+      "x_px": 325,
+      "y_px": 1338,
+      "width_px": 161,
+      "height_px": 45,
+      "right_px": 486,
+      "bottom_px": 1383,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0020",
+      "candidate_line_ids": [
+        "line-0020"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 18,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0137",
+      "source_row": 137,
+      "text": "Of",
+      "confidence": 95.964188,
+      "x_px": 60,
+      "y_px": 1405,
+      "width_px": 48,
+      "height_px": 32,
+      "right_px": 108,
+      "bottom_px": 1437,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0021",
+      "candidate_line_ids": [
+        "line-0021"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 19,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0138",
+      "source_row": 138,
+      "text": "Oppenheimer.",
+      "confidence": 95.475327,
+      "x_px": 119,
+      "y_px": 1405,
+      "width_px": 267,
+      "height_px": 44,
+      "right_px": 386,
+      "bottom_px": 1449,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0021",
+      "candidate_line_ids": [
+        "line-0021"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 19,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0141",
+      "source_row": 141,
+      "text": "Yes.",
+      "confidence": 95.931938,
+      "x_px": 63,
+      "y_px": 1472,
+      "width_px": 70,
+      "height_px": 33,
+      "right_px": 133,
+      "bottom_px": 1505,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0022",
+      "candidate_line_ids": [
+        "line-0022"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 20,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0144",
+      "source_row": 144,
+      "text": "He",
+      "confidence": 90.913399,
+      "x_px": 63,
+      "y_px": 1540,
+      "width_px": 47,
+      "height_px": 32,
+      "right_px": 110,
+      "bottom_px": 1572,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0145",
+      "source_row": 145,
+      "text": "found",
+      "confidence": 96.349716,
+      "x_px": 129,
+      "y_px": 1540,
+      "width_px": 105,
+      "height_px": 33,
+      "right_px": 234,
+      "bottom_px": 1573,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0146",
+      "source_row": 146,
+      "text": "him",
+      "confidence": 96.574196,
+      "x_px": 252,
+      "y_px": 1540,
+      "width_px": 74,
+      "height_px": 34,
+      "right_px": 326,
+      "bottom_px": 1574,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0147",
+      "source_row": 147,
+      "text": "engaging,",
+      "confidence": 96.368721,
+      "x_px": 343,
+      "y_px": 1543,
+      "width_px": 183,
+      "height_px": 43,
+      "right_px": 526,
+      "bottom_px": 1586,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0148",
+      "source_row": 148,
+      "text": "charming,",
+      "confidence": 96.622284,
+      "x_px": 545,
+      "y_px": 1542,
+      "width_px": 194,
+      "height_px": 44,
+      "right_px": 739,
+      "bottom_px": 1586,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0149",
+      "source_row": 149,
+      "text": "erudite.",
+      "confidence": 96.254929,
+      "x_px": 757,
+      "y_px": 1542,
+      "width_px": 145,
+      "height_px": 34,
+      "right_px": 902,
+      "bottom_px": 1576,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0150",
+      "source_row": 150,
+      "text": "An",
+      "confidence": 96.92646,
+      "x_px": 921,
+      "y_px": 1543,
+      "width_px": 56,
+      "height_px": 33,
+      "right_px": 977,
+      "bottom_px": 1576,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0151",
+      "source_row": 151,
+      "text": "excellent",
+      "confidence": 96.470871,
+      "x_px": 994,
+      "y_px": 1544,
+      "width_px": 165,
+      "height_px": 34,
+      "right_px": 1159,
+      "bottom_px": 1578,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0023",
+      "candidate_line_ids": [
+        "line-0023"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 8
+      }
+    },
+    {
+      "token_id": "token-0152",
+      "source_row": 152,
+      "text": "party",
+      "confidence": 96.470871,
+      "x_px": 1176,
+      "y_px": 1553,
+      "width_px": 98,
+      "height_px": 35,
+      "right_px": 1274,
+      "bottom_px": 1588,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0024",
+      "candidate_line_ids": [
+        "line-0024"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 9
+      }
+    },
+    {
+      "token_id": "token-0154",
+      "source_row": 154,
+      "text": "host.",
+      "confidence": 96.66259,
+      "x_px": 11,
+      "y_px": 1607,
+      "width_px": 85,
+      "height_px": 32,
+      "right_px": 96,
+      "bottom_px": 1639,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0025",
+      "candidate_line_ids": [
+        "line-0025"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0155",
+      "source_row": 155,
+      "text": "A",
+      "confidence": 96.426224,
+      "x_px": 115,
+      "y_px": 1608,
+      "width_px": 24,
+      "height_px": 32,
+      "right_px": 139,
+      "bottom_px": 1640,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0025",
+      "candidate_line_ids": [
+        "line-0025"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0156",
+      "source_row": 156,
+      "text": "bit",
+      "confidence": 96.647049,
+      "x_px": 156,
+      "y_px": 1608,
+      "width_px": 48,
+      "height_px": 33,
+      "right_px": 204,
+      "bottom_px": 1641,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0025",
+      "candidate_line_ids": [
+        "line-0025"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0157",
+      "source_row": 157,
+      "text": "frightening.",
+      "confidence": 96.142273,
+      "x_px": 219,
+      "y_px": 1608,
+      "width_px": 226,
+      "height_px": 45,
+      "right_px": 445,
+      "bottom_px": 1653,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0025",
+      "candidate_line_ids": [
+        "line-0025"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 21,
+        "tesseract_line_num": 2,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0160",
+      "source_row": 160,
+      "text": "I'rightening?",
+      "confidence": 30.686218,
+      "x_px": 61,
+      "y_px": 1675,
+      "width_px": 240,
+      "height_px": 45,
+      "right_px": 301,
+      "bottom_px": 1720,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0026",
+      "candidate_line_ids": [
+        "line-0026"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 22,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0163",
+      "source_row": 163,
+      "text": "Yes.",
+      "confidence": 87.055069,
+      "x_px": 61,
+      "y_px": 1743,
+      "width_px": 71,
+      "height_px": 32,
+      "right_px": 132,
+      "bottom_px": 1775,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0027",
+      "candidate_line_ids": [
+        "line-0027"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 23,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0166",
+      "source_row": 166,
+      "text": "In",
+      "confidence": 95.872414,
+      "x_px": 62,
+      "y_px": 1810,
+      "width_px": 33,
+      "height_px": 32,
+      "right_px": 95,
+      "bottom_px": 1842,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0028",
+      "candidate_line_ids": [
+        "line-0028"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 24,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0167",
+      "source_row": 167,
+      "text": "what",
+      "confidence": 96.58857,
+      "x_px": 113,
+      "y_px": 1810,
+      "width_px": 81,
+      "height_px": 33,
+      "right_px": 194,
+      "bottom_px": 1843,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0028",
+      "candidate_line_ids": [
+        "line-0028"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 24,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0168",
+      "source_row": 168,
+      "text": "sense?",
+      "confidence": 96.785362,
+      "x_px": 213,
+      "y_px": 1811,
+      "width_px": 117,
+      "height_px": 33,
+      "right_px": 330,
+      "bottom_px": 1844,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0028",
+      "candidate_line_ids": [
+        "line-0028"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 24,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0171",
+      "source_row": 171,
+      "text": "He",
+      "confidence": 94.405655,
+      "x_px": 61,
+      "y_px": 1878,
+      "width_px": 48,
+      "height_px": 32,
+      "right_px": 109,
+      "bottom_px": 1910,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0172",
+      "source_row": 172,
+      "text": "thought",
+      "confidence": 96.088646,
+      "x_px": 135,
+      "y_px": 1878,
+      "width_px": 145,
+      "height_px": 44,
+      "right_px": 280,
+      "bottom_px": 1922,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0173",
+      "source_row": 173,
+      "text": "that",
+      "confidence": 93.292068,
+      "x_px": 305,
+      "y_px": 1878,
+      "width_px": 73,
+      "height_px": 34,
+      "right_px": 378,
+      "bottom_px": 1912,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0174",
+      "source_row": 174,
+      "text": "Oppenheimer’s",
+      "confidence": 91.598488,
+      "x_px": 403,
+      "y_px": 1878,
+      "width_px": 287,
+      "height_px": 45,
+      "right_px": 690,
+      "bottom_px": 1923,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0175",
+      "source_row": 175,
+      "text": "intelligence",
+      "confidence": 96.140877,
+      "x_px": 715,
+      "y_px": 1880,
+      "width_px": 219,
+      "height_px": 44,
+      "right_px": 934,
+      "bottom_px": 1924,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    },
+    {
+      "token_id": "token-0176",
+      "source_row": 176,
+      "text": "was",
+      "confidence": 92.696327,
+      "x_px": 958,
+      "y_px": 1894,
+      "width_px": 66,
+      "height_px": 20,
+      "right_px": 1024,
+      "bottom_px": 1914,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 6
+      }
+    },
+    {
+      "token_id": "token-0177",
+      "source_row": 177,
+      "text": "norentirely",
+      "confidence": 20.44194,
+      "x_px": 1045,
+      "y_px": 1881,
+      "width_px": 228,
+      "height_px": 45,
+      "right_px": 1273,
+      "bottom_px": 1926,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0029",
+      "candidate_line_ids": [
+        "line-0029"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 25,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 7
+      }
+    },
+    {
+      "token_id": "token-0180",
+      "source_row": 180,
+      "text": "Was",
+      "confidence": 96.722229,
+      "x_px": 60,
+      "y_px": 2013,
+      "width_px": 73,
+      "height_px": 33,
+      "right_px": 133,
+      "bottom_px": 2046,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0030",
+      "candidate_line_ids": [
+        "line-0030"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 26,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0181",
+      "source_row": 181,
+      "text": "he?",
+      "confidence": 95.404343,
+      "x_px": 149,
+      "y_px": 2013,
+      "width_px": 58,
+      "height_px": 33,
+      "right_px": 207,
+      "bottom_px": 2046,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0030",
+      "candidate_line_ids": [
+        "line-0030"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 26,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0184",
+      "source_row": 184,
+      "text": "Yes.",
+      "confidence": 93.495285,
+      "x_px": 61,
+      "y_px": 2081,
+      "width_px": 70,
+      "height_px": 33,
+      "right_px": 131,
+      "bottom_px": 2114,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0031",
+      "candidate_line_ids": [
+        "line-0031"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 27,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0187",
+      "source_row": 187,
+      "text": "But",
+      "confidence": 96.85743,
+      "x_px": 60,
+      "y_px": 2149,
+      "width_px": 57,
+      "height_px": 32,
+      "right_px": 117,
+      "bottom_px": 2181,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0032",
+      "candidate_line_ids": [
+        "line-0032"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 28,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0188",
+      "source_row": 188,
+      "text": "not",
+      "confidence": 94.916832,
+      "x_px": 139,
+      "y_px": 2156,
+      "width_px": 52,
+      "height_px": 26,
+      "right_px": 191,
+      "bottom_px": 2182,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0032",
+      "candidate_line_ids": [
+        "line-0032"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 28,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0189",
+      "source_row": 189,
+      "text": "Satanic.",
+      "confidence": 94.717194,
+      "x_px": 210,
+      "y_px": 2148,
+      "width_px": 149,
+      "height_px": 35,
+      "right_px": 359,
+      "bottom_px": 2183,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0032",
+      "candidate_line_ids": [
+        "line-0032"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 28,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0192",
+      "source_row": 192,
+      "text": "‘That",
+      "confidence": 71.384033,
+      "x_px": 55,
+      "y_px": 2216,
+      "width_px": 84,
+      "height_px": 33,
+      "right_px": 139,
+      "bottom_px": 2249,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0033",
+      "candidate_line_ids": [
+        "line-0033"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 29,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 1
+      }
+    },
+    {
+      "token_id": "token-0193",
+      "source_row": 193,
+      "text": "would",
+      "confidence": 96.55365,
+      "x_px": 160,
+      "y_px": 2216,
+      "width_px": 108,
+      "height_px": 34,
+      "right_px": 268,
+      "bottom_px": 2250,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0033",
+      "candidate_line_ids": [
+        "line-0033"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 29,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 2
+      }
+    },
+    {
+      "token_id": "token-0194",
+      "source_row": 194,
+      "text": "be",
+      "confidence": 96.706497,
+      "x_px": 286,
+      "y_px": 2217,
+      "width_px": 42,
+      "height_px": 33,
+      "right_px": 328,
+      "bottom_px": 2250,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0033",
+      "candidate_line_ids": [
+        "line-0033"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 29,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 3
+      }
+    },
+    {
+      "token_id": "token-0195",
+      "source_row": 195,
+      "text": "a",
+      "confidence": 96.69783,
+      "x_px": 341,
+      "y_px": 2230,
+      "width_px": 18,
+      "height_px": 20,
+      "right_px": 359,
+      "bottom_px": 2250,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0033",
+      "candidate_line_ids": [
+        "line-0033"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 29,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 4
+      }
+    },
+    {
+      "token_id": "token-0196",
+      "source_row": 196,
+      "text": "stretch.",
+      "confidence": 94.869873,
+      "x_px": 374,
+      "y_px": 2217,
+      "width_px": 140,
+      "height_px": 34,
+      "right_px": 514,
+      "bottom_px": 2251,
+      "coordinate_system": {
+        "origin": "top-left",
+        "units": "px"
+      },
+      "physical_line_id": "line-0033",
+      "candidate_line_ids": [
+        "line-0033"
+      ],
+      "evidence_only": {
+        "tesseract_block_num": 1,
+        "tesseract_par_num": 29,
+        "tesseract_line_num": 1,
+        "tesseract_word_num": 5
+      }
+    }
+  ],
+  "physical_lines": [
+    {
+      "line_id": "line-0001",
+      "token_ids": [
+        "token-0005"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 631,
+      "right_px": 664,
+      "top_px": 17,
+      "bottom_px": 41,
+      "line_height_px": 24,
+      "median_center_y_px": 29.0,
+      "vertical_gap_to_next_px": 79
+    },
+    {
+      "line_id": "line-0002",
+      "token_ids": [
+        "token-0008",
+        "token-0009",
+        "token-0010"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 320,
+      "top_px": 120,
+      "bottom_px": 157,
+      "line_height_px": 37,
+      "median_center_y_px": 137.5,
+      "vertical_gap_to_next_px": 31
+    },
+    {
+      "line_id": "line-0003",
+      "token_ids": [
+        "token-0013",
+        "token-0014"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 62,
+      "right_px": 257,
+      "top_px": 188,
+      "bottom_px": 221,
+      "line_height_px": 33,
+      "median_center_y_px": 204.75,
+      "vertical_gap_to_next_px": 35
+    },
+    {
+      "line_id": "line-0004",
+      "token_ids": [
+        "token-0017",
+        "token-0018"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 66,
+      "right_px": 251,
+      "top_px": 256,
+      "bottom_px": 299,
+      "line_height_px": 43,
+      "median_center_y_px": 275.5,
+      "vertical_gap_to_next_px": 25
+    },
+    {
+      "line_id": "line-0005",
+      "token_ids": [
+        "token-0021",
+        "token-0022",
+        "token-0023",
+        "token-0024",
+        "token-0025"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 62,
+      "right_px": 684,
+      "top_px": 324,
+      "bottom_px": 369,
+      "line_height_px": 45,
+      "median_center_y_px": 346.0,
+      "vertical_gap_to_next_px": 22
+    },
+    {
+      "line_id": "line-0006",
+      "token_ids": [
+        "token-0028",
+        "token-0029",
+        "token-0030",
+        "token-0031",
+        "token-0032",
+        "token-0033",
+        "token-0034",
+        "token-0035",
+        "token-0036"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 1109,
+      "top_px": 391,
+      "bottom_px": 437,
+      "line_height_px": 46,
+      "median_center_y_px": 410.0,
+      "vertical_gap_to_next_px": 21
+    },
+    {
+      "line_id": "line-0007",
+      "token_ids": [
+        "token-0039",
+        "token-0040",
+        "token-0041",
+        "token-0042"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 479,
+      "top_px": 458,
+      "bottom_px": 504,
+      "line_height_px": 46,
+      "median_center_y_px": 475.75,
+      "vertical_gap_to_next_px": 22
+    },
+    {
+      "line_id": "line-0008",
+      "token_ids": [
+        "token-0045",
+        "token-0046",
+        "token-0047"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 251,
+      "top_px": 526,
+      "bottom_px": 560,
+      "line_height_px": 34,
+      "median_center_y_px": 542.5,
+      "vertical_gap_to_next_px": 33
+    },
+    {
+      "line_id": "line-0009",
+      "token_ids": [
+        "token-0050",
+        "token-0051",
+        "token-0052"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 324,
+      "top_px": 593,
+      "bottom_px": 638,
+      "line_height_px": 45,
+      "median_center_y_px": 615.5,
+      "vertical_gap_to_next_px": 23
+    },
+    {
+      "line_id": "line-0010",
+      "token_ids": [
+        "token-0055",
+        "token-0056",
+        "token-0057",
+        "token-0058",
+        "token-0059"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 65,
+      "right_px": 489,
+      "top_px": 661,
+      "bottom_px": 696,
+      "line_height_px": 35,
+      "median_center_y_px": 679.0,
+      "vertical_gap_to_next_px": 33
+    },
+    {
+      "line_id": "line-0011",
+      "token_ids": [
+        "token-0062",
+        "token-0063",
+        "token-0064",
+        "token-0065",
+        "token-0066",
+        "token-0067",
+        "token-0068"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 60,
+      "right_px": 972,
+      "top_px": 729,
+      "bottom_px": 776,
+      "line_height_px": 47,
+      "median_center_y_px": 748.0,
+      "vertical_gap_to_next_px": 20
+    },
+    {
+      "line_id": "line-0012",
+      "token_ids": [
+        "token-0071",
+        "token-0072",
+        "token-0073",
+        "token-0074",
+        "token-0075",
+        "token-0076",
+        "token-0077"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 818,
+      "top_px": 796,
+      "bottom_px": 843,
+      "line_height_px": 47,
+      "median_center_y_px": 819.5,
+      "vertical_gap_to_next_px": 21
+    },
+    {
+      "line_id": "line-0013",
+      "token_ids": [
+        "token-0080",
+        "token-0081",
+        "token-0082",
+        "token-0083",
+        "token-0084",
+        "token-0085",
+        "token-0086",
+        "token-0087",
+        "token-0088",
+        "token-0089",
+        "token-0090"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 1277,
+      "top_px": 864,
+      "bottom_px": 912,
+      "line_height_px": 48,
+      "median_center_y_px": 884.0,
+      "vertical_gap_to_next_px": 19
+    },
+    {
+      "line_id": "line-0014",
+      "token_ids": [
+        "token-0092",
+        "token-0093",
+        "token-0094",
+        "token-0095",
+        "token-0096",
+        "token-0097",
+        "token-0098",
+        "token-0099",
+        "token-0100",
+        "token-0101",
+        "token-0102"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 15,
+      "right_px": 1276,
+      "top_px": 931,
+      "bottom_px": 974,
+      "line_height_px": 43,
+      "median_center_y_px": 952.5,
+      "vertical_gap_to_next_px": 24
+    },
+    {
+      "line_id": "line-0015",
+      "token_ids": [
+        "token-0104",
+        "token-0105",
+        "token-0106"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 12,
+      "right_px": 314,
+      "top_px": 998,
+      "bottom_px": 1042,
+      "line_height_px": 44,
+      "median_center_y_px": 1020.0,
+      "vertical_gap_to_next_px": 25
+    },
+    {
+      "line_id": "line-0016",
+      "token_ids": [
+        "token-0109"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 60,
+      "right_px": 328,
+      "top_px": 1067,
+      "bottom_px": 1110,
+      "line_height_px": 43,
+      "median_center_y_px": 1088.5,
+      "vertical_gap_to_next_px": 25
+    },
+    {
+      "line_id": "line-0017",
+      "token_ids": [
+        "token-0112"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 134,
+      "top_px": 1135,
+      "bottom_px": 1167,
+      "line_height_px": 32,
+      "median_center_y_px": 1151.0,
+      "vertical_gap_to_next_px": 35
+    },
+    {
+      "line_id": "line-0018",
+      "token_ids": [
+        "token-0115",
+        "token-0116",
+        "token-0117",
+        "token-0118",
+        "token-0119",
+        "token-0120"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 64,
+      "right_px": 660,
+      "top_px": 1202,
+      "bottom_px": 1246,
+      "line_height_px": 44,
+      "median_center_y_px": 1220.25,
+      "vertical_gap_to_next_px": 23
+    },
+    {
+      "line_id": "line-0019",
+      "token_ids": [
+        "token-0123",
+        "token-0124",
+        "token-0125",
+        "token-0126",
+        "token-0127"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 555,
+      "top_px": 1269,
+      "bottom_px": 1313,
+      "line_height_px": 44,
+      "median_center_y_px": 1287.0,
+      "vertical_gap_to_next_px": 24
+    },
+    {
+      "line_id": "line-0020",
+      "token_ids": [
+        "token-0130",
+        "token-0131",
+        "token-0132",
+        "token-0133",
+        "token-0134"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 62,
+      "right_px": 486,
+      "top_px": 1337,
+      "bottom_px": 1383,
+      "line_height_px": 46,
+      "median_center_y_px": 1354.5,
+      "vertical_gap_to_next_px": 22
+    },
+    {
+      "line_id": "line-0021",
+      "token_ids": [
+        "token-0137",
+        "token-0138"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 60,
+      "right_px": 386,
+      "top_px": 1405,
+      "bottom_px": 1449,
+      "line_height_px": 44,
+      "median_center_y_px": 1424.0,
+      "vertical_gap_to_next_px": 23
+    },
+    {
+      "line_id": "line-0022",
+      "token_ids": [
+        "token-0141"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 133,
+      "top_px": 1472,
+      "bottom_px": 1505,
+      "line_height_px": 33,
+      "median_center_y_px": 1488.5,
+      "vertical_gap_to_next_px": 35
+    },
+    {
+      "line_id": "line-0023",
+      "token_ids": [
+        "token-0144",
+        "token-0145",
+        "token-0146",
+        "token-0147",
+        "token-0148",
+        "token-0149",
+        "token-0150",
+        "token-0151"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 63,
+      "right_px": 1159,
+      "top_px": 1540,
+      "bottom_px": 1586,
+      "line_height_px": 46,
+      "median_center_y_px": 1559.25,
+      "vertical_gap_to_next_px": -33
+    },
+    {
+      "line_id": "line-0024",
+      "token_ids": [
+        "token-0152"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 1176,
+      "right_px": 1274,
+      "top_px": 1553,
+      "bottom_px": 1588,
+      "line_height_px": 35,
+      "median_center_y_px": 1570.5,
+      "vertical_gap_to_next_px": 19
+    },
+    {
+      "line_id": "line-0025",
+      "token_ids": [
+        "token-0154",
+        "token-0155",
+        "token-0156",
+        "token-0157"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 11,
+      "right_px": 445,
+      "top_px": 1607,
+      "bottom_px": 1653,
+      "line_height_px": 46,
+      "median_center_y_px": 1624.25,
+      "vertical_gap_to_next_px": 22
+    },
+    {
+      "line_id": "line-0026",
+      "token_ids": [
+        "token-0160"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 61,
+      "right_px": 301,
+      "top_px": 1675,
+      "bottom_px": 1720,
+      "line_height_px": 45,
+      "median_center_y_px": 1697.5,
+      "vertical_gap_to_next_px": 23
+    },
+    {
+      "line_id": "line-0027",
+      "token_ids": [
+        "token-0163"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 61,
+      "right_px": 132,
+      "top_px": 1743,
+      "bottom_px": 1775,
+      "line_height_px": 32,
+      "median_center_y_px": 1759.0,
+      "vertical_gap_to_next_px": 35
+    },
+    {
+      "line_id": "line-0028",
+      "token_ids": [
+        "token-0166",
+        "token-0167",
+        "token-0168"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 62,
+      "right_px": 330,
+      "top_px": 1810,
+      "bottom_px": 1844,
+      "line_height_px": 34,
+      "median_center_y_px": 1826.5,
+      "vertical_gap_to_next_px": 34
+    },
+    {
+      "line_id": "line-0029",
+      "token_ids": [
+        "token-0171",
+        "token-0172",
+        "token-0173",
+        "token-0174",
+        "token-0175",
+        "token-0176",
+        "token-0177"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 61,
+      "right_px": 1273,
+      "top_px": 1878,
+      "bottom_px": 1926,
+      "line_height_px": 48,
+      "median_center_y_px": 1900.5,
+      "vertical_gap_to_next_px": 87
+    },
+    {
+      "line_id": "line-0030",
+      "token_ids": [
+        "token-0180",
+        "token-0181"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 60,
+      "right_px": 207,
+      "top_px": 2013,
+      "bottom_px": 2046,
+      "line_height_px": 33,
+      "median_center_y_px": 2029.5,
+      "vertical_gap_to_next_px": 35
+    },
+    {
+      "line_id": "line-0031",
+      "token_ids": [
+        "token-0184"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 61,
+      "right_px": 131,
+      "top_px": 2081,
+      "bottom_px": 2114,
+      "line_height_px": 33,
+      "median_center_y_px": 2097.5,
+      "vertical_gap_to_next_px": 34
+    },
+    {
+      "line_id": "line-0032",
+      "token_ids": [
+        "token-0187",
+        "token-0188",
+        "token-0189"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 60,
+      "right_px": 359,
+      "top_px": 2148,
+      "bottom_px": 2183,
+      "line_height_px": 35,
+      "median_center_y_px": 2165.5,
+      "vertical_gap_to_next_px": 33
+    },
+    {
+      "line_id": "line-0033",
+      "token_ids": [
+        "token-0192",
+        "token-0193",
+        "token-0194",
+        "token-0195",
+        "token-0196"
+      ],
+      "unresolved_token_source_rows": [],
+      "left_px": 55,
+      "right_px": 514,
+      "top_px": 2216,
+      "bottom_px": 2251,
+      "line_height_px": 35,
+      "median_center_y_px": 2233.5,
+      "vertical_gap_to_next_px": null
+    }
+  ],
+  "block_evidence": [
+    {
+      "tesseract_block_num": 1,
+      "token_ids": [
+        "token-0005",
+        "token-0008",
+        "token-0009",
+        "token-0010",
+        "token-0013",
+        "token-0014",
+        "token-0017",
+        "token-0018",
+        "token-0021",
+        "token-0022",
+        "token-0023",
+        "token-0024",
+        "token-0025",
+        "token-0028",
+        "token-0029",
+        "token-0030",
+        "token-0031",
+        "token-0032",
+        "token-0033",
+        "token-0034",
+        "token-0035",
+        "token-0036",
+        "token-0039",
+        "token-0040",
+        "token-0041",
+        "token-0042",
+        "token-0045",
+        "token-0046",
+        "token-0047",
+        "token-0050",
+        "token-0051",
+        "token-0052",
+        "token-0055",
+        "token-0056",
+        "token-0057",
+        "token-0058",
+        "token-0059",
+        "token-0062",
+        "token-0063",
+        "token-0064",
+        "token-0065",
+        "token-0066",
+        "token-0067",
+        "token-0068",
+        "token-0071",
+        "token-0072",
+        "token-0073",
+        "token-0074",
+        "token-0075",
+        "token-0076",
+        "token-0077",
+        "token-0080",
+        "token-0081",
+        "token-0082",
+        "token-0083",
+        "token-0084",
+        "token-0085",
+        "token-0086",
+        "token-0087",
+        "token-0088",
+        "token-0089",
+        "token-0090",
+        "token-0092",
+        "token-0093",
+        "token-0094",
+        "token-0095",
+        "token-0096",
+        "token-0097",
+        "token-0098",
+        "token-0099",
+        "token-0100",
+        "token-0101",
+        "token-0102",
+        "token-0104",
+        "token-0105",
+        "token-0106",
+        "token-0109",
+        "token-0112",
+        "token-0115",
+        "token-0116",
+        "token-0117",
+        "token-0118",
+        "token-0119",
+        "token-0120",
+        "token-0123",
+        "token-0124",
+        "token-0125",
+        "token-0126",
+        "token-0127",
+        "token-0130",
+        "token-0131",
+        "token-0132",
+        "token-0133",
+        "token-0134",
+        "token-0137",
+        "token-0138",
+        "token-0141",
+        "token-0144",
+        "token-0145",
+        "token-0146",
+        "token-0147",
+        "token-0148",
+        "token-0149",
+        "token-0150",
+        "token-0151",
+        "token-0152",
+        "token-0154",
+        "token-0155",
+        "token-0156",
+        "token-0157",
+        "token-0160",
+        "token-0163",
+        "token-0166",
+        "token-0167",
+        "token-0168",
+        "token-0171",
+        "token-0172",
+        "token-0173",
+        "token-0174",
+        "token-0175",
+        "token-0176",
+        "token-0177",
+        "token-0180",
+        "token-0181",
+        "token-0184",
+        "token-0187",
+        "token-0188",
+        "token-0189",
+        "token-0192",
+        "token-0193",
+        "token-0194",
+        "token-0195",
+        "token-0196"
+      ],
+      "left_px": 11,
+      "right_px": 1277,
+      "top_px": 17,
+      "bottom_px": 2251,
+      "evidence_only": true
+    }
+  ],
+  "measurements": {
+    "token_height_median_px": 34.0,
+    "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+    "tolerance_px": 9,
+    "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+    "horizontal_gap_limit_px": 168.0,
+    "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+    "baseline_slope_px_per_px": 0.0,
+    "line_height_median_px": 43.0,
+    "line_gaps": [
+      {
+        "line_id": "line-0001",
+        "next_line_id": "line-0002",
+        "signed_vertical_gap_px": 79
+      },
+      {
+        "line_id": "line-0002",
+        "next_line_id": "line-0003",
+        "signed_vertical_gap_px": 31
+      },
+      {
+        "line_id": "line-0003",
+        "next_line_id": "line-0004",
+        "signed_vertical_gap_px": 35
+      },
+      {
+        "line_id": "line-0004",
+        "next_line_id": "line-0005",
+        "signed_vertical_gap_px": 25
+      },
+      {
+        "line_id": "line-0005",
+        "next_line_id": "line-0006",
+        "signed_vertical_gap_px": 22
+      },
+      {
+        "line_id": "line-0006",
+        "next_line_id": "line-0007",
+        "signed_vertical_gap_px": 21
+      },
+      {
+        "line_id": "line-0007",
+        "next_line_id": "line-0008",
+        "signed_vertical_gap_px": 22
+      },
+      {
+        "line_id": "line-0008",
+        "next_line_id": "line-0009",
+        "signed_vertical_gap_px": 33
+      },
+      {
+        "line_id": "line-0009",
+        "next_line_id": "line-0010",
+        "signed_vertical_gap_px": 23
+      },
+      {
+        "line_id": "line-0010",
+        "next_line_id": "line-0011",
+        "signed_vertical_gap_px": 33
+      },
+      {
+        "line_id": "line-0011",
+        "next_line_id": "line-0012",
+        "signed_vertical_gap_px": 20
+      },
+      {
+        "line_id": "line-0012",
+        "next_line_id": "line-0013",
+        "signed_vertical_gap_px": 21
+      },
+      {
+        "line_id": "line-0013",
+        "next_line_id": "line-0014",
+        "signed_vertical_gap_px": 19
+      },
+      {
+        "line_id": "line-0014",
+        "next_line_id": "line-0015",
+        "signed_vertical_gap_px": 24
+      },
+      {
+        "line_id": "line-0015",
+        "next_line_id": "line-0016",
+        "signed_vertical_gap_px": 25
+      },
+      {
+        "line_id": "line-0016",
+        "next_line_id": "line-0017",
+        "signed_vertical_gap_px": 25
+      },
+      {
+        "line_id": "line-0017",
+        "next_line_id": "line-0018",
+        "signed_vertical_gap_px": 35
+      },
+      {
+        "line_id": "line-0018",
+        "next_line_id": "line-0019",
+        "signed_vertical_gap_px": 23
+      },
+      {
+        "line_id": "line-0019",
+        "next_line_id": "line-0020",
+        "signed_vertical_gap_px": 24
+      },
+      {
+        "line_id": "line-0020",
+        "next_line_id": "line-0021",
+        "signed_vertical_gap_px": 22
+      },
+      {
+        "line_id": "line-0021",
+        "next_line_id": "line-0022",
+        "signed_vertical_gap_px": 23
+      },
+      {
+        "line_id": "line-0022",
+        "next_line_id": "line-0023",
+        "signed_vertical_gap_px": 35
+      },
+      {
+        "line_id": "line-0023",
+        "next_line_id": "line-0024",
+        "signed_vertical_gap_px": -33
+      },
+      {
+        "line_id": "line-0024",
+        "next_line_id": "line-0025",
+        "signed_vertical_gap_px": 19
+      },
+      {
+        "line_id": "line-0025",
+        "next_line_id": "line-0026",
+        "signed_vertical_gap_px": 22
+      },
+      {
+        "line_id": "line-0026",
+        "next_line_id": "line-0027",
+        "signed_vertical_gap_px": 23
+      },
+      {
+        "line_id": "line-0027",
+        "next_line_id": "line-0028",
+        "signed_vertical_gap_px": 35
+      },
+      {
+        "line_id": "line-0028",
+        "next_line_id": "line-0029",
+        "signed_vertical_gap_px": 34
+      },
+      {
+        "line_id": "line-0029",
+        "next_line_id": "line-0030",
+        "signed_vertical_gap_px": 87
+      },
+      {
+        "line_id": "line-0030",
+        "next_line_id": "line-0031",
+        "signed_vertical_gap_px": 35
+      },
+      {
+        "line_id": "line-0031",
+        "next_line_id": "line-0032",
+        "signed_vertical_gap_px": 34
+      },
+      {
+        "line_id": "line-0032",
+        "next_line_id": "line-0033",
+        "signed_vertical_gap_px": 33
+      }
+    ]
+  },
+  "engine": {
+    "version": "5.3.4",
+    "language": "eng",
+    "config": "--psm 6",
+    "output": "TSV"
+  }
+}

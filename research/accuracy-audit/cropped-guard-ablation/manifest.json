@@ -1,0 +1,577 @@
+{
+  "schema": "manual-crop-ablation-manifest-v1",
+  "input_authority": "user-provided manual crop PDFs",
+  "ocr": {
+    "version": "5.3.4",
+    "language": "eng",
+    "config": "--psm 6",
+    "output": "TSV"
+  },
+  "conversion": "PDF CropBox render at embedded scan native 300 dpi, RGB, page rotation applied; no enhancement/rescaling",
+  "crops": [
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-L.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "left",
+      "filename_page_number": "10",
+      "fixture_page_span": "pp26-27",
+      "format": "PDF",
+      "original_sha256": "1f87d421c1b7c19650206dd8cc5d85d09c010f9ca9744a239856245f99947da0",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        95.7528076171875,
+        635.9420166015625
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf10_pp26-27.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        110.20600128173828,
+        474.02899169921875,
+        518.510009765625,
+        744.1235961914062
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1126,
+      "derived_height_px": 1702,
+      "derived_mode": "RGB",
+      "derived_sha256": "08a4b90ee43b92c1364872f8fc8e0f6eb92c8c2af968b63a1f8f8cae48c24d94"
+    },
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-R.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "right",
+      "filename_page_number": "10",
+      "fixture_page_span": "pp26-27",
+      "format": "PDF",
+      "original_sha256": "96fac46f48a561c8b02445c213d8e6a985631fda3724c964a82819bc241d064f",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        792.218017578125,
+        1362.218017578125
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf10_pp26-27.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        17.16320037841797,
+        110.8909912109375,
+        509.9289855957031,
+        395.8909912109375
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1188,
+      "derived_height_px": 2054,
+      "derived_mode": "RGB",
+      "derived_sha256": "fdbe7f032010cc4eb630fc467dbc25b03ab3d97f4394544c4cf5da21d3129905"
+    },
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-L.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "left",
+      "filename_page_number": "17",
+      "fixture_page_span": "pp40-41",
+      "format": "PDF",
+      "original_sha256": "93658ef0aaa006a9282d662668700184c06e08002fd1d05343710fe2e5a2efad",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        137.3057861328125,
+        666.656005859375
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf17_pp40-41.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        130.07899475097656,
+        458.6719970703125,
+        516.2520141601562,
+        723.3471069335938
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1103,
+      "derived_height_px": 1610,
+      "derived_mode": "RGB",
+      "derived_sha256": "23a68d3ceac62364c5e593b37d0b0c5339965dc054ab2b20aa908d3f76983ec6"
+    },
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-R.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "right",
+      "filename_page_number": "17",
+      "fixture_page_span": "pp40-41",
+      "format": "PDF",
+      "original_sha256": "f4728d82f292137e33ba59ddc9e5241463ccc39e568ca4d38986e69fb60c3665",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        820.2219848632812,
+        1356.7979736328125
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf17_pp40-41.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        35.229801177978516,
+        113.60101318359375,
+        522.1240234375,
+        381.8890075683594
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1118,
+      "derived_height_px": 2029,
+      "derived_mode": "RGB",
+      "derived_sha256": "79fb357ca84863540ffbf0e2c0b84ff2e96c87aefaafb0d081ec271dde96d434"
+    },
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-L.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "left",
+      "filename_page_number": "23",
+      "fixture_page_span": "pp52-53",
+      "format": "PDF",
+      "original_sha256": "7ca6805c271c26cb8ed5ff70a57e734cef65fed822b825367ebd5eb993077c10",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        155.3724365234375,
+        685.6259765625
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf23_pp52-53.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        107.947998046875,
+        449.18701171875,
+        518.0590209960938,
+        714.3137817382812
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1105,
+      "derived_height_px": 1709,
+      "derived_mode": "RGB",
+      "derived_sha256": "e5bd4037b983d159abd29297e3844ebd8852d3800c3abf39c87ab1acbaf9cfdd"
+    },
+    {
+      "original_path": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-R.pdf",
+      "author": "einstein",
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "right",
+      "filename_page_number": "23",
+      "fixture_page_span": "pp52-53",
+      "format": "PDF",
+      "original_sha256": "85d54d82678184a3b7574ce2a6ebe80ed2b37f5dcc2f2f2608502fa5bd6e0f8e",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        813.8980102539062,
+        1357.7020263671875
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/relativity_pdf23_pp52-53.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        32.971500396728516,
+        113.14898681640625,
+        523.47900390625,
+        385.0509948730469
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1133,
+      "derived_height_px": 2044,
+      "derived_mode": "RGB",
+      "derived_sha256": "20c4b6630587711207c8e91dc197f2a67164198074e61e3245962fcb00713fba"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-L.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "left",
+      "filename_page_number": "18",
+      "fixture_page_span": "18",
+      "format": "PDF",
+      "original_sha256": "61a4cabf52158a1f7fce2298730ce9c7051ffe99b6ebe857c6cfd2a4f06de926",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        65.03955078125,
+        682.916015625
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf18_session-II_p35.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        151.75900268554688,
+        450.5419921875,
+        562.7730102539062,
+        759.480224609375
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1288,
+      "derived_height_px": 1713,
+      "derived_mode": "RGB",
+      "derived_sha256": "62df656016f94fdde9d4e81b48d1202e60ed0b555f91f938db577b7c88868155"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-R.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "right",
+      "filename_page_number": "18",
+      "fixture_page_span": "18",
+      "format": "PDF",
+      "original_sha256": "51065dcdfca603bb154890dc866f8b3a0355e1fb5038881b89e5fe80ba9902e1",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        871.7119750976562,
+        1491.39404296875
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf18_session-II_p35.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        15.808199882507324,
+        46.302978515625,
+        561.4180297851562,
+        356.1440124511719
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1292,
+      "derived_height_px": 2274,
+      "derived_mode": "RGB",
+      "derived_sha256": "3098b1cdded7d2dd62a2fc051eb66efc5d91594ae109403a567a124bfffaa2d4"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-L.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "left",
+      "filename_page_number": "3",
+      "fixture_page_span": "03",
+      "format": "PDF",
+      "original_sha256": "4ad3ea634ef1466c6337f2c92d638020f0ef469e1f0f88dab9adf7ade9f902c1",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        68.6529541015625,
+        626.0059814453125
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": true,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf03_session-I.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        67.74960327148438,
+        478.99700927734375,
+        563.2249755859375,
+        757.6735229492188
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1162,
+      "derived_height_px": 2065,
+      "derived_mode": "RGB",
+      "derived_sha256": "0c235f07298a57feadc03c15ccd9cb53cae4d3da003fffa978acbdcffa903c27"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-R.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "right",
+      "filename_page_number": "3",
+      "fixture_page_span": "03",
+      "format": "PDF",
+      "original_sha256": "3ffecf4a786c17412f1cabe8e24c6014734e19f6db69aefcb9566dc380217f12",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        831.9660034179688,
+        1455.261962890625
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf03_session-I.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        144.08099365234375,
+        64.3690185546875,
+        555.9979858398438,
+        376.0169982910156
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1299,
+      "derived_height_px": 1717,
+      "derived_mode": "RGB",
+      "derived_sha256": "3461dc3707d360ecbb49184a187ce1a0e8a5c7813c8df4da0f2a6a530d6d4114"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-L.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "left",
+      "filename_page_number": "6",
+      "fixture_page_span": "06",
+      "format": "PDF",
+      "original_sha256": "e64f6bdbff38a10ea724b8356f03b38a3c59270c19f04eeecc9e75c761871672",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        33.4232177734375,
+        659.4299926757812
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf06_dense-dialogue.left.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        23.486499786376953,
+        462.2850036621094,
+        584.0020141601562,
+        775.2883911132812
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1305,
+      "derived_height_px": 2336,
+      "derived_mode": "RGB",
+      "derived_sha256": "4a2d4d66ccd19de3655115c692f4515c87eef62432542895ecce91fb7177058c"
+    },
+    {
+      "original_path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-R.pdf",
+      "author": "mccarthy",
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "right",
+      "filename_page_number": "6",
+      "fixture_page_span": "06",
+      "format": "PDF",
+      "original_sha256": "a8a0acda50ae658c3b4e3def6e05cccf1cfe238536482f1209f9055a7dacb19c",
+      "embedded_original_image_format": "jpeg",
+      "embedded_original_dimensions_px": [
+        2550,
+        3300
+      ],
+      "embedded_original_color_space": "DeviceRGB",
+      "fixture_crop_embedded_raster_match": true,
+      "crop_display_x_range_at_144dpi_px": [
+        856.35400390625,
+        1500.427978515625
+      ],
+      "fixture_split_boundary_px": 792,
+      "filename_side_mapping_verified": true,
+      "declared_fixture_side_blank": false,
+      "derived_path": "research/accuracy-audit/cropped-guard-ablation/inputs/stella_maris_pdf06_dense-dialogue.right.png",
+      "pdf_page_count": 1,
+      "pdf_media_box_pt": [
+        0.0,
+        0.0,
+        612.0,
+        792.0
+      ],
+      "pdf_crop_box_pt": [
+        22.583200454711914,
+        41.7860107421875,
+        586.7119750976562,
+        363.822998046875
+      ],
+      "pdf_rotation_degrees": 90,
+      "embedded_image_width_px": 2550,
+      "embedded_image_height_px": 3300,
+      "embedded_image_color_space": "DeviceRGB",
+      "native_render_dpi": 300,
+      "derived_width_px": 1342,
+      "derived_height_px": 2351,
+      "derived_mode": "RGB",
+      "derived_sha256": "3a09d284a78aa5223756b162044793716fcdc113b6e04d62560e79eb4096f788"
+    }
+  ]
+}
