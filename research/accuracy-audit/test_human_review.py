@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import importlib.util
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -164,3 +166,35 @@ def test_wrong_order_stays_separate_from_membership_accuracy():
     assert result["resolved_token_membership"]["accuracy"] == 1.0
     assert result["within_line_order"]["accuracy"] == 0.0
     assert result["exact_physical_lines"]["exact_production_matches"] == 0
+
+
+class ImageReferenceParser(HTMLParser):
+    """Collect image URLs from both linked-image and inline-image markup."""
+
+    def __init__(self):
+        super().__init__()
+        self.references: list[str] = []
+
+    def handle_starttag(self, tag, attrs):
+        attributes = dict(attrs)
+        for name in (("src",) if tag == "img" else ("href",) if tag == "a" else ()):
+            target = attributes.get(name)
+            if target and urlsplit(target).path.lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+                self.references.append(target)
+
+
+def test_generated_review_image_references_resolve_from_index_directory():
+    review_dir = MODULE_PATH.parent / "review"
+    page_count = review.generate_index()
+    html = (review_dir / "index.html").read_text(encoding="utf-8")
+    parser = ImageReferenceParser()
+    parser.feed(html)
+
+    resolved_targets = [(review_dir / target).resolve() for target in parser.references]
+    unique_targets = set(resolved_targets)
+    assert page_count == 11
+    assert len(unique_targets) == 22
+    assert len(parser.references) == 44
+    assert all(target.is_file() for target in resolved_targets)
+    assert "README-human-review.md" in html
+    assert "README.md" not in html

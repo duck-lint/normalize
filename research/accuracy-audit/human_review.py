@@ -142,8 +142,8 @@ def _overlay(source_path: Path, page: Mapping[str, Any], output_path: Path) -> N
 
 def _page_html(fixture_id: str, page: Mapping[str, Any]) -> str:
     side = str(page["side"])
-    source = f"../preprocessed/{fixture_id}/{Path(str(page['image_path'])).name}"
-    overlay = f"../pages/{fixture_id}/{side}.overlay.png"
+    source = f"preprocessed/{fixture_id}/{Path(str(page['image_path'])).name}"
+    overlay = f"pages/{fixture_id}/{side}.overlay.png"
     tokens = {token["token_id"]: token for token in page.get("tokens", [])}
     line_rows = []
     for line in page.get("physical_lines", []):
@@ -187,7 +187,7 @@ def _write_index(pages: list[tuple[str, Mapping[str, Any]]], destination: Path) 
     content = """<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Normalize geometry human review</title><style>
 body{font:16px/1.45 system-ui,sans-serif;margin:1.5rem;color:#171717}h1{margin-bottom:.3rem}.instructions{background:#f4f2e9;padding:1rem;max-width:80rem}.page{border-top:2px solid #bbb;margin-top:2rem;padding-top:1rem}.images{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.images img{display:block;width:100%;height:auto;image-rendering:auto;border:1px solid #888}.images figure{margin:0;min-width:0}figcaption{font-size:.9rem;color:#444}table{border-collapse:collapse;width:100%;margin:.6rem 0 1rem}th,td{border:1px solid #bbb;padding:.4rem;text-align:left;vertical-align:top}td{overflow-wrap:anywhere}summary{cursor:pointer;font-weight:600}code{white-space:normal}@media(max-width:850px){.images{grid-template-columns:1fr}}
-</style><body><h1>Normalize Slice 2 geometry review</h1><div class="instructions"><b>Review each page visually.</b> Compare the overlay with the unchanged source image; zoom by opening either image in a new tab. If every production line and assignment is right, set its page-side record in <code>../human-review.json</code> to <code>verified_no_exceptions</code>. Otherwise use <code>verified_with_exceptions</code> and record only the affected lines/tokens and their correction relation. Do not report OCR spelling issues as geometry errors. The JSON ledger is authoritative; this page does not write review state. Exception examples and field definitions are in <code>README.md</code>.</div>
+</style><body><h1>Normalize Slice 2 geometry review</h1><div class="instructions"><b>Review each page visually.</b> Compare the overlay with the unchanged source image; zoom by opening either image in a new tab. If every production line and assignment is right, set its page-side record in <code>../human-review.json</code> to <code>verified_no_exceptions</code>. Otherwise use <code>verified_with_exceptions</code> and record only the affected lines/tokens and their correction relation. Do not report OCR spelling issues as geometry errors. The JSON ledger is authoritative; this page does not write review state. Exception examples and field definitions are in <code>README-human-review.md</code>.</div>
 """ + sections + "</body></html>\n"
     destination.write_text(content, encoding="utf-8")
 
@@ -329,6 +329,21 @@ def generate_package(root: Path = ROOT, output_dir: Path = PACKAGE) -> dict[str,
     )
     _write_index(package_pages, output_dir / "index.html")
     return ledger
+
+
+def generate_index(output_dir: Path = PACKAGE) -> int:
+    """Regenerate only the HTML from the durable geometry artifacts."""
+    package_pages: list[tuple[str, Mapping[str, Any]]] = []
+    for geometry_path in sorted((output_dir / "geometry").glob("*.geometry.json")):
+        geometry = _load(geometry_path)
+        fixture_id = str(geometry["fixture_id"])
+        package_pages.extend(
+            (fixture_id, page)
+            for page in geometry.get("pages", [])
+            if not page.get("blank")
+        )
+    _write_index(package_pages, output_dir / "index.html")
+    return len(package_pages)
 
 
 def _check_ledger(ledger: Mapping[str, Any], geometry_by_page: Mapping[tuple[str, str], Mapping[str, Any]]) -> None:
@@ -661,11 +676,13 @@ def score_from_files(ledger_path: Path = LEDGER_PATH, package_dir: Path = PACKAG
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("generate", "score"))
+    parser.add_argument("action", choices=("generate", "generate-index", "score"))
     args = parser.parse_args()
     if args.action == "generate":
         ledger = generate_package()
         print(json.dumps({"inventory": ledger["inventory"], "reviewable_page_sides": len(ledger["pages"]), "ledger": str(LEDGER_PATH), "index": str(PACKAGE / "index.html")}, indent=2))
+    elif args.action == "generate-index":
+        print(json.dumps({"reviewable_page_sides": generate_index(), "index": str(PACKAGE / "index.html")}, indent=2))
     else:
         print(json.dumps(score_from_files(), indent=2))
 
