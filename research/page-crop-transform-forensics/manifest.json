@@ -1,0 +1,175 @@
+{
+  "schema": "page-crop-transform-forensics-manifest-v1",
+  "inputs": [
+    {
+      "path": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+      "sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3"
+    },
+    {
+      "path": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+      "sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532"
+    },
+    {
+      "path": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+      "sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4"
+    },
+    {
+      "path": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+      "sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4"
+    },
+    {
+      "path": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+      "sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc"
+    },
+    {
+      "path": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+      "sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-L.pdf",
+      "sha256": "1f87d421c1b7c19650206dd8cc5d85d09c010f9ca9744a239856245f99947da0"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-R.pdf",
+      "sha256": "96fac46f48a561c8b02445c213d8e6a985631fda3724c964a82819bc241d064f"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-L.pdf",
+      "sha256": "93658ef0aaa006a9282d662668700184c06e08002fd1d05343710fe2e5a2efad"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-R.pdf",
+      "sha256": "f4728d82f292137e33ba59ddc9e5241463ccc39e568ca4d38986e69fb60c3665"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-L.pdf",
+      "sha256": "7ca6805c271c26cb8ed5ff70a57e734cef65fed822b825367ebd5eb993077c10"
+    },
+    {
+      "path": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-R.pdf",
+      "sha256": "85d54d82678184a3b7574ce2a6ebe80ed2b37f5dcc2f2f2608502fa5bd6e0f8e"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-L.pdf",
+      "sha256": "4ad3ea634ef1466c6337f2c92d638020f0ef469e1f0f88dab9adf7ade9f902c1"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-R.pdf",
+      "sha256": "3ffecf4a786c17412f1cabe8e24c6014734e19f6db69aefcb9566dc380217f12"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-L.pdf",
+      "sha256": "e64f6bdbff38a10ea724b8356f03b38a3c59270c19f04eeecc9e75c761871672"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-R.pdf",
+      "sha256": "a8a0acda50ae658c3b4e3def6e05cccf1cfe238536482f1209f9055a7dacb19c"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-L.pdf",
+      "sha256": "61a4cabf52158a1f7fce2298730ce9c7051ffe99b6ebe857c6cfd2a4f06de926"
+    },
+    {
+      "path": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-R.pdf",
+      "sha256": "51065dcdfca603bb154890dc866f8b3a0355e1fb5038881b89e5fe80ba9902e1"
+    }
+  ],
+  "embedded_images": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "left",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+      "identical_in_crop_pdf": true
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "right",
+      "width_px": 2550,
+      "height_px": 3300,
+      "sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+      "identical_in_crop_pdf": true
+    }
+  ]
+}

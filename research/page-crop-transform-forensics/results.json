@@ -1,0 +1,6711 @@
+{
+  "schema": "page-crop-transform-forensics-v1",
+  "method": {
+    "authority": "PDF object/content-stream affine geometry; image-feature registration is not used for primary bounds",
+    "production_dpi": 144,
+    "fixture_split_boundary_px": 792,
+    "pixel_coordinates": "embedded JPEG pixels, top-left origin; image-space y is inverted into PDF's bottom-left normalized coordinates",
+    "source_pixel_to_pdf_formula": "u=x/W; v=1-y/H; page=[a*u+c*v+e, b*u+d*v+f]",
+    "crop_recovery": "Invert each crop PDF's direct image-placement CTM at all visible CropBox corners; identical XObject bytes identify the same JPEG sample coordinate system",
+    "rotation_handling": "Apply source page /Rotate after carrying recovered image points through the original source PDF image CTM; reorder corners into display TL/TR/BR/BL after the 90-degree turn",
+    "rounding": "No rounding in recovered evidence; production candidate values are shown at full precision"
+  },
+  "pages": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "left",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-L.pdf",
+      "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+      "crop_pdf_sha256": "1f87d421c1b7c19650206dd8cc5d85d09c010f9ca9744a239856245f99947da0",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102859-06'00'",
+          "modDate": "D:20260907110524-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 14 0 R\n  /CropBox [ 110.206 47.8764 518.51 317.971 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102859-06'00'",
+          "modDate": "D:20260926133421-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[110.206 47.8764 518.51 317.971]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            110.20600128173828,
+            474.02899169921875,
+            518.510009765625,
+            744.1235961914062
+          ],
+          "bleed": [
+            110.20600128173828,
+            474.02899169921875,
+            518.510009765625,
+            744.1235961914062
+          ],
+          "trim": [
+            110.20600128173828,
+            474.02899169921875,
+            518.510009765625,
+            744.1235961914062
+          ],
+          "art": [
+            110.20600128173828,
+            474.02899169921875,
+            518.510009765625,
+            744.1235961914062
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            270.0946044921875,
+            408.30401611328125
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          270.0946044921875
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          270.0946044921875,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.8786011 11.9998169 -15.5291748 791.8428955 7.8252716 -5.9213562 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.8786011 11.9998169 -15.5291748 791.8428955 7.8252716 -5.9213562 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.8786011,
+              11.9998169,
+              -15.5291748,
+              791.8428955,
+              7.8252716,
+              -5.9213562
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3257778\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.8786011,
+          11.9998169,
+          -15.5291748,
+          791.8428955,
+          7.8252716,
+          -5.9213562
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -7.7039031982421875,
+          -5.92132568359375,
+          619.703857421875,
+          797.92138671875
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.8786010742188,
+          -11.99981689453125,
+          15.5291748046875,
+          791.8428955078125,
+          -7.7039031982421875,
+          6.0784912109375
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.052422492480596e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          14
+        ],
+        "content_streams_latin1": [
+          "q\n611.9917603 1.4663849 -1.8976746 791.9893799 0.9528961 -0.7278748 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9917603 1.4663849 -1.8976746 791.9893799 0.9528961 -0.7278748 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9917603,
+              1.4663849,
+              -1.8976746,
+              791.9893799,
+              0.9528961,
+              -0.7278748
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3257778\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9917603,
+          1.4663849,
+          -1.8976746,
+          791.9893799,
+          0.9528961,
+          -0.7278748
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -111.1507797241211,
+          -474.75689697265625,
+          502.7386169433594,
+          318.6988830566406
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9917602539062,
+          -1.4663848876953125,
+          1.897674560546875,
+          791.9893798828125,
+          -111.1507797241211,
+          -473.2904968261719
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.382925666672508e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -7.7039032,
+          785.9215393000001
+        ],
+        [
+          604.1746979,
+          797.9213562000001
+        ],
+        [
+          619.7038726999999,
+          6.078460700000001
+        ],
+        [
+          7.8252716,
+          -5.9213562
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -0.9447785,
+          791.2615051
+        ],
+        [
+          611.0469818,
+          792.72789
+        ],
+        [
+          612.9446564,
+          0.7385101
+        ],
+        [
+          0.9528961,
+          -0.7278748
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        110.206,
+        47.8764,
+        518.51,
+        317.971
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          0.009411621098039216,
+          -0.4799047851515152,
+          1571.8430786000001
+        ],
+        [
+          0.47990478517647056,
+          0.009411621090909091,
+          -15.4078064
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          0.0011501058039215686,
+          -0.47999356357575756,
+          1486.7702102
+        ],
+        [
+          0.4799935374901961,
+          0.001150105818181818,
+          -222.301557
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9998474414454565,
+          -0.017211913125162154,
+          -85.09826811716557
+        ],
+        [
+          0.01721191201489641,
+          0.9998473870592799,
+          -233.95052680073186
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.9862229759009709,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        541,
+        817
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          816.608
+        ],
+        [
+          540.1892,
+          816.608
+        ],
+        [
+          540.1892,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        95.7528,
+        220.412,
+        635.942,
+        1037.02
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            458.40659744532917,
+            1973.1685967468093
+          ],
+          [
+            2159.6864020945945,
+            1977.2450092779386
+          ],
+          [
+            2156.98984015623,
+            3102.6478056077403
+          ],
+          [
+            455.7100355069647,
+            3098.571393076611
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          455.7100355069647,
+          1973.1685967468093,
+          2159.6864020945945,
+          3102.6478056077403
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 4.0764125311293355,
+          "right_x_delta_px": 2.696561938364539,
+          "bottom_y_delta_px": 4.0764125311293355,
+          "left_x_delta_px": 2.696561938364482
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          0.9998473870592797,
+          -0.017211913125161793,
+          0.017211912014896136,
+          0.9998474414454561,
+          -6.769263400365928,
+          5.327265941417188
+        ],
+        "crop_pdf_relative_rotation_degrees": -0.9862230931398412,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            89.11281011370347,
+            232.45220016749903
+          ],
+          [
+            629.2243763145027,
+            223.15442845153927
+          ],
+          [
+            643.2798873376672,
+            1039.645113276966
+          ],
+          [
+            103.16832113686813,
+            1048.9428849929257
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          89.11281011370347,
+          223.15442845153927,
+          643.2798873376672,
+          1048.9428849929257
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 9.297771715959755,
+          "right_x_delta_px": 14.055511023164513,
+          "bottom_y_delta_px": 9.297771715959698,
+          "left_x_delta_px": 14.055511023164655
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.1457157353758233e-13
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "side": "right",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 10-R.pdf",
+      "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+      "crop_pdf_sha256": "96fac46f48a561c8b02445c213d8e6a985631fda3724c964a82819bc241d064f",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102859-06'00'",
+          "modDate": "D:20260907110524-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 14 0 R\n  /CropBox [ 17.1632 396.109 509.929 681.109 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102859-06'00'",
+          "modDate": "D:20260926133447-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[17.1632 396.109 509.929 681.109]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            17.16320037841797,
+            110.8909912109375,
+            509.9289855957031,
+            395.8909912109375
+          ],
+          "bleed": [
+            17.16320037841797,
+            110.8909912109375,
+            509.9289855957031,
+            395.8909912109375
+          ],
+          "trim": [
+            17.16320037841797,
+            110.8909912109375,
+            509.9289855957031,
+            395.8909912109375
+          ],
+          "art": [
+            17.16320037841797,
+            110.8909912109375,
+            509.9289855957031,
+            395.8909912109375
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            285.0,
+            492.7657775878906
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          285.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          285.0,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.8786011 11.9998169 -15.5291748 791.8428955 7.8252716 -5.9213562 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.8786011 11.9998169 -15.5291748 791.8428955 7.8252716 -5.9213562 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.8786011,
+              11.9998169,
+              -15.5291748,
+              791.8428955,
+              7.8252716,
+              -5.9213562
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3257778\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.8786011,
+          11.9998169,
+          -15.5291748,
+          791.8428955,
+          7.8252716,
+          -5.9213562
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -7.7039031982421875,
+          -5.92132568359375,
+          619.703857421875,
+          797.92138671875
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.8786010742188,
+          -11.99981689453125,
+          15.5291748046875,
+          791.8428955078125,
+          -7.7039031982421875,
+          6.0784912109375
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.052422492480596e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          14
+        ],
+        "content_streams_latin1": [
+          "q\n611.9917603 1.4663849 -1.8976746 791.9893799 0.9528961 -0.7278748 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9917603 1.4663849 -1.8976746 791.9893799 0.9528961 -0.7278748 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9917603,
+              1.4663849,
+              -1.8976746,
+              791.9893799,
+              0.9528961,
+              -0.7278748
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3257778\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "83a8a2531a7cc73056acebbe7dbe98409ab966a1ae941fb19c3ecd7e3f4be9a3",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9917603,
+          1.4663849,
+          -1.8976746,
+          791.9893799,
+          0.9528961,
+          -0.7278748
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -18.10797882080078,
+          -111.61885070800781,
+          595.7814331054688,
+          681.8369140625
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9917602539062,
+          -1.4663848876953125,
+          1.897674560546875,
+          791.9893798828125,
+          -18.10797882080078,
+          -110.1524658203125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.929370508040469e-05
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -7.7039032,
+          785.9215393000001
+        ],
+        [
+          604.1746979,
+          797.9213562000001
+        ],
+        [
+          619.7038726999999,
+          6.078460700000001
+        ],
+        [
+          7.8252716,
+          -5.9213562
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -0.9447785,
+          791.2615051
+        ],
+        [
+          611.0469818,
+          792.72789
+        ],
+        [
+          612.9446564,
+          0.7385101
+        ],
+        [
+          0.9528961,
+          -0.7278748
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        17.1632,
+        396.109,
+        509.929,
+        681.109
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          0.009411621098039216,
+          -0.4799047851515152,
+          1571.8430786000001
+        ],
+        [
+          0.47990478517647056,
+          0.009411621090909091,
+          -15.4078064
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          0.0011501058039215686,
+          -0.47999356357575756,
+          790.3050102000001
+        ],
+        [
+          0.4799935374901961,
+          0.001150105818181818,
+          -36.215957
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9998474414454565,
+          -0.017211913125162154,
+          -781.5634681171656
+        ],
+        [
+          0.01721191201489641,
+          0.9998473870592799,
+          -47.86492680073186
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.9862229759009709,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        570,
+        986
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          985.5315999999999
+        ],
+        [
+          570.0000000000001,
+          985.5315999999999
+        ],
+        [
+          570.0000000000001,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        0.2179999999999609,
+        34.3264,
+        570.2180000000001,
+        1019.858
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            74.35075597442258,
+            459.15307654159346
+          ],
+          [
+            2127.5574450145473,
+            464.07273611395146
+          ],
+          [
+            2124.712071014349,
+            1651.5818420123799
+          ],
+          [
+            71.50538197422458,
+            1646.6621824400218
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          71.50538197422458,
+          459.15307654159346,
+          2127.5574450145473,
+          1651.5818420123799
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 4.919659572358,
+          "right_x_delta_px": 2.8453740001982624,
+          "bottom_y_delta_px": 4.919659572358114,
+          "left_x_delta_px": 2.8453740001980066
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          0.9998473870592797,
+          -0.017211913125161793,
+          0.017211912014896136,
+          0.9998474414454561,
+          -6.769263400365928,
+          5.327265941417188
+        ],
+        "crop_pdf_relative_rotation_degrees": -0.9862230931398412,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            -9.725000719391574,
+            34.405729101156616
+          ],
+          [
+            560.1930811942336,
+            24.594851952748115
+          ],
+          [
+            577.1561164173477,
+            1009.984868951233
+          ],
+          [
+            7.238034503722474,
+            1019.7957460996412
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          -9.725000719391574,
+          24.594851952748115,
+          577.1561164173477,
+          1019.7957460996412
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 9.810877148408501,
+          "right_x_delta_px": 16.963035223114048,
+          "bottom_y_delta_px": 9.810877148408167,
+          "left_x_delta_px": 16.963035223114048
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 8.038873388460929e-14
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "left",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-L.pdf",
+      "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+      "crop_pdf_sha256": "93658ef0aaa006a9282d662668700184c06e08002fd1d05343710fe2e5a2efad",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260907110543-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 130.079 68.6529 516.252 333.328 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260926133641-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[130.079 68.6529 516.252 333.328]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            130.07899475097656,
+            458.6719970703125,
+            516.2520141601562,
+            723.3471069335938
+          ],
+          "bleed": [
+            130.07899475097656,
+            458.6719970703125,
+            516.2520141601562,
+            723.3471069335938
+          ],
+          "trim": [
+            130.07899475097656,
+            458.6719970703125,
+            516.2520141601562,
+            723.3471069335938
+          ],
+          "art": [
+            130.07899475097656,
+            458.6719970703125,
+            516.2520141601562,
+            723.3471069335938
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            264.67510986328125,
+            386.17303466796875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          264.67510986328125
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          264.67510986328125,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9906616,
+              -3.5859375,
+              4.640625,
+              791.987915,
+              -2.3156586,
+              1.7990112
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3235720\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9906616,
+          -3.5859375,
+          4.640625,
+          791.987915,
+          -2.3156586,
+          1.7990112
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -2.3156585693359375,
+          -1.78692626953125,
+          614.3156127929688,
+          793.7869262695312
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9906616210938,
+          3.5859375,
+          -4.640625,
+          791.9879150390625,
+          2.3249664306640625,
+          -1.78692626953125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.668025121590693e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9906616,
+              -3.5859375,
+              4.640625,
+              791.987915,
+              -2.3156586,
+              1.7990112
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3235720\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9906616,
+          -3.5859375,
+          4.640625,
+          791.987915,
+          -2.3156586,
+          1.7990112
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -132.3946533203125,
+          -460.45892333984375,
+          484.23663330078125,
+          335.11492919921875
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9906616210938,
+          3.5859375,
+          -4.640625,
+          791.9879150390625,
+          -127.7540283203125,
+          -460.45892333984375
+        ],
+        "image_corner_render_matrix_max_difference_pt": 6.041833495378368e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          2.3249664,
+          793.7869262
+        ],
+        [
+          614.315628,
+          790.2009887
+        ],
+        [
+          609.675003,
+          -1.7869263
+        ],
+        [
+          -2.3156586,
+          1.7990112
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          2.3249664,
+          793.7869262
+        ],
+        [
+          614.315628,
+          790.2009887
+        ],
+        [
+          609.675003,
+          -1.7869263
+        ],
+        [
+          -2.3156586,
+          1.7990112
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        130.079,
+        68.6529,
+        516.252,
+        333.328
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.0028125,
+          -0.47999267575757576,
+          1587.5738524
+        ],
+        [
+          0.47999267576470583,
+          -0.0028125,
+          4.6499328
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0028125,
+          -0.47999267575757576,
+          1450.2680524
+        ],
+        [
+          0.47999267576470583,
+          -0.0028125,
+          -255.50806720000003
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999999999998,
+          8.673617379884035e-19,
+          -137.30579999999978
+        ],
+        [
+          -8.673617379884035e-19,
+          0.9999999999999998,
+          -260.158
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": -4.969616689786746e-17,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        530,
+        773
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          772.3459999999999
+        ],
+        [
+          529.3502,
+          772.3459999999999
+        ],
+        [
+          529.3502,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        137.3058,
+        260.158,
+        666.656,
+        1032.504
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            543.5399504059244,
+            1915.4232819040524
+          ],
+          [
+            2152.563426597841,
+            1905.9952661126706
+          ],
+          [
+            2159.0251963807764,
+            3008.787148170115
+          ],
+          [
+            550.0017201888595,
+            3018.2151639614963
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          543.5399504059244,
+          1905.9952661126706,
+          2159.0251963807764,
+          3018.2151639614963
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 9.428015791381767,
+          "right_x_delta_px": 6.461769782935335,
+          "bottom_y_delta_px": 9.428015791381313,
+          "left_x_delta_px": 6.461769782935107
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.9999999999999998,
+          0.0,
+          2.220446049250313e-16
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            137.30580000000003,
+            260.158
+          ],
+          [
+            666.656,
+            260.158
+          ],
+          [
+            666.6560000000001,
+            1032.504
+          ],
+          [
+            137.30580000000006,
+            1032.504
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          137.30580000000003,
+          260.158,
+          666.6560000000001,
+          1032.504
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.0,
+          "right_x_delta_px": 1.1368683772161603e-13,
+          "bottom_y_delta_px": 0.0,
+          "left_x_delta_px": 2.842170943040401e-14
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 5.684341886080802e-14
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "side": "right",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 17-R.pdf",
+      "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+      "crop_pdf_sha256": "f4728d82f292137e33ba59ddc9e5241463ccc39e568ca4d38986e69fb60c3665",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260907110543-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 35.2298 410.111 522.124 678.399 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260926133606-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[35.2298 410.111 522.124 678.399]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            35.229801177978516,
+            113.60101318359375,
+            522.1240234375,
+            381.8890075683594
+          ],
+          "bleed": [
+            35.229801177978516,
+            113.60101318359375,
+            522.1240234375,
+            381.8890075683594
+          ],
+          "trim": [
+            35.229801177978516,
+            113.60101318359375,
+            522.1240234375,
+            381.8890075683594
+          ],
+          "art": [
+            35.229801177978516,
+            113.60101318359375,
+            522.1240234375,
+            381.8890075683594
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            268.2879943847656,
+            486.89422607421875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          268.2879943847656
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          268.2879943847656,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9906616,
+              -3.5859375,
+              4.640625,
+              791.987915,
+              -2.3156586,
+              1.7990112
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3235720\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9906616,
+          -3.5859375,
+          4.640625,
+          791.987915,
+          -2.3156586,
+          1.7990112
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -2.3156585693359375,
+          -1.78692626953125,
+          614.3156127929688,
+          793.7869262695312
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9906616210938,
+          3.5859375,
+          -4.640625,
+          791.9879150390625,
+          2.3249664306640625,
+          -1.78692626953125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.668025121590693e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9906616 -3.5859375 4.640625 791.987915 -2.3156586 1.7990112 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9906616,
+              -3.5859375,
+              4.640625,
+              791.987915,
+              -2.3156586,
+              1.7990112
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3235720\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "569f39cb1b17e66e78cabf4f2a9b77dae94cec97ab484a9a5ec79002ffbd1b1a",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9906616,
+          -3.5859375,
+          4.640625,
+          791.987915,
+          -2.3156586,
+          1.7990112
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -37.54545974731445,
+          -115.387939453125,
+          579.0858154296875,
+          680.1859130859375
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9906616210938,
+          3.5859375,
+          -4.640625,
+          791.9879150390625,
+          -32.90483474731445,
+          -115.387939453125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 1.3302693400924566e-05
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          2.3249664,
+          793.7869262
+        ],
+        [
+          614.315628,
+          790.2009887
+        ],
+        [
+          609.675003,
+          -1.7869263
+        ],
+        [
+          -2.3156586,
+          1.7990112
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          2.3249664,
+          793.7869262
+        ],
+        [
+          614.315628,
+          790.2009887
+        ],
+        [
+          609.675003,
+          -1.7869263
+        ],
+        [
+          -2.3156586,
+          1.7990112
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        35.2298,
+        410.111,
+        522.124,
+        678.399
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.0028125,
+          -0.47999267575757576,
+          1587.5738524
+        ],
+        [
+          0.47999267576470583,
+          -0.0028125,
+          4.6499328
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0028125,
+          -0.47999267575757576,
+          767.3518524000001
+        ],
+        [
+          0.47999267576470583,
+          -0.0028125,
+          -65.80966719999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999999999998,
+          8.673617379884035e-19,
+          -820.2219999999996
+        ],
+        [
+          -8.673617379884035e-19,
+          0.9999999999999998,
+          -70.4596
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": -4.969616689786746e-17,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        537,
+        974
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          973.7884
+        ],
+        [
+          536.576,
+          973.7884
+        ],
+        [
+          536.576,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        28.22199999999998,
+        70.4596,
+        564.798,
+        1044.248
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            139.91793557016393,
+            479.97051797216494
+          ],
+          [
+            2168.6050737742394,
+            468.08349788963204
+          ],
+          [
+            2175.155048787092,
+            1585.928842817914
+          ],
+          [
+            146.46791058301594,
+            1597.815862900447
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          139.91793557016393,
+          468.08349788963204,
+          2175.155048787092,
+          1597.815862900447
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 11.8870200825329,
+          "right_x_delta_px": 6.549975012852428,
+          "bottom_y_delta_px": 11.8870200825329,
+          "left_x_delta_px": 6.549975012852002
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          0.9999999999999998,
+          0.0,
+          2.220446049250313e-16
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            28.221999999999866,
+            70.4596
+          ],
+          [
+            564.798,
+            70.45959999999998
+          ],
+          [
+            564.798,
+            1044.2479999999998
+          ],
+          [
+            28.22199999999998,
+            1044.248
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          28.221999999999866,
+          70.45959999999998,
+          564.798,
+          1044.248
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 1.4210854715202004e-14,
+          "right_x_delta_px": 0.0,
+          "bottom_y_delta_px": 2.2737367544323206e-13,
+          "left_x_delta_px": 1.1368683772161603e-13
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.1368683772161603e-13
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "left",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-L.pdf",
+      "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+      "crop_pdf_sha256": "7ca6805c271c26cb8ed5ff70a57e734cef65fed822b825367ebd5eb993077c10",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260907110604-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 14 0 R\n  /CropBox [ 107.948 77.6862 518.059 342.813 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260926133515-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[107.948 77.6862 518.059 342.813]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            107.947998046875,
+            449.18701171875,
+            518.0590209960938,
+            714.3137817382812
+          ],
+          "bleed": [
+            107.947998046875,
+            449.18701171875,
+            518.0590209960938,
+            714.3137817382812
+          ],
+          "trim": [
+            107.947998046875,
+            449.18701171875,
+            518.0590209960938,
+            714.3137817382812
+          ],
+          "art": [
+            107.947998046875,
+            449.18701171875,
+            518.0590209960938,
+            714.3137817382812
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            265.12677001953125,
+            410.11102294921875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          265.12677001953125
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          265.12677001953125,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 1.3540649 -1.7523193 792 0.8761597 -0.6770325 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 1.3540649 -1.7523193 792 0.8761597 -0.6770325 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              1.3540649,
+              -1.7523193,
+              792.0,
+              0.8761597,
+              -0.6770325
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3155897\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          1.3540649,
+          -1.7523193,
+          792.0,
+          0.8761597,
+          -0.6770325
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -0.8761596083641052,
+          -0.67706298828125,
+          612.8761596679688,
+          792.677001953125
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          -1.35406494140625,
+          1.7523193359375,
+          792.0,
+          -0.8761596083641052,
+          0.677001953125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.058829364774983e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          14
+        ],
+        "content_streams_latin1": [
+          "q\n612.0053101 -1.0365601 1.3414307 792.0068359 -0.7336121 0.5149078 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612.0053101 -1.0365601 1.3414307 792.0068359 -0.7336121 0.5149078 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0053101,
+              -1.0365601,
+              1.3414307,
+              792.0068359,
+              -0.7336121,
+              0.5149078
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3155897\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0053101,
+          -1.0365601,
+          1.3414307,
+          792.0068359,
+          -0.7336121,
+          0.5149078
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -108.68161010742188,
+          -449.708740234375,
+          504.6651306152344,
+          343.33465576171875
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0053100585938,
+          1.03656005859375,
+          -1.3414306640625,
+          792.0068359375,
+          -107.34017944335938,
+          -449.708740234375
+        ],
+        "image_corner_render_matrix_max_difference_pt": 4.030167792517813e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -0.8761595999999999,
+          791.3229675
+        ],
+        [
+          611.1238404000001,
+          792.6770324
+        ],
+        [
+          612.8761597,
+          0.6770324
+        ],
+        [
+          0.8761597,
+          -0.6770325
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.6078186000000001,
+          792.5217437
+        ],
+        [
+          612.6131287000001,
+          791.4851836
+        ],
+        [
+          611.271698,
+          -0.5216523
+        ],
+        [
+          -0.7336121,
+          0.5149078
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        107.948,
+        77.6862,
+        518.059,
+        342.813
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          0.0010620116862745097,
+          -0.48,
+          1582.645935
+        ],
+        [
+          0.48,
+          0.0010620116969696969,
+          -1.7523191999999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0008129883137254902,
+          -0.480004142969697,
+          1429.6710874
+        ],
+        [
+          0.4800041647843137,
+          -0.0008129883030303031,
+          -214.68036279999998
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999885136097,
+          -0.0039062499745860816,
+          -152.9816744179419
+        ],
+        [
+          0.003906250075138638,
+          1.0000000339605923,
+          -219.1102543430018
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.22381050724434792,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        531,
+        821
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          820.222
+        ],
+        [
+          530.2536,
+          820.222
+        ],
+        [
+          530.2536,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        155.3724,
+        215.896,
+        685.626,
+        1036.118
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            450.41920831657717,
+            1873.0073792386388
+          ],
+          [
+            2159.1953132901835,
+            1870.1132062935433
+          ],
+          [
+            2161.066325775792,
+            2974.7955025923684
+          ],
+          [
+            452.29022080218584,
+            2977.689675537464
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          450.41920831657717,
+          1870.1132062935433,
+          2161.066325775792,
+          2977.689675537464
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 2.8941729450955336,
+          "right_x_delta_px": 1.8710124856083894,
+          "bottom_y_delta_px": 2.894172945095761,
+          "left_x_delta_px": 1.8710124856086736
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000339605926,
+          -0.0039062499745858847,
+          0.003906250075138562,
+          0.9999999885136104,
+          -1.6071271715009061,
+          1.1953627910291988
+        ],
+        "crop_pdf_relative_rotation_degrees": -0.22381049131177916,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            153.8352282420968,
+            218.5093280504159
+          ],
+          [
+            684.080743428408,
+            216.43805653721904
+          ],
+          [
+            687.2846866347626,
+            1036.6475132790295
+          ],
+          [
+            157.03917144845144,
+            1038.7187847922262
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          153.8352282420968,
+          216.43805653721904,
+          687.2846866347626,
+          1038.7187847922262
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 2.071271513196848,
+          "right_x_delta_px": 3.203943206354552,
+          "bottom_y_delta_px": 2.0712715131967343,
+          "left_x_delta_px": 3.203943206354637
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.214175959108492e-13
+      }
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "side": "right",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+      "crop_pdf": "fixtures/einstein/crops/Einstein, Albert - Relativity 23-R.pdf",
+      "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+      "crop_pdf_sha256": "85d54d82678184a3b7574ce2a6ebe80ed2b37f5dcc2f2f2608502fa5bd6e0f8e",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260907110604-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 14 0 R\n  /CropBox [ 32.9715 406.949 523.479 678.851 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907102900-06'00'",
+          "modDate": "D:20260926133544-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[32.9715 406.949 523.479 678.851]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            32.971500396728516,
+            113.14898681640625,
+            523.47900390625,
+            385.0509948730469
+          ],
+          "bleed": [
+            32.971500396728516,
+            113.14898681640625,
+            523.47900390625,
+            385.0509948730469
+          ],
+          "trim": [
+            32.971500396728516,
+            113.14898681640625,
+            523.47900390625,
+            385.0509948730469
+          ],
+          "art": [
+            32.971500396728516,
+            113.14898681640625,
+            523.47900390625,
+            385.0509948730469
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            271.9020080566406,
+            490.50750732421875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          271.9020080566406
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          271.9020080566406,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 1.3540649 -1.7523193 792 0.8761597 -0.6770325 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 1.3540649 -1.7523193 792 0.8761597 -0.6770325 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              1.3540649,
+              -1.7523193,
+              792.0,
+              0.8761597,
+              -0.6770325
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3155897\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          1.3540649,
+          -1.7523193,
+          792.0,
+          0.8761597,
+          -0.6770325
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -0.8761596083641052,
+          -0.67706298828125,
+          612.8761596679688,
+          792.677001953125
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          -1.35406494140625,
+          1.7523193359375,
+          792.0,
+          -0.8761596083641052,
+          0.677001953125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.058829364774983e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          14
+        ],
+        "content_streams_latin1": [
+          "q\n612.0053101 -1.0365601 1.3414307 792.0068359 -0.7336121 0.5149078 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612.0053101 -1.0365601 1.3414307 792.0068359 -0.7336121 0.5149078 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0053101,
+              -1.0365601,
+              1.3414307,
+              792.0068359,
+              -0.7336121,
+              0.5149078
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 3155897\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "0befa949d66a862cf4f315681943a087b7bdca6cb3910caf0e9a0ecbdd6ad1e9",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0053101,
+          -1.0365601,
+          1.3414307,
+          792.0068359,
+          -0.7336121,
+          0.5149078
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -33.70511245727539,
+          -113.67071533203125,
+          579.6416015625,
+          679.3726806640625
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0053100585938,
+          1.03656005859375,
+          -1.3414306640625,
+          792.0068359375,
+          -32.36368179321289,
+          -113.67071533203125
+        ],
+        "image_corner_render_matrix_max_difference_pt": 2.8407715459216002e-05
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          -0.8761595999999999,
+          791.3229675
+        ],
+        [
+          611.1238404000001,
+          792.6770324
+        ],
+        [
+          612.8761597,
+          0.6770324
+        ],
+        [
+          0.8761597,
+          -0.6770325
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.6078186000000001,
+          792.5217437
+        ],
+        [
+          612.6131287000001,
+          791.4851836
+        ],
+        [
+          611.271698,
+          -0.5216523
+        ],
+        [
+          -0.7336121,
+          0.5149078
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        32.9715,
+        406.949,
+        523.479,
+        678.851
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          0.0010620116862745097,
+          -0.48,
+          1582.645935
+        ],
+        [
+          0.48,
+          0.0010620116969696969,
+          -1.7523191999999999
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0008129883137254902,
+          -0.480004142969697,
+          771.1454874
+        ],
+        [
+          0.4800041647843137,
+          -0.0008129883030303031,
+          -64.7273628
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999885136097,
+          -0.0039062499745860816,
+          -811.507274417942
+        ],
+        [
+          0.003906250075138638,
+          1.0000000339605923,
+          -69.15725434300181
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.22381050724434792,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        544,
+        982
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          981.0150000000001
+        ],
+        [
+          543.804,
+          981.0150000000001
+        ],
+        [
+          543.804,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        21.898000000000025,
+        65.943,
+        565.702,
+        1046.958
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            135.64929551276688,
+            473.3942601039761
+          ],
+          [
+            2179.4069496852744,
+            469.93272521252806
+          ],
+          [
+            2181.325775080753,
+            1602.844696873798
+          ],
+          [
+            137.56812090824545,
+            1606.3062317652461
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          135.64929551276688,
+          469.93272521252806,
+          2181.325775080753,
+          1606.3062317652461
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 3.461534891448025,
+          "right_x_delta_px": 1.9188253954785068,
+          "bottom_y_delta_px": 3.461534891448082,
+          "left_x_delta_px": 1.9188253954785637
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000339605926,
+          -0.0039062499745858847,
+          0.003906250075138562,
+          0.9999999885136104,
+          -1.6071271715009061,
+          1.1953627910291988
+        ],
+        "crop_pdf_relative_rotation_degrees": -0.22381049131177916,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            19.765042704745383,
+            65.98629484300784
+          ],
+          [
+            563.5607512871609,
+            63.86209288763684
+          ],
+          [
+            567.3927825477001,
+            1044.8620906998963
+          ],
+          [
+            23.597073965284608,
+            1046.9862926552673
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          19.765042704745383,
+          63.86209288763684,
+          567.3927825477001,
+          1046.9862926552673
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 2.1242019553709994,
+          "right_x_delta_px": 3.8320312605392246,
+          "bottom_y_delta_px": 2.1242019553710634,
+          "left_x_delta_px": 3.8320312605392246
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.1368683772161603e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "left",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-L.pdf",
+      "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+      "crop_pdf_sha256": "4ad3ea634ef1466c6337f2c92d638020f0ef469e1f0f88dab9adf7ade9f902c1",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110701-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 67.7496 34.3265 563.225 313.003 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132918-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[67.7496 34.3265 563.225 313.003]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            67.74960327148438,
+            478.99700927734375,
+            563.2249755859375,
+            757.6735229492188
+          ],
+          "bleed": [
+            67.74960327148438,
+            478.99700927734375,
+            563.2249755859375,
+            757.6735229492188
+          ],
+          "trim": [
+            67.74960327148438,
+            478.99700927734375,
+            563.2249755859375,
+            757.6735229492188
+          ],
+          "art": [
+            67.74960327148438,
+            478.99700927734375,
+            563.2249755859375,
+            757.6735229492188
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            278.6764831542969,
+            495.4753723144531
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          278.676513671875
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          278.676513671875,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.7385254,
+              -17.9203491,
+              23.19104,
+              791.6616211,
+              -11.4647827,
+              9.129364
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1550479\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.7385254,
+          -17.9203491,
+          23.19104,
+          791.6616211,
+          -11.4647827,
+          9.129364
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -11.46478271484375,
+          -8.791015625,
+          623.4647827148438,
+          800.7909545898438
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.738525390625,
+          17.92034912109375,
+          -23.1910400390625,
+          791.66162109375,
+          11.72625732421875,
+          -8.791015625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.053125359880048e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.7385254,
+              -17.9203491,
+              23.19104,
+              791.6616211,
+              -11.4647827,
+              9.129364
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1550479\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.7385254,
+          -17.9203491,
+          23.19104,
+          791.6616211,
+          -11.4647827,
+          9.129364
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -79.21438598632812,
+          -487.7879943847656,
+          555.7152099609375,
+          321.7939758300781
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.738525390625,
+          17.92034912109375,
+          -23.1910400390625,
+          791.66162109375,
+          -56.023345947265625,
+          -487.7879943847656
+        ],
+        "image_corner_render_matrix_max_difference_pt": 9.855096318082592e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          11.7262573,
+          800.7909851000001
+        ],
+        [
+          623.4647827,
+          782.8706360000001
+        ],
+        [
+          600.2737427,
+          -8.790985099999999
+        ],
+        [
+          -11.4647827,
+          9.129364
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          11.7262573,
+          800.7909851000001
+        ],
+        [
+          623.4647827,
+          782.8706360000001
+        ],
+        [
+          600.2737427,
+          -8.790985099999999
+        ],
+        [
+          -11.4647827,
+          9.129364
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        67.7496,
+        34.3265,
+        563.225,
+        313.003
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.014055175764705882,
+          -0.4797949218787879,
+          1601.5819702000001
+        ],
+        [
+          0.4797949218823529,
+          -0.014055175757575759,
+          23.4525146
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.014055175764705882,
+          -0.4797949218787879,
+          1532.9289702
+        ],
+        [
+          0.4797949218823529,
+          -0.014055175757575759,
+          -112.0466854
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          1.0,
+          -3.469446951953614e-18,
+          -68.65300000000033
+        ],
+        [
+          3.469446951953614e-18,
+          1.0,
+          -135.4992
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 1.987846675914698e-16,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        558,
+        991
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          990.9508000000001
+        ],
+        [
+          557.353,
+          990.9508000000001
+        ],
+        [
+          557.353,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        68.653,
+        135.4992,
+        626.006,
+        1126.45
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            292.84337240915966,
+            2024.7400729570106
+          ],
+          [
+            2356.435760192416,
+            1964.2889251969887
+          ],
+          [
+            2390.4360642846063,
+            3124.941308863975
+          ],
+          [
+            326.84367650135005,
+            3185.392456623997
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          292.84337240915966,
+          1964.2889251969887,
+          2390.4360642846063,
+          3185.392456623997
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 60.45114776002197,
+          "right_x_delta_px": 34.00030409219016,
+          "bottom_y_delta_px": 60.451147760022195,
+          "left_x_delta_px": 34.00030409219039
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000000000018,
+          0.0,
+          3.552713678800501e-15,
+          0.9999999999999982,
+          -1.7763568394002505e-15,
+          1.7763568394002505e-15
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            68.65300000000002,
+            135.49919999999997
+          ],
+          [
+            626.0059999999999,
+            135.49919999999997
+          ],
+          [
+            626.0059999999999,
+            1126.4499999999998
+          ],
+          [
+            68.65300000000003,
+            1126.4499999999998
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          68.65300000000002,
+          135.49919999999997,
+          626.0059999999999,
+          1126.4499999999998
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.0,
+          "right_x_delta_px": 0.0,
+          "bottom_y_delta_px": 0.0,
+          "left_x_delta_px": 1.4210854715202004e-14
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.2710574864626038e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "side": "right",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-R.pdf",
+      "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+      "crop_pdf_sha256": "3ffecf4a786c17412f1cabe8e24c6014734e19f6db69aefcb9566dc380217f12",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110701-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 144.081 415.983 555.998 727.631 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132920-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[144.081 415.983 555.998 727.631]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            144.08099365234375,
+            64.3690185546875,
+            555.9979858398438,
+            376.0169982910156
+          ],
+          "bleed": [
+            144.08099365234375,
+            64.3690185546875,
+            555.9979858398438,
+            376.0169982910156
+          ],
+          "trim": [
+            144.08099365234375,
+            64.3690185546875,
+            555.9979858398438,
+            376.0169982910156
+          ],
+          "art": [
+            144.08099365234375,
+            64.3690185546875,
+            555.9979858398438,
+            376.0169982910156
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            311.6479797363281,
+            411.9169921875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          311.6479797363281
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          311.6479797363281,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.7385254,
+              -17.9203491,
+              23.19104,
+              791.6616211,
+              -11.4647827,
+              9.129364
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1550479\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.7385254,
+          -17.9203491,
+          23.19104,
+          791.6616211,
+          -11.4647827,
+          9.129364
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -11.46478271484375,
+          -8.791015625,
+          623.4647827148438,
+          800.7909545898438
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.738525390625,
+          17.92034912109375,
+          -23.1910400390625,
+          791.66162109375,
+          11.72625732421875,
+          -8.791015625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.053125359880048e-05
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.7385254 -17.9203491 23.19104 791.6616211 -11.4647827 9.129364 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.7385254,
+              -17.9203491,
+              23.19104,
+              791.6616211,
+              -11.4647827,
+              9.129364
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1550479\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "ab81e1da425f0fe573a030cc5e15b3d740d33bba89fd65e8776e57283ef2642d",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.7385254,
+          -17.9203491,
+          23.19104,
+          791.6616211,
+          -11.4647827,
+          9.129364
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -155.5457763671875,
+          -73.1600341796875,
+          479.3837890625,
+          736.4219360351562
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.738525390625,
+          17.92034912109375,
+          -23.1910400390625,
+          791.66162109375,
+          -132.354736328125,
+          -73.1600341796875
+        ],
+        "image_corner_render_matrix_max_difference_pt": 4.9492764830555625e-05
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          11.7262573,
+          800.7909851000001
+        ],
+        [
+          623.4647827,
+          782.8706360000001
+        ],
+        [
+          600.2737427,
+          -8.790985099999999
+        ],
+        [
+          -11.4647827,
+          9.129364
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          11.7262573,
+          800.7909851000001
+        ],
+        [
+          623.4647827,
+          782.8706360000001
+        ],
+        [
+          600.2737427,
+          -8.790985099999999
+        ],
+        [
+          -11.4647827,
+          9.129364
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        144.081,
+        415.983,
+        555.998,
+        727.631
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.014055175764705882,
+          -0.4797949218787879,
+          1601.5819702000001
+        ],
+        [
+          0.4797949218823529,
+          -0.014055175757575759,
+          23.4525146
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.014055175764705882,
+          -0.4797949218787879,
+          769.6159702000001
+        ],
+        [
+          0.4797949218823529,
+          -0.014055175757575759,
+          -264.70948539999995
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          1.0,
+          -3.469446951953614e-18,
+          -831.9660000000003
+        ],
+        [
+          3.469446951953614e-18,
+          1.0,
+          -288.162
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 1.987846675914698e-16,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        624,
+        824
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          823.8340000000001
+        ],
+        [
+          623.2959999999999,
+          823.8340000000001
+        ],
+        [
+          623.2959999999999,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        39.96600000000001,
+        288.162,
+        663.262,
+        1111.996
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            560.1667501351008,
+            288.5539670306966
+          ],
+          [
+            2275.7489679374694,
+            238.29747512037156
+          ],
+          [
+            2313.772004575733,
+            1536.271987018752
+          ],
+          [
+            598.189786773364,
+            1586.5284789290768
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          560.1667501351008,
+          238.29747512037156,
+          2313.772004575733,
+          1586.5284789290768
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 50.256491910325025,
+          "right_x_delta_px": 38.02303663826342,
+          "bottom_y_delta_px": 50.25649191032471,
+          "left_x_delta_px": 38.02303663826319
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000000000018,
+          0.0,
+          3.552713678800501e-15,
+          0.9999999999999982,
+          -1.7763568394002505e-15,
+          1.7763568394002505e-15
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            39.96600000000001,
+            288.162
+          ],
+          [
+            663.2619999999997,
+            288.16200000000003
+          ],
+          [
+            663.262,
+            1111.9959999999999
+          ],
+          [
+            39.965999999999894,
+            1111.9960000000003
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          39.965999999999894,
+          288.162,
+          663.262,
+          1111.9960000000003
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 5.684341886080802e-14,
+          "right_x_delta_px": 2.2737367544323206e-13,
+          "bottom_y_delta_px": 4.547473508864641e-13,
+          "left_x_delta_px": 1.1368683772161603e-13
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.2710574864626038e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "left",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-L.pdf",
+      "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+      "crop_pdf_sha256": "e64f6bdbff38a10ea724b8356f03b38a3c59270c19f04eeecc9e75c761871672",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110724-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 23.4865 16.7116 584.002 329.715 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132634-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[23.4865 16.7116 584.002 329.715]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            23.486499786376953,
+            462.2850036621094,
+            584.0020141601562,
+            775.2883911132812
+          ],
+          "bleed": [
+            23.486499786376953,
+            462.2850036621094,
+            584.0020141601562,
+            775.2883911132812
+          ],
+          "trim": [
+            23.486499786376953,
+            462.2850036621094,
+            584.0020141601562,
+            775.2883911132812
+          ],
+          "art": [
+            23.486499786376953,
+            462.2850036621094,
+            584.0020141601562,
+            775.2883911132812
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            313.0033874511719,
+            560.5155029296875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          313.0033874511719
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          313.0033874511719,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              -1.1953125,
+              1.546875,
+              792.0,
+              -0.7734375,
+              0.5976563
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 2282579\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          -1.1953125,
+          1.546875,
+          792.0,
+          -0.7734375,
+          0.5976563
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -0.7734375,
+          -0.59765625,
+          612.7734375,
+          792.59765625
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          1.1953125,
+          -1.546875,
+          792.0,
+          0.7734375,
+          -0.59765625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 5.000003966415534e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              -1.1953125,
+              1.546875,
+              792.0,
+              -0.7734375,
+              0.5976563
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 2282579\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          -1.1953125,
+          1.546875,
+          792.0,
+          -0.7734375,
+          0.5976563
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -24.259937286376953,
+          -462.8826599121094,
+          589.2869262695312,
+          330.3126525878906
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          1.1953125,
+          -1.546875,
+          792.0,
+          -22.713062286376953,
+          -462.8826599121094
+        ],
+        "image_corner_render_matrix_max_difference_pt": 3.6184207724256645e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.7734375,
+          792.5976563
+        ],
+        [
+          612.7734375,
+          791.4023438
+        ],
+        [
+          611.2265625,
+          -0.5976562
+        ],
+        [
+          -0.7734375,
+          0.5976563
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.7734375,
+          792.5976563
+        ],
+        [
+          612.7734375,
+          791.4023438
+        ],
+        [
+          611.2265625,
+          -0.5976562
+        ],
+        [
+          -0.7734375,
+          0.5976563
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        23.4865,
+        16.7116,
+        584.002,
+        329.715
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.0009375,
+          -0.48,
+          1585.1953126
+        ],
+        [
+          0.48,
+          -0.0009375,
+          1.546875
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0009375,
+          -0.48,
+          1551.7721126000001
+        ],
+        [
+          0.48,
+          -0.0009375,
+          -45.426125
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999999999998,
+          0.0,
+          -33.42319999999981
+        ],
+        [
+          0.0,
+          0.9999999999999998,
+          -46.973
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.0,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        627,
+        1122
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1121.031
+        ],
+        [
+          626.0068,
+          1121.031
+        ],
+        [
+          626.0068,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        33.4232,
+        46.973,
+        659.43,
+        1168.004
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            98.40433373428192,
+            1928.4855386190084
+          ],
+          [
+            2433.876674614329,
+            1923.924069203227
+          ],
+          [
+            2436.423893087566,
+            3228.09992750048
+          ],
+          [
+            100.95155220751874,
+            3232.6613969162613
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          98.40433373428192,
+          1923.924069203227,
+          2436.423893087566,
+          3232.6613969162613
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 4.561469415781403,
+          "right_x_delta_px": 2.547218473236626,
+          "bottom_y_delta_px": 4.5614694157811755,
+          "left_x_delta_px": 2.547218473236825
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0,
+          0.0,
+          -1.1102230246251565e-16,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            33.42320000000002,
+            46.973000000000006
+          ],
+          [
+            659.4300000000001,
+            46.973000000000006
+          ],
+          [
+            659.4300000000001,
+            1168.0040000000001
+          ],
+          [
+            33.42320000000002,
+            1168.004
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          33.42320000000002,
+          46.973000000000006,
+          659.4300000000001,
+          1168.0040000000001
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.0,
+          "right_x_delta_px": 0.0,
+          "bottom_y_delta_px": 2.2737367544323206e-13,
+          "left_x_delta_px": 0.0
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.2710574864626038e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "side": "right",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-R.pdf",
+      "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+      "crop_pdf_sha256": "a8a0acda50ae658c3b4e3def6e05cccf1cfe238536482f1209f9055a7dacb19c",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110724-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 22.5832 428.177 586.712 750.214 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132630-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[22.5832 428.177 586.712 750.214]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            22.583200454711914,
+            41.7860107421875,
+            586.7119750976562,
+            363.822998046875
+          ],
+          "bleed": [
+            22.583200454711914,
+            41.7860107421875,
+            586.7119750976562,
+            363.822998046875
+          ],
+          "trim": [
+            22.583200454711914,
+            41.7860107421875,
+            586.7119750976562,
+            363.822998046875
+          ],
+          "art": [
+            22.583200454711914,
+            41.7860107421875,
+            586.7119750976562,
+            363.822998046875
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            322.0369873046875,
+            564.1287841796875
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          322.0369873046875
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          322.0369873046875,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              -1.1953125,
+              1.546875,
+              792.0,
+              -0.7734375,
+              0.5976563
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 2282579\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          -1.1953125,
+          1.546875,
+          792.0,
+          -0.7734375,
+          0.5976563
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -0.7734375,
+          -0.59765625,
+          612.7734375,
+          792.59765625
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          1.1953125,
+          -1.546875,
+          792.0,
+          0.7734375,
+          -0.59765625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 5.000003966415534e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n612 -1.1953125 1.546875 792 -0.7734375 0.5976563 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              612.0,
+              -1.1953125,
+              1.546875,
+              792.0,
+              -0.7734375,
+              0.5976563
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 2282579\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "fb939c812331999b3eb2f9a93c03c6433d8b63f59f52a1a675b3a6238d87b6a4",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          612.0,
+          -1.1953125,
+          1.546875,
+          792.0,
+          -0.7734375,
+          0.5976563
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -23.356637954711914,
+          -42.3836669921875,
+          590.1902465820312,
+          750.8116455078125
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          612.0,
+          1.1953125,
+          -1.546875,
+          792.0,
+          -21.809762954711914,
+          -42.3836669921875
+        ],
+        "image_corner_render_matrix_max_difference_pt": 1.0701852026485015e-05
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.7734375,
+          792.5976563
+        ],
+        [
+          612.7734375,
+          791.4023438
+        ],
+        [
+          611.2265625,
+          -0.5976562
+        ],
+        [
+          -0.7734375,
+          0.5976563
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          0.7734375,
+          792.5976563
+        ],
+        [
+          612.7734375,
+          791.4023438
+        ],
+        [
+          611.2265625,
+          -0.5976562
+        ],
+        [
+          -0.7734375,
+          0.5976563
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        22.5832,
+        428.177,
+        586.712,
+        750.214
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.0009375,
+          -0.48,
+          1585.1953126
+        ],
+        [
+          0.48,
+          -0.0009375,
+          1.546875
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.0009375,
+          -0.48,
+          728.8413126
+        ],
+        [
+          0.48,
+          -0.0009375,
+          -43.619525
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          0.9999999999999998,
+          0.0,
+          -856.3539999999999
+        ],
+        [
+          0.0,
+          0.9999999999999998,
+          -45.1664
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": 0.0,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        645,
+        1129
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1128.2576
+        ],
+        [
+          644.0740000000001,
+          1128.2576
+        ],
+        [
+          644.0740000000001,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        64.35400000000004,
+        45.1664,
+        708.4280000000001,
+        1173.424
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            91.2185815233554,
+            176.4204066246291
+          ],
+          [
+            2441.746281638432,
+            171.82953221034194
+          ],
+          [
+            2444.3670154562296,
+            1513.645246922937
+          ],
+          [
+            93.83931534115342,
+            1518.2361213372242
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          91.2185815233554,
+          171.82953221034194,
+          2444.3670154562296,
+          1518.2361213372242
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 4.590874414287157,
+          "right_x_delta_px": 2.620733817797827,
+          "bottom_y_delta_px": 4.5908744142871,
+          "left_x_delta_px": 2.620733817798026
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0,
+          0.0,
+          -1.1102230246251565e-16,
+          1.0,
+          0.0,
+          0.0
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.0,
+        "source_and_crop_image_ctm_identical": true,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            64.35400000000004,
+            45.1664
+          ],
+          [
+            708.4279999999999,
+            45.1664
+          ],
+          [
+            708.4279999999999,
+            1173.4240000000002
+          ],
+          [
+            64.35399999999993,
+            1173.424
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          64.35399999999993,
+          45.1664,
+          708.4279999999999,
+          1173.4240000000002
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.0,
+          "right_x_delta_px": 0.0,
+          "bottom_y_delta_px": 2.2737367544323206e-13,
+          "left_x_delta_px": 1.1368683772161603e-13
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.6077746776921858e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "left",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-L.pdf",
+      "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+      "crop_pdf_sha256": "61a4cabf52158a1f7fce2298730ce9c7051ffe99b6ebe857c6cfd2a4f06de926",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110712-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 15 0 R\n  /CropBox [ 151.759 32.5198 562.773 341.458 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132629-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[151.759 32.5198 562.773 341.458]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            151.75900268554688,
+            450.5419921875,
+            562.7730102539062,
+            759.480224609375
+          ],
+          "bleed": [
+            151.75900268554688,
+            450.5419921875,
+            562.7730102539062,
+            759.480224609375
+          ],
+          "trim": [
+            151.75900268554688,
+            450.5419921875,
+            562.7730102539062,
+            759.480224609375
+          ],
+          "art": [
+            151.75900268554688,
+            450.5419921875,
+            562.7730102539062,
+            759.480224609375
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            308.9382019042969,
+            411.0140075683594
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          308.938232421875
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          308.938232421875,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9439697 -8.4232178 10.9006348 791.9274902 -5.4223022 4.2478638 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9439697 -8.4232178 10.9006348 791.9274902 -5.4223022 4.2478638 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9439697,
+              -8.4232178,
+              10.9006348,
+              791.9274902,
+              -5.4223022,
+              4.2478638
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1712634\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9439697,
+          -8.4232178,
+          10.9006348,
+          791.9274902,
+          -5.4223022,
+          4.2478638
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -5.42230224609375,
+          -4.17535400390625,
+          617.4223022460938,
+          796.1753540039062
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9439697265625,
+          8.4232177734375,
+          -10.900634765625,
+          791.927490234375,
+          5.47833251953125,
+          -4.17535400390625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.056350831822309e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          15
+        ],
+        "content_streams_latin1": [
+          "q\n611.9459229 -8.2831573 10.7193756 791.9299927 -5.393219 4.1766052 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9459229 -8.2831573 10.7193756 791.9299927 -5.393219 4.1766052 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9459229,
+              -8.2831573,
+              10.7193756,
+              791.9299927,
+              -5.393219,
+              4.1766052
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1712634\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9459229,
+          -8.2831573,
+          10.7193756,
+          791.9299927,
+          -5.393219,
+          4.1766052
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -157.1522216796875,
+          -454.6485900878906,
+          465.5130615234375,
+          345.5645446777344
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9459228515625,
+          8.283157348632812,
+          -10.719375610351562,
+          791.9299926757812,
+          -146.43284606933594,
+          -454.6485900878906
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.317304864322868e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          5.478332600000001,
+          796.175354
+        ],
+        [
+          617.4223023000001,
+          787.7521362
+        ],
+        [
+          606.5216675,
+          -4.175354
+        ],
+        [
+          -5.4223022,
+          4.2478638
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          5.326156599999999,
+          796.1065979
+        ],
+        [
+          617.2720795,
+          787.8234406
+        ],
+        [
+          606.5527039,
+          -4.106552099999999
+        ],
+        [
+          -5.393219,
+          4.1766052
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        151.759,
+        32.5198,
+        562.773,
+        341.458
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.006606445333333333,
+          -0.47995605466666663,
+          1592.350708
+        ],
+        [
+          0.4799560546666667,
+          -0.006606445333333334,
+          10.956665200000002
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.006496593960784313,
+          -0.47995757133333333,
+          1527.1735958
+        ],
+        [
+          0.47995758658823534,
+          -0.0064965912727272725,
+          -292.8656868
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          1.0000000095757295,
+          0.00022887811236560994,
+          -65.17963518876853
+        ],
+        [
+          -0.00022888414934962853,
+          1.000000041276588,
+          -303.45788861498687
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": -0.013114095400591821,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        618,
+        823
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          822.028
+        ],
+        [
+          617.8764000000001,
+          822.028
+        ],
+        [
+          617.8764000000001,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        65.0396,
+        303.518,
+        682.916,
+        1125.546
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            635.7182856678465,
+            1885.9316870655762
+          ],
+          [
+            2348.1142163149943,
+            1862.7530943607896
+          ],
+          [
+            2365.5363716330316,
+            3149.873565478302
+          ],
+          [
+            653.1404409858841,
+            3173.052158183089
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          635.7182856678465,
+          1862.7530943607896,
+          2365.5363716330316,
+          3173.052158183089
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 23.178592704786524,
+          "right_x_delta_px": 17.422155318037312,
+          "bottom_y_delta_px": 23.17859270478675,
+          "left_x_delta_px": 17.42215531803754
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000412765884,
+          0.00022887811236671496,
+          -0.00022888414934829626,
+          1.0000000095757304,
+          0.03005569250654805,
+          -0.07001759438418365
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.013113749091254224,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            65.1101762885303,
+            303.4727787759798
+          ],
+          [
+            682.9865380034904,
+            303.61420087559674
+          ],
+          [
+            682.7983938059625,
+            1125.6421238818646
+          ],
+          [
+            64.92203209100238,
+            1125.5007017822475
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          64.92203209100238,
+          303.4727787759798,
+          682.9865380034904,
+          1125.6421238818646
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.14142209961693197,
+          "right_x_delta_px": 0.18814419752789036,
+          "bottom_y_delta_px": 0.1414220996171025,
+          "left_x_delta_px": 0.18814419752791878
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.191086668529821e-13
+      }
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "side": "right",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+      "crop_pdf": "fixtures/mccarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-R.pdf",
+      "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+      "crop_pdf_sha256": "51065dcdfca603bb154890dc866f8b3a0355e1fb5038881b89e5fe80ba9902e1",
+      "source_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 10 0 R\n  /CropBox [ 0 0 612 792 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260907110712-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "bleed": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "trim": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "art": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            792.0,
+            612.0
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          792.0
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          792.0,
+          0.0
+        ]
+      },
+      "crop_page": {
+        "page_xref": 9,
+        "page_object": "<<\n  /Contents 15 0 R\n  /CropBox [ 15.8082 435.856 561.418 745.697 ]\n  /MediaBox [ 0 0 612 792 ]\n  /Parent 5 0 R\n  /Resources <<\n    /ProcSet [ /PDF /ImageC ]\n    /XObject <<\n      /Im0 11 0 R\n    >>\n  >>\n  /Rotate 90\n  /Type /Page\n>>",
+        "document_metadata": {
+          "format": "PDF 1.6",
+          "title": "",
+          "author": "",
+          "subject": "",
+          "keywords": "",
+          "creator": "Canon SC1001",
+          "producer": "Canon EPP",
+          "creationDate": "D:20260907103607-06'00'",
+          "modDate": "D:20260926132632-06'00'",
+          "trapped": "",
+          "encryption": null
+        },
+        "dictionary_entries": {
+          "MediaBox": {
+            "state": "array",
+            "raw_value": "[0 0 612 792]"
+          },
+          "CropBox": {
+            "state": "array",
+            "raw_value": "[15.8082 435.856 561.418 745.697]"
+          },
+          "BleedBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "TrimBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "ArtBox": {
+            "state": "null",
+            "raw_value": "null"
+          },
+          "Rotate": {
+            "state": "int",
+            "raw_value": "90"
+          },
+          "UserUnit": {
+            "state": "null",
+            "raw_value": "null"
+          }
+        },
+        "resolved_boxes_pt": {
+          "media": [
+            0.0,
+            0.0,
+            612.0,
+            792.0
+          ],
+          "crop": [
+            15.808199882507324,
+            46.302978515625,
+            561.4180297851562,
+            356.1440124511719
+          ],
+          "bleed": [
+            15.808199882507324,
+            46.302978515625,
+            561.4180297851562,
+            356.1440124511719
+          ],
+          "trim": [
+            15.808199882507324,
+            46.302978515625,
+            561.4180297851562,
+            356.1440124511719
+          ],
+          "art": [
+            15.808199882507324,
+            46.302978515625,
+            561.4180297851562,
+            356.1440124511719
+          ],
+          "display_rect": [
+            0.0,
+            0.0,
+            309.8410339355469,
+            545.6098022460938
+          ],
+          "rotation_degrees": 90
+        },
+        "page_transformation_matrix": [
+          1.0,
+          0.0,
+          0.0,
+          -1.0,
+          0.0,
+          309.8410339355469
+        ],
+        "page_rotation_matrix": [
+          0.0,
+          1.0,
+          -1.0,
+          0.0,
+          309.8410339355469,
+          0.0
+        ]
+      },
+      "source_image": {
+        "content_stream_xrefs": [
+          10
+        ],
+        "content_streams_latin1": [
+          "q\n611.9439697 -8.4232178 10.9006348 791.9274902 -5.4223022 4.2478638 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9439697 -8.4232178 10.9006348 791.9274902 -5.4223022 4.2478638 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9439697,
+              -8.4232178,
+              10.9006348,
+              791.9274902,
+              -5.4223022,
+              4.2478638
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1712634\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9439697,
+          -8.4232178,
+          10.9006348,
+          791.9274902,
+          -5.4223022,
+          4.2478638
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -5.42230224609375,
+          -4.17535400390625,
+          617.4223022460938,
+          796.1753540039062
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9439697265625,
+          8.4232177734375,
+          -10.900634765625,
+          791.927490234375,
+          5.47833251953125,
+          -4.17535400390625
+        ],
+        "image_corner_render_matrix_max_difference_pt": 8.056350831822309e-08
+      },
+      "crop_image": {
+        "content_stream_xrefs": [
+          15
+        ],
+        "content_streams_latin1": [
+          "q\n611.9459229 -8.2831573 10.7193756 791.9299927 -5.393219 4.1766052 cm\n/Im0 Do\nQ\n"
+        ],
+        "content_stream_combined_latin1": "q\n611.9459229 -8.2831573 10.7193756 791.9299927 -5.393219 4.1766052 cm\n/Im0 Do\nQ\n",
+        "operators": {
+          "cm_matrices": [
+            [
+              611.9459229,
+              -8.2831573,
+              10.7193756,
+              791.9299927,
+              -5.393219,
+              4.1766052
+            ]
+          ],
+          "Do_resource_names": [
+            "Im0"
+          ],
+          "q_count": 1,
+          "Q_count": 1,
+          "clipping_operators": []
+        },
+        "form_xobjects": [],
+        "image_resource_tuple": [
+          11,
+          0,
+          2550,
+          3300,
+          8,
+          "DeviceRGB",
+          "",
+          "Im0",
+          "DCTDecode",
+          0
+        ],
+        "image_xref": 11,
+        "image_object": "<<\n  /BitsPerComponent 8\n  /ColorSpace /DeviceRGB\n  /Filter /DCTDecode\n  /Height 3300\n  /Length 1712634\n  /Subtype /Image\n  /Type /XObject\n  /Width 2550\n>>",
+        "image_width_px": 2550,
+        "image_height_px": 3300,
+        "image_extension": "jpeg",
+        "image_sha256": "31be57da164e8cb01998508b73f34c6abd2f28341ec4b62779311c0bec12ab5f",
+        "image_color_space": "DeviceRGB",
+        "image_bits_per_component": 8,
+        "image_filter": "DCTDecode",
+        "image_to_page_user_space_pdf_cm": [
+          611.9459229,
+          -8.2831573,
+          10.7193756,
+          791.9299927,
+          -5.393219,
+          4.1766052
+        ],
+        "pymupdf_rendered_image_rect_unrotated_pt": [
+          -21.201419830322266,
+          -50.40960693359375,
+          601.4638671875,
+          749.8035278320312
+        ],
+        "pymupdf_rendered_image_matrix_unrotated_pt": [
+          611.9459228515625,
+          8.283157348632812,
+          -10.719375610351562,
+          791.9299926757812,
+          -10.482044219970703,
+          -50.40960693359375
+        ],
+        "image_corner_render_matrix_max_difference_pt": 9.095790327001462e-06
+      },
+      "embedded_image_bytes_identical": true,
+      "source_image_to_page_corner_positions_pdf_user_space": [
+        [
+          5.478332600000001,
+          796.175354
+        ],
+        [
+          617.4223023000001,
+          787.7521362
+        ],
+        [
+          606.5216675,
+          -4.175354
+        ],
+        [
+          -5.4223022,
+          4.2478638
+        ]
+      ],
+      "crop_image_to_page_corner_positions_pdf_user_space": [
+        [
+          5.326156599999999,
+          796.1065979
+        ],
+        [
+          617.2720795,
+          787.8234406
+        ],
+        [
+          606.5527039,
+          -4.106552099999999
+        ],
+        [
+          -5.393219,
+          4.1766052
+        ]
+      ],
+      "crop_visible_bounds_pdf_user_space": [
+        15.8082,
+        435.856,
+        561.418,
+        745.697
+      ],
+      "source_pdf_image_pixel_to_spread_raster_matrix_at_144dpi": [
+        [
+          -0.006606445333333333,
+          -0.47995605466666663,
+          1592.350708
+        ],
+        [
+          0.4799560546666667,
+          -0.006606445333333334,
+          10.956665200000002
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "crop_pdf_image_pixel_to_visible_raster_matrix_at_144dpi": [
+        [
+          -0.006496593960784313,
+          -0.47995757133333333,
+          720.5011958
+        ],
+        [
+          0.47995758658823534,
+          -0.0064965912727272725,
+          -20.9640868
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_raster_to_crop_reference_raster_matrix": [
+        [
+          1.0000000095757295,
+          0.00022887811236560994,
+          -871.8520351887685
+        ],
+        [
+          -0.00022888414934962853,
+          1.000000041276588,
+          -31.556288614986904
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "source_spread_to_crop_reference_rotation_degrees": -0.013114095400591821,
+      "source_rendered_raster_dimensions_px": [
+        1584,
+        1224
+      ],
+      "crop_reference_rendered_raster_dimensions_px": [
+        620,
+        1092
+      ],
+      "crop_visible_corners_display_px_order_bl_br_tr_tl": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1091.2196
+        ],
+        [
+          619.682,
+          1091.2196
+        ],
+        [
+          619.682,
+          0.0
+        ]
+      ],
+      "crop_visible_bounds_display_px_at_144dpi": [
+        79.71199999999999,
+        31.6164,
+        699.394,
+        1122.836
+      ],
+      "inverse_crop_ctm": {
+        "matrix_convention": "PDF six-value [a,b,c,d,e,f], affine applied to normalized image coordinates",
+        "source_image_crop_polygon_px_order_tl_tr_br_bl": [
+          [
+            46.51382074019693,
+            209.42895871784614
+          ],
+          [
+            2319.672402299959,
+            178.66001330494035
+          ],
+          [
+            2337.1454698128014,
+            1469.541794488106
+          ],
+          [
+            63.986888253039425,
+            1500.3107399010119
+          ]
+        ],
+        "source_image_crop_polygon_bounds_px": [
+          46.51382074019693,
+          178.66001330494035,
+          2337.1454698128014,
+          1500.3107399010119
+        ],
+        "source_image_edge_deviations_px": {
+          "top_y_delta_px": 30.768945412905794,
+          "right_x_delta_px": 17.47306751284259,
+          "bottom_y_delta_px": 30.76894541290585,
+          "left_x_delta_px": 17.473067512842498
+        },
+        "axis_aligned_in_source_image_pixels_within_0_5px": false,
+        "crop_pdf_to_original_pdf_page_relative_matrix": [
+          1.0000000412765884,
+          0.00022887811236671496,
+          -0.00022888414934829626,
+          1.0000000095757304,
+          0.03005569250654805,
+          -0.07001759438418365
+        ],
+        "crop_pdf_relative_rotation_degrees": 0.013113749091254224,
+        "source_and_crop_image_ctm_identical": false,
+        "original_source_page_local_crop_polygon_at_144dpi_px_order_tl_tr_br_bl": [
+          [
+            79.84475862378906,
+            31.755838750156766
+          ],
+          [
+            699.5267202268697,
+            31.89767412295111
+          ],
+          [
+            699.27696397043,
+            1123.1171719158854
+          ],
+          [
+            79.59500236734925,
+            1122.975336543091
+          ]
+        ],
+        "original_source_page_local_crop_bounds_at_144dpi_px": [
+          79.59500236734925,
+          31.755838750156766,
+          699.5267202268697,
+          1123.1171719158854
+        ],
+        "production_raster_edge_deviations_px": {
+          "top_y_delta_px": 0.14183537279434333,
+          "right_x_delta_px": 0.2497562564396958,
+          "bottom_y_delta_px": 0.14183537279427583,
+          "left_x_delta_px": 0.24975625643980948
+        },
+        "cropbox_corner_roundtrip_max_error_pt": 1.1370071466249427e-13
+      }
+    }
+  ]
+}
