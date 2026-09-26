@@ -78,6 +78,34 @@ hooks:
     cp "/home/duck-lint/.local/share/normalize/McCarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf" \
       "fixtures/mccarthy/"
 
+    mkdir -p fixtures/einstein/crops fixtures/mccarthy/crops
+
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 10-R.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 17-R.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 23-R.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 10-L.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 17-L.pdf" \
+      "fixtures/einstein/"
+    cp "/home/duck-lint/.local/share/normalize/Einstein/crops/Einstein, Albert - Relativity 23-L.pdf" \
+      "fixtures/einstein/"
+
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-R.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-R.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-R.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 3-L.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 6-L.pdf" \
+      "fixtures/mccarthy/"
+    cp "/home/duck-lint/.local/share/normalize/McCarthy/crops/McCarthy, Cormac - Stella Maris.pt2 18-L.pdf" \
+      "fixtures/mccarthy/"
+
     python3 -m venv --copies .venv
 
     .venv/bin/python -m pip install \
