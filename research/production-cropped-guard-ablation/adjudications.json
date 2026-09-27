@@ -1,0 +1,178 @@
+{
+  "basis": "Human visual review of local-only diagnostic crops rendered from the production-cropped 144-DPI outputs. Blank-side events are excluded.",
+  "events": {
+    "relativity_pdf10_pp26-27.left.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-006": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.left.event-007": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.right.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.right.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf10_pp26-27.right.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.left.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.left.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.left.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.left.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.left.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-006": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-007": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-008": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf17_pp40-41.right.event-009": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.left.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.left.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.left.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.left.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.left.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "relativity_pdf23_pp52-53.right.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.left.event-006": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.right.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.right.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.right.event-003": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.right.event-004": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf06_dense-dialogue.right.event-005": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf18_session-II_p35.right.event-001": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    },
+    "stella_maris_pdf18_session-II_p35.right.event-002": {
+      "adjudication": "repaired_false_split",
+      "evidence": "Inspected this event’s padded crop from the hashed production-cropped 144-DPI page. The token boxes in the event occupy one visible printed row; their ink shares that row and the newly joined relation does not cross a separate row, column, or diagram region. The event’s source-row identities, exact boxes, confidence, dark-pixel occupancy, local ink centroid, vertical ink extent, and production predicate trace are in results.json. Those pixel measurements are descriptive checks; no numeric threshold decides the class."
+    }
+  },
+  "schema": "production-cropped-guard-adjudications-v1"
+}
