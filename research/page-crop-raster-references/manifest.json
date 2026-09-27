@@ -1,0 +1,886 @@
+{
+  "schema": "canonical-page-crop-raster-references-v1",
+  "purpose": "Manual rectangular crop references; not production preprocessing outputs",
+  "reference_dpi": 300,
+  "production_dpi": 144,
+  "mapping": "Reference rasters are rendered from the original fixture PDFs at 300 DPI. Pixel coordinates map to production 144-DPI page-side coordinates by the exact rational scale 12/25. The configured 144-DPI split boundary 792 maps to reference split x=1650.",
+  "render_semantics": "Original fixture PDF page selected by fixture_pdf_page_index_1_based; PyMuPDF render at recorded DPI with alpha=False and annots=False; production configured rotation/crop/deskew applied by normalize.rendering._preprocess_image; configured split scaled proportionally from production DPI; sides emitted in configured output_order.",
+  "records": [
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+      "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 10,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf10_pp26-27.left.png",
+      "sha256": "a33f3e7b82a13353fe1f8b581111412bdda559a74583e3cb22853905f280f403"
+    },
+    {
+      "fixture_id": "relativity_pdf10_pp26-27",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 10.pdf",
+      "source_pdf_sha256": "de6ac98f0b4a558e4be70005f1060d0fd42f4d2d4db0eb5f859b78978ac536b3",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 10,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf10_pp26-27.right.png",
+      "sha256": "c1822e752dcd6a13deb137cb5f1d3fad417892e178834125cd92a41c6bebee80"
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+      "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 17,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf17_pp40-41.left.png",
+      "sha256": "811a911e371033b54c097c915e2719999b854c8d93e4103fa7ba504a02d17b2b"
+    },
+    {
+      "fixture_id": "relativity_pdf17_pp40-41",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 17.pdf",
+      "source_pdf_sha256": "0ab3c29ffd98fee0a61ab3a9c054dfebc18167ccf10c9283f47aec274a61e532",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 17,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf17_pp40-41.right.png",
+      "sha256": "cbe486ff9bc6ac789850de475ee93042f21a9596eb6a459cdff8d97bde2d810c"
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+      "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 23,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf23_pp52-53.left.png",
+      "sha256": "1700028a08c62e5ddd58fbc719982d8c054ea82774d4e2f4dfeadecb45c8e475"
+    },
+    {
+      "fixture_id": "relativity_pdf23_pp52-53",
+      "source_pdf": "fixtures/einstein/Einstein, Albert - Relativity 23.pdf",
+      "source_pdf_sha256": "aad2a70bfa047fe7ee08eb3d16d0e23998ef08cbd82d67d4a443f1aa8169a2d4",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 23,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/relativity_pdf23_pp52-53.right.png",
+      "sha256": "4b73e2dbd082a39aa0d3cc0972f42e878babd15028e87f41934162440dfde21b"
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+      "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 3,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf03_session-I.left.png",
+      "sha256": "f2526b98a4a9cffc74c3134483294b1daf1e672d6e89ead89c796f107a9fa6b7"
+    },
+    {
+      "fixture_id": "stella_maris_pdf03_session-I",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 3.pdf",
+      "source_pdf_sha256": "bb501cd40b495ade5151c74a1fb1a581876631115550971ee54e3e384e328ef4",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 3,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf03_session-I.right.png",
+      "sha256": "8e072cf390d22d068734c5210c0b18dba29cd583e3ced1de22fc788b0ee109bf"
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+      "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 6,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf06_dense-dialogue.left.png",
+      "sha256": "0682fda868bd8047c5a7b8b994a1c1d575546770cc603f6ec71f8ae0a44044ac"
+    },
+    {
+      "fixture_id": "stella_maris_pdf06_dense-dialogue",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 6.pdf",
+      "source_pdf_sha256": "d2e63e236ba54477f5e4080d72cbd2d89fb8afbb2ddefe04b6ab60dbc55ee9bc",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 6,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf06_dense-dialogue.right.png",
+      "sha256": "adf56631960a8a43d70385bc9018e0f22af21730b0b9534e0be0fe51052f6610"
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+      "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 18,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "left",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf18_session-II_p35.left.png",
+      "sha256": "d495979c5eb2dc4545c314568fc260998862404496c40396bf34dd63b6988427"
+    },
+    {
+      "fixture_id": "stella_maris_pdf18_session-II_p35",
+      "source_pdf": "fixtures/mccarthy/McCarthy, Cormac - Stella Maris.pt2 18.pdf",
+      "source_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23",
+      "fixture_page_index_1_based": 1,
+      "source_page_index_1_based": 18,
+      "pdf_page_rotation_degrees": 90,
+      "reference_dpi": 300,
+      "production_dpi": 144,
+      "spread_dimensions_pt": [
+        792.0,
+        612.0
+      ],
+      "spread_dimensions_px": [
+        3300,
+        2550
+      ],
+      "production_split_boundary_px": 792,
+      "reference_split_boundary_px": 1650,
+      "side": "right",
+      "side_dimensions_px": [
+        1650,
+        2550
+      ],
+      "reference_to_production_scale": {
+        "numerator": 144,
+        "denominator": 300,
+        "coordinate_rule": "production_px = reference_px * numerator / denominator"
+      },
+      "configured_rotation_degrees_clockwise": 0,
+      "configured_crop_px": null,
+      "configured_deskew_degrees_clockwise": 0.0,
+      "preprocessing_transform_ledger": {
+        "rotation": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "crop": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        },
+        "deskew": {
+          "operation": "none",
+          "parameters": null,
+          "input_dimensions_px": [
+            3300,
+            2550
+          ],
+          "output_dimensions_px": [
+            3300,
+            2550
+          ]
+        }
+      },
+      "relative_path": "inputs/stella_maris_pdf18_session-II_p35.right.png",
+      "sha256": "2fa7e52f53e39f8c90d2d9deabf2af840fb8bee2df13f6f655b7fcea251ae66a"
+    }
+  ]
+}
