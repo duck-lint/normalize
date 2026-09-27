@@ -1,5 +1,6 @@
 # Local PDFs are required for geometry-dependent tests but intentionally untracked; see fixtures/README.md.
 *.pdf
+*.png
 
 # Local development environment and generated Python files.
 .venv/
