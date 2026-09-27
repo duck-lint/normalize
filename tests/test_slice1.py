@@ -62,7 +62,8 @@ def test_authoritative_config_has_one_explicit_profile_per_fixture():
     for profile in config.profiles.values():
         assert profile.result_kind == "spread"
         assert profile.rotation_degrees == 0
-        assert profile.crop is None
+        assert profile.spread_crop is None
+        assert set(profile.page_crops) == {"left", "right"}
         assert profile.deskew_degrees == 0
         assert profile.split_boundary == 792
         assert profile.output_order == ("left", "right")
@@ -72,7 +73,7 @@ def test_config_rejects_unknown_shape_and_invalid_uncertainty(tmp_path: Path):
     malformed = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     malformed["profiles"][FIXTURE_IDS[0]]["uncertainty"] = {
         "code": "split_unresolved",
-        "field": "crop",
+        "field": "spread_crop",
         "reason": "ambiguous",
     }
     path = tmp_path / "bad.json"
@@ -112,7 +113,8 @@ def test_optional_crop_deskew_and_page_contract_are_recorded(tmp_path: Path):
     profile.update(
         {
             "result_kind": "page",
-            "crop": [0, 0, 1400, 1100],
+            "spread_crop": [0, 0, 1400, 1100],
+            "page_crops": {"page": [100, 50, 1300, 1000]},
             "deskew_degrees": 1.0,
             "split_boundary": None,
             "output_order": ["page"],
@@ -131,7 +133,7 @@ def test_optional_crop_deskew_and_page_contract_are_recorded(tmp_path: Path):
         "left": None,
         "right": None,
     }
-    assert result["transforms"]["crop"]["operation"] == "crop"
+    assert result["transforms"]["spread_crop"]["operation"] == "crop"
     assert result["transforms"]["deskew"]["operation"] == "deskew"
     assert result["transforms"]["deskew"]["parameters"] == {
         "degrees_clockwise": 1.0,
@@ -170,7 +172,7 @@ def test_all_exact_fixtures_produce_complete_readable_spreads(tmp_path: Path):
             "declared_pdf_rotation_degrees": 90,
         }
         assert result["transforms"]["rotation"]["operation"] == "none"
-        assert result["transforms"]["crop"]["operation"] == "none"
+        assert result["transforms"]["spread_crop"]["operation"] == "none"
         assert result["transforms"]["deskew"]["operation"] == "none"
         assert result["transforms"]["split"]["parameters"]["split_x"] == 792
         assert result["transforms"]["order"]["parameters"]["output_order"] == ["left", "right"]
@@ -241,7 +243,7 @@ def test_success_then_invalid_config_rerun_removes_stale_images(tmp_path: Path):
     output_dir = tmp_path / "invalid-rerun"
     assert preprocess_fixture(metadata, CONFIG_PATH, output_dir)["status"] == SUCCESS
     invalid_config = load_preprocessing_config(
-        _write_profile_config(tmp_path, crop=[0, 0, 9999, 9999])
+        _write_profile_config(tmp_path, page_crops={"left": [0, 0, 9999, 9999], "right": None})
     )
 
     result = preprocess_fixture(metadata, invalid_config.path, output_dir)
@@ -259,7 +261,8 @@ def test_successful_page_then_spread_rerun_removes_obsolete_page_variant(tmp_pat
         _write_profile_config(
             tmp_path,
             result_kind="page",
-            crop=[0, 0, 1400, 1100],
+            spread_crop=None,
+            page_crops={"page": [0, 0, 1400, 1100]},
             split_boundary=None,
             output_order=["page"],
             blank_sides=[],
@@ -632,7 +635,7 @@ def test_installed_cli_config_failures_clean_prior_success_outputs(tmp_path: Pat
     malformed_json = tmp_path / "malformed.json"
     malformed_json.write_text("{not-json", encoding="utf-8")
     wrong_root = tmp_path / "wrong-root.json"
-    wrong_root.write_text(json.dumps({"schema": "preprocessing-config-v1", "dpi": 144}), encoding="utf-8")
+    wrong_root.write_text(json.dumps({"schema": "preprocessing-config-v2", "dpi": 144}), encoding="utf-8")
     wrong_schema = tmp_path / "wrong-schema.json"
     wrong_schema_record = dict(base_record)
     wrong_schema_record["schema"] = "wrong-schema"
@@ -641,7 +644,7 @@ def test_installed_cli_config_failures_clean_prior_success_outputs(tmp_path: Pat
     invalid_profile_record = json.loads(json.dumps(base_record))
     invalid_profile_record["profiles"][fixture_id]["uncertainty"] = {
         "code": "split_unresolved",
-        "field": "crop",
+        "field": "spread_crop",
         "reason": "invalid profile for probe",
     }
     invalid_profile.write_text(json.dumps(invalid_profile_record), encoding="utf-8")
@@ -654,7 +657,7 @@ def test_installed_cli_config_failures_clean_prior_success_outputs(tmp_path: Pat
     unhashable_rotation_record["profiles"][fixture_id]["rotation_degrees"] = []
     unhashable_rotation.write_text(json.dumps(unhashable_rotation_record), encoding="utf-8")
     invalid_utf8 = tmp_path / "invalid-utf8.json"
-    invalid_utf8.write_bytes(b'{"schema": "preprocessing-config-v1", \xff')
+    invalid_utf8.write_bytes(b'{"schema": "preprocessing-config-v2", \xff')
     oversized_deskew = tmp_path / "oversized-deskew.json"
     oversized_deskew_record = json.loads(json.dumps(base_record))
     oversized_deskew_record["profiles"][fixture_id]["deskew_degrees"] = 10**1000

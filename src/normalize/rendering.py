@@ -17,7 +17,7 @@ from PIL import Image
 
 from .fixtures import FixtureMetadata
 
-CONFIG_SCHEMA = "preprocessing-config-v1"
+CONFIG_SCHEMA = "preprocessing-config-v2"
 METADATA_SCHEMA = "preprocessing-metadata-v1"
 SUCCESS = "success"
 UNCERTAIN = "uncertain"
@@ -46,7 +46,7 @@ _KNOWN_FIXTURE_IDS = {
     "stella_maris_pdf06_dense-dialogue",
     "stella_maris_pdf18_session-II_p35",
 }
-_TRANSFORM_NAMES = ("rotation", "crop", "deskew", "split", "order")
+_TRANSFORM_NAMES = ("rotation", "spread_crop", "deskew", "split", "order")
 _ROOT_KEYS = {
     "schema",
     "status",
@@ -80,7 +80,8 @@ class PreprocessingConfigError(ValueError):
 class PreprocessingProfile:
     result_kind: str
     rotation_degrees: int
-    crop: tuple[int, int, int, int] | None
+    spread_crop: tuple[int, int, int, int] | None
+    page_crops: Mapping[str, tuple[int, int, int, int] | None]
     deskew_degrees: float
     split_boundary: int | None
     output_order: tuple[str, ...]
@@ -107,7 +108,7 @@ def _is_number(value: Any) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool)
 
 
-def _parse_crop(value: Any, path: Path, fixture_id: str) -> tuple[int, int, int, int] | None:
+def _parse_crop(value: Any, path: Path, fixture_id: str, field: str) -> tuple[int, int, int, int] | None:
     if value is None:
         return None
     if (
@@ -115,11 +116,29 @@ def _parse_crop(value: Any, path: Path, fixture_id: str) -> tuple[int, int, int,
         or len(value) != 4
         or any(isinstance(item, bool) or not isinstance(item, int) for item in value)
     ):
-        raise PreprocessingConfigError(f"{path}: {fixture_id}.crop must be null or [x0,y0,x1,y1]")
+        raise PreprocessingConfigError(
+            f"{path}: {fixture_id}.{field} must be null or [x0,y0,x1,y1]"
+        )
     x0, y0, x1, y1 = value
     if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0:
-        raise PreprocessingConfigError(f"{path}: {fixture_id}.crop must be a non-empty rectangle")
+        raise PreprocessingConfigError(
+            f"{path}: {fixture_id}.{field} must be a non-empty rectangle"
+        )
     return (x0, y0, x1, y1)
+
+
+def _parse_page_crops(
+    value: Any, path: Path, fixture_id: str, result_kind: str
+) -> dict[str, tuple[int, int, int, int] | None]:
+    expected_keys = {"page"} if result_kind == "page" else {"left", "right"}
+    if not isinstance(value, dict) or set(value) != expected_keys:
+        raise PreprocessingConfigError(
+            f"{path}: {fixture_id}.page_crops must contain exactly {sorted(expected_keys)}"
+        )
+    return {
+        side: _parse_crop(rect, path, fixture_id, f"page_crops.{side}")
+        for side, rect in value.items()
+    }
 
 
 def _parse_uncertainty(value: Any, path: Path, fixture_id: str) -> dict[str, str] | None:
@@ -136,7 +155,8 @@ def _parse_uncertainty(value: Any, path: Path, fixture_id: str) -> dict[str, str
         raise PreprocessingConfigError(f"{path}: unknown uncertainty code {value['code']!r}")
     if not all(isinstance(value[key], str) and value[key] for key in ("field", "reason")):
         raise PreprocessingConfigError(f"{path}: uncertainty field and reason must be non-empty")
-    expected_field = code.removesuffix("_unresolved")
+    # The v2 contract names the pre-split rectangle spread_crop explicitly.
+    expected_field = "spread_crop" if code == "crop_unresolved" else code.removesuffix("_unresolved")
     if value["field"] != expected_field:
         raise PreprocessingConfigError(
             f"{path}: uncertainty code {code!r} must name field {expected_field!r}"
@@ -148,7 +168,8 @@ def _parse_profile(value: Any, path: Path, fixture_id: str) -> PreprocessingProf
     required = {
         "result_kind",
         "rotation_degrees",
-        "crop",
+        "spread_crop",
+        "page_crops",
         "deskew_degrees",
         "split_boundary",
         "output_order",
@@ -203,7 +224,8 @@ def _parse_profile(value: Any, path: Path, fixture_id: str) -> PreprocessingProf
     return PreprocessingProfile(
         result_kind=result_kind,
         rotation_degrees=rotation,
-        crop=_parse_crop(value["crop"], path, fixture_id),
+        spread_crop=_parse_crop(value["spread_crop"], path, fixture_id, "spread_crop"),
+        page_crops=_parse_page_crops(value["page_crops"], path, fixture_id, result_kind),
         deskew_degrees=float(deskew),
         split_boundary=split,
         output_order=tuple(order),
@@ -521,6 +543,8 @@ def _apply_rotation(image: Image.Image, degrees: int) -> Image.Image:
 
 
 def _preprocess_image(image: Image.Image, profile: PreprocessingProfile) -> tuple[Image.Image, dict[str, Any]]:
+    """Apply spread-coordinate transforms before the logical page split."""
+
     before = (image.width, image.height)
     rotated = _apply_rotation(image, profile.rotation_degrees)
     transforms = {
@@ -532,14 +556,16 @@ def _preprocess_image(image: Image.Image, profile: PreprocessingProfile) -> tupl
         )
     }
     crop_before = (rotated.width, rotated.height)
-    if profile.crop is None:
+    if profile.spread_crop is None:
         cropped, crop_parameters, crop_operation = rotated, None, "none"
     else:
-        if profile.crop[2] > rotated.width or profile.crop[3] > rotated.height:
-            raise PreprocessingConfigError("crop rectangle is outside the oriented raster")
-        cropped = rotated.crop(profile.crop)
-        crop_parameters, crop_operation = {"rect_px": list(profile.crop)}, "crop"
-    transforms["crop"] = _ledger_entry(crop_operation, crop_parameters, crop_before, (cropped.width, cropped.height))
+        if profile.spread_crop[2] > rotated.width or profile.spread_crop[3] > rotated.height:
+            raise PreprocessingConfigError("spread crop rectangle is outside the oriented raster")
+        cropped = rotated.crop(profile.spread_crop)
+        crop_parameters, crop_operation = {"rect_px": list(profile.spread_crop)}, "crop"
+    transforms["spread_crop"] = _ledger_entry(
+        crop_operation, crop_parameters, crop_before, (cropped.width, cropped.height)
+    )
     deskew_before = (cropped.width, cropped.height)
     if profile.deskew_degrees == 0:
         deskewed, deskew_parameters, deskew_operation = cropped, None, "none"
@@ -558,7 +584,9 @@ def _preprocess_image(image: Image.Image, profile: PreprocessingProfile) -> tupl
             "expand": True,
             "fill_rgb": [255, 255, 255],
         }, "deskew"
-    transforms["deskew"] = _ledger_entry(deskew_operation, deskew_parameters, deskew_before, (deskewed.width, deskewed.height))
+    transforms["deskew"] = _ledger_entry(
+        deskew_operation, deskew_parameters, deskew_before, (deskewed.width, deskewed.height)
+    )
     return deskewed, transforms
 
 
@@ -688,23 +716,54 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
             assert profile.split_boundary is not None
             if profile.split_boundary >= transformed.width:
                 raise PreprocessingConfigError("split boundary is outside the post-deskew raster")
-            left = transformed.crop((0, 0, profile.split_boundary, transformed.height))
-            right = transformed.crop((profile.split_boundary, 0, transformed.width, transformed.height))
-            side_images = {"left": left, "right": right}
+            side_images = {
+                "left": transformed.crop((0, 0, profile.split_boundary, transformed.height)),
+                "right": transformed.crop((profile.split_boundary, 0, transformed.width, transformed.height)),
+            }
             split_parameters = {
                 "split_x": profile.split_boundary,
                 "left_source_rect_px": [0, 0, profile.split_boundary, transformed.height],
                 "right_source_rect_px": [profile.split_boundary, 0, transformed.width, transformed.height],
             }
             transforms["split"] = _ledger_entry("split", split_parameters, split_before, split_before)
-            ordered_images = [(side, side_images[side]) for side in profile.output_order]
             composed = Image.new("RGB", (transformed.width, transformed.height), (255, 255, 255))
-            composed.paste(left, (0, 0))
-            composed.paste(right, (profile.split_boundary, 0))
+            composed.paste(side_images["left"], (0, 0))
+            composed.paste(side_images["right"], (profile.split_boundary, 0))
         else:
+            side_images = {"page": transformed}
             transforms["split"] = _ledger_entry("none", None, split_before, split_before)
-            ordered_images = [("page", transformed)]
             composed = transformed
+
+        # Page-side rectangles are interpreted only after splitting. Validate
+        # against each emitted side so Pillow cannot silently pad out-of-bounds
+        # coordinates with white pixels.
+        cropped_side_images: dict[str, Image.Image] = {}
+        page_crop_records: dict[str, dict[str, Any]] = {}
+        for side, side_image in side_images.items():
+            pre_crop_dimensions = (side_image.width, side_image.height)
+            configured_rect = profile.page_crops[side]
+            if configured_rect is None:
+                cropped_side = side_image
+                operation = "none"
+            else:
+                if configured_rect[2] > side_image.width or configured_rect[3] > side_image.height:
+                    raise PreprocessingConfigError(
+                        f"{side} page crop rectangle is outside its post-split side raster"
+                    )
+                cropped_side = side_image.crop(configured_rect)
+                operation = "crop"
+            cropped_side_images[side] = cropped_side
+            page_crop_records[side] = {
+                "operation": operation,
+                "coordinate_system": "post_split_side_local_px",
+                "rect_px": list(configured_rect) if configured_rect is not None else None,
+                "input_dimensions_px": list(pre_crop_dimensions),
+                "output_dimensions_px": [cropped_side.width, cropped_side.height],
+            }
+
+        ordered_images = [
+            (side, cropped_side_images[side]) for side in profile.output_order
+        ]
         transforms["order"] = _ledger_entry(
             "order", {"output_order": list(profile.output_order)}, split_before, (composed.width, composed.height)
         )
@@ -716,6 +775,12 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
                 if profile.result_kind == "spread"
                 else [0, 0, transformed.width, transformed.height]
             )
+            crop_record = page_crop_records[side]
+            retained_rect = (
+                crop_record["rect_px"]
+                if crop_record["rect_px"] is not None
+                else [0, 0, *crop_record["input_dimensions_px"]]
+            )
             pages.append(
                 {
                     "side": side,
@@ -724,6 +789,15 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
                     "height_px": side_image.height,
                     "source_stage": "post_deskew",
                     "source_rect_px": source_rect,
+                    "pre_page_crop_dimensions_px": crop_record["input_dimensions_px"],
+                    "page_crop": crop_record,
+                    "retained_rect_relative_to_side_px": retained_rect,
+                    "source_page_mapping": {
+                        "fixture_pdf_page_index_1_based": metadata.fixture_pdf_page_index_1_based,
+                        "source_pdf_page_index_1_based": metadata.source_pdf_page_index_1_based,
+                        "post_deskew_split_side_rect_px": source_rect,
+                        "retained_rect_relative_to_side_px": retained_rect,
+                    },
                     "blank": side in profile.blank_sides,
                 }
             )

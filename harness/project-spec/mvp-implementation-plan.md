@@ -47,23 +47,40 @@ Do not begin layout logic until the runtime and fixture substrate are independen
 
 ## Slice 1 — Page Rendering and Preprocessing
 
-Implement derived page rendering with observable preprocessing.
+Implement derived page rendering with observable preprocessing. The v2 configuration keeps spread_crop in oriented spread-raster coordinates and page_crops in post-split, side-local raster coordinates. Crop rectangles are [x0, y0, x1, y1], with right and bottom edges exclusive. A page result requires the page key; a spread result requires exactly left and right.
+
+The transform order is:
+
+1. render the source fixture PDF;
+2. apply configured orientation;
+3. apply optional spread_crop;
+4. apply configured deskew;
+5. split a spread into logical sides;
+6. apply each page_crops rectangle independently;
+7. apply output ordering and publish derived images;
+8. emit provenance.
+
+Each logical page records the pre- and post-crop dimensions, crop operation and rectangle, coordinate stage, retained side-local rectangle, split-side source rectangle, and fixture/source PDF page indices. The existing spread_output remains the spread-level preview before independent page-side crops.
+
+The six selected fixture spreads use human-established operational rectangles in fixtures/preprocessing.json. Their exact 300-DPI recovery, hashes, rational 144-DPI conversion, and validation are recorded in fixtures/page-crop-bounds.json. Automatic physical-page boundary detection is deferred to a separate issue; these hand-selected fixture values are not a generalized detector.
 
 Support:
 
 * page/spread rendering
 * orientation correction
 * left/right spread ordering
-* optional crop
+* optional spread-level crop
+* optional independent page-side crop after splitting
 * optional gutter split
 * optional deskew
-* preprocessing metadata
+* page-level crop provenance in preprocessing metadata
 
 ### Acceptance
 
 * selected Relativity and Stella Maris fixture pages render in correct reading orientation
-* left/right page order is explicit
-* every applied transform is recorded
+* left/right page order is explicit and remains unchanged by side-local cropping
+* every applied transform is recorded at its actual coordinate stage
+* independent left/right page crops and different output dimensions are supported
 * preprocessing output can be inspected visually
 * source PDFs remain unchanged
 * missing local fixture PDFs produce an explicit fail/skip outcome rather than silent substitution

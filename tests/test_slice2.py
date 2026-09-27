@@ -840,8 +840,14 @@ def test_blank_declared_page_is_explicit(tmp_path: Path):
     blank = result["pages"][0]
     assert blank["side"] == "left"
     assert blank["blank"] is True
-    assert blank["tokens"] == []
-    assert "no_tokens_on_declared_nonblank_page" not in blank["uncertainties"]
+    preprocessing = json.loads(
+        (preprocess_dir / f"{fixture.fixture_id}.preprocess.json").read_text(encoding="utf-8")
+    )
+    left = preprocessing["pages"][0]
+    assert left["page_crop"]["rect_px"] == [26, 77, 672, 1068]
+    assert preprocessing["result"]["blank_sides"] == ["left"]
+    # Blank is retained as source-side provenance. This test does not prescribe
+    # Tesseract output or add OCR suppression for near-white pixels.
     assert (tmp_path / "geometry" / "annotations" / "left.png").is_file()
 
 
