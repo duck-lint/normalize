@@ -1,7 +1,6 @@
 {
   "schema": "manual-page-side-crop-bounds-v1",
   "purpose": "Exact, human-established crop rectangles recovered from canonical 300-DPI raster selections; production coordinates derived by exact 12/25 scale and containment-preserving integer rounding.",
-  "authoritative_manual_crop_commit": "7feddc5d05dfb3ca3ed25e5ed1d4f0249f446d43",
   "current_research_branch_head": "ac93c6890d847c3e6e59c21f60c9102faa1e8464",
   "reference_raster_dpi": 300,
   "production_dpi": 144,
@@ -1145,5 +1144,8 @@
       "canonical_300dpi_rerender_exact_status": "pass",
       "fixture_pdf_sha256": "c3a3ea3bda79cb462cb537f39d3199058afa84d6f1a784507aacd86a31e80c23"
     }
-  ]
+  ],
+  "historical_manual_crop_commit": "7feddc5d05dfb3ca3ed25e5ed1d4f0249f446d43",
+  "manual_crop_provenance": "The records bind the twelve exact manual PNG bytes present locally under inputs/manual-crops when recovered. Those paths are ignored local inputs at the recorded research branch head; the per-file SHA-256 values identify the reviewed bytes. The Stella Maris 03 left crop was re-edited after the historical manual crop commit and is identified by its recorded hash.",
+  "research_record_commit": "6d748273accdd2c579be2ac0c997bdedc70e08ea"
 }

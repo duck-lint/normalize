@@ -1,6 +1,6 @@
 # Manual page-side crop bounds
 
-These bounds were recovered by exact RGB subimage matching against the canonical 300-DPI rasters. Manual PNGs carried fully opaque alpha; that channel was dropped only in temporary copies for the RGB-only matcher. Original manual crops were not modified.
+These bounds were recovered from the twelve local manual PNGs present at recovery time by exact RGB subimage matching against the canonical 300-DPI rasters. Their SHA-256 values in the JSON identify the reviewed bytes; the Stella Maris 03 left crop was re-edited after the historical manual-crop commit. Manual PNGs carried fully opaque alpha; that channel was dropped only in temporary copies for the RGB-only matcher. Original manual crops were not modified.
 
 Production edges use the exact 12/25 ratio. Leading edges round down and trailing exclusive edges round up. That uniformly contains each selected physical interval; every edge extension is less than one 144-DPI pixel. See manual-crop-bounds.json for full hashes, per-edge rational errors, physical errors, and validation provenance.
 
