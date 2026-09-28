@@ -60,13 +60,6 @@ def _git(*args: str) -> str:
     ).stdout.strip()
 
 
-def _is_ancestor(ancestor: str, revision: str) -> bool:
-    return subprocess.run(
-        ["git", "merge-base", "--is-ancestor", ancestor, revision],
-        cwd=REPOSITORY_ROOT,
-    ).returncode == 0
-
-
 def _jsonable(value: Any) -> Any:
     if isinstance(value, float) and value.is_integer():
         # Direct production and the copied control can obtain the same
@@ -824,11 +817,9 @@ def _artifact_inventory() -> list[dict[str, Any]]:
 
 def run(output: Path = ROOT, *, write_manifest: bool = True) -> dict[str, Any]:
     current_revision = _git("rev-parse", "HEAD")
-    if not _is_ancestor(BASELINE_COMMIT, current_revision):
-        raise AssertionError(
-            "stage ablation requires the published vertical-investigation commit "
-            f"or a descendant; found {current_revision}"
-        )
+    # BASELINE_COMMIT remains provenance in the archived result. Reusable
+    # execution is authorized by current source/oracle hashes, not ancestry to
+    # a Git object intentionally removed by the repository history purge.
     if sha256(REPOSITORY_ROOT / "src/normalize/geometry.py") != GEOMETRY_SHA256:
         raise AssertionError("production geometry differs from the published baseline")
     if sha256(REPOSITORY_ROOT / "tests/geometry_oracle.py") != ORACLE_SHA256:

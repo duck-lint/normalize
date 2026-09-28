@@ -5,6 +5,8 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
+from PIL import Image, ImageDraw
+
 
 ROOT = Path(__file__).parents[1]
 SCRIPT = ROOT / "research/geometry/pixel-evidence-prototype/prototype.py"
@@ -15,7 +17,14 @@ SPEC.loader.exec_module(prototype)
 
 
 def test_measurement_interface_returns_raw_observations_only():
-    image = ROOT / "research/geometry/evidence-corrections/pixel-cases/two_ordinary_tokens_each_side__continuous.png"
+    # Draw controlled token-like marks at runtime so this measurement test does
+    # not depend on archived raster files surviving in the repository.
+    image = Image.new("L", (220, 70), 255)
+    draw = ImageDraw.Draw(image)
+    for left in (42, 56, 103, 117):
+        draw.rectangle((left + 2, 22, left + 7, 28), fill=0)
+        draw.rectangle((left + 1, 27, left + 8, 28), fill=0)
+    draw.line((35, 25, 144, 25), fill=0, width=1)
     observation = prototype.measure_bridge(
         image,
         [],
@@ -24,6 +33,8 @@ def test_measurement_interface_returns_raw_observations_only():
     )
 
     assert observation["raw_observations"]
+    assert observation["region_dimensions_px"] == {"width": 110, "height": 10}
+    assert observation["raw_observations"]["thresholds"]["128"]["ink_occupancy"] > 0
     assert "same_line" not in observation
     assert "combined_score" not in observation
     assert "assignment" not in observation

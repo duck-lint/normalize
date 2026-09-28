@@ -47,58 +47,49 @@ def _run(fixture_id: str, config_path: Path, output_dir: Path) -> dict:
     return preprocess_fixture(metadata, config_path, output_dir)
 
 
-def test_all_twelve_manual_crops_recover_uniquely_from_canonical_source_renders(tmp_path: Path):
-    """Regenerate canonical 300-DPI sides from the exact PDFs before matching."""
+def test_crop_bounds_record_and_production_config_are_durable_and_consistent():
+    """Check current crop authority without claiming purged raster evidence is present."""
     bounds_record = json.loads(BOUNDS_PATH.read_text(encoding="utf-8"))
+    assert bounds_record["schema"] == "manual-page-side-crop-bounds-v1"
     assert len(bounds_record["records"]) == 12
     config = load_preprocessing_config(CONFIG_PATH)
-    catalog = FixtureCatalog.load(ROOT)
-
-    for fixture_id in config.profiles:
-        metadata = catalog.get(fixture_id)
-        source_hash = _sha256(metadata.source_pdf)
-        side_recorded = [
-            item for item in bounds_record["records"] if item["fixture_id"] == fixture_id
-        ]
-        assert {item["side"] for item in side_recorded} == {"left", "right"}
-        assert all(item["fixture_pdf_sha256"] == source_hash for item in side_recorded)
-
-        with pymupdf.open(metadata.source_pdf) as document:
-            page = document.load_page(metadata.fixture_pdf_page_index_1_based - 1)
-            pixmap = page.get_pixmap(
-                matrix=pymupdf.Matrix(300 / 72, 300 / 72),
-                alpha=False,
-                annots=False,
-            )
-            rendered = Image.frombytes("RGB", (pixmap.width, pixmap.height), pixmap.samples)
-        transformed, _ = _preprocess_image(rendered, config.profile_for(fixture_id))
-        split_x = config.profile_for(fixture_id).split_boundary * 300 // config.dpi
-        canonical_sides = {
-            "left": transformed.crop((0, 0, split_x, transformed.height)),
-            "right": transformed.crop((split_x, 0, transformed.width, transformed.height)),
-        }
-
-        for record in side_recorded:
-            side = record["side"]
-            canonical_path = tmp_path / f"{fixture_id}.{side}.canonical.png"
-            canonical_sides[side].save(canonical_path, format="PNG")
-            assert _sha256(canonical_path) == record["canonical_sha256"]
-
-            manual_path = MANUAL_CROPS / f"{fixture_id}.{side}.png"
-            assert _sha256(manual_path) == record["manual_crop_sha256"]
-            with Image.open(manual_path) as manual:
-                assert list(manual.size) == record["manual_crop_dimensions_px"]
-                assert manual.mode == "RGBA"
-                assert manual.getchannel("A").getextrema() == (255, 255)
-                # The existing matcher requires RGB. Dropping fully opaque alpha
-                # in a temporary copy preserves the user's saved manual raster.
-                rgb_path = tmp_path / f"{fixture_id}.{side}.rgb.png"
-                manual.convert("RGB").save(rgb_path, format="PNG")
-
-            recovered = find_exact_subcrop_bounds(canonical_path, rgb_path)
-            assert recovered == record["recovered_300dpi_bounds_exclusive"]
+    assert set(config.profiles) == {item["fixture_id"] for item in bounds_record["records"]}
+    assert bounds_record["coordinate_mapping"] == "exact production edge = reference edge * 12/25"
+    for fixture_id, profile in config.profiles.items():
+        records = [item for item in bounds_record["records"] if item["fixture_id"] == fixture_id]
+        assert {item["side"] for item in records} == {"left", "right"}
+        assert set(profile.page_crops) == {"left", "right"}
+        for record in records:
+            assert len(record["canonical_sha256"]) == 64
+            assert len(record["manual_crop_sha256"]) == 64
             assert record["exact_match_status"] == "pass"
             assert record["unique_match_status"] == "pass"
+            rect = record["configured_production_bounds_px"]
+            assert list(profile.page_crops[record["side"]]) == rect
+            x0, y0, x1, y1 = rect
+            assert x0 >= 0 and y0 >= 0 and x1 > x0 and y1 > y0
+            pre_width, pre_height = record["pre_crop_production_side_dimensions_px"]
+            assert x1 <= pre_width and y1 <= pre_height
+            assert record["production_output_dimensions_px"] == [x1 - x0, y1 - y0]
+
+
+def test_optional_local_manual_raster_audit(tmp_path: Path):
+    """Recover exact selections only when ignored canonical and manual rasters exist."""
+    bounds_record = json.loads(BOUNDS_PATH.read_text(encoding="utf-8"))
+    for record in bounds_record["records"]:
+        canonical = ROOT / record["canonical_reference_path"]
+        manual = ROOT / record["manual_crop_path"]
+        if not canonical.is_file() or not manual.is_file():
+            pytest.skip("optional local audit requires ignored canonical and manual raster inputs")
+        with Image.open(manual) as opened:
+            assert list(opened.size) == record["manual_crop_dimensions_px"]
+            rgb_manual = tmp_path / f"{record['fixture_id']}.{record['side']}.rgb.png"
+            opened.convert("RGB").save(rgb_manual)
+        assert _sha256(canonical) == record["canonical_sha256"]
+        assert _sha256(manual) == record["manual_crop_sha256"]
+        assert find_exact_subcrop_bounds(canonical, rgb_manual) == record[
+            "recovered_300dpi_bounds_exclusive"
+        ]
 
 
 def test_recorded_bounds_and_configured_rectangles_are_deterministic():

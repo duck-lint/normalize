@@ -29,3 +29,7 @@ Each listed local PDF is a one-page fixture asset. `fixture_pdf_page_index_1_bas
 | McCarthy, *Stella Maris* | `stella_maris_pdf03_session-I`, `stella_maris_pdf06_dense-dialogue`, `stella_maris_pdf18_session-II_p35` | `McCarthy, Cormac - Stella Maris.pt2 3.pdf`, `McCarthy, Cormac - Stella Maris.pt2 6.pdf`, `McCarthy, Cormac - Stella Maris.pt2 18.pdf` |
 
 The numeric suffixes identify the local page/spread fixture asset; they are not a claim that the ignored PDF is a complete source work.
+
+## Raster research evidence
+
+PNG and PDF files are globally ignored and are not durable repository artifacts. Canonical/manual crop rasters and derived research page images may remain as local inputs only. Archived JSON and Markdown may preserve their paths, dimensions, and hashes as provenance; those records do not assert that the binary remains present in a checkout. Ordinary pixel-behavior tests generate controlled synthetic images at runtime. Manual raster recovery is an optional local audit when both canonical and manual inputs are available. Historical Git SHAs likewise remain provenance; reusable research checks validate current content hashes rather than requiring purged commit objects.

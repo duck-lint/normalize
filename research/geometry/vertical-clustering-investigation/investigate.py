@@ -809,11 +809,8 @@ def run(output: Path = ROOT, *, write_manifest: bool = True) -> dict[str, Any]:
     # reproduction script must remain runnable after this research commit is
     # created.  Source identity is therefore enforced by the production and
     # oracle hashes below; the manifest records the exact generation revision.
-    if subprocess.run(
-        ["git", "merge-base", "--is-ancestor", BASELINE_COMMIT, "HEAD"],
-        cwd=REPOSITORY_ROOT,
-    ).returncode != 0:
-        raise AssertionError("vertical research must run from the published baseline or a descendant")
+    # BASELINE_COMMIT is historical provenance. Current reproducibility is
+    # guarded by implementation, oracle, and evidence-content hashes below.
     if sha256(REPOSITORY_ROOT / "src/normalize/geometry.py") != GEOMETRY_SHA256:
         raise AssertionError("production geometry differs from the verified baseline")
     if sha256(REPOSITORY_ROOT / "tests/geometry_oracle.py") != ORACLE_SHA256:

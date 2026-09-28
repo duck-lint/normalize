@@ -44,7 +44,9 @@ def test_fidelity_gate_executes_direct_production_comparison() -> None:
     assert gate["all_horizontal_splits_equal"]
 
 
-def test_fidelity_gate_rejects_an_injected_control_mismatch(monkeypatch: pytest.MonkeyPatch) -> None:
+def test_fidelity_gate_rejects_an_injected_control_mismatch_before_writing(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
     """Ensure a real control-state mismatch fails before results are written."""
 
     original = ablation._control_pipeline
@@ -61,8 +63,11 @@ def test_fidelity_gate_rejects_an_injected_control_mismatch(monkeypatch: pytest.
         return result
 
     monkeypatch.setattr(ablation, "_control_pipeline", mismatching_control)
+    output = tmp_path / "rejected-run"
     with pytest.raises(AssertionError, match="production-fidelity gate"):
-        ablation.run(write_manifest=False)
+        ablation.run(output, write_manifest=False)
+    assert injected
+    assert not (output / "results.json").exists()
 
 
 def test_coordinate_change_can_leave_assignment_semantics_stable() -> None:

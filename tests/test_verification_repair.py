@@ -16,9 +16,12 @@ prototype = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(prototype)
 
 
-def test_verified_descendant_runs_reusable_prototype_tests(tmp_path: Path) -> None:
+def test_verified_current_content_runs_reusable_prototype_tests(tmp_path: Path) -> None:
     verification = prototype.verify_research_contract()
     assert verification["current_revision"] != prototype.HISTORICAL_BASELINE_COMMIT
+    assert verification["verified_text_inputs"]
+    assert verification["archived_binary_inputs"]
+    assert all(item["status"] == "archived_provenance_only" for item in verification["archived_binary_inputs"])
     result = prototype.run_prototype(tmp_path, include_real=False, write_manifest=False)
     assert result["verification"]["current_revision"] == verification["current_revision"]
 
@@ -51,10 +54,11 @@ def test_unrelated_repository_state_is_not_a_research_content_dependency() -> No
     contract = prototype.verify_research_contract()
     assert "git_status" not in contract
     assert contract["content_hashes"]["prior_experiment_results"]
-    assert contract["preserved_inputs"]
+    assert contract["verified_text_inputs"]
 
 
 def test_historical_result_and_manifest_hashes_remain_recorded() -> None:
     contract = prototype.verify_research_contract()
     assert contract["historical_baseline"] == "699771d01c1a83c6f89c6a7eb2102e79a709b671"
     assert contract["exact_revision_required"] is False
+    assert all(item["sha256"] for item in contract["archived_binary_inputs"])

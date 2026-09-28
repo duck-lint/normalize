@@ -26,9 +26,8 @@ REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
 RESEARCH_ROOT = Path(__file__).resolve().parent
 DEFAULT_REAL_ROOT = Path("/tmp/normalize-residual-forensics")
 HISTORICAL_BASELINE_COMMIT = "699771d01c1a83c6f89c6a7eb2102e79a709b671"
-# The prototype itself was introduced by this descendant.  Ordinary reusable
-# tests may run from later descendants, subject to the content contract below.
-MINIMUM_DESCENDANT_COMMIT = "c0f7ea88493a07e6139e9c71d413a2eda130c17b"
+# This baseline is provenance; reusable execution is governed by the content
+# contract below rather than a live Git ancestry relationship.
 BASELINE_COMMIT = HISTORICAL_BASELINE_COMMIT
 PRIOR_RESULTS = REPOSITORY_ROOT / "research/geometry/evidence-corrections/pixel-experiment-results.json"
 PRIOR_PIXEL_ROOT = REPOSITORY_ROOT / "research/geometry/evidence-corrections/pixel-cases"
@@ -89,13 +88,6 @@ def _git(*args: str) -> str:
     ).stdout.strip()
 
 
-def _is_ancestor(ancestor: str, revision: str) -> bool:
-    return subprocess.run(
-        ["git", "merge-base", "--is-ancestor", ancestor, revision],
-        cwd=REPOSITORY_ROOT,
-    ).returncode == 0
-
-
 def _load_verification_contract() -> dict[str, Any]:
     try:
         return json.loads(VERIFICATION_CONTRACT.read_text(encoding="utf-8"))
@@ -103,12 +95,22 @@ def _load_verification_contract() -> dict[str, Any]:
         raise AssertionError(f"cannot load verification contract: {VERIFICATION_CONTRACT}: {exc}") from exc
 
 
-def verify_research_contract(*, require_exact_revision: bool = False) -> dict[str, Any]:
-    """Verify revision ancestry and only the content that this prototype uses.
+def contract_archived_pixel_inputs() -> list[dict[str, str]]:
+    """Return historical raster identities as records, not file requirements."""
 
-    The historical revision remains an explicit opt-in check.  Reusable tests
-    instead require it as an ancestor and validate the evidence/prototype
-    content contract.  Unrelated repository changes are intentionally ignored.
+    return [
+        {"path": item["path"], "sha256": item["sha256"], "status": "archived_provenance_only"}
+        for item in _load_verification_contract()["preserved_inputs"]
+        if Path(item["path"]).suffix.lower() == ".png"
+    ]
+
+
+def verify_research_contract(*, require_exact_revision: bool = False) -> dict[str, Any]:
+    """Verify current content against the archived research contract.
+
+    The recorded baseline SHA remains provenance. Reusable execution is
+    authorized by current content hashes because repository history may be
+    rewritten and no longer retain the original Git object.
     """
 
     current_revision = _git("rev-parse", "HEAD")
@@ -118,17 +120,6 @@ def verify_research_contract(*, require_exact_revision: bool = False) -> dict[st
                 "historical reproduction requires exact revision "
                 f"{HISTORICAL_BASELINE_COMMIT}; found {current_revision}"
             )
-    elif not _is_ancestor(HISTORICAL_BASELINE_COMMIT, current_revision):
-        raise AssertionError(
-            "reusable prototype execution requires a descendant of the "
-            f"historical baseline {HISTORICAL_BASELINE_COMMIT}; found {current_revision}"
-        )
-    elif not _is_ancestor(MINIMUM_DESCENDANT_COMMIT, current_revision):
-        raise AssertionError(
-            "reusable prototype execution requires the implementation-introducing "
-            f"descendant {MINIMUM_DESCENDANT_COMMIT} or later; found {current_revision}"
-        )
-
     contract = _load_verification_contract()
     expected = contract["content_hashes"]
     checks = {
@@ -143,13 +134,19 @@ def verify_research_contract(*, require_exact_revision: bool = False) -> dict[st
             raise AssertionError(
                 f"research content mismatch for {name}: expected {expected[name]}, found {actual}"
             )
+    verified_text_inputs = []
     for record in contract["preserved_inputs"]:
+        # Purged raster paths remain useful as archived evidence identities,
+        # but are deliberately not checkout prerequisites.
+        if Path(record["path"]).suffix.lower() in {".png", ".pdf"}:
+            continue
         path = REPOSITORY_ROOT / record["path"]
         actual = sha256(path)
         if actual != record["sha256"]:
             raise AssertionError(
                 f"preserved input mismatch for {record['path']}: expected {record['sha256']}, found {actual}"
             )
+        verified_text_inputs.append(record)
     if contract["historical_result_sha256"] != sha256(REPOSITORY_ROOT / contract["historical_result_path"]):
         raise AssertionError("historical pixel-prototype result hash changed")
     if contract["historical_manifest_sha256"] != sha256(REPOSITORY_ROOT / contract["historical_manifest_path"]):
@@ -159,7 +156,8 @@ def verify_research_contract(*, require_exact_revision: bool = False) -> dict[st
         "historical_baseline": HISTORICAL_BASELINE_COMMIT,
         "exact_revision_required": require_exact_revision,
         "content_hashes": expected,
-        "preserved_inputs": contract["preserved_inputs"],
+        "verified_text_inputs": verified_text_inputs,
+        "archived_binary_inputs": contract_archived_pixel_inputs(),
     }
 
 
@@ -404,7 +402,20 @@ def _synthetic_cases(output_root: Path) -> dict[str, Any]:
     output_root.mkdir(parents=True, exist_ok=True)
     image_root = output_root / "synthetic"
     image_root.mkdir(parents=True, exist_ok=True)
-    base = Image.open(disconnected_path).convert("L")
+    # These controlled inputs are generated at runtime from geometric
+    # primitives; historical pixel hashes remain in the archive manifest.
+    base = Image.new("L", CANVAS, 255)
+    base_draw = ImageDraw.Draw(base)
+    for x in (42, 56, 103, 117):
+        _draw_token_ink(base_draw, x, 20, 10, 10)
+    continuous = base.copy()
+    ImageDraw.Draw(continuous).line((roi["x0"], 25, roi["x1"] - 1, 25), fill=0, width=1)
+    disconnected = base.copy()
+    controls_root = image_root
+    continuous_path = controls_root / "two_ordinary_tokens_each_side__continuous.png"
+    disconnected_path = controls_root / "two_ordinary_tokens_each_side__disconnected.png"
+    continuous.save(continuous_path)
+    disconnected.save(disconnected_path)
     cases: list[tuple[str, Image.Image, str]] = []
     cases.append(("single_pixel_noise_bridge", base.copy(), "disconnected regions with a one-pixel noise path"))
     draw = ImageDraw.Draw(cases[-1][1])
@@ -481,8 +492,16 @@ def _synthetic_cases(output_root: Path) -> dict[str, Any]:
         "disconnected_measurements": disconnected_measurement,
     }
     one_pair = json.loads(PRIOR_RESULTS.read_text(encoding="utf-8"))["pairs"][1]
-    one_cont = PRIOR_PIXEL_ROOT / "one_ordinary_token_each_side__continuous.png"
-    one_disc = PRIOR_PIXEL_ROOT / "one_ordinary_token_each_side__disconnected.png"
+    one_cont = controls_root / "one_ordinary_token_each_side__continuous.png"
+    one_disc = controls_root / "one_ordinary_token_each_side__disconnected.png"
+    one_cont_image = Image.new("L", CANVAS, 255)
+    one_cont_draw = ImageDraw.Draw(one_cont_image)
+    _draw_token_ink(one_cont_draw, 28, 20, 18, 10)
+    _draw_token_ink(one_cont_draw, 115, 20, 18, 10)
+    one_disc_image = one_cont_image.copy()
+    ImageDraw.Draw(one_cont_image).line((20, 25, 149, 25), fill=0, width=1)
+    one_cont_image.save(one_cont)
+    one_disc_image.save(one_disc)
     one_roi = {"x0": 20, "x1": 150, "y0": 20, "y1": 30}
     one_band = {"band_y0": 20, "band_y1": 30, "baseline_y": 25.0, "baseline_slope_px_per_px": 0.0, "reference_x": 85.0}
     outputs["controls"]["corrected_one_sided_pair"] = {
@@ -764,10 +783,7 @@ def run_prototype(
             "input_provenance": {
                 "prior_corrected_experiment_results": {"path": str(PRIOR_RESULTS.relative_to(REPOSITORY_ROOT)), "sha256": sha256(PRIOR_RESULTS)},
                 "synthetic_box_input_sha256": synthetic["shared_input_sha256"],
-                "prior_corrected_pixel_inputs": [
-                    {"path": str(path.relative_to(REPOSITORY_ROOT)), "sha256": sha256(path), "source": "preserved synthetic source image"}
-                    for path in sorted(PRIOR_PIXEL_ROOT.glob("*.png"))
-                ],
+                "prior_corrected_pixel_inputs": contract_archived_pixel_inputs(),
                 "preserved_real_scan_references": [
                     {"path": str(path.relative_to(REPOSITORY_ROOT)), "sha256": sha256(path)}
                     for path in (PRIOR_RESIDUAL_ROOT / "relativity_pdf17_pp40-41/geometry.json", PRIOR_RESIDUAL_ROOT / "relativity_pdf10_pp26-27/geometry.json")
