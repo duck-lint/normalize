@@ -449,7 +449,7 @@ def test_horizontal_grouping_uses_covered_extent_for_retained_dense_dialogue():
     assert len(lines[0]["token_ids"]) == 6
 
 
-def test_horizontal_grouping_splits_disconnected_regions_and_unsupported_bridge_box():
+def test_horizontal_grouping_uses_wide_token_observed_extent_and_splits_true_gaps():
     rows = [
         _row("left", x="10", y="20", width="10", word="1"),
         _row("bridge", x="10", y="20", width="250", word="2"),
@@ -461,9 +461,8 @@ def test_horizontal_grouping_splits_disconnected_regions_and_unsupported_bridge_
     lines, unresolved, _ = group_physical_lines(tokens)
 
     assert unresolved == []
-    assert len(lines) == 2
-    assert lines[0]["token_ids"] == ["token-0001", "token-0002"]
-    assert lines[1]["token_ids"] == ["token-0003"]
+    assert len(lines) == 1
+    assert lines[0]["token_ids"] == ["token-0001", "token-0002", "token-0003"]
 
     disconnected_rows = [
         _row("left", x="10", y="50", width="20", word="1"),

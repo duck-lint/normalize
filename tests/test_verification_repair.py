@@ -38,15 +38,15 @@ def test_explicit_historical_reproduction_rejects_a_different_head(tmp_path: Pat
 
 def test_relevant_content_mismatch_is_rejected(monkeypatch: pytest.MonkeyPatch) -> None:
     original_hash = prototype.sha256
-    geometry = (ROOT / "src/normalize/geometry.py").resolve()
+    prototype_source = SCRIPT.resolve()
 
     def mismatched_hash(path: Path) -> str:
-        if path.resolve() == geometry:
+        if path.resolve() == prototype_source:
             return "0" * 64
         return original_hash(path)
 
     monkeypatch.setattr(prototype, "sha256", mismatched_hash)
-    with pytest.raises(AssertionError, match="production_geometry"):
+    with pytest.raises(AssertionError, match="prototype_source"):
         prototype.verify_research_contract()
 
 
@@ -60,5 +60,8 @@ def test_unrelated_repository_state_is_not_a_research_content_dependency() -> No
 def test_historical_result_and_manifest_hashes_remain_recorded() -> None:
     contract = prototype.verify_research_contract()
     assert contract["historical_baseline"] == "699771d01c1a83c6f89c6a7eb2102e79a709b671"
+    assert contract["historical_production_geometry_sha256"] == (
+        "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5"
+    )
     assert contract["exact_revision_required"] is False
     assert all(item["sha256"] for item in contract["archived_binary_inputs"])

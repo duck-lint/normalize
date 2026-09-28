@@ -419,12 +419,16 @@ def _horizontal_gap_limit(tokens: Sequence[_Token]) -> float:
 def _split_horizontal_regions(
     bands: Sequence[Sequence[_Token]], gap_limit: float
 ) -> list[list[_Token]]:
-    """Split bands using covered extent, with a guard for bridge-only boxes."""
+    """Split bands when the true gap exceeds the page-local limit.
+
+    Every admitted box contributes its observed right edge. Width therefore
+    affects continuity only through that actual edge and the ordinary gap
+    predicate; no token-width class changes the region extent.
+    """
 
     regions: list[list[_Token]] = []
     for band in bands:
         ordered = sorted(band, key=lambda token: (token.x, token.source_row))
-        supported_bridge_ids = _supported_bridge_ids(ordered, gap_limit)
         current: list[_Token] = []
         covered_right: int | None = None
         for token in ordered:
@@ -434,12 +438,7 @@ def _split_horizontal_regions(
                 regions.append(current)
                 current = []
             current.append(token)
-            if not _is_oversized(token, gap_limit) or id(token) in supported_bridge_ids:
-                covered_right = max(covered_right or token.x1, token.x1)
-            elif covered_right is None:
-                # An unsupported wide box may start a region, but its full
-                # extent is not allowed to bridge a later ordinary group.
-                covered_right = token.x
+            covered_right = token.x1 if covered_right is None else max(covered_right, token.x1)
         if current:
             regions.append(current)
     return regions
@@ -454,66 +453,6 @@ def _horizontally_adjacent(left: _Token, right: _Token, gap_limit: float) -> boo
         return False
     first, second = sorted((left, right), key=lambda token: (token.x, token.source_row))
     return second.x - first.x1 <= gap_limit
-
-
-def _is_oversized(token: _Token, gap_limit: float) -> bool:
-    """Classify boxes wider than three page-local median token widths.
-
-    ``gap_limit`` is two median widths, so the additional half-gap keeps
-    ordinary wide words in the connectivity evidence while isolating boxes
-    whose extent is materially abnormal.
-    """
-
-    return token.width > gap_limit + gap_limit / 2
-
-
-def _supported_bridge_ids(tokens: Sequence[_Token], gap_limit: float) -> set[int]:
-    """Return wide boxes supported by ordinary tokens on both sides."""
-
-    ordinary = [token for token in tokens if not _is_oversized(token, gap_limit)]
-    components: list[list[_Token]] = []
-    for token in ordinary:
-        if components and token.x - components[-1][-1].x1 <= gap_limit:
-            components[-1].append(token)
-        else:
-            components.append([token])
-    supported: set[int] = set()
-    for left_component, right_component in zip(components, components[1:]):
-        left = left_component[-1]
-        right = right_component[0]
-        if right.x - left.x1 <= gap_limit:
-            continue
-        for token in tokens:
-            if (
-                _is_oversized(token, gap_limit)
-                and token.x <= left.x1
-                and token.x1 >= right.x
-                and len(left_component) >= 2
-                and len(right_component) >= 2
-            ):
-                supported.add(id(token))
-    return supported
-
-
-def _horizontal_candidate_supported(
-    band: Sequence[_Token], token: _Token, gap_limit: float
-) -> bool:
-    """Keep guarded region boundaries consistent during final assignment."""
-
-    combined = sorted((*band, token), key=lambda item: (item.x, item.source_row))
-    ordinary = [item for item in combined if not _is_oversized(item, gap_limit)]
-    supported_bridge_ids = _supported_bridge_ids(combined, gap_limit)
-    for index, (left, right) in enumerate(zip(ordinary, ordinary[1:])):
-        if right.x - left.x1 <= gap_limit:
-            continue
-        bridge_tokens = [
-            item
-            for item in combined
-            if _is_oversized(item, gap_limit) and item.x <= left.x1 and item.x1 >= right.x
-        ]
-        if bridge_tokens and not any(id(item) in supported_bridge_ids for item in bridge_tokens):
-            return False
-    return True
 
 
 def _line_bands(tokens: Sequence[_Token], tolerance: int, slope: float) -> list[list[_Token]]:
@@ -586,7 +525,7 @@ def group_physical_lines(tokens: Sequence[_Token]) -> tuple[list[dict[str, Any]]
             "token_height_median_px": None,
             "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
             "tolerance_px": None,
-            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+            "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
             "horizontal_gap_limit_px": None,
             "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
             "baseline_slope_px_per_px": 0.0,
@@ -634,7 +573,6 @@ def group_physical_lines(tokens: Sequence[_Token]) -> tuple[list[dict[str, Any]]
                         - median(_adjusted_center_y(item, baseline_slope) for item in band)
                     ) <= tolerance
                     and min(item.x for item in band) <= token.x <= max(item.x1 for item in band)
-                    and _horizontal_candidate_supported(band, token, horizontal_gap_limit)
                 )
             )
         ]
@@ -709,7 +647,7 @@ def group_physical_lines(tokens: Sequence[_Token]) -> tuple[list[dict[str, Any]]
         "token_height_median_px": token_height_median,
         "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
         "tolerance_px": tolerance,
-        "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+        "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
         "horizontal_gap_limit_px": _horizontal_gap_limit(tokens),
         "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
         "baseline_slope_px_per_px": baseline_slope,
@@ -1121,7 +1059,7 @@ def run_geometry(preprocessed_dir: Path, output_dir: Path) -> dict[str, Any]:
             "coordinate_system": {"origin": "top-left", "units": "px"},
             "engine": engine,
             "grouping": {
-                "rule": "coordinate rows use adjusted center_y tolerance with horizontal-neighbor support, split gaps beyond cumulative covered extent, guard unsupported oversized bridge boxes, and admit nonzero slope only for at least two multi-token continuous bands with improved cohesion",
+                "rule": "coordinate rows use adjusted center_y tolerance with horizontal-neighbor support, split when the true gap from cumulative observed token-box extent exceeds the page-local gap limit, and admit nonzero slope only for at least two multi-token continuous bands with improved cohesion",
                 "line_ids": "ordered by band median center_y, leftmost x0, creation ordinal",
             },
             "provenance": {

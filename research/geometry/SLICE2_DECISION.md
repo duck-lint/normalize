@@ -1,12 +1,31 @@
 # Slice 2 decision record
 
-Status: research decision; no production geometry change authorized.
+Status: the production horizontal-continuity rule has been updated on the dedicated guard-removal branch. The earlier observations and residual inventory below remain records of their stated baselines.
 
 This record consolidates the evidence under
 [`research/geometry/`](.) and links to the detailed reports. It distinguishes
 observations, constructed demonstrations, interpretations, and hypotheses.
 
 ## A. Accepted current state
+
+### Current horizontal-continuity rule
+
+Production horizontal continuity uses cumulative observed token-box extent. For
+each token admitted to a horizontal region, its actual `x1` updates the region
+extent with `max(covered_right, token.x1)`. A following token starts a new
+region only when its true gap from that extent exceeds the page-local limit
+`2 * median(token_width_px)`. Production no longer classifies boxes by width or
+withholds their observed extent. Final candidate assignment uses the same
+ordinary region interval and horizontal-neighbor conditions.
+
+This change was made because two independent crop-controlled studies found
+only repaired false splits and no destructive merges on the representative
+corpus: the earlier 300-DPI study and the production-cropped 144-DPI ablation
+(research commit `b1728222b054e16053b756becd415ea602d2dee7`,
+`research/production-cropped-guard-ablation/results.json` and
+`adjudications.json`). The 144-DPI result was 43 adjudicated repaired false
+splits, zero destructive merges, and zero unresolved events across 11
+nonblank sides. This is corpus-bounded evidence, not a universal guarantee.
 
 The implemented Slice 2 geometry parses admitted OCR tokens, applies the
 recorded vertical grouping and horizontal splitting rules, reconciles candidate
@@ -15,9 +34,9 @@ current implementation remains the authority for the behavior being measured;
 scan pixels remain authority for observable layout, raw/browser text remains
 lexical authority, and OCR wording remains non-authoritative.
 
-The preserved six-fixture baseline contains four fixtures with no residual
-assignment and two fixtures with residuals. The current seven-token residual
-inventory is:
+The pre-guard-removal six-fixture baseline contained four fixtures with no
+residual assignment and two fixtures with residuals. Its seven-token residual
+inventory was:
 
 | Fixture / side | Source row | OCR token | Current state |
 | --- | ---: | --- | --- |
@@ -89,15 +108,15 @@ provenance-recorded page images and by the ambiguity of interpreting pixels.
 The unresolved state is therefore partly an evidence limit, not automatically a
 production defect requiring a deterministic answer.
 
-## E. Production-change authorization
+## E. Production-change decision
 
-No production geometry change is justified by the current evidence. A future
-authorized experiment would require source-independent examples with
-independent physical interpretation, explicit false-merge and false-split
-criteria, stable-identity comparisons of complete assignment state,
-permutation and perturbation checks, and a demonstrated seam that holds other
-stages constant. It must preserve abstention where evidence is insufficient
-and must not optimize unresolved-token counts or fixture status.
+The width-based oversized-token special case was removed from production using
+the bounded evidence stated above. The ordinary page-local gap predicate
+remains the separation rule. This does not authorize a new width threshold,
+token-type exception, OCR-text rule, or change to vertical grouping, slope,
+OCR admission, or reconciliation. The ablation’s guard-on/guard-off identities
+and human adjudications remain archived evidence; they are not generalized
+claims about arbitrary scans.
 
 ## F. Future research boundaries
 

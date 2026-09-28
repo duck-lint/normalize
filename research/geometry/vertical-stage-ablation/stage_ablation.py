@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent
 GEOMETRY_ROOT = REPOSITORY_ROOT / "research/geometry/residual-forensics"
 PRIOR_INVESTIGATION = REPOSITORY_ROOT / "research/geometry/vertical-clustering-investigation/investigate.py"
 BASELINE_COMMIT = "dfa6cd1ef2387364dded5ba86f92635d94875b4d"
-GEOMETRY_SHA256 = "15f351c93bf45e95a3d9db136af7415433833d51f9e1d7c1af48b81c6c1e64b5"
+GEOMETRY_SHA256 = "0e0c75d1b811388d2fcf9a3051a33680e79d75bbaf309ee2f53f1bd87622ecc1"
 ORACLE_SHA256 = "58e47415dc21e285debda2a4d0112d3289ea781387704f04e8d55c2552b2bf44"
 
 sys.path.insert(0, str(REPOSITORY_ROOT))
@@ -253,7 +253,6 @@ def _reconcile(
                     )
                     <= tolerance
                     and min(item.x for item in band) <= token.x <= max(item.x1 for item in band)
-                    and production_geometry._horizontal_candidate_supported(band, token, gap_limit)
                 )
             )
         ]
@@ -320,7 +319,7 @@ def _reconcile(
         "token_height_median_px": float(median(token.height for token in tokens if token.height > 0)) if tokens else None,
         "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
         "tolerance_px": tolerance,
-        "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative and unsupported oversized bridge boxes split",
+        "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
         "horizontal_gap_limit_px": gap_limit,
         "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
         "baseline_slope_px_per_px": slope,

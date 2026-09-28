@@ -122,8 +122,9 @@ def verify_research_contract(*, require_exact_revision: bool = False) -> dict[st
             )
     contract = _load_verification_contract()
     expected = contract["content_hashes"]
+    # This measurement prototype never imports production geometry; its old
+    # geometry hash identifies the historical experiment, not a live input.
     checks = {
-        "production_geometry": REPOSITORY_ROOT / "src/normalize/geometry.py",
         "identity_complete_oracle": REPOSITORY_ROOT / "tests/geometry_oracle.py",
         "prior_experiment_results": PRIOR_RESULTS,
         "prototype_source": Path(__file__).resolve(),
@@ -156,6 +157,10 @@ def verify_research_contract(*, require_exact_revision: bool = False) -> dict[st
         "historical_baseline": HISTORICAL_BASELINE_COMMIT,
         "exact_revision_required": require_exact_revision,
         "content_hashes": expected,
+        "verified_content_hashes": {
+            name: expected[name] for name in checks
+        },
+        "historical_production_geometry_sha256": expected["production_geometry"],
         "verified_text_inputs": verified_text_inputs,
         "archived_binary_inputs": contract_archived_pixel_inputs(),
     }
