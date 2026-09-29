@@ -1,0 +1,50 @@
+{
+  "schema": "baseline-slope-forensics-bounded-triage-v1",
+  "status": "incomplete_environment_block",
+  "baseline_commit": "473e639b6fe335ffb527d2338234d38e311189ba",
+  "branch": "research/baseline-slope-forensics",
+  "production_geometry_modified": false,
+  "preprocessing_modified": false,
+  "ocr_modified": false,
+  "fixture_expectations_modified": false,
+  "baseline_suite": {
+    "command": "python3 -m pytest",
+    "result": "not_run",
+    "reason": "pytest unavailable"
+  },
+  "available": {
+    "python": "3.12.3",
+    "tesseract_path": "/usr/bin/tesseract",
+    "fixture_pdfs_present": true
+  },
+  "missing_python_modules": [
+    "pytest",
+    "pip",
+    "fitz",
+    "PIL",
+    "pytesseract",
+    "numpy",
+    "cv2",
+    "rapidfuzz"
+  ],
+  "code_inspection": {
+    "candidate_count": 201,
+    "candidate_min_px_per_px": -0.1,
+    "candidate_max_px_per_px": 0.1,
+    "candidate_step_px_per_px": 0.001,
+    "adjusted_center": "center_y - slope * x",
+    "score": "sum(n * (n - 1) / 2 for resulting horizontal regions)",
+    "nonzero_gate": [
+      "at least two resulting regions",
+      "every resulting region contains at least two tokens",
+      "cohesion score strictly exceeds zero-slope score"
+    ],
+    "ranking": "highest cohesion; ties prefer smaller absolute slope"
+  },
+  "per_page_candidate_landscapes": null,
+  "current_production_side_hashes": null,
+  "pixel_row_adjudications": null,
+  "synthetic_oracle_results": null,
+  "candidate_comparisons": null,
+  "decision": "unresolved human review required; no production experiment authorized"
+}
