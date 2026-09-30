@@ -1,0 +1,125 @@
+{
+  "schema": "spineless-residual-forensics-adjudications-v1",
+  "source_trace": "stage-traces.json",
+  "events": [
+    {
+      "event_id": "p26-changes-embankment-yet",
+      "page": 26,
+      "physical_interpretation": "One visibly continuous printed row; no neighboring physical row overlaps its ink band.",
+      "classification": "spineless_creates_false_split",
+      "first_divergence": "vertical_band_construction",
+      "source_rows": [69, 70, 71, 72, 73, 74, 75, 76],
+      "spineless_membership": [[69, 70, 71, 72, 73, 74, 75], [76]],
+      "bound_membership_from_prior_study": [[69, 70, 71, 72, 73, 74, 75, 76]],
+      "causal_predicate": {
+        "function": "_line_bands",
+        "token_source_row": 76,
+        "token_locator": "yet",
+        "adjusted_center_y": 612.0,
+        "current_band_median": 607.5,
+        "absolute_difference": 4.5,
+        "tolerance": 4,
+        "median_support": false,
+        "neighbor_support": [],
+        "nearest_x_gap": 14,
+        "horizontal_gap_limit": 66,
+        "neighbor_predicate_result": false
+      },
+      "downstream": "The new vertical band becomes line-0014; horizontal splitting and candidate assignment add no earlier cause, and the token has one candidate line."
+    },
+    {
+      "event_id": "p27-if-k-every-other",
+      "page": 27,
+      "physical_interpretation": "One continuous, unhighlighted printed row. Adjacent printed rows have separate ink bands and do not overlap it.",
+      "classification": "both_wrong",
+      "first_divergence": "vertical_band_construction",
+      "source_rows": [32, 33, 34, 35, 36, 37, 38, 39, 40],
+      "spineless_membership": [[32, 33, 34, 35, 36, 38, 40], [37, 39]],
+      "bound_membership_from_archived_admitted_geometry": [[30, 31, 32, 33, 34, 35], [36, 37, 38]],
+      "causal_predicate": {
+        "function": "_line_bands",
+        "token_source_row": 37,
+        "token_locator": "system,",
+        "adjusted_center_y": 171.5,
+        "current_band_median": 167.0,
+        "absolute_difference": 4.5,
+        "tolerance": 4,
+        "median_support": false,
+        "neighbor_support": [],
+        "nearest_x_gap": 7,
+        "horizontal_gap_limit": 77,
+        "neighbor_predicate_result": false
+      },
+      "downstream": "Horizontal splitting leaves both vertical groups intact; every target token has exactly one candidate line."
+    },
+    {
+      "event_id": "p27-affords-insufficient-foundation",
+      "page": 27,
+      "physical_interpretation": "The highlighted row is visibly present between two distinct prose rows; no physical-row overlap makes its identity ambiguous.",
+      "classification": "unresolved",
+      "first_divergence": "raw_tesseract_observation",
+      "source_rows": [],
+      "raw_records": [
+        {
+          "source_row": 190,
+          "level": 5,
+          "ids": [1, 1, 1, 22, 1],
+          "box_xyxy": [7, 640, 624, 696],
+          "confidence": 14.663147,
+          "text_locator": "See",
+          "admission": "admitted"
+        },
+        {
+          "source_row": 191,
+          "level": 5,
+          "ids": [1, 1, 1, 22, 2],
+          "box_xyxy": [625, 671, 639, 686],
+          "confidence": 33.175888,
+          "text_locator": "ae",
+          "admission": "admitted"
+        }
+      ],
+      "causal_predicate": {
+        "function": "production OCR invocation / raw TSV observation",
+        "condition": "No level-5 TSV records provide individual usable boxes for the visible words. The emitted source row 190 is one 617x56 box crossing the preceding and target rows; source row 191 is a 14x15 box at the far right.",
+        "admission": "Both word records satisfy parse_tsv_rows: nonblank text, confidence in [0,100], positive in-bounds boxes, valid level/IDs. No production confidence minimum rejects them."
+      },
+      "downstream": "The broad See box and ae are assigned to separate geometry lines. This is a consequence of the malformed raw observation, not the first divergence."
+    },
+    {
+      "event_id": "p53-greater-velocities-square-root",
+      "page": 53,
+      "physical_interpretation": "One visibly continuous prose row. Display math ends above it with a clear vertical gap; the next prose row is separate.",
+      "classification": "both_wrong",
+      "first_divergence": "vertical_band_construction",
+      "source_rows": [108, 109, 110, 111, 112, 113, 114, 115],
+      "spineless_membership": [[108, 109, 110], [112, 113], [115], [111], [114]],
+      "bound_membership_from_archived_admitted_geometry": [[107, 108, 109], [110], [111, 112, 113, 114]],
+      "causal_predicate": {
+        "function": "_line_bands",
+        "token_source_row": 111,
+        "token_locator": "greater",
+        "adjusted_center_y": 507.5,
+        "current_band_median": 502.0,
+        "absolute_difference": 5.5,
+        "tolerance": 4,
+        "median_support": false,
+        "neighbor_support": [],
+        "nearest_x_gaps": [12, 11],
+        "horizontal_gap_limit": 66,
+        "neighbor_predicate_result": false
+      },
+      "downstream": "After vertical separation, _split_horizontal_regions evaluates true gaps 83, 124, and 143 px against 66 px and creates additional bands. Candidate assignment preserves these partitions."
+    }
+  ],
+  "first_divergence_counts": {
+    "raw_tesseract_observation": 1,
+    "production_admission": 0,
+    "vertical_band_construction": 3,
+    "horizontal_region_split": 0,
+    "candidate_generation": 0,
+    "candidate_assignment": 0,
+    "serialization_or_reconciliation": 0,
+    "physical_evidence_unresolved": 0
+  }
+}

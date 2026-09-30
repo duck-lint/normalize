@@ -1,0 +1,216 @@
+{
+  "schema": "spineless-residual-forensics-reproduction-v1",
+  "prior_source": "research/geometry/spineless-acquisition-ablation/results.json",
+  "tesseract": {
+    "version": "5.3.4",
+    "language": "eng",
+    "config": "--psm 6"
+  },
+  "ocr_invocations": 6,
+  "pages": {
+    "26": {
+      "page": 26,
+      "source_file": "fixtures/einstein/spineless/pg.26.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "b4b2d113fcbc7dab2413d2be59dd36ac421c93d6117a6c37376b1ab591f5bd4c",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": 0.4400000000000017,
+      "deskewed_dimensions": [
+        1518,
+        2352
+      ],
+      "final_dimensions": [
+        729,
+        1129
+      ],
+      "final_rgb_sha256": "222f9c899d6a889cb1d03cfdb58bb4c0a2b7066a51cf76044a87211915f568ac",
+      "raw_tsv_sha256": "999c1ff0532520daeba628558b2080a0cf5b9fb679f47a2fcac77e3ccb5d217a",
+      "admitted_tokens": 202,
+      "physical_lines": 36,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 66.0,
+      "reproduces_prior": true
+    },
+    "27": {
+      "page": 27,
+      "source_file": "fixtures/einstein/spineless/pg.27.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "d2ca32d3924df8f2e41db6f0d12bf387bb127aed405b9aead7759a297018b490",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": -0.9399999999999995,
+      "deskewed_dimensions": [
+        1540,
+        2366
+      ],
+      "final_dimensions": [
+        739,
+        1136
+      ],
+      "final_rgb_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "raw_tsv_sha256": "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+      "admitted_tokens": 264,
+      "physical_lines": 46,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 77.0,
+      "reproduces_prior": true
+    },
+    "40": {
+      "page": 40,
+      "source_file": "fixtures/einstein/spineless/pg.40.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "0d25da3c0b35e5c0574d23248318481dec55ea6e7e721db7b194a67b04a769f1",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": 0.8600000000000021,
+      "deskewed_dimensions": [
+        1536,
+        2364
+      ],
+      "final_dimensions": [
+        737,
+        1135
+      ],
+      "final_rgb_sha256": "8ea9f7f607bccbd9732cba40a73f59e78a39981fd4be8040d78082b2f390ddf3",
+      "raw_tsv_sha256": "305e9d52b5a219ef5083d60c6e0050746611a08284b37352afd4dbcb4bb18e8a",
+      "admitted_tokens": 139,
+      "physical_lines": 23,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 76.0,
+      "reproduces_prior": true
+    },
+    "41": {
+      "page": 41,
+      "source_file": "fixtures/einstein/spineless/pg.41.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "e80da7cc823ef53e6cb720a3d8d3c6d440dbcdf018dedb9c0e052de6d29d5176",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": -0.7999999999999994,
+      "deskewed_dimensions": [
+        1534,
+        2362
+      ],
+      "final_dimensions": [
+        736,
+        1134
+      ],
+      "final_rgb_sha256": "1bd9ff725a5114d30841943733a2e4d4ca0ad53d5af242eef7fb1098d1472055",
+      "raw_tsv_sha256": "8704554b2fd4f70558103cebb054305b07329c977778d92cc5dd8243d46a2481",
+      "admitted_tokens": 307,
+      "physical_lines": 34,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 66.0,
+      "reproduces_prior": true
+    },
+    "52": {
+      "page": 52,
+      "source_file": "fixtures/einstein/spineless/pg.52.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "f3af85dce13de9101466ddb914900b51c9b142397b0c608192dbebb4c223f914",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": 0.740000000000002,
+      "deskewed_dimensions": [
+        1532,
+        2360
+      ],
+      "final_dimensions": [
+        735,
+        1133
+      ],
+      "final_rgb_sha256": "d470c456c3f6efcf3fe411b773ed27b6f588e728221ec890fb119c50617d4148",
+      "raw_tsv_sha256": "480d652ec82463d7455c25b85c48ed8974c3005471b4d45fcb0f33af480b9f07",
+      "admitted_tokens": 148,
+      "physical_lines": 26,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 54.0,
+      "reproduces_prior": true
+    },
+    "53": {
+      "page": 53,
+      "source_file": "fixtures/einstein/spineless/pg.53.jpg",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "source_sha256": "7847e79c14f6497eb50ab70af241543a97b00af11176e99cbb431e82141dc565",
+      "crop_box": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "correction_angle_degrees": -0.379999999999999,
+      "deskewed_dimensions": [
+        1516,
+        2350
+      ],
+      "final_dimensions": [
+        728,
+        1128
+      ],
+      "final_rgb_sha256": "56a58e9eae541fcf1cee0d04cb71e94acb92e6708af43a60b343882e15d7ad6a",
+      "raw_tsv_sha256": "adf2a99a4db61bcb05fc8e445ca7f4c11c877764f866a67ea3aaf8495e84d1d0",
+      "admitted_tokens": 221,
+      "physical_lines": 33,
+      "ambiguous": 0,
+      "unassigned": 0,
+      "selected_slope": 0.0,
+      "vertical_tolerance": 4,
+      "horizontal_gap_limit": 66.0,
+      "reproduces_prior": true
+    }
+  }
+}
