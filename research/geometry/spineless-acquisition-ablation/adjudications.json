@@ -1,0 +1,301 @@
+{
+  "schema": "spineless-acquisition-ablation-adjudications-v1",
+  "authority": "Visible physical page pixels determine row continuity. Tesseract words and source rows are locators only.",
+  "changed_event_counts": {
+    "spineless_repairs_bound_false_split": 29,
+    "spineless_creates_false_split": 1,
+    "spineless_creates_destructive_merge": 0,
+    "both_correct": 4,
+    "both_wrong": 2,
+    "different_but_benign": 1,
+    "unresolved": 2
+  },
+  "historical_crosswalk": {
+    "identity_method": "Prior event OCR locators were sequence-matched against the six spineless OCR streams; candidate line partitions were checked against the visible page. Source-row numbers are study-local and are not treated as cross-scan identities.",
+    "page_side_rigid_rotation": {
+      "source_branch": "research/page-side-rigid-rotation",
+      "source_commit": "88c8b04ddab3ad128caef107a54972e479b84c63",
+      "prior_repaired_false_split_count": 29,
+      "reproduced_as_single_spineless_line": 29,
+      "event_ids": [
+        "relativity_pdf10_pp26-27.left.rotation-event-001",
+        "relativity_pdf10_pp26-27.left.rotation-event-002",
+        "relativity_pdf10_pp26-27.left.rotation-event-003",
+        "relativity_pdf10_pp26-27.left.rotation-event-004",
+        "relativity_pdf10_pp26-27.right.rotation-event-001",
+        "relativity_pdf10_pp26-27.right.rotation-event-002",
+        "relativity_pdf10_pp26-27.right.rotation-event-004",
+        "relativity_pdf10_pp26-27.right.rotation-event-005",
+        "relativity_pdf10_pp26-27.right.rotation-event-006",
+        "relativity_pdf10_pp26-27.right.rotation-event-007",
+        "relativity_pdf10_pp26-27.right.rotation-event-008",
+        "relativity_pdf10_pp26-27.right.rotation-event-009",
+        "relativity_pdf10_pp26-27.right.rotation-event-010",
+        "relativity_pdf10_pp26-27.right.rotation-event-011",
+        "relativity_pdf10_pp26-27.right.rotation-event-012",
+        "relativity_pdf10_pp26-27.right.rotation-event-013",
+        "relativity_pdf10_pp26-27.right.rotation-event-014",
+        "relativity_pdf10_pp26-27.right.rotation-event-015",
+        "relativity_pdf10_pp26-27.right.rotation-event-016",
+        "relativity_pdf10_pp26-27.right.rotation-event-017",
+        "relativity_pdf10_pp26-27.right.rotation-event-018",
+        "relativity_pdf10_pp26-27.right.rotation-event-019",
+        "relativity_pdf10_pp26-27.right.rotation-event-020",
+        "relativity_pdf10_pp26-27.right.rotation-event-021",
+        "relativity_pdf17_pp40-41.left.rotation-event-001",
+        "relativity_pdf17_pp40-41.left.rotation-event-002",
+        "relativity_pdf17_pp40-41.left.rotation-event-003",
+        "relativity_pdf17_pp40-41.left.rotation-event-004",
+        "relativity_pdf17_pp40-41.left.rotation-event-005"
+      ],
+      "other_prior_event": {
+        "event_id": "relativity_pdf10_pp26-27.right.rotation-event-003",
+        "prior_classification": "new_false_split",
+        "spineless_observation": "The physical row beginning 'If K is a Galileian co-ordinate system' is still split across two geometry lines. The current bound control is also split, so this is a shared residual rather than a new spineless-only split."
+      }
+    },
+    "frozen_ocr_page_transform": {
+      "source_branch": "research/frozen-ocr-page-transform",
+      "source_commit": "788aee4a8672520e839c718a16cde3a974f8d3bc",
+      "prior_repaired_false_split_count": 30,
+      "reproduced_as_one_spineless_line": 29,
+      "repaired_event_ids": [
+        "relativity_pdf10_pp26-27.left.frozen-event-001",
+        "relativity_pdf10_pp26-27.left.frozen-event-002",
+        "relativity_pdf10_pp26-27.left.frozen-event-003",
+        "relativity_pdf10_pp26-27.left.frozen-event-004",
+        "relativity_pdf10_pp26-27.right.frozen-event-001",
+        "relativity_pdf10_pp26-27.right.frozen-event-002",
+        "relativity_pdf10_pp26-27.right.frozen-event-003",
+        "relativity_pdf10_pp26-27.right.frozen-event-004",
+        "relativity_pdf10_pp26-27.right.frozen-event-006",
+        "relativity_pdf10_pp26-27.right.frozen-event-007",
+        "relativity_pdf10_pp26-27.right.frozen-event-008",
+        "relativity_pdf10_pp26-27.right.frozen-event-010",
+        "relativity_pdf10_pp26-27.right.frozen-event-011",
+        "relativity_pdf10_pp26-27.right.frozen-event-012",
+        "relativity_pdf10_pp26-27.right.frozen-event-013",
+        "relativity_pdf10_pp26-27.right.frozen-event-015",
+        "relativity_pdf10_pp26-27.right.frozen-event-016",
+        "relativity_pdf10_pp26-27.right.frozen-event-017",
+        "relativity_pdf10_pp26-27.right.frozen-event-018",
+        "relativity_pdf10_pp26-27.right.frozen-event-019",
+        "relativity_pdf10_pp26-27.right.frozen-event-020",
+        "relativity_pdf10_pp26-27.right.frozen-event-021",
+        "relativity_pdf10_pp26-27.right.frozen-event-022",
+        "relativity_pdf10_pp26-27.right.frozen-event-023",
+        "relativity_pdf10_pp26-27.right.frozen-event-024",
+        "relativity_pdf17_pp40-41.left.frozen-event-001",
+        "relativity_pdf17_pp40-41.left.frozen-event-002",
+        "relativity_pdf17_pp40-41.left.frozen-event-003",
+        "relativity_pdf17_pp40-41.left.frozen-event-005",
+        "relativity_pdf17_pp40-41.left.frozen-event-006"
+      ],
+      "residual_fragmented_context": "relativity_pdf10_pp26-27.right.frozen-event-003: the same 'If K...' row remains in two spineless geometry lines.",
+      "prior_aabb_false_splits": [
+        {
+          "event_id": "relativity_pdf10_pp26-27.right.frozen-event-005",
+          "outcome": "the 'to K, it is in a condition of uniform motion of translation' observation is one spineless line; the prior transformed-envelope split is absent"
+        },
+        {
+          "event_id": "relativity_pdf10_pp26-27.right.frozen-event-014",
+          "outcome": "unresolved: the spineless scan contains the printed row, but OCR did not admit its 'affords an insufficient foundation...' words, so grouping cannot be compared"
+        }
+      ]
+    },
+    "local_slope_support": {
+      "source_branch": "research/local-slope-support-forensics",
+      "source_commit": "99303ed4829253180022f8060861c0e00001b2f2",
+      "full_study_counts": {
+        "repaired_false_split": 37,
+        "slope_created_harmful": 8,
+        "unresolved": 1
+      },
+      "overlap_with_this_six_page_corpus": {
+        "repaired_false_split": 30,
+        "observed_in_one_spineless_geometry_line": 29,
+        "still_fragmented": 1,
+        "slope_created_harmful": 4,
+        "now_fragmented": 2,
+        "now_one_line": 2,
+        "unresolved": 1
+      },
+      "residuals": [
+        "relativity_pdf10_pp26-27.left.event-003: 'changes its position relative to the embankment yet' is one bound line but is split before 'yet' in the spineless geometry.",
+        "relativity_pdf23_pp52-53.right.event-035: the continuous row around 'velocities the square-root becomes' remains fragmented in both acquisitions and is more fragmented in the spineless output.",
+        "relativity_pdf10_pp26-27.right.event-024: 'If K...' remains split into two spineless lines."
+      ],
+      "display_math": "The page-52 display-math context remains unresolved; it was not reinterpreted as prose or forced into one line."
+    },
+    "baseline_slope_forensics": {
+      "source_branch": "research/baseline-slope-forensics",
+      "source_commit": "29428360e4b31853a36058c39795e072718fdc91",
+      "overlap_with_local_slope_support_contexts": "The baseline and local-slope studies use the same Relativity physical-row event identities for this corpus. The 30 repaired, 4 harmful, and 1 unresolved contexts listed above are the cross-scan overlap; source-row integers remain study-local.",
+      "interpretation": "The flat-sheet results reproduce 29 of the 30 repair contexts as one geometry line. The page-26 '...embankment yet' and page-53 'velocities...square-root becomes' rows remain the visible residuals among the four overlapping slope-created harmful contexts."
+    }
+  },
+  "events": [
+    {
+      "event_id": "spineless-p26-row-embankment-observed",
+      "page": 26,
+      "bound_grouping": ["as observed from the", "embankment, is uniform and in a"],
+      "spineless_grouping": ["as observed from the embankment, is uniform and in a"],
+      "rotation_correction_degrees": 0.44,
+      "classification": "spineless_repairs_bound_false_split",
+      "interpretation": "One visible printed row is reunited. This corresponds to prior raster events 001 and frozen-coordinate event 001."
+    },
+    {
+      "event_id": "spineless-p26-row-moving-railway-carriage",
+      "page": 26,
+      "bound_grouping": ["the moving railway", "carriage, we should find that the"],
+      "spineless_grouping": ["the moving railway carriage, we should find that the"],
+      "rotation_correction_degrees": 0.44,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "spineless-p26-row-coordinate-system",
+      "page": 26,
+      "bound_grouping": ["with respect to a", "co-ordinate system K, then it will also"],
+      "spineless_grouping": ["with respect to a co-ordinate system K, then it will also"],
+      "rotation_correction_degrees": 0.44,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "spineless-p26-row-executing-motion",
+      "page": 26,
+      "bound_grouping": ["executing a uniform translatory motion with respect", "to"],
+      "spineless_grouping": ["executing a uniform translatory motion with respect to"],
+      "rotation_correction_degrees": 0.44,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "relativity_pdf10_pp26-27.left.event-003",
+      "page": 26,
+      "bound_grouping": ["changes its position relative to the embankment yet"],
+      "spineless_grouping": ["changes its position relative to the embankment", "yet"],
+      "rotation_correction_degrees": 0.44,
+      "classification": "spineless_creates_false_split",
+      "visible_interpretation": "The source page shows 'yet' on the same printed row. The spineless Tesseract boxes put that word in a separate physical-line candidate."
+    },
+    {
+      "event_id": "relativity_pdf10_pp26-27.right.rotation-event-003",
+      "page": 27,
+      "bound_grouping": ["If K is a Galileian co-ordinate system,", "then every other"],
+      "spineless_grouping": ["If K is a Galileian co-ordinate then other", "system, every"],
+      "rotation_correction_degrees": -0.94,
+      "classification": "both_wrong",
+      "visible_interpretation": "One visible printed row remains divided in both acquisitions. Bound geometry has one unassigned token, which nulls its line bounds."
+    },
+    {
+      "event_id": "relativity_pdf10_pp26-27.right.frozen-event-005",
+      "page": 27,
+      "bound_grouping": ["to K, it is in a condition of uniform motion of translation"],
+      "spineless_grouping": ["40K, it is in a condition-of-uniform motion of translation"],
+      "rotation_correction_degrees": -0.94,
+      "classification": "both_correct",
+      "visible_interpretation": "The full printed row is grouped once by both paths; OCR misreads its first words in the spineless scan. The earlier transformed-AABB split is absent."
+    },
+    {
+      "event_id": "relativity_pdf10_pp26-27.right.frozen-event-014",
+      "page": 27,
+      "bound_grouping": ["affords ... foundation ... physical"],
+      "spineless_grouping": [],
+      "rotation_correction_degrees": -0.94,
+      "classification": "unresolved",
+      "visible_interpretation": "The printed row is visible, but the spineless OCR admitted none of its words; geometry cannot adjudicate a grouping."
+    },
+    {
+      "event_id": "relativity_pdf17_pp40-41.left.rotation-event-001",
+      "page": 40,
+      "bound_grouping": ["railway embankment. We", "suppose a very long train"],
+      "spineless_grouping": ["railway embankment. We suppose a very long train"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "relativity_pdf17_pp40-41.left.rotation-event-002",
+      "page": 40,
+      "bound_grouping": ["in the direction indicated in Fig 1.", "People travelling in this"],
+      "spineless_grouping": ["in the direction indicated in Fig 1. People travelling in this"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "relativity_pdf17_pp40-41.left.rotation-event-003",
+      "page": 40,
+      "bound_grouping": ["train will with a", "vantage view the", "train as a rigid reference-"],
+      "spineless_grouping": ["train will with a vantage view the train as a rigid reference-"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "relativity_pdf17_pp40-41.left.rotation-event-004",
+      "page": 40,
+      "bound_grouping": ["train. Also the definition of", "simultaneity can be given"],
+      "spineless_grouping": ["train. Also the definition of simultaneity can be given"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "relativity_pdf17_pp40-41.left.rotation-event-005",
+      "page": 40,
+      "bound_grouping": ["to the embankment. As a natural", "consequence, however,"],
+      "spineless_grouping": ["to the embankment. As a natural consequence, however,"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "spineless_repairs_bound_false_split"
+    },
+    {
+      "event_id": "spineless-p40-figure-controls",
+      "page": 40,
+      "bound_grouping": ["body text", "Train/A/B/Embankment labels", "Fig. 1 caption"],
+      "spineless_grouping": ["body text", "Train/A/B/Embankment labels", "Fig. 1 caption"],
+      "rotation_correction_degrees": 0.86,
+      "classification": "both_correct",
+      "visible_interpretation": "Figure labels remain spatially separate from body rows in both outputs."
+    },
+    {
+      "event_id": "spineless-p41-body-and-page-number",
+      "page": 41,
+      "bound_grouping": ["body rows", "page number 41"],
+      "spineless_grouping": ["body rows", "page number 41"],
+      "rotation_correction_degrees": -0.80,
+      "classification": "both_correct"
+    },
+    {
+      "event_id": "spineless-p41-scanner-edge-marks",
+      "page": 41,
+      "bound_grouping": ["no OCR line from the bed edge"],
+      "spineless_grouping": ["two narrow OCR marks at the left scan edge"],
+      "rotation_correction_degrees": -0.80,
+      "classification": "different_but_benign",
+      "visible_interpretation": "The marks are scanner/page-edge artifacts and do not join printed lines."
+    },
+    {
+      "event_id": "relativity_pdf23_pp52-53.left.event-034",
+      "page": 52,
+      "bound_grouping": ["display-math components"],
+      "spineless_grouping": ["display-math components"],
+      "rotation_correction_degrees": 0.74,
+      "classification": "unresolved",
+      "visible_interpretation": "Raised and superscripted equation marks do not establish one physical baseline. No prose merge is introduced."
+    },
+    {
+      "event_id": "relativity_pdf23_pp52-53.right.event-035",
+      "page": 53,
+      "bound_grouping": ["and for still", "greater", "velocities the square-root becomes"],
+      "spineless_grouping": ["and for still", "greater", "velocities the", "square-root", "becomes"],
+      "rotation_correction_degrees": -0.38,
+      "classification": "both_wrong",
+      "visible_interpretation": "The visible text is one printed row. Both acquisition outputs fragment it; the spineless partition has more bands."
+    },
+    {
+      "event_id": "spineless-p53-equations-and-prose",
+      "page": 53,
+      "bound_grouping": ["display equations", "surrounding prose rows"],
+      "spineless_grouping": ["display equations", "surrounding prose rows"],
+      "rotation_correction_degrees": -0.38,
+      "classification": "both_correct",
+      "visible_interpretation": "The displayed formulas remain spatially distinct from surrounding prose."
+    }
+  ]
+}
