@@ -17,7 +17,7 @@ from PIL import Image
 
 from .fixtures import FixtureMetadata
 
-CONFIG_SCHEMA = "preprocessing-config-v2"
+CONFIG_SCHEMA = "preprocessing-config-v3"
 METADATA_SCHEMA = "preprocessing-metadata-v1"
 SUCCESS = "success"
 UNCERTAIN = "uncertain"
@@ -46,7 +46,7 @@ _KNOWN_FIXTURE_IDS = {
     "stella_maris_pdf06_dense-dialogue",
     "stella_maris_pdf18_session-II_p35",
 }
-_TRANSFORM_NAMES = ("rotation", "spread_crop", "deskew", "split", "order")
+_TRANSFORM_NAMES = ("rotation", "spread_crop", "deskew", "split", "order", "page_side_rotation", "downsample")
 _ROOT_KEYS = {
     "schema",
     "status",
@@ -82,6 +82,7 @@ class PreprocessingProfile:
     rotation_degrees: int
     spread_crop: tuple[int, int, int, int] | None
     page_crops: Mapping[str, tuple[int, int, int, int] | None]
+    page_rotations: Mapping[str, float]
     deskew_degrees: float
     split_boundary: int | None
     output_order: tuple[str, ...]
@@ -93,6 +94,7 @@ class PreprocessingProfile:
 class PreprocessingConfig:
     path: Path
     dpi: int
+    render_dpi: int
     profiles: Mapping[str, PreprocessingProfile]
 
     def profile_for(self, fixture_id: str) -> PreprocessingProfile:
@@ -170,6 +172,7 @@ def _parse_profile(value: Any, path: Path, fixture_id: str) -> PreprocessingProf
         "rotation_degrees",
         "spread_crop",
         "page_crops",
+        "page_rotations",
         "deskew_degrees",
         "split_boundary",
         "output_order",
@@ -221,11 +224,29 @@ def _parse_profile(value: Any, path: Path, fixture_id: str) -> PreprocessingProf
         raise PreprocessingConfigError(f"{path}: {fixture_id}.blank_sides must not repeat a side")
     if result_kind == "page" and blank_sides:
         raise PreprocessingConfigError(f"{path}: page profile {fixture_id} cannot declare blank sides")
+    rotations = value["page_rotations"]
+    valid_sides = {"page"} if result_kind == "page" else {"left", "right"}
+    if not isinstance(rotations, dict) or not set(rotations) <= valid_sides:
+        raise PreprocessingConfigError(
+            f"{path}: {fixture_id}.page_rotations must use only {sorted(valid_sides)} sides"
+        )
+    parsed_rotations: dict[str, float] = {}
+    for side, degrees in rotations.items():
+        if isinstance(degrees, bool) or not _is_number(degrees):
+            raise PreprocessingConfigError(f"{path}: {fixture_id}.page_rotations.{side} must be finite degrees")
+        try:
+            finite = math.isfinite(float(degrees))
+        except (OverflowError, ValueError):
+            finite = False
+        if not finite or abs(float(degrees)) > 45:
+            raise PreprocessingConfigError(f"{path}: {fixture_id}.page_rotations.{side} must be finite and <= 45")
+        parsed_rotations[side] = float(degrees)
     return PreprocessingProfile(
         result_kind=result_kind,
         rotation_degrees=rotation,
         spread_crop=_parse_crop(value["spread_crop"], path, fixture_id, "spread_crop"),
         page_crops=_parse_page_crops(value["page_crops"], path, fixture_id, result_kind),
+        page_rotations=parsed_rotations,
         deskew_degrees=float(deskew),
         split_boundary=split,
         output_order=tuple(order),
@@ -243,13 +264,16 @@ def load_preprocessing_config(path: Path) -> PreprocessingConfig:
             record = json.load(handle)
     except (OSError, UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
         raise PreprocessingConfigError(f"{path}: cannot load preprocessing config: {exc}") from exc
-    if not isinstance(record, dict) or set(record) != {"schema", "dpi", "profiles"}:
-        raise PreprocessingConfigError(f"{path}: root must contain exactly schema, dpi, and profiles")
+    if not isinstance(record, dict) or set(record) != {"schema", "dpi", "render_dpi", "profiles"}:
+        raise PreprocessingConfigError(f"{path}: root must contain exactly schema, dpi, render_dpi, and profiles")
     if record["schema"] != CONFIG_SCHEMA:
         raise PreprocessingConfigError(f"{path}: schema must be {CONFIG_SCHEMA}")
     dpi = record["dpi"]
     if isinstance(dpi, bool) or not isinstance(dpi, int) or dpi <= 0:
         raise PreprocessingConfigError(f"{path}: dpi must be a positive integer")
+    render_dpi = record["render_dpi"]
+    if isinstance(render_dpi, bool) or not isinstance(render_dpi, int) or render_dpi < dpi:
+        raise PreprocessingConfigError(f"{path}: render_dpi must be an integer at least dpi")
     profiles = record["profiles"]
     if not isinstance(profiles, dict) or not profiles:
         raise PreprocessingConfigError(f"{path}: profiles must be a non-empty object")
@@ -260,6 +284,7 @@ def load_preprocessing_config(path: Path) -> PreprocessingConfig:
     return PreprocessingConfig(
         path=path,
         dpi=dpi,
+        render_dpi=render_dpi,
         profiles={fixture_id: _parse_profile(profile, path, fixture_id) for fixture_id, profile in profiles.items()},
     )
 
@@ -700,7 +725,7 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
         page = document.load_page(page_index)
         source_dimensions = [float(page.rect.width), float(page.rect.height)]
         declared_rotation = int(page.rotation)
-        scale = config.dpi / 72.0
+        scale = config.render_dpi / 72.0
         pixmap = page.get_pixmap(matrix=pymupdf.Matrix(scale, scale), alpha=False, annots=False)
         image = Image.frombytes("RGB", (pixmap.width, pixmap.height), pixmap.samples)
     except Exception as exc:
@@ -726,13 +751,13 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
                 "right_source_rect_px": [profile.split_boundary, 0, transformed.width, transformed.height],
             }
             transforms["split"] = _ledger_entry("split", split_parameters, split_before, split_before)
-            composed = Image.new("RGB", (transformed.width, transformed.height), (255, 255, 255))
-            composed.paste(side_images["left"], (0, 0))
-            composed.paste(side_images["right"], (profile.split_boundary, 0))
+            composed_high_resolution = Image.new("RGB", (transformed.width, transformed.height), (255, 255, 255))
+            composed_high_resolution.paste(side_images["left"], (0, 0))
+            composed_high_resolution.paste(side_images["right"], (profile.split_boundary, 0))
         else:
             side_images = {"page": transformed}
             transforms["split"] = _ledger_entry("none", None, split_before, split_before)
-            composed = transformed
+            composed_high_resolution = transformed
 
         # Page-side rectangles are interpreted only after splitting. Validate
         # against each emitted side so Pillow cannot silently pad out-of-bounds
@@ -755,15 +780,69 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
             cropped_side_images[side] = cropped_side
             page_crop_records[side] = {
                 "operation": operation,
-                "coordinate_system": "post_split_side_local_px",
+                "coordinate_system": "post_split_side_local_300dpi_px",
                 "rect_px": list(configured_rect) if configured_rect is not None else None,
                 "input_dimensions_px": list(pre_crop_dimensions),
                 "output_dimensions_px": [cropped_side.width, cropped_side.height],
             }
 
-        ordered_images = [
-            (side, cropped_side_images[side]) for side in profile.output_order
-        ]
+        ordered_images: list[tuple[str, Image.Image]] = []
+        for side in profile.output_order:
+            cropped_side = cropped_side_images[side]
+            angle = profile.page_rotations.get(side)
+            rotation_input_dimensions = (cropped_side.width, cropped_side.height)
+            if angle is None or angle == 0:
+                rotated_side = cropped_side
+                rotation_operation = "not_configured" if angle is None else "none"
+                rotation_parameters = None if angle is None else {"degrees_counterclockwise": 0.0}
+            else:
+                # Pillow's positive angle rotates counter-clockwise. The fixture
+                # values are correction angles in that same raster convention.
+                rotated_side = cropped_side.rotate(
+                    angle,
+                    resample=Image.Resampling.BICUBIC,
+                    expand=True,
+                    fillcolor=(255, 255, 255),
+                )
+                rotation_operation = "rotate"
+                rotation_parameters = {
+                    "degrees_counterclockwise": angle,
+                    "resampling": "bicubic",
+                    "expand": True,
+                    "fill_rgb": [255, 255, 255],
+                    "coordinate_stage": "cropped_page_side_300dpi",
+                }
+            if "page_side_rotation" not in transforms:
+                transforms["page_side_rotation"] = {"operation": "per_page", "pages": {}}
+            transforms["page_side_rotation"]["pages"][side] = _ledger_entry(
+                rotation_operation,
+                rotation_parameters,
+                rotation_input_dimensions,
+                (rotated_side.width, rotated_side.height),
+            )
+            final_dimensions = (
+                math.floor(rotated_side.width * config.dpi / config.render_dpi + 0.5),
+                math.floor(rotated_side.height * config.dpi / config.render_dpi + 0.5),
+            )
+            downsampled = rotated_side.resize(final_dimensions, resample=Image.Resampling.LANCZOS)
+            if "downsample" not in transforms:
+                transforms["downsample"] = {"operation": "per_page", "pages": {}}
+            transforms["downsample"]["pages"][side] = _ledger_entry(
+                "lanczos",
+                {
+                    "input_dpi": config.render_dpi,
+                    "output_dpi": config.dpi,
+                    "dimension_rounding": "nearest_half_up",
+                },
+                (rotated_side.width, rotated_side.height),
+                (downsampled.width, downsampled.height),
+            )
+            ordered_images.append((side, downsampled))
+        preview_size = (
+            math.floor(composed_high_resolution.width * config.dpi / config.render_dpi + 0.5),
+            math.floor(composed_high_resolution.height * config.dpi / config.render_dpi + 0.5),
+        )
+        composed = composed_high_resolution.resize(preview_size, resample=Image.Resampling.LANCZOS)
         transforms["order"] = _ledger_entry(
             "order", {"output_order": list(profile.output_order)}, split_before, (composed.width, composed.height)
         )
@@ -787,10 +866,17 @@ def preprocess_fixture(metadata: FixtureMetadata, config_path: Path, output_dir:
                     "output_path": output_files[side],
                     "width_px": side_image.width,
                     "height_px": side_image.height,
-                    "source_stage": "post_deskew",
+                    "output_dpi": config.dpi,
+                    "working_render_dpi": config.render_dpi,
+                    "source_stage": "post_deskew_pre_page_side_rotation_300dpi",
                     "source_rect_px": source_rect,
                     "pre_page_crop_dimensions_px": crop_record["input_dimensions_px"],
                     "page_crop": crop_record,
+                    "rotation": transforms["page_side_rotation"]["pages"][side],
+                    "rotation_angle_degrees_counterclockwise": profile.page_rotations.get(side),
+                    "rotation_status": "not_configured" if side not in profile.page_rotations else "configured",
+                    "post_rotation_dimensions_px": transforms["page_side_rotation"]["pages"][side]["output_dimensions_px"],
+                    "downsample": transforms["downsample"]["pages"][side],
                     "retained_rect_relative_to_side_px": retained_rect,
                     "source_page_mapping": {
                         "fixture_pdf_page_index_1_based": metadata.fixture_pdf_page_index_1_based,

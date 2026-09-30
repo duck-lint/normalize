@@ -1,12 +1,13 @@
 {
-  "schema": "preprocessing-config-v2",
+  "schema": "preprocessing-config-v3",
   "dpi": 144,
+  "render_dpi": 300,
   "profiles": {
     "relativity_pdf10_pp26-27": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -16,24 +17,28 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          96,
-          231,
-          641,
-          1044
+          201,
+          483,
+          1334,
+          2175
         ],
         "right": [
           0,
-          28,
-          556,
-          1011
+          59,
+          1158,
+          2106
         ]
+      },
+      "page_rotations": {
+        "left": -0.6,
+        "right": -1.9
       }
     },
     "relativity_pdf17_pp40-41": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -43,24 +48,28 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          133,
-          255,
-          671,
-          1032
+          279,
+          532,
+          1396,
+          2150
         ],
         "right": [
-          34,
-          70,
-          572,
-          1044
+          72,
+          146,
+          1190,
+          2175
         ]
+      },
+      "page_rotations": {
+        "left": 0.8,
+        "right": 0.0
       }
     },
     "relativity_pdf23_pp52-53": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -70,24 +79,28 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          154,
-          225,
-          689,
-          1043
+          321,
+          470,
+          1434,
+          2171
         ],
         "right": [
-          21,
-          69,
-          561,
-          1046
+          44,
+          144,
+          1167,
+          2178
         ]
+      },
+      "page_rotations": {
+        "left": 0.0,
+        "right": 0.0
       }
     },
     "stella_maris_pdf03_session-I": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -99,24 +112,27 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          26,
-          77,
-          672,
-          1068
+          56,
+          162,
+          1398,
+          2225
         ],
         "right": [
-          41,
-          292,
-          660,
-          1113
+          87,
+          609,
+          1374,
+          2317
         ]
+      },
+      "page_rotations": {
+        "right": 0.0
       }
     },
     "stella_maris_pdf06_dense-dialogue": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -126,24 +142,28 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          31,
-          44,
-          669,
-          1173
+          66,
+          92,
+          1392,
+          2443
         ],
         "right": [
-          73,
-          46,
-          707,
-          1174
+          153,
+          97,
+          1471,
+          2444
         ]
+      },
+      "page_rotations": {
+        "left": 0.0,
+        "right": 0.0
       }
     },
     "stella_maris_pdf18_session-II_p35": {
       "result_kind": "spread",
       "rotation_degrees": 0,
       "deskew_degrees": 0,
-      "split_boundary": 792,
+      "split_boundary": 1650,
       "output_order": [
         "left",
         "right"
@@ -153,17 +173,20 @@
       "spread_crop": null,
       "page_crops": {
         "left": [
-          60,
-          302,
-          685,
-          1120
+          127,
+          630,
+          1426,
+          2333
         ],
         "right": [
-          77,
-          31,
-          703,
-          1123
+          162,
+          65,
+          1463,
+          2338
         ]
+      },
+      "page_rotations": {
+        "right": 0.0
       }
     }
   }

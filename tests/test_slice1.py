@@ -58,6 +58,7 @@ def _write_profile_config(tmp_path: Path, **profile_updates) -> Path:
 def test_authoritative_config_has_one_explicit_profile_per_fixture():
     config = load_preprocessing_config(CONFIG_PATH)
     assert config.dpi == 144
+    assert config.render_dpi == 300
     assert set(config.profiles) == set(FIXTURE_IDS)
     for profile in config.profiles.values():
         assert profile.result_kind == "spread"
@@ -65,7 +66,7 @@ def test_authoritative_config_has_one_explicit_profile_per_fixture():
         assert profile.spread_crop is None
         assert set(profile.page_crops) == {"left", "right"}
         assert profile.deskew_degrees == 0
-        assert profile.split_boundary == 792
+        assert profile.split_boundary == 1650
         assert profile.output_order == ("left", "right")
 
 
@@ -115,6 +116,7 @@ def test_optional_crop_deskew_and_page_contract_are_recorded(tmp_path: Path):
             "result_kind": "page",
             "spread_crop": [0, 0, 1400, 1100],
             "page_crops": {"page": [100, 50, 1300, 1000]},
+            "page_rotations": {"page": 0.0},
             "deskew_degrees": 1.0,
             "split_boundary": None,
             "output_order": ["page"],
@@ -167,14 +169,14 @@ def test_all_exact_fixtures_produce_complete_readable_spreads(tmp_path: Path):
             "blank_sides": ["left"] if fixture_id == "stella_maris_pdf03_session-I" else [],
         }
         assert result["source_raster"] == {
-            "width_px": 1584,
-            "height_px": 1224,
+            "width_px": 3300,
+            "height_px": 2550,
             "declared_pdf_rotation_degrees": 90,
         }
         assert result["transforms"]["rotation"]["operation"] == "none"
         assert result["transforms"]["spread_crop"]["operation"] == "none"
         assert result["transforms"]["deskew"]["operation"] == "none"
-        assert result["transforms"]["split"]["parameters"]["split_x"] == 792
+        assert result["transforms"]["split"]["parameters"]["split_x"] == 1650
         assert result["transforms"]["order"]["parameters"]["output_order"] == ["left", "right"]
         fixture_output = tmp_path / fixture_id
         for filename in result["output_files"].values():
@@ -263,6 +265,7 @@ def test_successful_page_then_spread_rerun_removes_obsolete_page_variant(tmp_pat
             result_kind="page",
             spread_crop=None,
             page_crops={"page": [0, 0, 1400, 1100]},
+            page_rotations={"page": 0.0},
             split_boundary=None,
             output_order=["page"],
             blank_sides=[],
@@ -635,7 +638,7 @@ def test_installed_cli_config_failures_clean_prior_success_outputs(tmp_path: Pat
     malformed_json = tmp_path / "malformed.json"
     malformed_json.write_text("{not-json", encoding="utf-8")
     wrong_root = tmp_path / "wrong-root.json"
-    wrong_root.write_text(json.dumps({"schema": "preprocessing-config-v2", "dpi": 144}), encoding="utf-8")
+    wrong_root.write_text(json.dumps({"schema": "preprocessing-config-v3", "dpi": 144}), encoding="utf-8")
     wrong_schema = tmp_path / "wrong-schema.json"
     wrong_schema_record = dict(base_record)
     wrong_schema_record["schema"] = "wrong-schema"
@@ -657,7 +660,7 @@ def test_installed_cli_config_failures_clean_prior_success_outputs(tmp_path: Pat
     unhashable_rotation_record["profiles"][fixture_id]["rotation_degrees"] = []
     unhashable_rotation.write_text(json.dumps(unhashable_rotation_record), encoding="utf-8")
     invalid_utf8 = tmp_path / "invalid-utf8.json"
-    invalid_utf8.write_bytes(b'{"schema": "preprocessing-config-v2", \xff')
+    invalid_utf8.write_bytes(b'{"schema": "preprocessing-config-v3", \xff')
     oversized_deskew = tmp_path / "oversized-deskew.json"
     oversized_deskew_record = json.loads(json.dumps(base_record))
     oversized_deskew_record["profiles"][fixture_id]["deskew_degrees"] = 10**1000

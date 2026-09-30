@@ -37,6 +37,9 @@ def _sha256(path: Path) -> str:
 def _write_variant(tmp_path: Path, fixture_id: str, **updates) -> Path:
     config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
     config["profiles"][fixture_id].update(updates)
+    profile = config["profiles"][fixture_id]
+    if profile["result_kind"] == "page":
+        profile["page_rotations"] = {"page": profile.get("page_rotations", {}).get("left", 0.0)}
     path = tmp_path / f"{fixture_id}-variant.json"
     path.write_text(json.dumps(config), encoding="utf-8")
     return path
@@ -64,13 +67,13 @@ def test_crop_bounds_record_and_production_config_are_durable_and_consistent():
             assert len(record["manual_crop_sha256"]) == 64
             assert record["exact_match_status"] == "pass"
             assert record["unique_match_status"] == "pass"
-            rect = record["configured_production_bounds_px"]
+            rect = record["recovered_300dpi_bounds_exclusive"]
             assert list(profile.page_crops[record["side"]]) == rect
             x0, y0, x1, y1 = rect
             assert x0 >= 0 and y0 >= 0 and x1 > x0 and y1 > y0
-            pre_width, pre_height = record["pre_crop_production_side_dimensions_px"]
+            pre_width, pre_height = record["canonical_dimensions_px"]
             assert x1 <= pre_width and y1 <= pre_height
-            assert record["production_output_dimensions_px"] == [x1 - x0, y1 - y0]
+            assert record["manual_crop_dimensions_px"] == [x1 - x0, y1 - y0]
 
 
 def test_optional_local_manual_raster_audit(tmp_path: Path):
@@ -109,7 +112,7 @@ def test_recorded_bounds_and_configured_rectangles_are_deterministic():
             assert error == expected - exact
             converted.append(expected)
         assert converted == item["configured_production_bounds_px"]
-        assert list(config.profile_for(item["fixture_id"]).page_crops[item["side"]]) == converted
+        assert list(config.profile_for(item["fixture_id"]).page_crops[item["side"]]) == item["recovered_300dpi_bounds_exclusive"]
 
 
 def test_containment_rounding_keeps_each_exact_physical_interval_inside():
@@ -127,7 +130,7 @@ def test_containment_rounding_keeps_each_exact_physical_interval_inside():
 def test_spread_profiles_require_independent_left_and_right_crop_rectangles():
     config = load_preprocessing_config(CONFIG_PATH)
     profile = config.profile_for("relativity_pdf10_pp26-27")
-    assert profile.page_crops == {"left": (96, 231, 641, 1044), "right": (0, 28, 556, 1011)}
+    assert profile.page_crops == {"left": (201, 483, 1334, 2175), "right": (0, 59, 1158, 2106)}
     assert profile.page_crops["left"] != profile.page_crops["right"]
 
 
@@ -136,21 +139,21 @@ def test_different_side_crop_dimensions_and_post_split_provenance_are_supported(
     result = _run(fixture_id, CONFIG_PATH, tmp_path / "run")
     assert result["status"] == SUCCESS
     pages = {page["side"]: page for page in result["pages"]}
-    assert (pages["left"]["width_px"], pages["left"]["height_px"]) == (545, 813)
-    assert (pages["right"]["width_px"], pages["right"]["height_px"]) == (556, 983)
-    assert pages["left"]["pre_page_crop_dimensions_px"] == [792, 1224]
-    assert pages["right"]["pre_page_crop_dimensions_px"] == [792, 1224]
+    assert (pages["left"]["width_px"], pages["left"]["height_px"]) == (552, 818)
+    assert (pages["right"]["width_px"], pages["right"]["height_px"]) == (588, 1001)
+    assert pages["left"]["pre_page_crop_dimensions_px"] == [1650, 2550]
+    assert pages["right"]["pre_page_crop_dimensions_px"] == [1650, 2550]
     assert pages["left"]["page_crop"] == {
         "operation": "crop",
-        "coordinate_system": "post_split_side_local_px",
-        "rect_px": [96, 231, 641, 1044],
-        "input_dimensions_px": [792, 1224],
-        "output_dimensions_px": [545, 813],
+        "coordinate_system": "post_split_side_local_300dpi_px",
+        "rect_px": [201, 483, 1334, 2175],
+        "input_dimensions_px": [1650, 2550],
+        "output_dimensions_px": [1133, 1692],
     }
-    assert result["transforms"]["split"]["parameters"]["left_source_rect_px"] == [0, 0, 792, 1224]
-    assert result["transforms"]["split"]["parameters"]["right_source_rect_px"] == [792, 0, 1584, 1224]
-    assert pages["left"]["source_rect_px"] == [0, 0, 792, 1224]
-    assert pages["left"]["retained_rect_relative_to_side_px"] == [96, 231, 641, 1044]
+    assert result["transforms"]["split"]["parameters"]["left_source_rect_px"] == [0, 0, 1650, 2550]
+    assert result["transforms"]["split"]["parameters"]["right_source_rect_px"] == [1650, 0, 3300, 2550]
+    assert pages["left"]["source_rect_px"] == [0, 0, 1650, 2550]
+    assert pages["left"]["retained_rect_relative_to_side_px"] == [201, 483, 1334, 2175]
     assert pages["left"]["source_page_mapping"]["fixture_pdf_page_index_1_based"] == 1
 
 
@@ -159,10 +162,10 @@ def test_page_crop_uses_side_local_coordinates_after_split(tmp_path: Path):
     result = _run(fixture_id, CONFIG_PATH, tmp_path / "run")
     left = next(page for page in result["pages"] if page["side"] == "left")
     right = next(page for page in result["pages"] if page["side"] == "right")
-    assert left["page_crop"]["coordinate_system"] == "post_split_side_local_px"
-    assert left["page_crop"]["rect_px"] == [96, 231, 641, 1044]
-    assert right["page_crop"]["rect_px"] == [0, 28, 556, 1011]
-    assert result["transforms"]["split"]["parameters"]["split_x"] == 792
+    assert left["page_crop"]["coordinate_system"] == "post_split_side_local_300dpi_px"
+    assert left["page_crop"]["rect_px"] == [201, 483, 1334, 2175]
+    assert right["page_crop"]["rect_px"] == [0, 59, 1158, 2106]
+    assert result["transforms"]["split"]["parameters"]["split_x"] == 1650
 
 
 def test_changing_left_crop_does_not_change_right_crop_coordinates_or_pixels(tmp_path: Path):
@@ -172,7 +175,7 @@ def test_changing_left_crop_does_not_change_right_crop_coordinates_or_pixels(tmp
     changed_config = _write_variant(
         tmp_path,
         fixture_id,
-        page_crops={"left": [10, 20, 300, 500], "right": [0, 28, 556, 1011]},
+        page_crops={"left": [10, 20, 300, 500], "right": [0, 59, 1158, 2106]},
     )
     changed_dir = tmp_path / "changed"
     changed = _run(fixture_id, changed_config, changed_dir)
@@ -190,7 +193,7 @@ def test_out_of_bounds_page_crop_is_rejected_after_side_split_and_cleans_outputs
     bad_config = _write_variant(
         tmp_path,
         fixture_id,
-        page_crops={"left": [0, 0, 793, 20], "right": [0, 0, 556, 1011]},
+        page_crops={"left": [0, 0, 1651, 20], "right": [0, 0, 556, 1011]},
     )
     result = _run(fixture_id, bad_config, output_dir)
     assert result["status"] == FAILURE
@@ -273,7 +276,7 @@ def test_page_crop_none_is_an_explicit_no_crop_operation(tmp_path: Path):
     for page in result["pages"]:
         assert page["page_crop"]["operation"] == "none"
         assert page["page_crop"]["rect_px"] is None
-        assert page["retained_rect_relative_to_side_px"] == [0, 0, 792, 1224]
+        assert page["retained_rect_relative_to_side_px"] == [0, 0, 1650, 2550]
 
 
 def test_page_result_configuration_and_metadata_use_page_key(tmp_path: Path):
@@ -300,7 +303,7 @@ def test_blank_left_identity_survives_its_human_crop(tmp_path: Path):
     result = _run(fixture_id, CONFIG_PATH, tmp_path / "blank")
     left = next(page for page in result["pages"] if page["side"] == "left")
     assert left["blank"] is True
-    assert left["page_crop"]["rect_px"] == [26, 77, 672, 1068]
+    assert left["page_crop"]["rect_px"] == [56, 162, 1398, 2225]
     assert left["page_crop"]["operation"] == "crop"
 
 
@@ -336,7 +339,7 @@ def test_success_then_bad_page_crop_rerun_removes_stale_outputs(tmp_path: Path):
     bad_config = _write_variant(
         tmp_path,
         fixture_id,
-        page_crops={"left": [0, 0, 900, 20], "right": [0, 0, 556, 1011]},
+        page_crops={"left": [0, 0, 1651, 20], "right": [0, 0, 1158, 2106]},
     )
     failed = _run(fixture_id, bad_config, output_dir)
     assert failed["status"] == FAILURE

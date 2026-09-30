@@ -843,7 +843,8 @@ def test_blank_declared_page_is_explicit(tmp_path: Path):
         (preprocess_dir / f"{fixture.fixture_id}.preprocess.json").read_text(encoding="utf-8")
     )
     left = preprocessing["pages"][0]
-    assert left["page_crop"]["rect_px"] == [26, 77, 672, 1068]
+    assert left["page_crop"]["rect_px"] == [56, 162, 1398, 2225]
+    assert left["page_crop"]["coordinate_system"] == "post_split_side_local_300dpi_px"
     assert preprocessing["result"]["blank_sides"] == ["left"]
     # Blank is retained as source-side provenance. This test does not prescribe
     # Tesseract output or add OCR suppression for near-white pixels.

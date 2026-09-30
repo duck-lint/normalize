@@ -47,22 +47,25 @@ Do not begin layout logic until the runtime and fixture substrate are independen
 
 ## Slice 1 — Page Rendering and Preprocessing
 
-Implement derived page rendering with observable preprocessing. The v2 configuration keeps spread_crop in oriented spread-raster coordinates and page_crops in post-split, side-local raster coordinates. Crop rectangles are [x0, y0, x1, y1], with right and bottom edges exclusive. A page result requires the page key; a spread result requires exactly left and right.
+Implement derived page rendering with observable preprocessing. The v3 configuration uses a 300-DPI working raster for `spread_crop`, split boundaries, and page-side crops. Crop rectangles are [x0, y0, x1, y1], with right and bottom edges exclusive. A page result requires the page key; a spread result requires exactly left and right. `dpi` remains the emitted OCR raster DPI (144); `render_dpi` sets the working raster (300).
 
 The transform order is:
 
-1. render the source fixture PDF;
+1. render the source fixture PDF at `render_dpi`;
 2. apply configured orientation;
 3. apply optional spread_crop;
 4. apply configured deskew;
 5. split a spread into logical sides;
 6. apply each page_crops rectangle independently;
-7. apply output ordering and publish derived images;
-8. emit provenance.
+7. apply an optional rigid rotation to each cropped physical page side;
+8. downsample each side to `dpi` and publish the derived OCR images;
+9. emit provenance.
 
-Each logical page records the pre- and post-crop dimensions, crop operation and rectangle, coordinate stage, retained side-local rectangle, split-side source rectangle, and fixture/source PDF page indices. The existing spread_output remains the spread-level preview before independent page-side crops.
+Page-side rotation is physical-page preprocessing. It applies one configured angle to an isolated side after its authoritative crop and before downsampling. It is separate from OCR-line slope compensation: downstream geometry neither infers nor undoes page rotation. Angle detection remains a separate, future mechanism; absent page-side configuration means no authorized rotation, while an explicit 0° is a measured no-op. Nonzero rotation uses Pillow bicubic interpolation, expanded canvas, and white fill; downsampling uses LANCZOS with nearest-half-up dimension rounding.
 
-The six selected fixture spreads use human-established operational rectangles in fixtures/preprocessing.json. Their exact 300-DPI recovery, hashes, rational 144-DPI conversion, and validation are recorded in fixtures/page-crop-bounds.json. Automatic physical-page boundary detection is deferred to a separate issue; these hand-selected fixture values are not a generalized detector.
+Each logical page records the source PDF page, working and output DPI, pre- and post-crop dimensions, exact crop operation and rectangle, coordinate stage, rotation status/angle and canvas behavior, downsampling method, retained side-local rectangle, split-side source rectangle, and fixture/source PDF page indices. The existing spread_output remains a 144-DPI spread-level preview before independent page-side crops and rotation.
+
+The six selected fixture spreads use human-established operational rectangles in fixtures/preprocessing.json. Their exact 300-DPI recovery, hashes, rational 144-DPI conversion, and validation are recorded in fixtures/page-crop-bounds.json. The v3 config reuses the exact recovered 300-DPI crop rectangles; it does not infer them by reversing rounded 144-DPI bounds. Automatic physical-page boundary and orientation detection are deferred to separate work; these hand-selected fixture values are not generalized detectors.
 
 Support:
 
