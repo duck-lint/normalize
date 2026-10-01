@@ -1,0 +1,793 @@
+{
+  "source_commit": "22912345ceee5330bffe02bc189ce2b38075ce52",
+  "source_file": "research/geometry/spineless-vertical-anchor-forensics/anchor-comparison.json",
+  "anchor": "center_y",
+  "mode": "archived physical-sheet production shadow replay",
+  "pages": {
+    "26": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            457,
+            473
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            486,
+            506
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            514,
+            529
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            543,
+            557
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            571,
+            586
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            600,
+            619
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            628,
+            643
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            656,
+            675
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            685,
+            699
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            713,
+            730
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            742,
+            761
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            770,
+            784
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            798,
+            813
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            827,
+            846
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            855,
+            875
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            884,
+            903
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            912,
+            931
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            940,
+            955
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            969,
+            988
+          ],
+          "classification": "false_split"
+        }
+      ],
+      "counts": {
+        "false_split": 9,
+        "correct_single_band": 10
+      }
+    },
+    "27": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            103,
+            117
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            131,
+            151
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            160,
+            174
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            188,
+            203
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            302,
+            321
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            330,
+            345
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            501,
+            515
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            529,
+            543
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            557,
+            572
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            586,
+            606
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            699,
+            719
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            728,
+            748
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            756,
+            776
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            785,
+            800
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            813,
+            828
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            841,
+            856
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            870,
+            889
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            898,
+            918
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            927,
+            946
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            955,
+            970
+          ],
+          "classification": "false_split"
+        }
+      ],
+      "counts": {
+        "correct_single_band": 14,
+        "false_split": 6
+      }
+    },
+    "40": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            464,
+            479
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            493,
+            507
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            522,
+            541
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            550,
+            569
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            578,
+            598
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            607,
+            622
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            635,
+            654
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            832,
+            846
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            860,
+            880
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            889,
+            904
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            918,
+            937
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            946,
+            960
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            974,
+            994
+          ],
+          "classification": "correct_single_band"
+        }
+      ],
+      "counts": {
+        "correct_single_band": 13
+      }
+    },
+    "41": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            130,
+            149
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            159,
+            173
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            187,
+            206
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            215,
+            230
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            244,
+            259
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            300,
+            320
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            329,
+            343
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            357,
+            377
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            386,
+            405
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            414,
+            429
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            442,
+            457
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            471,
+            485
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            500,
+            519
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            528,
+            548
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            556,
+            571
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            585,
+            604
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            613,
+            633
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            642,
+            661
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            670,
+            690
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            698,
+            713
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            727,
+            741
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            755,
+            775
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            784,
+            799
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            812,
+            832
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            840,
+            856
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            869,
+            883
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            897,
+            912
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            926,
+            946
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            954,
+            974
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            983,
+            997
+          ],
+          "classification": "correct_single_band"
+        }
+      ],
+      "counts": {
+        "correct_single_band": 28,
+        "false_split": 2
+      }
+    },
+    "52": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            464,
+            478
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            492,
+            512
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            521,
+            535
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            549,
+            569
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            578,
+            592
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            606,
+            626
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            634,
+            654
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            663,
+            677
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            691,
+            705
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            947,
+            967
+          ],
+          "classification": "correct_single_band"
+        }
+      ],
+      "counts": {
+        "correct_single_band": 10
+      }
+    },
+    "53": {
+      "rows": [
+        {
+          "source_oracle_band_y": [
+            209,
+            224
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            238,
+            257
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            266,
+            286
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            347,
+            361
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            375,
+            395
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            404,
+            418
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            495,
+            510
+          ],
+          "classification": "false_split"
+        },
+        {
+          "source_oracle_band_y": [
+            722,
+            736
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            751,
+            765
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            779,
+            798
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            898,
+            918
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            927,
+            941
+          ],
+          "classification": "correct_single_band"
+        },
+        {
+          "source_oracle_band_y": [
+            955,
+            970
+          ],
+          "classification": "correct_single_band"
+        }
+      ],
+      "counts": {
+        "correct_single_band": 12,
+        "false_split": 1
+      }
+    }
+  },
+  "total_counts": {
+    "false_split": 18,
+    "correct_single_band": 87
+  }
+}

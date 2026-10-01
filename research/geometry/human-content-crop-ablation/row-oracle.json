@@ -1,0 +1,84 @@
+{
+  "schema": "pixel-row-oracle-v1",
+  "authority": "manually reviewed horizontal ink bands in hash-verified prior-study rasters; OCR text and production line IDs were not used to assign physical-row identity",
+  "band_method": "Threshold final 144-DPI-equivalent raster at grayscale <100; inspect horizontal ink runs across the body text column. Stored bounds enclose visible glyph ink, with each band visually checked against the page image.",
+  "primary_scope": "ordinary prose rows with a visually distinct horizontal ink band; equation/figure/furniture and visibly malformed multi-row OCR observation regions excluded",
+  "pages": {
+    "26": {
+      "raster_sha256": "222f9c899d6a889cb1d03cfdb58bb4c0a2b7066a51cf76044a87211915f568ac",
+      "pixel_roi_x": [70, 640],
+      "blocks": [
+        {"block_id":"body-a","rows":[[457,473],[486,506],[514,529],[543,557],[571,586],[600,619],[628,643],[656,675],[685,699],[713,730],[742,761],[770,784],[798,813],[827,846],[855,875],[884,903],[912,931],[940,955],[969,988]]}
+      ],
+      "excluded_regions": [{"region":[311,370],"reason":"chapter number and title; not prose body"}],
+      "target_rows": {"embankment_yet":[600,619]}
+    },
+    "27": {
+      "raster_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "pixel_roi_x": [100, 655],
+      "blocks": [
+        {"block_id":"body-a","rows":[[103,117],[131,151],[160,174],[188,203]]},
+        {"block_id":"body-b","rows":[[302,321],[330,345],[501,515],[529,543],[557,572],[586,606],[699,719],[728,748],[756,776],[785,800],[813,828],[841,856],[870,889],[898,918],[927,946],[955,970]]}
+      ],
+      "excluded_regions": [
+        {"region":[57,68],"reason":"running page header"},
+        {"region":[216,293],"reason":"visible highlighted prose is accompanied by OCR boxes spanning adjacent rows; retain as a malformed-observation safety control"},
+        {"region":[358,486],"reason":"visible prose is accompanied by multi-row OCR boxes; retain as a malformed-observation safety control"},
+        {"region":[614,685],"reason":"missing-row target and giant See observation overlap this visible prose region; retain as a malformed-observation safety control"},
+        {"region":[1007,1007],"reason":"page number"}
+      ],
+      "target_rows": {"if_k_every_other":[160,174]}
+    },
+    "40": {
+      "raster_sha256": "8ea9f7f607bccbd9732cba40a73f59e78a39981fd4be8040d78082b2f390ddf3",
+      "pixel_roi_x": [70, 650],
+      "blocks": [
+        {"block_id":"body-a","rows":[[464,479],[493,507],[522,541],[550,569],[578,598],[607,622],[635,654]]},
+        {"block_id":"body-b","rows":[[832,846],[860,880],[889,904],[918,937],[946,960],[974,994]]}
+      ],
+      "excluded_regions": [
+        {"region":[279,377],"reason":"chapter number/title"},
+        {"region":[682,803],"reason":"figure 1, diagram labels, and caption"},
+        {"region":[1034,1034],"reason":"page number"}
+      ]
+    },
+    "41": {
+      "raster_sha256": "1bd9ff725a5114d30841943733a2e4d4ca0ad53d5af242eef7fb1098d1472055",
+      "pixel_roi_x": [100, 650],
+      "blocks": [
+        {"block_id":"body-a","rows":[[130,149],[159,173],[187,206],[215,230],[244,259]]},
+        {"block_id":"body-b","rows":[[300,320],[329,343],[357,377],[386,405],[414,429],[442,457],[471,485],[500,519],[528,548],[556,571],[585,604],[613,633],[642,661],[670,690],[698,713],[727,741],[755,775],[784,799],[812,832],[840,856],[869,883],[897,912],[926,946],[954,974],[983,997]]}
+      ],
+      "excluded_regions": [{"region":[1041,1041],"reason":"page number"}]
+    },
+    "52": {
+      "raster_sha256": "d470c456c3f6efcf3fe411b773ed27b6f588e728221ec890fb119c50617d4148",
+      "pixel_roi_x": [70, 650],
+      "blocks": [
+        {"block_id":"body-a","rows":[[464,478],[492,512],[521,535],[549,569],[578,592],[606,626],[634,654],[663,677],[691,705]]},
+        {"block_id":"body-b","rows":[[947,967]]}
+      ],
+      "excluded_regions": [
+        {"region":[241,376],"reason":"chapter number and title"},
+        {"region":[725,915],"reason":"display equations and surrounding equation layout; held out from prose primary corpus"},
+        {"region":[1028,1038],"reason":"page number and scan speckle"}
+      ]
+    },
+    "53": {
+      "raster_sha256": "56a58e9eae541fcf1cee0d04cb71e94acb92e6708af43a60b343882e15d7ad6a",
+      "pixel_roi_x": [70, 650],
+      "blocks": [
+        {"block_id":"body-a","rows":[[209,224],[238,257],[266,286],[347,361],[375,395],[404,418],[495,510],[722,736],[751,765],[779,798],[898,918],[927,941],[955,970]]}
+      ],
+      "excluded_regions": [
+        {"region":[84,186],"reason":"running header and display equation"},
+        {"region":[295,321],"reason":"inline/display mathematical expression region"},
+        {"region":[442,468],"reason":"display equation"},
+        {"region":[523,709],"reason":"highlighted region contains OCR boxes spanning multiple visible prose rows; retain as a malformed-observation safety control"},
+        {"region":[846,872],"reason":"display equation"},
+        {"region":[1034,1038],"reason":"page number and scan speckle"}
+      ],
+      "target_rows": {"greater_square_root_becomes":[495,510]}
+    }
+  }
+}

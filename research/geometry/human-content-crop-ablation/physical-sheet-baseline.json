@@ -1,0 +1,71 @@
+{
+  "source": "research/geometry/spineless-acquisition-ablation/results.json",
+  "reproduced_tesseract_version": "5.3.4",
+  "reproduced_language": "eng",
+  "reproduced_config": "--psm 6",
+  "reproduction_method": "Rebuilt each archived physical-sheet raster with its exact prior crop/deskew parameters; one TSV capture per page; required exact archived TSV SHA-256 match.",
+  "reproduction_ocr_invocations": 6,
+  "all_prior_tsv_hashes_matched": true,
+  "pages": {
+    "26": {
+      "raster_sha256": "222f9c899d6a889cb1d03cfdb58bb4c0a2b7066a51cf76044a87211915f568ac",
+      "raw_tsv_sha256": "999c1ff0532520daeba628558b2080a0cf5b9fb679f47a2fcac77e3ccb5d217a",
+      "raw_word_count": 202,
+      "admitted_token_count": 202,
+      "median_admitted_confidence": 96.4614985,
+      "physical_line_count": 36,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    },
+    "27": {
+      "raster_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "raw_tsv_sha256": "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+      "raw_word_count": 264,
+      "admitted_token_count": 264,
+      "median_admitted_confidence": 96.420162,
+      "physical_line_count": 46,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    },
+    "40": {
+      "raster_sha256": "8ea9f7f607bccbd9732cba40a73f59e78a39981fd4be8040d78082b2f390ddf3",
+      "raw_tsv_sha256": "305e9d52b5a219ef5083d60c6e0050746611a08284b37352afd4dbcb4bb18e8a",
+      "raw_word_count": 139,
+      "admitted_token_count": 139,
+      "median_admitted_confidence": 96.628372,
+      "physical_line_count": 23,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    },
+    "41": {
+      "raster_sha256": "1bd9ff725a5114d30841943733a2e4d4ca0ad53d5af242eef7fb1098d1472055",
+      "raw_tsv_sha256": "8704554b2fd4f70558103cebb054305b07329c977778d92cc5dd8243d46a2481",
+      "raw_word_count": 307,
+      "admitted_token_count": 307,
+      "median_admitted_confidence": 96.491005,
+      "physical_line_count": 34,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    },
+    "52": {
+      "raster_sha256": "d470c456c3f6efcf3fe411b773ed27b6f588e728221ec890fb119c50617d4148",
+      "raw_tsv_sha256": "480d652ec82463d7455c25b85c48ed8974c3005471b4d45fcb0f33af480b9f07",
+      "raw_word_count": 148,
+      "admitted_token_count": 148,
+      "median_admitted_confidence": 96.34351,
+      "physical_line_count": 26,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    },
+    "53": {
+      "raster_sha256": "56a58e9eae541fcf1cee0d04cb71e94acb92e6708af43a60b343882e15d7ad6a",
+      "raw_tsv_sha256": "adf2a99a4db61bcb05fc8e445ca7f4c11c877764f866a67ea3aaf8495e84d1d0",
+      "raw_word_count": 221,
+      "admitted_token_count": 221,
+      "median_admitted_confidence": 96.371986,
+      "physical_line_count": 33,
+      "ambiguous_count": 0,
+      "unassigned_count": 0
+    }
+  }
+}
