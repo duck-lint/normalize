@@ -1,0 +1,7598 @@
+{
+  "source": {
+    "filename": "pg.27.jpg",
+    "source_sha256": "d2ca32d3924df8f2e41db6f0d12bf387bb127aed405b9aead7759a297018b490",
+    "page_raster_dimensions": [
+      739,
+      1136
+    ],
+    "page_raster_rgb_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+    "page_raster_rebuilt_exactly": true,
+    "preprocessing_reused": {
+      "crop_box_source_300dpi": [
+        0,
+        0,
+        1500,
+        2340
+      ],
+      "deskew_degrees": -0.9399999999999995,
+      "prior_method": {
+        "method": "Pillow Image.rotate",
+        "angle_degrees": -0.9399999999999995,
+        "resampling": "bicubic",
+        "expand": true,
+        "background_rgb": [
+          255,
+          255,
+          255
+        ],
+        "post_rotation_dimensions": [
+          1540,
+          2366
+        ],
+        "downsample": "Pillow LANCZOS",
+        "output_dpi_equivalent": 144,
+        "dimension_rounding": "nearest integer, half upward, from 144/300 scale",
+        "final_dimensions": [
+          739,
+          1136
+        ],
+        "final_rgb_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1"
+      }
+    }
+  },
+  "ocr": {
+    "tesseract_version": "5.3.4",
+    "language": "eng",
+    "config": "--psm 6",
+    "api": "pytesseract.image_to_data(output_type=Output.STRING)",
+    "full_page_tsv_sha256": "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+    "full_page_tsv_matches_prior": true,
+    "production_geometry_run": false
+  },
+  "fixed_pixel_regions": {
+    "target_text_locator": "affords an insufficient foundation for the physical",
+    "target_ink_y_span_px": [
+      671,
+      685
+    ],
+    "target_roi_xyxy": [
+      110,
+      671,
+      650,
+      686
+    ],
+    "row_above_ink_y_span_px": [
+      643,
+      657
+    ],
+    "row_below_ink_y_span_px": [
+      699,
+      719
+    ],
+    "control_text_locator": "description of all natural phenomena",
+    "highlighted_control_ink_y_span_px": [
+      699,
+      719
+    ],
+    "highlighting": "cyan marker visibly crosses glyph rows for target and control",
+    "text_column_crop_bounds": [
+      105,
+      575,
+      665,
+      755
+    ],
+    "bounds_established_from_pixels_before_crop_ocr": true
+  },
+  "full_page_control_target_records": [
+    {
+      "source_tsv_row": 190,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        22,
+        1
+      ],
+      "text_locator": "See",
+      "confidence": 14.663147,
+      "crop_local_box_xyxy": [
+        7,
+        640,
+        624,
+        696
+      ],
+      "page_box_xyxy": [
+        7,
+        640,
+        624,
+        696
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 191,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        22,
+        2
+      ],
+      "text_locator": "ae",
+      "confidence": 33.175888,
+      "crop_local_box_xyxy": [
+        625,
+        671,
+        639,
+        686
+      ],
+      "page_box_xyxy": [
+        625,
+        671,
+        639,
+        686
+      ],
+      "intersects_fixed_roi": true
+    }
+  ],
+  "full_page_target_line_hierarchy": [
+    {
+      "source_tsv_row": 189,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        22,
+        0
+      ],
+      "page_box_xyxy": [
+        7,
+        640,
+        639,
+        696
+      ],
+      "confidence": -1.0,
+      "text": ""
+    }
+  ],
+  "full_page_control_control_records": [
+    {
+      "source_tsv_row": 193,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        1
+      ],
+      "text_locator": "description",
+      "confidence": 86.988289,
+      "crop_local_box_xyxy": [
+        121,
+        699,
+        457,
+        720
+      ],
+      "page_box_xyxy": [
+        121,
+        699,
+        457,
+        720
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 194,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        2
+      ],
+      "text_locator": "of",
+      "confidence": 92.903564,
+      "crop_local_box_xyxy": [
+        227,
+        695,
+        247,
+        728
+      ],
+      "page_box_xyxy": [
+        227,
+        695,
+        247,
+        728
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 195,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        3
+      ],
+      "text_locator": "all",
+      "confidence": 94.872086,
+      "crop_local_box_xyxy": [
+        254,
+        695,
+        277,
+        728
+      ],
+      "page_box_xyxy": [
+        254,
+        695,
+        277,
+        728
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 196,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        4
+      ],
+      "text_locator": "natural",
+      "confidence": 94.744728,
+      "crop_local_box_xyxy": [
+        284,
+        695,
+        346,
+        728
+      ],
+      "page_box_xyxy": [
+        284,
+        695,
+        346,
+        728
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 197,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        5
+      ],
+      "text_locator": "phenomena.",
+      "confidence": 94.744728,
+      "crop_local_box_xyxy": [
+        353,
+        699,
+        456,
+        720
+      ],
+      "page_box_xyxy": [
+        353,
+        699,
+        456,
+        720
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 198,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        6
+      ],
+      "text_locator": "At",
+      "confidence": 95.527489,
+      "crop_local_box_xyxy": [
+        464,
+        699,
+        487,
+        715
+      ],
+      "page_box_xyxy": [
+        464,
+        699,
+        487,
+        715
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 199,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        7
+      ],
+      "text_locator": "this",
+      "confidence": 96.051552,
+      "crop_local_box_xyxy": [
+        494,
+        699,
+        525,
+        715
+      ],
+      "page_box_xyxy": [
+        494,
+        699,
+        525,
+        715
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 200,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        8
+      ],
+      "text_locator": "juncture",
+      "confidence": 94.958984,
+      "crop_local_box_xyxy": [
+        532,
+        699,
+        605,
+        720
+      ],
+      "page_box_xyxy": [
+        532,
+        699,
+        605,
+        720
+      ],
+      "intersects_fixed_roi": true
+    },
+    {
+      "source_tsv_row": 201,
+      "hierarchy_ids": [
+        1,
+        1,
+        1,
+        23,
+        9
+      ],
+      "text_locator": "the",
+      "confidence": 96.971161,
+      "crop_local_box_xyxy": [
+        612,
+        699,
+        639,
+        715
+      ],
+      "page_box_xyxy": [
+        612,
+        699,
+        639,
+        715
+      ],
+      "intersects_fixed_roi": true
+    }
+  ],
+  "crop_manifest": {
+    "A_full_page": {
+      "target_bounds_xyxy_page": [
+        0,
+        0,
+        739,
+        1136
+      ],
+      "target_dimensions": [
+        739,
+        1136
+      ],
+      "target_source_pixel_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "control_bounds_xyxy_page": [
+        0,
+        0,
+        739,
+        1136
+      ],
+      "control_dimensions": [
+        739,
+        1136
+      ],
+      "control_source_pixel_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "resized": false,
+      "redeskewed": false
+    },
+    "B_text_column_broad_vertical": {
+      "target_bounds_xyxy_page": [
+        105,
+        575,
+        665,
+        755
+      ],
+      "target_dimensions": [
+        560,
+        180
+      ],
+      "target_source_pixel_sha256": "182d8c1f34bf0761633d36047d0c1a6dd83b1a9663b5ddf10b51cc0bc7e27427",
+      "control_bounds_xyxy_page": [
+        105,
+        606,
+        665,
+        786
+      ],
+      "control_dimensions": [
+        560,
+        180
+      ],
+      "control_source_pixel_sha256": "cf3b3d7e26c9154bbbd068c2954c449260edbfec100422984245a272b41d26b5",
+      "resized": false,
+      "redeskewed": false
+    },
+    "C_target_plus_adjacent_rows": {
+      "target_bounds_xyxy_page": [
+        105,
+        632,
+        665,
+        731
+      ],
+      "target_dimensions": [
+        560,
+        99
+      ],
+      "target_source_pixel_sha256": "3f4cf334f54e09436fe93ec5f6cd0d2e3b63dd4199e0ee01f4e54b01d599fc12",
+      "control_bounds_xyxy_page": [
+        105,
+        663,
+        665,
+        762
+      ],
+      "control_dimensions": [
+        560,
+        99
+      ],
+      "control_source_pixel_sha256": "dcee759fd68d7596aedf4b9ad8f3ea48c11e4c8b536b4edc258da2475cda600f",
+      "resized": false,
+      "redeskewed": false
+    },
+    "D_target_row_with_vertical_padding": {
+      "target_bounds_xyxy_page": [
+        105,
+        660,
+        665,
+        696
+      ],
+      "target_dimensions": [
+        560,
+        36
+      ],
+      "target_source_pixel_sha256": "2f9f9e28448ac6e6dcf4ecbef2ad1f59a89185615a80f4aa9348e25eb22957af",
+      "control_bounds_xyxy_page": [
+        105,
+        691,
+        665,
+        727
+      ],
+      "control_dimensions": [
+        560,
+        36
+      ],
+      "control_source_pixel_sha256": "4881c4a327a1ac8994f8c75dc6cc747b439542885f628cdb8c18d938d7cd5e64",
+      "resized": false,
+      "redeskewed": false
+    },
+    "E_tight_target_neighborhood": {
+      "target_bounds_xyxy_page": [
+        110,
+        660,
+        650,
+        696
+      ],
+      "target_dimensions": [
+        540,
+        36
+      ],
+      "target_source_pixel_sha256": "53b9e0541f8897dc10bc601d4ec22845a0d06084b6346b445fc6d22f0445b049",
+      "control_bounds_xyxy_page": [
+        110,
+        691,
+        650,
+        727
+      ],
+      "control_dimensions": [
+        540,
+        36
+      ],
+      "control_source_pixel_sha256": "9dcbe4ad94446edfd9dba6279366f9a1c271a628dd157298c6adeaad900e9fa4",
+      "resized": false,
+      "redeskewed": false
+    },
+    "Bx_full_width_broad_vertical": {
+      "target_bounds_xyxy_page": [
+        0,
+        575,
+        739,
+        755
+      ],
+      "target_dimensions": [
+        739,
+        180
+      ],
+      "target_source_pixel_sha256": "00403ad0cec1d8cf5d40703bd6cc77e88166777ed66c228bc054ad7e7fda9045",
+      "control_bounds_xyxy_page": [
+        0,
+        606,
+        739,
+        786
+      ],
+      "control_dimensions": [
+        739,
+        180
+      ],
+      "control_source_pixel_sha256": "ee393b5f6fe7ebbdba2169cf2dca1c0d8ad09199560d005d5225b8d0f72610f8",
+      "resized": false,
+      "redeskewed": false
+    },
+    "Bx_left_margin_broad_vertical": {
+      "target_bounds_xyxy_page": [
+        0,
+        575,
+        665,
+        755
+      ],
+      "target_dimensions": [
+        665,
+        180
+      ],
+      "target_source_pixel_sha256": "670b7bf9ea60d28cf262dc2f015e24764dd6eb6cbb23c248372e03a038891f4f",
+      "control_bounds_xyxy_page": [
+        0,
+        606,
+        665,
+        786
+      ],
+      "control_dimensions": [
+        665,
+        180
+      ],
+      "control_source_pixel_sha256": "86c0beb16f402a5f9612fc2364f9e9547da5b00fb0829a38ddbe37363797dcb5",
+      "resized": false,
+      "redeskewed": false
+    },
+    "Bx_left_edge_trimmed_broad_vertical": {
+      "target_bounds_xyxy_page": [
+        70,
+        575,
+        665,
+        755
+      ],
+      "target_dimensions": [
+        595,
+        180
+      ],
+      "target_source_pixel_sha256": "b561435819961b2feb56e2e07e91cded3d42ef7f63c6e2f050e15b3b3251ab23",
+      "control_bounds_xyxy_page": [
+        70,
+        606,
+        665,
+        786
+      ],
+      "control_dimensions": [
+        595,
+        180
+      ],
+      "control_source_pixel_sha256": "9c6398e648a6b0097b5ca99cfe4cdce695679be6ac33b032f49d50f8c7fa6da3",
+      "resized": false,
+      "redeskewed": false
+    },
+    "Bx_right_margin_broad_vertical": {
+      "target_bounds_xyxy_page": [
+        105,
+        575,
+        739,
+        755
+      ],
+      "target_dimensions": [
+        634,
+        180
+      ],
+      "target_source_pixel_sha256": "1963ad9285f69bc2caa1df3aa132147415292addae394d85c03c9302dc2551d8",
+      "control_bounds_xyxy_page": [
+        105,
+        606,
+        739,
+        786
+      ],
+      "control_dimensions": [
+        634,
+        180
+      ],
+      "control_source_pixel_sha256": "2dec4fbaf059507caff43c79597b033f3840e024f0301fadd8b7c826a2cdb4b3",
+      "resized": false,
+      "redeskewed": false
+    }
+  },
+  "crop_runs": {
+    "A_full_page": {
+      "target_crop_box_xyxy_page": [
+        0,
+        0,
+        739,
+        1136
+      ],
+      "target_crop_dimensions": [
+        739,
+        1136
+      ],
+      "target_source_pixel_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "multirow_merged_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 190,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            22,
+            1
+          ],
+          "text_locator": "See",
+          "confidence": 14.663147,
+          "crop_local_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 191,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            22,
+            2
+          ],
+          "text_locator": "ae",
+          "confidence": 33.175888,
+          "crop_local_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 190,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            22,
+            1
+          ],
+          "text_locator": "See",
+          "confidence": 14.663147,
+          "crop_local_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 191,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            22,
+            2
+          ],
+          "text_locator": "ae",
+          "confidence": 33.175888,
+          "crop_local_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 189,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            22,
+            0
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            639,
+            696
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+        "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        0,
+        0,
+        739,
+        1136
+      ],
+      "control_crop_dimensions": [
+        739,
+        1136
+      ],
+      "control_source_pixel_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 193,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.988289,
+          "crop_local_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 194,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 92.903564,
+          "crop_local_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 195,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 94.872086,
+          "crop_local_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "page_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 196,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 197,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "page_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 198,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 95.527489,
+          "crop_local_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 199,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.051552,
+          "crop_local_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 200,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.958984,
+          "crop_local_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 201,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.971161,
+          "crop_local_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 193,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.988289,
+          "crop_local_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 194,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 92.903564,
+          "crop_local_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 195,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 94.872086,
+          "crop_local_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "page_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 196,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 197,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "page_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 198,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 95.527489,
+          "crop_local_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 199,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.051552,
+          "crop_local_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 200,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.958984,
+          "crop_local_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 201,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            23,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.971161,
+          "crop_local_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+        "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "B_text_column_broad_vertical": {
+      "target_crop_box_xyxy_page": [
+        105,
+        575,
+        665,
+        755
+      ],
+      "target_crop_dimensions": [
+        560,
+        180
+      ],
+      "target_source_pixel_sha256": "182d8c1f34bf0761633d36047d0c1a6dd83b1a9663b5ddf10b51cc0bc7e27427",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "partial_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 86.071426,
+          "crop_local_box_xyxy": [
+            10,
+            91,
+            88,
+            122
+          ],
+          "page_box_xyxy": [
+            115,
+            666,
+            193,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            97,
+            91,
+            119,
+            122
+          ],
+          "page_box_xyxy": [
+            202,
+            666,
+            224,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            206,
+            96,
+            209,
+            98
+          ],
+          "page_box_xyxy": [
+            311,
+            671,
+            314,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 88.378723,
+          "crop_local_box_xyxy": [
+            327,
+            96,
+            330,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.275269,
+          "crop_local_box_xyxy": [
+            369,
+            91,
+            403,
+            122
+          ],
+          "page_box_xyxy": [
+            474,
+            666,
+            508,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.091042,
+          "crop_local_box_xyxy": [
+            413,
+            91,
+            447,
+            122
+          ],
+          "page_box_xyxy": [
+            518,
+            666,
+            552,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 91.323608,
+          "crop_local_box_xyxy": [
+            520,
+            96,
+            534,
+            111
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 86.071426,
+          "crop_local_box_xyxy": [
+            10,
+            91,
+            88,
+            122
+          ],
+          "page_box_xyxy": [
+            115,
+            666,
+            193,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            97,
+            91,
+            119,
+            122
+          ],
+          "page_box_xyxy": [
+            202,
+            666,
+            224,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            206,
+            96,
+            209,
+            98
+          ],
+          "page_box_xyxy": [
+            311,
+            671,
+            314,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 88.378723,
+          "crop_local_box_xyxy": [
+            327,
+            96,
+            330,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.275269,
+          "crop_local_box_xyxy": [
+            369,
+            91,
+            403,
+            122
+          ],
+          "page_box_xyxy": [
+            474,
+            666,
+            508,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.091042,
+          "crop_local_box_xyxy": [
+            413,
+            91,
+            447,
+            122
+          ],
+          "page_box_xyxy": [
+            518,
+            666,
+            552,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 91.323608,
+          "crop_local_box_xyxy": [
+            520,
+            96,
+            534,
+            111
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            0
+          ],
+          "page_box_xyxy": [
+            119,
+            670,
+            639,
+            693
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "26a854eefef0d367621fe4a98f326c665f269b801ffba8538d904bbe641b8385",
+        "26a854eefef0d367621fe4a98f326c665f269b801ffba8538d904bbe641b8385"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        105,
+        606,
+        665,
+        786
+      ],
+      "control_crop_dimensions": [
+        560,
+        180
+      ],
+      "control_source_pixel_sha256": "cf3b3d7e26c9154bbbd068c2954c449260edbfec100422984245a272b41d26b5",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            16,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            122,
+            89,
+            140,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            147,
+            89,
+            172,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            179,
+            89,
+            240,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            249,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            359,
+            93,
+            382,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            389,
+            93,
+            420,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            427,
+            93,
+            500,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            507,
+            93,
+            534,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            16,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            122,
+            89,
+            140,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            147,
+            89,
+            172,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            179,
+            89,
+            240,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            249,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            359,
+            93,
+            382,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            389,
+            93,
+            420,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            427,
+            93,
+            500,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            507,
+            93,
+            534,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "2fcf66c95aedb09b7a3fb216bb35238330bcbb1549fa8fc6dfe52526b2f1e89d",
+        "2fcf66c95aedb09b7a3fb216bb35238330bcbb1549fa8fc6dfe52526b2f1e89d"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "C_target_plus_adjacent_rows": {
+      "target_crop_box_xyxy_page": [
+        105,
+        632,
+        665,
+        731
+      ],
+      "target_crop_dimensions": [
+        560,
+        99
+      ],
+      "target_source_pixel_sha256": "3f4cf334f54e09436fe93ec5f6cd0d2e3b63dd4199e0ee01f4e54b01d599fc12",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "normal_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 14,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 85.490616,
+          "crop_local_box_xyxy": [
+            19,
+            38,
+            81,
+            54
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 15,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 67.152664,
+          "crop_local_box_xyxy": [
+            100,
+            44,
+            120,
+            54
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 16,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 67.152664,
+          "crop_local_box_xyxy": [
+            139,
+            38,
+            238,
+            54
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 17,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 94.322838,
+          "crop_local_box_xyxy": [
+            257,
+            38,
+            354,
+            55
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 18,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.452271,
+          "crop_local_box_xyxy": [
+            374,
+            39,
+            400,
+            55
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 19,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.82785,
+          "crop_local_box_xyxy": [
+            418,
+            39,
+            445,
+            55
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 20,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 89.457283,
+          "crop_local_box_xyxy": [
+            464,
+            39,
+            534,
+            60
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 14,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 85.490616,
+          "crop_local_box_xyxy": [
+            19,
+            38,
+            81,
+            54
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 15,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 67.152664,
+          "crop_local_box_xyxy": [
+            100,
+            44,
+            120,
+            54
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 16,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 67.152664,
+          "crop_local_box_xyxy": [
+            139,
+            38,
+            238,
+            54
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 17,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 94.322838,
+          "crop_local_box_xyxy": [
+            257,
+            38,
+            354,
+            55
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 18,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.452271,
+          "crop_local_box_xyxy": [
+            374,
+            39,
+            400,
+            55
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 19,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.82785,
+          "crop_local_box_xyxy": [
+            418,
+            39,
+            445,
+            55
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 20,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 89.457283,
+          "crop_local_box_xyxy": [
+            464,
+            39,
+            534,
+            60
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            0
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            639,
+            692
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "3fc6d44e7891a62b61cf9236c987bb4bd8c44530fad9eb7f4097b35fe19d344d",
+        "3fc6d44e7891a62b61cf9236c987bb4bd8c44530fad9eb7f4097b35fe19d344d"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        105,
+        663,
+        665,
+        762
+      ],
+      "control_crop_dimensions": [
+        560,
+        99
+      ],
+      "control_source_pixel_sha256": "dcee759fd68d7596aedf4b9ad8f3ea48c11e4c8b536b4edc258da2475cda600f",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 95.806343,
+          "crop_local_box_xyxy": [
+            19,
+            36,
+            117,
+            57
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 14,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 95.548149,
+          "crop_local_box_xyxy": [
+            124,
+            36,
+            145,
+            52
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 15,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 95.548523,
+          "crop_local_box_xyxy": [
+            150,
+            36,
+            169,
+            52
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 16,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 96.501312,
+          "crop_local_box_xyxy": [
+            176,
+            36,
+            237,
+            52
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 17,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.69928,
+          "crop_local_box_xyxy": [
+            244,
+            36,
+            352,
+            57
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 18,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.986519,
+          "crop_local_box_xyxy": [
+            360,
+            36,
+            382,
+            52
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 19,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.909843,
+          "crop_local_box_xyxy": [
+            389,
+            36,
+            420,
+            52
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 20,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.075783,
+          "crop_local_box_xyxy": [
+            427,
+            36,
+            500,
+            57
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 21,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.947098,
+          "crop_local_box_xyxy": [
+            507,
+            36,
+            534,
+            52
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 95.806343,
+          "crop_local_box_xyxy": [
+            19,
+            36,
+            117,
+            57
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 14,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 95.548149,
+          "crop_local_box_xyxy": [
+            124,
+            36,
+            145,
+            52
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 15,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 95.548523,
+          "crop_local_box_xyxy": [
+            150,
+            36,
+            169,
+            52
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 16,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 96.501312,
+          "crop_local_box_xyxy": [
+            176,
+            36,
+            237,
+            52
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 17,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.69928,
+          "crop_local_box_xyxy": [
+            244,
+            36,
+            352,
+            57
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 18,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.986519,
+          "crop_local_box_xyxy": [
+            360,
+            36,
+            382,
+            52
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 19,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.909843,
+          "crop_local_box_xyxy": [
+            389,
+            36,
+            420,
+            52
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 20,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.075783,
+          "crop_local_box_xyxy": [
+            427,
+            36,
+            500,
+            57
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 21,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            2,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.947098,
+          "crop_local_box_xyxy": [
+            507,
+            36,
+            534,
+            52
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "f205902886072641193ca538716f2d5f37cccaacadf97c9a869017c364e2bd41",
+        "f205902886072641193ca538716f2d5f37cccaacadf97c9a869017c364e2bd41"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "D_target_row_with_vertical_padding": {
+      "target_crop_box_xyxy_page": [
+        105,
+        660,
+        665,
+        696
+      ],
+      "target_crop_dimensions": [
+        560,
+        36
+      ],
+      "target_source_pixel_sha256": "2f9f9e28448ac6e6dcf4ecbef2ad1f59a89185615a80f4aa9348e25eb22957af",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "normal_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 90.528595,
+          "crop_local_box_xyxy": [
+            19,
+            10,
+            81,
+            26
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            100,
+            16,
+            120,
+            26
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            139,
+            10,
+            238,
+            26
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 92.949753,
+          "crop_local_box_xyxy": [
+            257,
+            10,
+            354,
+            27
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 95.695877,
+          "crop_local_box_xyxy": [
+            374,
+            11,
+            400,
+            27
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            418,
+            11,
+            445,
+            27
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            464,
+            11,
+            534,
+            32
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 90.528595,
+          "crop_local_box_xyxy": [
+            19,
+            10,
+            81,
+            26
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            100,
+            16,
+            120,
+            26
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            139,
+            10,
+            238,
+            26
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 92.949753,
+          "crop_local_box_xyxy": [
+            257,
+            10,
+            354,
+            27
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 95.695877,
+          "crop_local_box_xyxy": [
+            374,
+            11,
+            400,
+            27
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            418,
+            11,
+            445,
+            27
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            464,
+            11,
+            534,
+            32
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 4,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            639,
+            692
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "e46d0f608177b5e37274b19f99ab96a56073d492230c2292f8fa95b3a846526a",
+        "e46d0f608177b5e37274b19f99ab96a56073d492230c2292f8fa95b3a846526a"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        105,
+        691,
+        665,
+        727
+      ],
+      "control_crop_dimensions": [
+        560,
+        36
+      ],
+      "control_source_pixel_sha256": "4881c4a327a1ac8994f8c75dc6cc747b439542885f628cdb8c18d938d7cd5e64",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.343765,
+          "crop_local_box_xyxy": [
+            19,
+            8,
+            117,
+            29
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 93.452103,
+          "crop_local_box_xyxy": [
+            124,
+            8,
+            145,
+            24
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            150,
+            8,
+            169,
+            24
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            176,
+            8,
+            237,
+            24
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 51.803589,
+          "crop_local_box_xyxy": [
+            244,
+            8,
+            352,
+            29
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.945808,
+          "crop_local_box_xyxy": [
+            360,
+            8,
+            382,
+            24
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.894798,
+          "crop_local_box_xyxy": [
+            389,
+            8,
+            420,
+            24
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 12,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.668175,
+          "crop_local_box_xyxy": [
+            427,
+            0,
+            500,
+            29
+          ],
+          "page_box_xyxy": [
+            532,
+            691,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.92379,
+          "crop_local_box_xyxy": [
+            507,
+            8,
+            534,
+            24
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.343765,
+          "crop_local_box_xyxy": [
+            19,
+            8,
+            117,
+            29
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 93.452103,
+          "crop_local_box_xyxy": [
+            124,
+            8,
+            145,
+            24
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            150,
+            8,
+            169,
+            24
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            176,
+            8,
+            237,
+            24
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 51.803589,
+          "crop_local_box_xyxy": [
+            244,
+            8,
+            352,
+            29
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.945808,
+          "crop_local_box_xyxy": [
+            360,
+            8,
+            382,
+            24
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.894798,
+          "crop_local_box_xyxy": [
+            389,
+            8,
+            420,
+            24
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 12,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.668175,
+          "crop_local_box_xyxy": [
+            427,
+            0,
+            500,
+            29
+          ],
+          "page_box_xyxy": [
+            532,
+            691,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.92379,
+          "crop_local_box_xyxy": [
+            507,
+            8,
+            534,
+            24
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "a09dbee667215e19e5e0784792925f7a7ace2a322bf771187f7eb7455db2d7b4",
+        "a09dbee667215e19e5e0784792925f7a7ace2a322bf771187f7eb7455db2d7b4"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "E_tight_target_neighborhood": {
+      "target_crop_box_xyxy_page": [
+        110,
+        660,
+        650,
+        696
+      ],
+      "target_crop_dimensions": [
+        540,
+        36
+      ],
+      "target_source_pixel_sha256": "53b9e0541f8897dc10bc601d4ec22845a0d06084b6346b445fc6d22f0445b049",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "normal_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 90.528595,
+          "crop_local_box_xyxy": [
+            14,
+            10,
+            76,
+            26
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            95,
+            16,
+            115,
+            26
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            134,
+            10,
+            233,
+            26
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 92.949753,
+          "crop_local_box_xyxy": [
+            252,
+            10,
+            349,
+            27
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 95.695877,
+          "crop_local_box_xyxy": [
+            369,
+            11,
+            395,
+            27
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            413,
+            11,
+            440,
+            27
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            459,
+            11,
+            529,
+            32
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 90.528595,
+          "crop_local_box_xyxy": [
+            14,
+            10,
+            76,
+            26
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            186,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            95,
+            16,
+            115,
+            26
+          ],
+          "page_box_xyxy": [
+            205,
+            676,
+            225,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.477222,
+          "crop_local_box_xyxy": [
+            134,
+            10,
+            233,
+            26
+          ],
+          "page_box_xyxy": [
+            244,
+            670,
+            343,
+            686
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 92.949753,
+          "crop_local_box_xyxy": [
+            252,
+            10,
+            349,
+            27
+          ],
+          "page_box_xyxy": [
+            362,
+            670,
+            459,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 95.695877,
+          "crop_local_box_xyxy": [
+            369,
+            11,
+            395,
+            27
+          ],
+          "page_box_xyxy": [
+            479,
+            671,
+            505,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            413,
+            11,
+            440,
+            27
+          ],
+          "page_box_xyxy": [
+            523,
+            671,
+            550,
+            687
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 83.3162,
+          "crop_local_box_xyxy": [
+            459,
+            11,
+            529,
+            32
+          ],
+          "page_box_xyxy": [
+            569,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 4,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "page_box_xyxy": [
+            124,
+            670,
+            639,
+            692
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "c579258269557c63b5c7a07ac65d2406513179f57978bf3cb01c88702b274433",
+        "c579258269557c63b5c7a07ac65d2406513179f57978bf3cb01c88702b274433"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        110,
+        691,
+        650,
+        727
+      ],
+      "control_crop_dimensions": [
+        540,
+        36
+      ],
+      "control_source_pixel_sha256": "9dcbe4ad94446edfd9dba6279366f9a1c271a628dd157298c6adeaad900e9fa4",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.343765,
+          "crop_local_box_xyxy": [
+            14,
+            8,
+            112,
+            29
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 93.452103,
+          "crop_local_box_xyxy": [
+            119,
+            8,
+            140,
+            24
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            145,
+            8,
+            164,
+            24
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            171,
+            8,
+            232,
+            24
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 51.803589,
+          "crop_local_box_xyxy": [
+            239,
+            8,
+            347,
+            29
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.945808,
+          "crop_local_box_xyxy": [
+            355,
+            8,
+            377,
+            24
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.894798,
+          "crop_local_box_xyxy": [
+            384,
+            8,
+            415,
+            24
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 12,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.668175,
+          "crop_local_box_xyxy": [
+            422,
+            0,
+            495,
+            29
+          ],
+          "page_box_xyxy": [
+            532,
+            691,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.92379,
+          "crop_local_box_xyxy": [
+            502,
+            8,
+            529,
+            24
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 5,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.343765,
+          "crop_local_box_xyxy": [
+            14,
+            8,
+            112,
+            29
+          ],
+          "page_box_xyxy": [
+            124,
+            699,
+            222,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 6,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 93.452103,
+          "crop_local_box_xyxy": [
+            119,
+            8,
+            140,
+            24
+          ],
+          "page_box_xyxy": [
+            229,
+            699,
+            250,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 7,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            145,
+            8,
+            164,
+            24
+          ],
+          "page_box_xyxy": [
+            255,
+            699,
+            274,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 8,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            171,
+            8,
+            232,
+            24
+          ],
+          "page_box_xyxy": [
+            281,
+            699,
+            342,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 9,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 51.803589,
+          "crop_local_box_xyxy": [
+            239,
+            8,
+            347,
+            29
+          ],
+          "page_box_xyxy": [
+            349,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 10,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.945808,
+          "crop_local_box_xyxy": [
+            355,
+            8,
+            377,
+            24
+          ],
+          "page_box_xyxy": [
+            465,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 11,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.894798,
+          "crop_local_box_xyxy": [
+            384,
+            8,
+            415,
+            24
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 12,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 96.668175,
+          "crop_local_box_xyxy": [
+            422,
+            0,
+            495,
+            29
+          ],
+          "page_box_xyxy": [
+            532,
+            691,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 13,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.92379,
+          "crop_local_box_xyxy": [
+            502,
+            8,
+            529,
+            24
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "af3131e1f9e07b2fe21317dc62fd6b9198d2ffca2a3f83c326268f4a88a10c10",
+        "af3131e1f9e07b2fe21317dc62fd6b9198d2ffca2a3f83c326268f4a88a10c10"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "Bx_full_width_broad_vertical": {
+      "target_crop_box_xyxy_page": [
+        0,
+        575,
+        739,
+        755
+      ],
+      "target_crop_dimensions": [
+        739,
+        180
+      ],
+      "target_source_pixel_sha256": "00403ad0cec1d8cf5d40703bd6cc77e88166777ed66c228bc054ad7e7fda9045",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "multirow_merged_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            2,
+            1,
+            1
+          ],
+          "text_locator": "———",
+          "confidence": 8.339767,
+          "crop_local_box_xyxy": [
+            7,
+            65,
+            624,
+            121
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            2,
+            1,
+            1
+          ],
+          "text_locator": "———",
+          "confidence": 8.339767,
+          "crop_local_box_xyxy": [
+            7,
+            65,
+            624,
+            121
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            624,
+            696
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            2,
+            1,
+            0
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            713,
+            696
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "2c09d88db930423c013a262148b8520a0636c3586455d72323f2c78c33a7b6dd",
+        "2c09d88db930423c013a262148b8520a0636c3586455d72323f2c78c33a7b6dd"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        0,
+        606,
+        739,
+        786
+      ],
+      "control_crop_dimensions": [
+        739,
+        180
+      ],
+      "control_source_pixel_sha256": "ee393b5f6fe7ebbdba2169cf2dca1c0d8ad09199560d005d5225b8d0f72610f8",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 28,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.988289,
+          "crop_local_box_xyxy": [
+            121,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 29,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 92.903564,
+          "crop_local_box_xyxy": [
+            227,
+            89,
+            247,
+            122
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 30,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 94.872086,
+          "crop_local_box_xyxy": [
+            254,
+            89,
+            277,
+            122
+          ],
+          "page_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            284,
+            89,
+            346,
+            122
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            353,
+            93,
+            456,
+            114
+          ],
+          "page_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 95.527489,
+          "crop_local_box_xyxy": [
+            464,
+            93,
+            487,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.051552,
+          "crop_local_box_xyxy": [
+            494,
+            93,
+            525,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.958984,
+          "crop_local_box_xyxy": [
+            532,
+            93,
+            605,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.971161,
+          "crop_local_box_xyxy": [
+            612,
+            93,
+            639,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 28,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 86.988289,
+          "crop_local_box_xyxy": [
+            121,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 29,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 92.903564,
+          "crop_local_box_xyxy": [
+            227,
+            89,
+            247,
+            122
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            247,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 30,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 94.872086,
+          "crop_local_box_xyxy": [
+            254,
+            89,
+            277,
+            122
+          ],
+          "page_box_xyxy": [
+            254,
+            695,
+            277,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            284,
+            89,
+            346,
+            122
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            346,
+            728
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 94.744728,
+          "crop_local_box_xyxy": [
+            353,
+            93,
+            456,
+            114
+          ],
+          "page_box_xyxy": [
+            353,
+            699,
+            456,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 95.527489,
+          "crop_local_box_xyxy": [
+            464,
+            93,
+            487,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 96.051552,
+          "crop_local_box_xyxy": [
+            494,
+            93,
+            525,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.958984,
+          "crop_local_box_xyxy": [
+            532,
+            93,
+            605,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 96.971161,
+          "crop_local_box_xyxy": [
+            612,
+            93,
+            639,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "3b66eebb5027a40836d319c5e3488b5d9373decb0e3ccab088e812b6edd998be",
+        "3b66eebb5027a40836d319c5e3488b5d9373decb0e3ccab088e812b6edd998be"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "Bx_left_margin_broad_vertical": {
+      "target_crop_box_xyxy_page": [
+        0,
+        575,
+        665,
+        755
+      ],
+      "target_crop_dimensions": [
+        665,
+        180
+      ],
+      "target_source_pixel_sha256": "670b7bf9ea60d28cf262dc2f015e24764dd6eb6cbb23c248372e03a038891f4f",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "multirow_merged_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "Se",
+          "confidence": 32.326416,
+          "crop_local_box_xyxy": [
+            7,
+            65,
+            248,
+            121
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            248,
+            696
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "oo",
+          "confidence": 23.568657,
+          "crop_local_box_xyxy": [
+            344,
+            96,
+            639,
+            111
+          ],
+          "page_box_xyxy": [
+            344,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "Se",
+          "confidence": 32.326416,
+          "crop_local_box_xyxy": [
+            7,
+            65,
+            248,
+            121
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            248,
+            696
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "oo",
+          "confidence": 23.568657,
+          "crop_local_box_xyxy": [
+            344,
+            96,
+            639,
+            111
+          ],
+          "page_box_xyxy": [
+            344,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            0
+          ],
+          "page_box_xyxy": [
+            7,
+            640,
+            639,
+            696
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "ab813b5a5775d5d03eff6e9acad022f88176b99b38d80989f16f4379a502e498",
+        "ab813b5a5775d5d03eff6e9acad022f88176b99b38d80989f16f4379a502e498"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        0,
+        606,
+        665,
+        786
+      ],
+      "control_crop_dimensions": [
+        665,
+        180
+      ],
+      "control_source_pixel_sha256": "86c0beb16f402a5f9612fc2364f9e9547da5b00fb0829a38ddbe37363797dcb5",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 26,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            121,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 27,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            227,
+            89,
+            245,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 28,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            252,
+            89,
+            277,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 29,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            284,
+            89,
+            345,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 30,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            354,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            464,
+            93,
+            487,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            494,
+            93,
+            525,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            532,
+            93,
+            605,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            612,
+            93,
+            639,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 26,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            121,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 27,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            227,
+            89,
+            245,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 28,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            252,
+            89,
+            277,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 29,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            284,
+            89,
+            345,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 30,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            354,
+            93,
+            457,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            464,
+            93,
+            487,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            494,
+            93,
+            525,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            532,
+            93,
+            605,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            612,
+            93,
+            639,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "fc29482eff8176cfe0c46ca975e13301979c8ff5879122037895b90c2c73c47e",
+        "fc29482eff8176cfe0c46ca975e13301979c8ff5879122037895b90c2c73c47e"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "Bx_left_edge_trimmed_broad_vertical": {
+      "target_crop_box_xyxy_page": [
+        70,
+        575,
+        665,
+        755
+      ],
+      "target_crop_dimensions": [
+        595,
+        180
+      ],
+      "target_source_pixel_sha256": "b561435819961b2feb56e2e07e91cded3d42ef7f63c6e2f050e15b3b3251ab23",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "partial_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 86.071426,
+          "crop_local_box_xyxy": [
+            45,
+            91,
+            123,
+            122
+          ],
+          "page_box_xyxy": [
+            115,
+            666,
+            193,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            132,
+            91,
+            154,
+            122
+          ],
+          "page_box_xyxy": [
+            202,
+            666,
+            224,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            241,
+            96,
+            244,
+            98
+          ],
+          "page_box_xyxy": [
+            311,
+            671,
+            314,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 88.378723,
+          "crop_local_box_xyxy": [
+            362,
+            96,
+            365,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.275269,
+          "crop_local_box_xyxy": [
+            404,
+            91,
+            438,
+            122
+          ],
+          "page_box_xyxy": [
+            474,
+            666,
+            508,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.091042,
+          "crop_local_box_xyxy": [
+            448,
+            91,
+            482,
+            122
+          ],
+          "page_box_xyxy": [
+            518,
+            666,
+            552,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 91.323608,
+          "crop_local_box_xyxy": [
+            555,
+            96,
+            569,
+            111
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "affords",
+          "confidence": 86.071426,
+          "crop_local_box_xyxy": [
+            45,
+            91,
+            123,
+            122
+          ],
+          "page_box_xyxy": [
+            115,
+            666,
+            193,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "an",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            132,
+            91,
+            154,
+            122
+          ],
+          "page_box_xyxy": [
+            202,
+            666,
+            224,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "insufficient",
+          "confidence": 62.509426,
+          "crop_local_box_xyxy": [
+            241,
+            96,
+            244,
+            98
+          ],
+          "page_box_xyxy": [
+            311,
+            671,
+            314,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "foundation",
+          "confidence": 88.378723,
+          "crop_local_box_xyxy": [
+            362,
+            96,
+            365,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "for",
+          "confidence": 96.275269,
+          "crop_local_box_xyxy": [
+            404,
+            91,
+            438,
+            122
+          ],
+          "page_box_xyxy": [
+            474,
+            666,
+            508,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "the",
+          "confidence": 94.091042,
+          "crop_local_box_xyxy": [
+            448,
+            91,
+            482,
+            122
+          ],
+          "page_box_xyxy": [
+            518,
+            666,
+            552,
+            697
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "physical",
+          "confidence": 91.323608,
+          "crop_local_box_xyxy": [
+            555,
+            96,
+            569,
+            111
+          ],
+          "page_box_xyxy": [
+            625,
+            671,
+            639,
+            686
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            0
+          ],
+          "page_box_xyxy": [
+            119,
+            670,
+            639,
+            693
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "c9aaf16d8a944f2c3c2b304f4acadbfd39ed4eecba1e22b545dbbb33e986173d",
+        "c9aaf16d8a944f2c3c2b304f4acadbfd39ed4eecba1e22b545dbbb33e986173d"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        70,
+        606,
+        665,
+        786
+      ],
+      "control_crop_dimensions": [
+        595,
+        180
+      ],
+      "control_source_pixel_sha256": "9c6398e648a6b0097b5ca99cfe4cdce695679be6ac33b032f49d50f8c7fa6da3",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            51,
+            93,
+            387,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            157,
+            89,
+            175,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            182,
+            89,
+            207,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            214,
+            89,
+            275,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            284,
+            93,
+            387,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            394,
+            93,
+            417,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            424,
+            93,
+            455,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            462,
+            93,
+            535,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            542,
+            93,
+            569,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 31,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            51,
+            93,
+            387,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 32,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            157,
+            89,
+            175,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 33,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            182,
+            89,
+            207,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 34,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            214,
+            89,
+            275,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            284,
+            93,
+            387,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            394,
+            93,
+            417,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            424,
+            93,
+            455,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            462,
+            93,
+            535,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            542,
+            93,
+            569,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "20875ee05bb756bcbd9011ffc2373bbf2a36774b094c6db5b017cb120864620b",
+        "20875ee05bb756bcbd9011ffc2373bbf2a36774b094c6db5b017cb120864620b"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    },
+    "Bx_right_margin_broad_vertical": {
+      "target_crop_box_xyxy_page": [
+        105,
+        575,
+        739,
+        755
+      ],
+      "target_crop_dimensions": [
+        634,
+        180
+      ],
+      "target_source_pixel_sha256": "1963ad9285f69bc2caa1df3aa132147415292addae394d85c03c9302dc2551d8",
+      "resized": false,
+      "redeskewed": false,
+      "target_outcome": "partial_per_word_observation",
+      "target_records_first_run": [
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "ford",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            32,
+            95,
+            72,
+            114
+          ],
+          "page_box_xyxy": [
+            137,
+            670,
+            177,
+            689
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "isos",
+          "confidence": 14.727768,
+          "crop_local_box_xyxy": [
+            140,
+            95,
+            209,
+            114
+          ],
+          "page_box_xyxy": [
+            245,
+            670,
+            314,
+            689
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "f",
+          "confidence": 8.650635,
+          "crop_local_box_xyxy": [
+            261,
+            96,
+            265,
+            113
+          ],
+          "page_box_xyxy": [
+            366,
+            671,
+            370,
+            688
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "2",
+          "confidence": 54.760941,
+          "crop_local_box_xyxy": [
+            327,
+            96,
+            330,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 42,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "F",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            377,
+            96,
+            382,
+            117
+          ],
+          "page_box_xyxy": [
+            482,
+            671,
+            487,
+            692
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 43,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "syste",
+          "confidence": 9.382469,
+          "crop_local_box_xyxy": [
+            476,
+            96,
+            534,
+            117
+          ],
+          "page_box_xyxy": [
+            581,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_records_repeat_run": [
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            1
+          ],
+          "text_locator": "ford",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            32,
+            95,
+            72,
+            114
+          ],
+          "page_box_xyxy": [
+            137,
+            670,
+            177,
+            689
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            2
+          ],
+          "text_locator": "isos",
+          "confidence": 14.727768,
+          "crop_local_box_xyxy": [
+            140,
+            95,
+            209,
+            114
+          ],
+          "page_box_xyxy": [
+            245,
+            670,
+            314,
+            689
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            3
+          ],
+          "text_locator": "f",
+          "confidence": 8.650635,
+          "crop_local_box_xyxy": [
+            261,
+            96,
+            265,
+            113
+          ],
+          "page_box_xyxy": [
+            366,
+            671,
+            370,
+            688
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            4
+          ],
+          "text_locator": "2",
+          "confidence": 54.760941,
+          "crop_local_box_xyxy": [
+            327,
+            96,
+            330,
+            98
+          ],
+          "page_box_xyxy": [
+            432,
+            671,
+            435,
+            673
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 42,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            5
+          ],
+          "text_locator": "F",
+          "confidence": 0.0,
+          "crop_local_box_xyxy": [
+            377,
+            96,
+            382,
+            117
+          ],
+          "page_box_xyxy": [
+            482,
+            671,
+            487,
+            692
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 43,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            6
+          ],
+          "text_locator": "syste",
+          "confidence": 9.382469,
+          "crop_local_box_xyxy": [
+            476,
+            96,
+            534,
+            117
+          ],
+          "page_box_xyxy": [
+            581,
+            671,
+            639,
+            692
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "target_line_hierarchy_first_run": [
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            1,
+            4,
+            0
+          ],
+          "page_box_xyxy": [
+            137,
+            670,
+            713,
+            692
+          ],
+          "confidence": -1.0,
+          "text": ""
+        }
+      ],
+      "target_record_identity_stable": true,
+      "target_raw_tsv_sha256_repeats": [
+        "1059b9eed941ee60fa32a9918acacb314b1daa1e7ed59af141d0942d95e98b29",
+        "1059b9eed941ee60fa32a9918acacb314b1daa1e7ed59af141d0942d95e98b29"
+      ],
+      "target_raw_tsv_deterministic": true,
+      "control_crop_box_xyxy_page": [
+        105,
+        606,
+        739,
+        786
+      ],
+      "control_crop_dimensions": [
+        634,
+        180
+      ],
+      "control_source_pixel_sha256": "2dec4fbaf059507caff43c79597b033f3840e024f0301fadd8b7c826a2cdb4b3",
+      "highlighted_control_outcome": "normal_per_word_observation",
+      "highlighted_control_records_first_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            16,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            122,
+            89,
+            140,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            147,
+            89,
+            172,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            179,
+            89,
+            240,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            249,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            359,
+            93,
+            382,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            389,
+            93,
+            420,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 42,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            427,
+            93,
+            500,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 43,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            507,
+            93,
+            534,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "highlighted_control_records_repeat_run": [
+        {
+          "source_tsv_row": 35,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            1
+          ],
+          "text_locator": "description",
+          "confidence": 56.821194,
+          "crop_local_box_xyxy": [
+            16,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            121,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 36,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            2
+          ],
+          "text_locator": "of",
+          "confidence": 96.342819,
+          "crop_local_box_xyxy": [
+            122,
+            89,
+            140,
+            119
+          ],
+          "page_box_xyxy": [
+            227,
+            695,
+            245,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 37,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            3
+          ],
+          "text_locator": "all",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            147,
+            89,
+            172,
+            119
+          ],
+          "page_box_xyxy": [
+            252,
+            695,
+            277,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 38,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            4
+          ],
+          "text_locator": "natural",
+          "confidence": 83.41539,
+          "crop_local_box_xyxy": [
+            179,
+            89,
+            240,
+            119
+          ],
+          "page_box_xyxy": [
+            284,
+            695,
+            345,
+            725
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 39,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            5
+          ],
+          "text_locator": "phenomena.",
+          "confidence": 95.07933,
+          "crop_local_box_xyxy": [
+            249,
+            93,
+            352,
+            114
+          ],
+          "page_box_xyxy": [
+            354,
+            699,
+            457,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 40,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            6
+          ],
+          "text_locator": "At",
+          "confidence": 96.995529,
+          "crop_local_box_xyxy": [
+            359,
+            93,
+            382,
+            109
+          ],
+          "page_box_xyxy": [
+            464,
+            699,
+            487,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 41,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            7
+          ],
+          "text_locator": "this",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            389,
+            93,
+            420,
+            109
+          ],
+          "page_box_xyxy": [
+            494,
+            699,
+            525,
+            715
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 42,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            8
+          ],
+          "text_locator": "juncture",
+          "confidence": 94.122383,
+          "crop_local_box_xyxy": [
+            427,
+            93,
+            500,
+            114
+          ],
+          "page_box_xyxy": [
+            532,
+            699,
+            605,
+            720
+          ],
+          "intersects_fixed_roi": true
+        },
+        {
+          "source_tsv_row": 43,
+          "hierarchy_ids": [
+            1,
+            1,
+            3,
+            1,
+            9
+          ],
+          "text_locator": "the",
+          "confidence": 97.006294,
+          "crop_local_box_xyxy": [
+            507,
+            93,
+            534,
+            109
+          ],
+          "page_box_xyxy": [
+            612,
+            699,
+            639,
+            715
+          ],
+          "intersects_fixed_roi": true
+        }
+      ],
+      "control_record_identity_stable": true,
+      "control_raw_tsv_sha256_repeats": [
+        "411834917c19bf80c41f67003615bc25481046ce39a3e0e777e7952bacfff15e",
+        "411834917c19bf80c41f67003615bc25481046ce39a3e0e777e7952bacfff15e"
+      ],
+      "control_raw_tsv_deterministic": true,
+      "raw_tsv_deterministic": true
+    }
+  },
+  "raw_tsv_artifacts": {
+    "full_page_control_tsv_sha256": "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72"
+  }
+}

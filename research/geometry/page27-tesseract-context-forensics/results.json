@@ -1,0 +1,36 @@
+{
+  "decision": "full_page_context_segmentation_failure",
+  "page": 27,
+  "source_raster_dimensions": [
+    739,
+    1136
+  ],
+  "source_raster_sha256": "891fd22858854195cb20e8a60561b8c9073a014c4678e48f5f527cb5806a75d1",
+  "full_page_tsv_sha256": "f74204417cb310096d4993a1606d38a01d20ff3835c59d293c235e1aed65cd72",
+  "full_page_control_matches_prior": true,
+  "first_crop_away_from_multirow_merge": "B_text_column_broad_vertical",
+  "first_crop_with_normal_per_word_observation": "C_target_plus_adjacent_rows",
+  "crop_outcomes": {
+    "A_full_page": "multirow_merged_observation",
+    "B_text_column_broad_vertical": "partial_per_word_observation",
+    "C_target_plus_adjacent_rows": "normal_per_word_observation",
+    "D_target_row_with_vertical_padding": "normal_per_word_observation",
+    "E_tight_target_neighborhood": "normal_per_word_observation",
+    "Bx_full_width_broad_vertical": "multirow_merged_observation",
+    "Bx_left_margin_broad_vertical": "multirow_merged_observation",
+    "Bx_left_edge_trimmed_broad_vertical": "partial_per_word_observation",
+    "Bx_right_margin_broad_vertical": "partial_per_word_observation"
+  },
+  "control_outcomes": {
+    "A_full_page": "normal_per_word_observation",
+    "B_text_column_broad_vertical": "normal_per_word_observation",
+    "C_target_plus_adjacent_rows": "normal_per_word_observation",
+    "D_target_row_with_vertical_padding": "normal_per_word_observation",
+    "E_tight_target_neighborhood": "normal_per_word_observation",
+    "Bx_full_width_broad_vertical": "normal_per_word_observation",
+    "Bx_left_margin_broad_vertical": "normal_per_word_observation",
+    "Bx_left_edge_trimmed_broad_vertical": "normal_per_word_observation",
+    "Bx_right_margin_broad_vertical": "normal_per_word_observation"
+  },
+  "all_repeated_raw_tsv_deterministic": true
+}
