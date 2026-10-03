@@ -41,10 +41,11 @@ recorded without dropping their canonical spans; reconstruction receives an
 empty geometry observation for failed pages so the canonical text remains in
 the emitted document and the missing spatial evidence appears in review.
 
-The new book path uses RGB decoding, half-open crop bounds, then the existing
-Pillow bicubic expanded white-fill rigid rotation convention. It passes the
-resulting in-memory image to the same fixed Tesseract `eng --psm 6` geometry
-observer. It does not alter the established algorithms or their defaults.
+The new book path uses the shared raster preprocessing stage for RGB decoding,
+half-open source-pixel crop bounds, quarter-turn orientation, bicubic expanded
+white-fill deskew, and fixed LANCZOS sampling. It passes the resulting
+in-memory image to the same fixed Tesseract `eng --psm 6` geometry serializer.
+It does not alter the established algorithms or their defaults.
 
 ## Safe limits
 

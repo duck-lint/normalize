@@ -23,6 +23,7 @@ from normalize.books import (
     validate_profile_for_manifest,
 )
 from normalize.engine import BookEngine, EngineConfig
+from normalize.rendering import preprocess_page_pixels
 
 
 def _make_book(tmp_path: Path, rendered_texts=None):
@@ -188,6 +189,19 @@ def test_profile_supports_page_orientation_and_deskew_as_separate_observations(t
     assert prepared.width < prepared.height
     assert evidence["orientation_degrees_clockwise"] == 90
     assert evidence["deskew_degrees_clockwise"] == 0.4
+
+
+def test_book_engine_uses_shared_raster_preprocessor_and_half_up_dimensions():
+    image = Image.new("RGB", (9, 5), "white")
+    image.putpixel((2, 2), (0, 0, 0))
+    bounds = (1, 0, 8, 5)
+    shared, evidence = preprocess_page_pixels(
+        image, content_bounds=bounds, orientation_degrees=90, deskew_degrees=0,
+        source_dpi=288, target_dpi=144)
+    assert shared.size == (3, 4)
+    assert evidence["dimensions_after_crop_px"] == [7, 5]
+    assert evidence["dimensions_after_orientation_px"] == [5, 7]
+    assert evidence["dimension_rounding"] == "half-up"
 
 
 def test_whole_book_runner_orders_pages_emits_provenance_and_reuses_unchanged_work(tmp_path, monkeypatch):

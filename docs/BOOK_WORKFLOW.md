@@ -29,8 +29,9 @@ BOOK SOURCE (ordered page images + canonical raw text)
 
 The engine owns fixed preprocessing, OCR, geometry, canonical alignment,
 reconstruction, and Markdown semantics. The v1 book adapter applies calibrated
-source-pixel bounds, the established bicubic expanded white-fill rigid
-rotation, and the fixed 144-DPI LANCZOS sampling transform. It then uses the
+source-pixel bounds, quarter-turn orientation, the established bicubic
+expanded white-fill rigid deskew, and the fixed 144-DPI LANCZOS sampling
+transform. It calls the shared raster preprocessing stage. It then uses the
 existing Tesseract `eng --psm 6` geometry observer and the existing downstream
 stages. Book identifiers and calibration provenance do not select algorithms.
 Engine configuration is identified in every run record; no profile field can

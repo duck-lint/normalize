@@ -5,7 +5,6 @@ from __future__ import annotations
 import hashlib
 import io
 import json
-import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -17,6 +16,7 @@ from pytesseract import Output
 from .books import BookPage, PageCalibration, stable_digest
 from .geometry import GeometryError, _PreprocessedPage, _engine_record, _page_geometry
 from .markdown import emit_markdown
+from .rendering import preprocess_page_pixels
 from .reconstruction import NormalizedDocument, PageSpan, reconstruct_document
 
 
@@ -113,62 +113,24 @@ class BookEngine:
             "identity_sha256": stable_digest({**self.config.record(), "tesseract_version": tesseract_version}),
         }
 
-    @staticmethod
-    def _round_half_up(value: float) -> int:
-        return math.floor(value + 0.5)
-
     def preprocess(self, image: Image.Image, calibration: PageCalibration, source_dpi: int) -> tuple[Image.Image, dict[str, Any]]:
         """Apply crop, rigid rotation, and fixed target-DPI sampling in order."""
-        if source_dpi <= 0:
-            raise ValueError("source DPI must be positive")
-        working = image.convert("RGB")
-        input_dimensions = [working.width, working.height]
-        bounds = calibration.content_bounds
-        if bounds is not None:
-            x0, y0, x1, y1 = bounds
-            if x1 > working.width or y1 > working.height:
-                raise ValueError(f"page {calibration.page_id}: content bounds {bounds} exceed source raster {working.size}")
-            working = working.crop(bounds)
-        after_crop = [working.width, working.height]
-        orientation = calibration.orientation_degrees if calibration.orientation_degrees is not None else 0
-        transpose = {
-            0: None,
-            90: Image.Transpose.ROTATE_270,
-            180: Image.Transpose.ROTATE_180,
-            270: Image.Transpose.ROTATE_90,
-        }[orientation]
-        if transpose is not None:
-            working = working.transpose(transpose)
-        after_orientation = [working.width, working.height]
-        angle = calibration.deskew_degrees if calibration.deskew_degrees is not None else 0.0
-        if angle:
-            # Match rendering._preprocess_image: positive calibrated angle
-            # means clockwise correction, while Pillow's positive angle is CCW.
-            working = working.rotate(-angle, resample=Image.Resampling.BICUBIC,
-                                     expand=True, fillcolor=(255, 255, 255))
-        after_rotation = [working.width, working.height]
-        scale = self.config.target_dpi / source_dpi
-        target_size = (max(1, self._round_half_up(working.width * scale)),
-                       max(1, self._round_half_up(working.height * scale)))
-        if target_size != working.size:
-            working = working.resize(target_size, resample=Image.Resampling.LANCZOS)
-        provenance = {
-            "source_dimensions_px": input_dimensions,
-            "content_bounds_source_px_half_open": list(bounds) if bounds else None,
+        try:
+            working, provenance = preprocess_page_pixels(
+                image,
+                content_bounds=calibration.content_bounds,
+                orientation_degrees=calibration.orientation_degrees or 0,
+                deskew_degrees=calibration.deskew_degrees,
+                source_dpi=source_dpi,
+                target_dpi=self.config.target_dpi,
+            )
+        except ValueError as exc:
+            raise ValueError(f"page {calibration.page_id}: {exc}") from exc
+        provenance.update({
             "content_status": calibration.content_status,
-            "dimensions_after_crop_px": after_crop,
-            "orientation_degrees_clockwise": calibration.orientation_degrees,
             "orientation_status": calibration.orientation_status,
-            "dimensions_after_orientation_px": after_orientation,
-            "deskew_degrees_clockwise": calibration.deskew_degrees,
             "deskew_status": calibration.deskew_status,
-            "dimensions_after_rotation_px": after_rotation,
-            "source_dpi": source_dpi,
-            "target_dpi": self.config.target_dpi,
-            "downsample_scale": self.config.target_dpi / source_dpi,
-            "dimension_rounding": "half-up",
-            "final_dimensions_px": list(working.size),
-        }
+        })
         return working, provenance
 
     def process_page(self, page: BookPage, calibration: PageCalibration, *, book_id: str,
