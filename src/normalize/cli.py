@@ -5,7 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from dataclasses import replace
 from pathlib import Path
+
+from PIL import Image
 
 from .bookrun import run_book
 from .books import (
@@ -14,14 +17,17 @@ from .books import (
     freeze_profile,
     load_manifest,
     load_profile,
+    profile_record,
     revised_draft_from_record,
     save_profile,
+    sha256_file,
     validate_profile_for_manifest,
 )
 from .environment import check_tesseract
 from .fixtures import FixtureCatalog, MetadataError
 from .geometry import run_geometry
 from .markdown import document_record, emit_markdown
+from .page_interior import PAGE_INTERIOR_METHOD, measure_page_interior
 from .reconstruction import PageSpan, reconstruct_document
 from .rendering import (
     FAILURE,
@@ -62,6 +68,15 @@ def _parser() -> argparse.ArgumentParser:
     validate_profile = calibration_commands.add_parser("validate", help="validate a profile against its manifest")
     validate_profile.add_argument("--manifest", type=Path, required=True)
     validate_profile.add_argument("--profile", type=Path, required=True)
+    measure = calibration_commands.add_parser(
+        "measure", help="propose per-page acquisition bounds and rigid deskew from source pixels"
+    )
+    measure.add_argument("--manifest", type=Path, required=True)
+    measure.add_argument("--profile", type=Path, help="existing draft profile whose unmeasured pages should be retained")
+    measure.add_argument("--page-id", action="append", dest="page_ids", help="measure this page (repeatable; default: all pages)")
+    measure.add_argument("--profile-id", help="identity for a new draft profile")
+    measure.add_argument("--replace-human", action="store_true", help="replace human profile rows while retaining detector evidence in the sidecar")
+    measure.add_argument("--output", "-o", type=Path, required=True)
     freeze = calibration_commands.add_parser("freeze", help="validate supplied measurements and freeze profile v1")
     freeze.add_argument("--manifest", type=Path, required=True)
     freeze.add_argument("--measurements", type=Path, required=True)
@@ -135,6 +150,116 @@ def _run(args: argparse.Namespace) -> int:
         print(json.dumps({"status": "valid", "profile_id": profile.profile_id,
                           "revision": profile.revision, "state": profile.state,
                           "profile_sha256": profile.sha256}, sort_keys=True))
+        return 0
+
+    if args.command == "calibrate" and args.calibration_command == "measure":
+        # Acquisition measurement can precede the canonical lexical source.
+        # The manifest contract is still loaded, then every scan is checked
+        # directly so omitting the canonical file cannot hide a missing image
+        # or a stale declared source digest.
+        manifest = load_manifest(args.manifest, validate_sources=False)
+        if args.profile:
+            base_profile = load_profile(args.profile)
+            validate_profile_for_manifest(base_profile, manifest)
+            if base_profile.state != "draft":
+                raise BookContractError("--profile must be a mutable draft")
+        else:
+            base_profile = None
+
+        pages_by_id = {page.page_id: page for page in manifest.pages}
+        selected_ids = list(args.page_ids) if args.page_ids else list(pages_by_id)
+        if len(set(selected_ids)) != len(selected_ids):
+            raise BookContractError("--page-id contains a duplicate")
+        unknown = sorted(set(selected_ids) - set(pages_by_id))
+        if unknown:
+            raise BookContractError(f"unknown page IDs: {unknown}")
+        for page in manifest.pages:
+            if not page.image.is_file():
+                raise BookContractError(f"page {page.page_id}: image does not exist: {page.image}")
+            if page.source_sha256 and sha256_file(page.image) != page.source_sha256:
+                raise BookContractError(f"page {page.page_id}: source SHA-256 does not match manifest")
+
+        observations = []
+        proposed_rows = {}
+        for page_id in selected_ids:
+            page = pages_by_id[page_id]
+            with Image.open(page.image) as image:
+                observation = measure_page_interior(image, page_id=page_id)
+            observations.append({
+                **observation.record(page_id),
+                "source_sha256": page.source_sha256 or sha256_file(page.image),
+            })
+            deskew_status = (
+                "unresolved" if observation.deskew_degrees_clockwise is None
+                else "no_transform" if observation.deskew_degrees_clockwise == 0
+                else "measured"
+            )
+            proposed_rows[page_id] = {
+                "page_id": page_id,
+                "content_bounds": list(observation.content_bounds) if observation.content_bounds else None,
+                "content_status": "measured" if observation.content_bounds else "unresolved",
+                "orientation_degrees": 0,
+                "orientation_status": "no_transform",
+                "deskew_degrees": observation.deskew_degrees_clockwise,
+                "deskew_status": deskew_status,
+                "source": "detector",
+                "note": (
+                    f"{PAGE_INTERIOR_METHOD}; acquisition pixel evidence only; "
+                    f"status={observation.status}; failures={','.join(observation.failures) or 'none'}; "
+                    f"uncertainty={json.dumps(observation.uncertainty, sort_keys=True)}"
+                ),
+            }
+
+        if base_profile is not None:
+            existing_rows = {row["page_id"]: row for row in profile_record(base_profile)["pages"]}
+            for page_id, proposed in proposed_rows.items():
+                prior = existing_rows[page_id]
+                if prior["source"] == "human" and not args.replace_human:
+                    continue
+                existing_rows[page_id] = proposed
+            page_rows = [existing_rows[page.page_id] for page in manifest.pages]
+            calibration_pages = list(dict.fromkeys([*base_profile.calibration_pages, *selected_ids]))
+            profile_id = base_profile.profile_id
+        else:
+            if set(selected_ids) != set(pages_by_id):
+                raise BookContractError("a partial measurement requires --profile to supply the remaining draft rows")
+            page_rows = [proposed_rows[page.page_id] for page in manifest.pages]
+            calibration_pages = selected_ids
+            profile_id = args.profile_id or f"{manifest.book_id}-page-interior-draft"
+
+        measurement_record = {
+            "source_dpi": manifest.source_dpi,
+            "source_dpi_provenance": {
+                "source": "imported",
+                "note": "Nominal source DPI declared by the book manifest; this command does not estimate scanner resolution.",
+            },
+            "calibration_pages": calibration_pages,
+            "pages": page_rows,
+        }
+        draft = draft_profile_from_record(measurement_record, manifest, profile_id=profile_id)
+        if base_profile is not None:
+            draft = replace(draft, revision=base_profile.revision, profile_id=base_profile.profile_id)
+        validate_profile_for_manifest(draft, manifest)
+        save_profile(draft, args.output)
+        evidence_path = args.output.with_suffix(args.output.suffix + ".observations.json")
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps({
+            "schema": "page-interior-measurements-v1",
+            "method": PAGE_INTERIOR_METHOD,
+            "manifest_sha256": manifest.sha256,
+            "observations": observations,
+        }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        print(json.dumps({
+            "status": "draft_proposed",
+            "profile_id": draft.profile_id,
+            "profile_state": draft.state,
+            "measured_pages": len(observations),
+            "partial_pages": sum(item["status"] == "partial" for item in observations),
+            "bounds_unresolved_pages": sum(item["content_bounds"] is None for item in observations),
+            "orientation_unresolved_pages": sum(item["deskew_degrees_clockwise"] is None for item in observations),
+            "profile": str(args.output),
+            "evidence": str(evidence_path),
+        }, sort_keys=True))
         return 0
 
     if args.command == "calibrate" and args.calibration_command == "freeze":
