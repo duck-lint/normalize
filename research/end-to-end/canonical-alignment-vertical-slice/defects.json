@@ -1,0 +1,146 @@
+{
+  "schema": "canonical-alignment-user-visible-defects-v1",
+  "allowed_categories": [
+    "lexical_loss_or_duplication",
+    "false_paragraph_or_line_structure",
+    "destructive_structural_merge",
+    "heading_or_section_error",
+    "figure_or_caption_error",
+    "display_math_error",
+    "ordering_error",
+    "formatting_only",
+    "other_user_visible"
+  ],
+  "defect_count": 8,
+  "affected_pages": [
+    27,
+    52,
+    53
+  ],
+  "localized_edit_sites": 8,
+  "lexical_defect_count": 0,
+  "destructive_error_count": 3,
+  "silent_error_count": 1,
+  "already_flagged_error_count": 0,
+  "inferable_from_existing_diagnostics_count": 7,
+  "defects": [
+    {
+      "id": "p27-missing-boundary-before-if",
+      "page": 27,
+      "location": "before 'If Kis a Galileian co-ordinate system'",
+      "category": "destructive_structural_merge",
+      "visible_effect": "the expected paragraph beginning with If is merged into the preceding paragraph that began on page 26",
+      "minimal_manual_correction": "insert a paragraph boundary before the canonical If span",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "unmatched_ocr_anchors",
+        "ambiguous_alignment_path",
+        "canonical_geometry_order_conflict"
+      ]
+    },
+    {
+      "id": "p27-missing-boundary-before-we-advance",
+      "page": 27,
+      "location": "before 'We advance a step farther in our generalisation'",
+      "category": "destructive_structural_merge",
+      "visible_effect": "the expected paragraph beginning We advance is merged into the preceding logical paragraph",
+      "minimal_manual_correction": "insert a paragraph boundary before the canonical We advance span",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "unmatched_ocr_anchors",
+        "ambiguous_alignment_path",
+        "canonical_geometry_order_conflict"
+      ]
+    },
+    {
+      "id": "p27-missing-boundary-before-as-long",
+      "page": 27,
+      "location": "before 'As long as one was convinced'",
+      "category": "destructive_structural_merge",
+      "visible_effect": "the expected paragraph beginning As long is merged into the preceding logical paragraph",
+      "minimal_manual_correction": "insert a paragraph boundary before the canonical As long span",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "unmatched_ocr_anchors",
+        "ambiguous_alignment_path",
+        "canonical_geometry_order_conflict"
+      ]
+    },
+    {
+      "id": "p52-display-math-group",
+      "page": 52,
+      "location": "after 'the values of these two points ... can be shown to be' and before 'the distance between the points being'",
+      "category": "display_math_error",
+      "visible_effect": "canonical formula text remains inline; the expected isolated two-equation display group is absent",
+      "minimal_manual_correction": "restore the display-math block boundary around the canonical formula span",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "unmatched_ocr_anchors",
+        "ambiguous_alignment_path"
+      ]
+    },
+    {
+      "id": "p53-top-continuation-math",
+      "page": 53,
+      "location": "the initial canonical '2 c' continuation after 'the distance between the points being'",
+      "category": "display_math_error",
+      "visible_effect": "the continuation appears inline with the following 'But the metre-rod...' prose rather than as the expected top-of-page display block",
+      "minimal_manual_correction": "isolate the canonical continuation expression as a display-math block before the paragraph",
+      "first_meaningful_cause": "raw_ocr_observation",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "unmatched_ocr_anchors",
+        "ambiguous_alignment_path"
+      ]
+    },
+    {
+      "id": "p53-root-expression",
+      "page": 53,
+      "location": "the canonical square-root expression following 'with a velocity v is'",
+      "category": "display_math_error",
+      "visible_effect": "the expected display expression remains inline in the prose paragraph",
+      "minimal_manual_correction": "move the canonical expression into its own display-math block while retaining its prose position",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "ambiguous_alignment_path"
+      ]
+    },
+    {
+      "id": "p53-zero-equation-continuity",
+      "page": 53,
+      "location": "the display '=0' between 'we should have' and 'and for still greater velocities'",
+      "category": "display_math_error",
+      "visible_effect": "Markdown blank lines around the display block make the continuing prose read as a new paragraph",
+      "minimal_manual_correction": "represent the display as an interruption within one logical paragraph and resume the same paragraph after it",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "silent",
+      "diagnostic_evidence": []
+    },
+    {
+      "id": "p53-final-expression",
+      "page": 53,
+      "location": "the canonical '22/24-1√' expression after 'would have been'",
+      "category": "display_math_error",
+      "visible_effect": "the expected final display expression remains inline in the preceding prose paragraph",
+      "minimal_manual_correction": "isolate the canonical expression as a display-math block before the next paragraph",
+      "first_meaningful_cause": "structural_reconstruction",
+      "detectability": "inferable_from_existing_diagnostic",
+      "diagnostic_evidence": [
+        "unmatched_canonical_material",
+        "ambiguous_alignment_path"
+      ]
+    }
+  ],
+  "classification_policy": "Only generated Markdown differences that conflict with the established explicit structure are counted. Intermediate OCR spelling, token identity, and physical row differences are not final defects by themselves."
+}

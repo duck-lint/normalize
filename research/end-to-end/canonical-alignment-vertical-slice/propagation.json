@@ -1,0 +1,126 @@
+{
+  "schema": "canonical-alignment-error-propagation-v1",
+  "known_geometry_residuals": [
+    {
+      "page": 26,
+      "physical_row_id": "p26-body-a-row-06",
+      "canonical_locator": "changes its position relative to the embankment yet",
+      "intermediate_geometry_error": "one logical prose row was split across two observed physical bands",
+      "final_markdown": "the target phrase remains continuous, but the page-26-to-27 output block also absorbs three distinct page-27 paragraphs",
+      "propagated_as_false_paragraph": false,
+      "separate_structural_defects": [
+        "p27-missing-boundary-before-if",
+        "p27-missing-boundary-before-we-advance",
+        "p27-missing-boundary-before-as-long"
+      ]
+    },
+    {
+      "page": 27,
+      "physical_row_id": "p27-body-a-row-03",
+      "canonical_locator": "If Kis a Galileian co-ordinate system, then every other",
+      "intermediate_geometry_error": "the target row was divided into vertically offset physical bands",
+      "final_markdown": "the target phrase has no inserted line break, but the expected paragraph start before If is absent; three distinct page-27 paragraphs are merged into the page-26 continuation",
+      "propagated_as_false_paragraph": true,
+      "separate_structural_defects": [
+        "p27-missing-boundary-before-if",
+        "p27-missing-boundary-before-we-advance",
+        "p27-missing-boundary-before-as-long"
+      ],
+      "propagation_note": "The physical split is not serialized as a line break. The same poorly resolved geometry region nevertheless fails to provide the expected paragraph boundary, so the final structural consequence is wrong."
+    },
+    {
+      "page": 53,
+      "physical_row_id": "p53-body-a-row-07",
+      "canonical_locator": "and for still greater velocities the square-root becomes",
+      "intermediate_geometry_error": "the row is represented by several spatial fragments",
+      "final_markdown": "the complete phrase is continuous in one prose block; a preceding =0 display block still separates the larger paragraph, which is counted independently as a math-continuity defect",
+      "propagated_as_false_paragraph_at_target_phrase": false
+    }
+  ],
+  "page27_malformed_ocr": {
+    "canonical_locator": "affords an insufficient foundation for the physical",
+    "raw_ocr_sequence": [
+      {
+        "text": "affords",
+        "box": [
+          15,
+          623,
+          90,
+          654
+        ],
+        "confidence": 91.894844,
+        "anchor_id": "token-0190"
+      },
+      {
+        "text": "an",
+        "box": [
+          102,
+          623,
+          127,
+          654
+        ],
+        "confidence": 69.451653,
+        "anchor_id": "token-0191"
+      },
+      {
+        "text": "insufficient",
+        "box": [
+          211,
+          628,
+          214,
+          630
+        ],
+        "confidence": 69.451653,
+        "anchor_id": "token-0192"
+      },
+      {
+        "text": "foundation",
+        "box": [
+          332,
+          628,
+          335,
+          630
+        ],
+        "confidence": 95.356232,
+        "anchor_id": "token-0193"
+      },
+      {
+        "text": "for",
+        "box": [
+          374,
+          623,
+          408,
+          654
+        ],
+        "confidence": 96.433609,
+        "anchor_id": "token-0194"
+      },
+      {
+        "text": "the",
+        "box": [
+          418,
+          623,
+          452,
+          654
+        ],
+        "confidence": 93.492188,
+        "anchor_id": "token-0195"
+      },
+      {
+        "text": "physical",
+        "box": [
+          525,
+          628,
+          539,
+          643
+        ],
+        "confidence": 91.153313,
+        "anchor_id": "token-0196"
+      }
+    ],
+    "alignment": "all seven canonical words are present in source order; insufficient and foundation match their OCR anchors 1:1 despite 3x2-pixel boxes",
+    "final_lexical_result": "canonical wording is unchanged",
+    "final_structure_result": "canonical wording survives in the oversized paragraph; malformed boxes do not cause lexical loss, but the paragraph boundary before If and later page-27 boundaries are absent",
+    "propagated": false
+  }
+}

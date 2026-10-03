@@ -542,6 +542,83 @@ def _apply_rotation(image: Image.Image, degrees: int) -> Image.Image:
     return image.transpose(methods[degrees])
 
 
+def _apply_rigid_deskew(image: Image.Image, degrees_clockwise: float) -> tuple[Image.Image, dict[str, Any] | None, str]:
+    """Shared Pillow deskew primitive for fixture and book-image preprocessing."""
+    if degrees_clockwise == 0:
+        return image, None, "none"
+    deskewed = image.rotate(
+        -degrees_clockwise,
+        resample=Image.Resampling.BICUBIC,
+        expand=True,
+        fillcolor=(255, 255, 255),
+    )
+    return deskewed, {
+        "degrees_clockwise": degrees_clockwise,
+        "resampling": "bicubic",
+        "expand": True,
+        "fill_rgb": [255, 255, 255],
+    }, "deskew"
+
+
+def preprocess_page_pixels(
+    image: Image.Image,
+    *,
+    content_bounds: tuple[int, int, int, int] | None,
+    orientation_degrees: int,
+    deskew_degrees: float | None,
+    source_dpi: int,
+    target_dpi: int,
+) -> tuple[Image.Image, dict[str, Any]]:
+    """Preprocess an ordered raster page without requiring a PDF or fixture.
+
+    Content bounds are half-open source-image coordinates. The fixed operation
+    order is source crop, quarter-turn orientation, bicubic rigid deskew, then
+    LANCZOS DPI scaling with half-up dimensions. The returned transform ledger
+    records observations but cannot alter these global semantics.
+    """
+    if isinstance(source_dpi, bool) or not isinstance(source_dpi, int) or source_dpi <= 0:
+        raise PreprocessingConfigError("source_dpi must be a positive integer")
+    if isinstance(target_dpi, bool) or not isinstance(target_dpi, int) or target_dpi <= 0:
+        raise PreprocessingConfigError("target_dpi must be a positive integer")
+    if orientation_degrees not in {0, 90, 180, 270}:
+        raise PreprocessingConfigError("orientation_degrees must be one of 0, 90, 180, 270")
+    working = image.convert("RGB")
+    source_dimensions = [working.width, working.height]
+    if content_bounds is not None:
+        x0, y0, x1, y1 = content_bounds
+        if x0 < 0 or y0 < 0 or x1 <= x0 or y1 <= y0 or x1 > working.width or y1 > working.height:
+            raise PreprocessingConfigError(
+                f"content_bounds {content_bounds} are outside source raster {working.size}"
+            )
+        working = working.crop(content_bounds)
+    crop_dimensions = [working.width, working.height]
+    working = _apply_rotation(working, orientation_degrees)
+    orientation_dimensions = [working.width, working.height]
+    corrected_angle = 0.0 if deskew_degrees is None else deskew_degrees
+    working, _deskew_parameters, _deskew_operation = _apply_rigid_deskew(working, corrected_angle)
+    deskew_dimensions = [working.width, working.height]
+    scale = target_dpi / source_dpi
+    target_size = (max(1, math.floor(working.width * scale + 0.5)),
+                   max(1, math.floor(working.height * scale + 0.5)))
+    if target_size != working.size:
+        working = working.resize(target_size, resample=Image.Resampling.LANCZOS)
+    record = {
+        "source_dimensions_px": source_dimensions,
+        "content_bounds_source_px_half_open": list(content_bounds) if content_bounds else None,
+        "dimensions_after_crop_px": crop_dimensions,
+        "orientation_degrees_clockwise": orientation_degrees,
+        "dimensions_after_orientation_px": orientation_dimensions,
+        "deskew_degrees_clockwise": deskew_degrees,
+        "dimensions_after_deskew_px": deskew_dimensions,
+        "source_dpi": source_dpi,
+        "target_dpi": target_dpi,
+        "downsample_scale": scale,
+        "dimension_rounding": "half-up",
+        "final_dimensions_px": list(working.size),
+    }
+    return working, record
+
+
 def _preprocess_image(image: Image.Image, profile: PreprocessingProfile) -> tuple[Image.Image, dict[str, Any]]:
     """Apply spread-coordinate transforms before the logical page split."""
 
@@ -567,23 +644,7 @@ def _preprocess_image(image: Image.Image, profile: PreprocessingProfile) -> tupl
         crop_operation, crop_parameters, crop_before, (cropped.width, cropped.height)
     )
     deskew_before = (cropped.width, cropped.height)
-    if profile.deskew_degrees == 0:
-        deskewed, deskew_parameters, deskew_operation = cropped, None, "none"
-    else:
-        # Pillow's positive angle is counter-clockwise; this contract defines
-        # positive deskew as clockwise correction, so pass the negative angle.
-        deskewed = cropped.rotate(
-            -profile.deskew_degrees,
-            resample=Image.Resampling.BICUBIC,
-            expand=True,
-            fillcolor=(255, 255, 255),
-        )
-        deskew_parameters, deskew_operation = {
-            "degrees_clockwise": profile.deskew_degrees,
-            "resampling": "bicubic",
-            "expand": True,
-            "fill_rgb": [255, 255, 255],
-        }, "deskew"
+    deskewed, deskew_parameters, deskew_operation = _apply_rigid_deskew(cropped, profile.deskew_degrees)
     transforms["deskew"] = _ledger_entry(
         deskew_operation, deskew_parameters, deskew_before, (deskewed.width, deskewed.height)
     )

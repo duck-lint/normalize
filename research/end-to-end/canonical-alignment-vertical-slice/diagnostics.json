@@ -1,0 +1,20 @@
+{
+  "schema": "canonical-alignment-review-diagnostics-v1",
+  "source": "generated from results.json and paired provenance sidecars",
+  "summary": {
+    "page_scoped_ambiguous_alignment_paths": 6,
+    "canonical_unmatched_tokens_by_page": {"26": 6, "27": 28, "40": 2, "41": 3, "52": 11, "53": 14},
+    "ocr_unmatched_anchors_by_page": {"26": 3, "27": 19, "40": 6, "41": 13, "52": 19, "53": 21},
+    "canonical_geometry_order_conflicts": 19,
+    "malformed_geometry_anchors": {"27": ["token-0121", "token-0122", "token-0192", "token-0193"], "53": ["token-0094"]},
+    "explicit_source_ranges_outside_selected_page_spans": 6
+  },
+  "interpretation": [
+    "Unmatched canonical indices are retained in generated text; they are not deletion instructions.",
+    "Unmatched OCR anchors remain in sidecars and never supply Markdown wording.",
+    "Sequence-level optimal-path ties are reported, but no individual link is marked ambiguous without localized evidence.",
+    "Geometry order conflicts block indentation/gap boundary inference for that transition and remain reviewable.",
+    "The two 3x2 page-27 boxes for insufficient and foundation are malformed spatial observations but still match the exact canonical words; they do not cause lexical loss.",
+    "The math-block continuity after =0 has no existing diagnostic that points to the paragraph relationship and is recorded as silent in defects.json."
+  ]
+}

@@ -1,0 +1,1888 @@
+{
+  "schema": "canonical-alignment-vertical-slice-v1",
+  "page_order": [
+    26,
+    27,
+    40,
+    41,
+    52,
+    53
+  ],
+  "sources": {
+    "fixtures/einstein/pdf10_pp26-27.raw.md": {
+      "source_sha256": "309a803d555113f1fce0146f9ae08ae7fd53e0a9e83ff4309f1763a501ba93b3",
+      "pages": [
+        "26",
+        "27"
+      ],
+      "paired_markdown": "research/end-to-end/canonical-alignment-vertical-slice/per-page/26-27.md",
+      "canonical_tokens": 470,
+      "emitted_tokens": 470,
+      "lexical_order_preserved": true,
+      "blocks": {
+        "heading": 1,
+        "paragraph": 2
+      },
+      "alignment": [
+        {
+          "page_id": "26",
+          "canonical_tokens": 196,
+          "matched_tokens": 190,
+          "matched_anchors": 185,
+          "unmatched_canonical": 6,
+          "unmatched_ocr": 3,
+          "ambiguous_links": 0
+        },
+        {
+          "page_id": "27",
+          "canonical_tokens": 274,
+          "matched_tokens": 246,
+          "matched_anchors": 244,
+          "unmatched_canonical": 28,
+          "unmatched_ocr": 19,
+          "ambiguous_links": 0
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 1149,
+          "end": 1201,
+          "source_id": "fixtures/einstein/pdf10_pp26-27.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 2919,
+          "end": 2921,
+          "source_id": "fixtures/einstein/pdf10_pp26-27.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            128,
+            129,
+            130,
+            131,
+            132,
+            137
+          ],
+          "page_id": "26"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0143",
+            "token-0149",
+            "token-0214"
+          ],
+          "page_id": "26"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "26"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            25,
+            28,
+            29,
+            30,
+            79,
+            96,
+            97,
+            98,
+            99,
+            100,
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110,
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118
+          ],
+          "page_id": "27"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0005",
+            "token-0006",
+            "token-0007",
+            "token-0008",
+            "token-0009",
+            "token-0010",
+            "token-0011",
+            "token-0043",
+            "token-0046",
+            "token-0047",
+            "token-0099",
+            "token-0101",
+            "token-0122",
+            "token-0124",
+            "token-0125",
+            "token-0126",
+            "token-0127",
+            "token-0128",
+            "token-0304"
+          ],
+          "page_id": "27"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "27"
+        },
+        {
+          "code": "malformed_geometry_anchor",
+          "page_id": "27",
+          "anchor_ids": [
+            "token-0121",
+            "token-0122",
+            "token-0192",
+            "token-0193"
+          ]
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "26",
+          "previous_line_id": "line-0017",
+          "line_id": "line-0016",
+          "previous_top_px": 570,
+          "top_px": 544,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "26",
+          "previous_line_id": "line-0018",
+          "line_id": "line-0017",
+          "previous_top_px": 597,
+          "top_px": 570,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "page_boundary_review",
+          "page_id": "26",
+          "note": "paragraph continuation is decided from geometry; page boundary alone is not structural evidence"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "27",
+          "previous_line_id": "line-0005",
+          "line_id": "line-0004",
+          "previous_top_px": 120,
+          "top_px": 116,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "27",
+          "previous_line_id": "line-0005",
+          "line_id": "line-0004",
+          "previous_top_px": 120,
+          "top_px": 116,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "27",
+          "previous_line_id": "line-0006",
+          "line_id": "line-0005",
+          "previous_top_px": 139,
+          "top_px": 120,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "27",
+          "previous_line_id": "line-0011",
+          "line_id": "line-0010",
+          "previous_top_px": 286,
+          "top_px": 258,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "27",
+          "previous_line_id": "line-0027",
+          "line_id": "line-0029",
+          "previous_top_px": 628,
+          "top_px": 623,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        }
+      ]
+    },
+    "fixtures/einstein/pdf17_pp40-41.raw.md": {
+      "source_sha256": "24adf25c5dc327634142473f8d9cb78365e4cbec18d77e8b6a8759ac05506c49",
+      "pages": [
+        "40",
+        "41"
+      ],
+      "paired_markdown": "research/end-to-end/canonical-alignment-vertical-slice/per-page/40-41.md",
+      "canonical_tokens": 428,
+      "emitted_tokens": 428,
+      "lexical_order_preserved": true,
+      "blocks": {
+        "heading": 1,
+        "paragraph": 4,
+        "figure": 1
+      },
+      "alignment": [
+        {
+          "page_id": "40",
+          "canonical_tokens": 134,
+          "matched_tokens": 132,
+          "matched_anchors": 132,
+          "unmatched_canonical": 2,
+          "unmatched_ocr": 6,
+          "ambiguous_links": 0
+        },
+        {
+          "page_id": "41",
+          "canonical_tokens": 294,
+          "matched_tokens": 291,
+          "matched_anchors": 291,
+          "unmatched_canonical": 3,
+          "unmatched_ocr": 13,
+          "ambiguous_links": 0
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 798,
+          "end": 850,
+          "source_id": "fixtures/einstein/pdf17_pp40-41.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 2492,
+          "end": 2494,
+          "source_id": "fixtures/einstein/pdf17_pp40-41.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            0,
+            40
+          ],
+          "page_id": "40"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0085",
+            "token-0086",
+            "token-0087",
+            "token-0091",
+            "token-0092",
+            "token-0159"
+          ],
+          "page_id": "40"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "40"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            3,
+            84,
+            113
+          ],
+          "page_id": "41"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0005",
+            "token-0006",
+            "token-0007",
+            "token-0008",
+            "token-0009",
+            "token-0010",
+            "token-0011",
+            "token-0017",
+            "token-0110",
+            "token-0142",
+            "token-0143",
+            "token-0226",
+            "token-0345"
+          ],
+          "page_id": "41"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "41"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "40",
+          "previous_line_id": "line-0005",
+          "line_id": "line-0004",
+          "previous_top_px": 279,
+          "top_px": 251,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "page_boundary_review",
+          "page_id": "40",
+          "note": "paragraph continuation is decided from geometry; page boundary alone is not structural evidence"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "41",
+          "previous_line_id": "line-0003",
+          "line_id": "line-0002",
+          "previous_top_px": 86,
+          "top_px": 54,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "41",
+          "previous_line_id": "line-0011",
+          "line_id": "line-0010",
+          "previous_top_px": 338,
+          "top_px": 314,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        }
+      ]
+    },
+    "fixtures/einstein/pdf23_pp52-53.raw.md": {
+      "source_sha256": "bdf78e075c132d36504cb2df9160df58f41618b0bbdc05b4894de360a7583667",
+      "pages": [
+        "52",
+        "53"
+      ],
+      "paired_markdown": "research/end-to-end/canonical-alignment-vertical-slice/per-page/52-53.md",
+      "canonical_tokens": 354,
+      "emitted_tokens": 354,
+      "lexical_order_preserved": true,
+      "blocks": {
+        "heading": 1,
+        "paragraph": 9,
+        "display_math": 1
+      },
+      "alignment": [
+        {
+          "page_id": "52",
+          "canonical_tokens": 132,
+          "matched_tokens": 121,
+          "matched_anchors": 125,
+          "unmatched_canonical": 11,
+          "unmatched_ocr": 19,
+          "ambiguous_links": 0
+        },
+        {
+          "page_id": "53",
+          "canonical_tokens": 222,
+          "matched_tokens": 208,
+          "matched_anchors": 209,
+          "unmatched_canonical": 14,
+          "unmatched_ocr": 21,
+          "ambiguous_links": 0
+        }
+      ],
+      "diagnostics": [
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 686,
+          "end": 690,
+          "source_id": "fixtures/einstein/pdf23_pp52-53.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "canonical_source_range_outside_selected_pages",
+          "start": 1934,
+          "end": 1936,
+          "source_id": "fixtures/einstein/pdf23_pp52-53.raw.md",
+          "note": "caller-selected page spans omit this source range; classify it explicitly as fixture mapping or review evidence"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            0,
+            29,
+            44,
+            88,
+            112,
+            120,
+            121,
+            122,
+            123,
+            124,
+            125
+          ],
+          "page_id": "52"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0037",
+            "token-0055",
+            "token-0138",
+            "token-0140",
+            "token-0142",
+            "token-0143",
+            "token-0144",
+            "token-0145",
+            "token-0146",
+            "token-0147",
+            "token-0148",
+            "token-0149",
+            "token-0151",
+            "token-0153",
+            "token-0155",
+            "token-0156",
+            "token-0157",
+            "token-0158",
+            "token-0167"
+          ],
+          "page_id": "52"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "52"
+        },
+        {
+          "code": "unmatched_canonical_material",
+          "token_indices": [
+            0,
+            1,
+            36,
+            72,
+            121,
+            137,
+            141,
+            142,
+            143,
+            144,
+            145,
+            146,
+            147,
+            184
+          ],
+          "page_id": "53"
+        },
+        {
+          "code": "unmatched_ocr_anchors",
+          "anchor_ids": [
+            "token-0005",
+            "token-0006",
+            "token-0007",
+            "token-0008",
+            "token-0009",
+            "token-0010",
+            "token-0011",
+            "token-0013",
+            "token-0015",
+            "token-0017",
+            "token-0057",
+            "token-0058",
+            "token-0102",
+            "token-0103",
+            "token-0104",
+            "token-0105",
+            "token-0176",
+            "token-0223",
+            "token-0224",
+            "token-0225",
+            "token-0271"
+          ],
+          "page_id": "53"
+        },
+        {
+          "code": "ambiguous_alignment_path",
+          "optimal_path_count_lower_bound": 2,
+          "scope": "sequence; individual links are not localized as ambiguous",
+          "page_id": "53"
+        },
+        {
+          "code": "malformed_geometry_anchor",
+          "page_id": "53",
+          "anchor_ids": [
+            "token-0094"
+          ]
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "52",
+          "physical_line_id": "line-0003",
+          "canonical_start": 169,
+          "canonical_end": 172,
+          "canonical_text": "x'=",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "52",
+          "physical_line_id": "line-0005",
+          "canonical_start": 244,
+          "canonical_end": 247,
+          "canonical_text": "x'=",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "52",
+          "physical_line_id": "line-0011",
+          "canonical_start": 583,
+          "canonical_end": 594,
+          "canonical_text": "= (0 can be",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "52",
+          "previous_line_id": "line-0004",
+          "line_id": "line-0003",
+          "previous_top_px": 263,
+          "top_px": 234,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "52",
+          "previous_line_id": "line-0006",
+          "line_id": "line-0005",
+          "previous_top_px": 319,
+          "top_px": 292,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "52",
+          "previous_line_id": "line-0009",
+          "line_id": "line-0008",
+          "previous_top_px": 405,
+          "top_px": 377,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "52",
+          "previous_line_id": "line-0011",
+          "line_id": "line-0010",
+          "previous_top_px": 462,
+          "top_px": 434,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "page_boundary_review",
+          "page_id": "52",
+          "note": "paragraph continuation is decided from geometry; page boundary alone is not structural evidence"
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "53",
+          "physical_line_id": "line-0006",
+          "canonical_start": 817,
+          "canonical_end": 885,
+          "canonical_text": "moving in the direction of its length with a velocity v is\r\n√1-v2/c2",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "53",
+          "physical_line_id": "line-0010",
+          "canonical_start": 1011,
+          "canonical_end": 1068,
+          "canonical_text": "is the rod. For the velocity v = cwe should have,\r\n√1-2/2",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "possible_display_math_not_isolated",
+          "page_id": "53",
+          "physical_line_id": "line-0026",
+          "canonical_start": 1694,
+          "canonical_end": 1713,
+          "canonical_text": "have been\r\n22/24-1√",
+          "note": "formula-like canonical material lacks the centered, narrow geometry used for display-math classification"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "53",
+          "previous_line_id": "line-0005",
+          "line_id": "line-0004",
+          "previous_top_px": 160,
+          "top_px": 132,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "53",
+          "previous_line_id": "line-0015",
+          "line_id": "line-0014",
+          "previous_top_px": 422,
+          "top_px": 418,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "53",
+          "previous_line_id": "line-0016",
+          "line_id": "line-0012",
+          "previous_top_px": 422,
+          "top_px": 417,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "53",
+          "previous_line_id": "line-0020",
+          "line_id": "line-0019",
+          "previous_top_px": 531,
+          "top_px": 496,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        },
+        {
+          "code": "canonical_geometry_order_conflict",
+          "page_id": "53",
+          "previous_line_id": "line-0022",
+          "line_id": "line-0021",
+          "previous_top_px": 581,
+          "top_px": 559,
+          "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"
+        }
+      ]
+    }
+  },
+  "page_acquisition": {
+    "26": {
+      "source_jpg": "fixtures/einstein/spineless/pg.26.jpg",
+      "source_jpg_sha256": "b4b2d113fcbc7dab2413d2be59dd36ac421c93d6117a6c37376b1ab591f5bd4c",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        146,
+        468,
+        1255,
+        2160
+      ],
+      "decoded_crop_rgb_sha256": "4111a3ed4f2fb8de76f2afea9a67e0e563b133de9bbd32a92a979353056cd2a5",
+      "fixed_angle_degrees": 0.48000000000000176,
+      "fixed_transform": {
+        "angle_degrees": 0.48000000000000176,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          540,
+          817
+        ],
+        "final_rgb_sha256": "1c3f6199d48158c5171b01b3ae37eacfe9351488767eee5b76985e3343878284"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "34fa7577a473fe13a59597f411c639131ec98de85635b9a77dfccf9768e7d12a",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 188,
+        "physical_line_count": 24,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 75.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 29.5,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 39
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": 4
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 74
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": 3
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": -4
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": -1
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": -18
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": -1
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": 5
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": 5
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": 3
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 3
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": -3
+            },
+            {
+              "line_id": "line-0022",
+              "next_line_id": "line-0023",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0023",
+              "next_line_id": "line-0024",
+              "signed_vertical_gap_px": 23
+            }
+          ]
+        }
+      }
+    },
+    "27": {
+      "source_jpg": "fixtures/einstein/spineless/pg.27.jpg",
+      "source_jpg_sha256": "d2ca32d3924df8f2e41db6f0d12bf387bb127aed405b9aead7759a297018b490",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        204,
+        86,
+        1354,
+        2115
+      ],
+      "decoded_crop_rgb_sha256": "b3069b10901570b49d1cfd1f7400a7277350b2a2ecb5e5e8f9e58bbdfa34cf68",
+      "fixed_angle_degrees": -0.9199999999999995,
+      "fixed_transform": {
+        "angle_degrees": -0.9199999999999995,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          568,
+          984
+        ],
+        "final_rgb_sha256": "fecc2312082cedb00d08b06bdafa3faa87f95206e9f8680f2145e52a1a525cd5"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "7476f7796365785f4aaf10087bfd3648fd39c258242016b30148eec26793598c",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 263,
+        "physical_line_count": 40,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 78.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 22.0,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 29
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": 11
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": -13
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": 12
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": 1
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": -3
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": -4
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": -1
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": -25
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": -41
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": -19
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": 37
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0022",
+              "next_line_id": "line-0023",
+              "signed_vertical_gap_px": 9
+            },
+            {
+              "line_id": "line-0023",
+              "next_line_id": "line-0024",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0024",
+              "next_line_id": "line-0025",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0025",
+              "next_line_id": "line-0026",
+              "signed_vertical_gap_px": 11
+            },
+            {
+              "line_id": "line-0026",
+              "next_line_id": "line-0027",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0027",
+              "next_line_id": "line-0028",
+              "signed_vertical_gap_px": -7
+            },
+            {
+              "line_id": "line-0028",
+              "next_line_id": "line-0029",
+              "signed_vertical_gap_px": -31
+            },
+            {
+              "line_id": "line-0029",
+              "next_line_id": "line-0030",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0030",
+              "next_line_id": "line-0031",
+              "signed_vertical_gap_px": 0
+            },
+            {
+              "line_id": "line-0031",
+              "next_line_id": "line-0032",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0032",
+              "next_line_id": "line-0033",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0033",
+              "next_line_id": "line-0034",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0034",
+              "next_line_id": "line-0035",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0035",
+              "next_line_id": "line-0036",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0036",
+              "next_line_id": "line-0037",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0037",
+              "next_line_id": "line-0038",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0038",
+              "next_line_id": "line-0039",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0039",
+              "next_line_id": "line-0040",
+              "signed_vertical_gap_px": 31
+            }
+          ]
+        }
+      }
+    },
+    "40": {
+      "source_jpg": "fixtures/einstein/spineless/pg.40.jpg",
+      "source_jpg_sha256": "0d25da3c0b35e5c0574d23248318481dec55ea6e7e721db7b194a67b04a769f1",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        134,
+        557,
+        1245,
+        2169
+      ],
+      "decoded_crop_rgb_sha256": "a2ce2d553355de0f70161171fe94c2c58fa4345826236c5177bcce315c01b8d5",
+      "fixed_angle_degrees": 0.9000000000000021,
+      "fixed_transform": {
+        "angle_degrees": 0.9000000000000021,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          546,
+          782
+        ],
+        "final_rgb_sha256": "5cd4cc32fb4cb1df38c1f786514b5c95f86f68a39247dbd6a984df7e662534bc"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "8eafd02139c055647feca436e23b88dd3c787b48cbb330733cc3e77f4faf8811",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 138,
+        "physical_line_count": 22,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 77.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 22.0,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 78
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": 11
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": -18
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 49
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": -8
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": -9
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": -10
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": 15
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": 27
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": 31
+            }
+          ]
+        }
+      }
+    },
+    "41": {
+      "source_jpg": "fixtures/einstein/spineless/pg.41.jpg",
+      "source_jpg_sha256": "e80da7cc823ef53e6cb720a3d8d3c6d440dbcdf018dedb9c0e052de6d29d5176",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        213,
+        145,
+        1337,
+        2190
+      ],
+      "decoded_crop_rgb_sha256": "023815f168450e105395ad799fb708fc46d0f6cf6ec3b6523cdbcdf78a41f154",
+      "fixed_angle_degrees": -0.7999999999999994,
+      "fixed_transform": {
+        "angle_degrees": -0.7999999999999994,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          554,
+          989
+        ],
+        "final_rgb_sha256": "2e49147b6a7edbc8825eb039e73a27ee8189733acd6d060f647c91c32580f9a6"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "5670fe42a4cca270f4e2902ab377fb0df012c721ab06e8aab2e7bab54d7fd5ae",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 304,
+        "physical_line_count": 32,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 68.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 22.0,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 25
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": 34
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": -2
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0022",
+              "next_line_id": "line-0023",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0023",
+              "next_line_id": "line-0024",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0024",
+              "next_line_id": "line-0025",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0025",
+              "next_line_id": "line-0026",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0026",
+              "next_line_id": "line-0027",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0027",
+              "next_line_id": "line-0028",
+              "signed_vertical_gap_px": 12
+            },
+            {
+              "line_id": "line-0028",
+              "next_line_id": "line-0029",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0029",
+              "next_line_id": "line-0030",
+              "signed_vertical_gap_px": 3
+            },
+            {
+              "line_id": "line-0030",
+              "next_line_id": "line-0031",
+              "signed_vertical_gap_px": 1
+            },
+            {
+              "line_id": "line-0031",
+              "next_line_id": "line-0032",
+              "signed_vertical_gap_px": 30
+            }
+          ]
+        }
+      }
+    },
+    "52": {
+      "source_jpg": "fixtures/einstein/spineless/pg.52.jpg",
+      "source_jpg_sha256": "f3af85dce13de9101466ddb914900b51c9b142397b0c608192dbebb4c223f914",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        173,
+        473,
+        1279,
+        2166
+      ],
+      "decoded_crop_rgb_sha256": "8cfa53cf0e99ae832e3fc5eebcfe06adb6e8581126535efc81451be526ccc5c2",
+      "fixed_angle_degrees": 0.740000000000002,
+      "fixed_transform": {
+        "angle_degrees": 0.740000000000002,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          541,
+          820
+        ],
+        "final_rgb_sha256": "6aee5ad09717e01f260181c953d0312e12e130600bbd5a24c14638b7ac69be11"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "74d475bccbf9c17ebaf41c007088145fc5069a3a3e7e674d0b50346540fc6bc4",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 144,
+        "physical_line_count": 22,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 55.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 22.0,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 5
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": 85
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 12
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": 29
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": 0
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": -4
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": -21
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": -29
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": 47
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": 1
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": -17
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 29
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": 59
+            }
+          ]
+        }
+      }
+    },
+    "53": {
+      "source_jpg": "fixtures/einstein/spineless/pg.53.jpg",
+      "source_jpg_sha256": "7847e79c14f6497eb50ab70af241543a97b00af11176e99cbb431e82141dc565",
+      "source_dimensions": [
+        2550,
+        3300
+      ],
+      "rectangle_xyxy_half_open": [
+        177,
+        159,
+        1285,
+        2187
+      ],
+      "decoded_crop_rgb_sha256": "eff3dd9d188bb869ed9a1813eec5a34acea6dde474692f76b21c83820fd983af",
+      "fixed_angle_degrees": -0.379999999999999,
+      "fixed_transform": {
+        "angle_degrees": -0.379999999999999,
+        "rotation": "Pillow-compatible bicubic rigid rotation; expand=True; white fill",
+        "downsample": "LANCZOS",
+        "scale": "144/300",
+        "dimension_rounding": "half-up",
+        "final_dimensions": [
+          539,
+          977
+        ],
+        "final_rgb_sha256": "9d433fcc494ca9f904d861753fcfec5ab5d331642eb63ea0b43eb16815c872c7"
+      },
+      "tesseract_version": "5.3.4",
+      "language": "eng",
+      "config": "--psm 6",
+      "raw_tsv_sha256": "2c16313c2e14ef39088ee04e34e11373fed5bc5d6d7eb4556d440f6803dfbb9e",
+      "prior_exact_source_capture_match": {
+        "admitted_token_count": true,
+        "physical_line_count": true,
+        "ambiguous_count": true,
+        "unassigned_count": true,
+        "final_raster_hash": true,
+        "tsv_hash": true
+      },
+      "production_geometry_summary": {
+        "admitted_token_count": 230,
+        "physical_line_count": 32,
+        "ambiguous_count": 0,
+        "unassigned_count": 0,
+        "row_error_count": 0,
+        "measurements": {
+          "token_height_median_px": 16.0,
+          "tolerance_formula": "max(1, floor(token_height_median_px / 4 + 0.5))",
+          "tolerance_px": 4,
+          "horizontal_gap_formula": "2 * median(token_width_px); region extent is cumulative from observed token boxes",
+          "horizontal_gap_limit_px": 68.0,
+          "baseline_slope_formula": "bounded coordinate cohesion search from -0.100 to 0.100 px/px in 0.001 px/px steps; nonzero candidates require >=2 multi-token continuous bands and improved cohesion",
+          "baseline_slope_px_per_px": 0.0,
+          "line_height_median_px": 22.0,
+          "line_gaps": [
+            {
+              "line_id": "line-0001",
+              "next_line_id": "line-0002",
+              "signed_vertical_gap_px": 26
+            },
+            {
+              "line_id": "line-0002",
+              "next_line_id": "line-0003",
+              "signed_vertical_gap_px": -34
+            },
+            {
+              "line_id": "line-0003",
+              "next_line_id": "line-0004",
+              "signed_vertical_gap_px": 21
+            },
+            {
+              "line_id": "line-0004",
+              "next_line_id": "line-0005",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0005",
+              "next_line_id": "line-0006",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0006",
+              "next_line_id": "line-0007",
+              "signed_vertical_gap_px": 10
+            },
+            {
+              "line_id": "line-0007",
+              "next_line_id": "line-0008",
+              "signed_vertical_gap_px": 14
+            },
+            {
+              "line_id": "line-0008",
+              "next_line_id": "line-0009",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0009",
+              "next_line_id": "line-0010",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0010",
+              "next_line_id": "line-0011",
+              "signed_vertical_gap_px": 21
+            },
+            {
+              "line_id": "line-0011",
+              "next_line_id": "line-0012",
+              "signed_vertical_gap_px": 18
+            },
+            {
+              "line_id": "line-0012",
+              "next_line_id": "line-0013",
+              "signed_vertical_gap_px": -16
+            },
+            {
+              "line_id": "line-0013",
+              "next_line_id": "line-0014",
+              "signed_vertical_gap_px": -16
+            },
+            {
+              "line_id": "line-0014",
+              "next_line_id": "line-0015",
+              "signed_vertical_gap_px": -12
+            },
+            {
+              "line_id": "line-0015",
+              "next_line_id": "line-0016",
+              "signed_vertical_gap_px": -17
+            },
+            {
+              "line_id": "line-0016",
+              "next_line_id": "line-0017",
+              "signed_vertical_gap_px": 2
+            },
+            {
+              "line_id": "line-0017",
+              "next_line_id": "line-0018",
+              "signed_vertical_gap_px": -3
+            },
+            {
+              "line_id": "line-0018",
+              "next_line_id": "line-0019",
+              "signed_vertical_gap_px": -10
+            },
+            {
+              "line_id": "line-0019",
+              "next_line_id": "line-0020",
+              "signed_vertical_gap_px": -6
+            },
+            {
+              "line_id": "line-0020",
+              "next_line_id": "line-0021",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0021",
+              "next_line_id": "line-0022",
+              "signed_vertical_gap_px": 0
+            },
+            {
+              "line_id": "line-0022",
+              "next_line_id": "line-0023",
+              "signed_vertical_gap_px": 30
+            },
+            {
+              "line_id": "line-0023",
+              "next_line_id": "line-0024",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0024",
+              "next_line_id": "line-0025",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0025",
+              "next_line_id": "line-0026",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0026",
+              "next_line_id": "line-0027",
+              "signed_vertical_gap_px": 26
+            },
+            {
+              "line_id": "line-0027",
+              "next_line_id": "line-0028",
+              "signed_vertical_gap_px": 18
+            },
+            {
+              "line_id": "line-0028",
+              "next_line_id": "line-0029",
+              "signed_vertical_gap_px": 6
+            },
+            {
+              "line_id": "line-0029",
+              "next_line_id": "line-0030",
+              "signed_vertical_gap_px": 8
+            },
+            {
+              "line_id": "line-0030",
+              "next_line_id": "line-0031",
+              "signed_vertical_gap_px": 7
+            },
+            {
+              "line_id": "line-0031",
+              "next_line_id": "line-0032",
+              "signed_vertical_gap_px": 28
+            }
+          ]
+        }
+      }
+    }
+  },
+  "combined_markdown": "research/end-to-end/canonical-alignment-vertical-slice/generated.md",
+  "oracle_comparison_inputs": {
+    "relativity_pdf10_pp26-27": {
+      "normalized_reference": "fixtures/einstein/pdf10_pp26-27.normalized.md",
+      "expected_oracle": "fixtures/einstein/relativity_pdf10_pp26-27.expected.json",
+      "expected_sequence_count": 7,
+      "reference_loaded_after_generation": true,
+      "comparison_policy": "reference is structural evaluation material only; generated wording remains canonical raw text"
+    },
+    "relativity_pdf17_pp40-41": {
+      "normalized_reference": "fixtures/einstein/pdf17_pp40-41.normalized.md",
+      "expected_oracle": "fixtures/einstein/relativity_pdf17_pp40-41.expected.json",
+      "expected_sequence_count": 6,
+      "reference_loaded_after_generation": true,
+      "comparison_policy": "reference is structural evaluation material only; generated wording remains canonical raw text"
+    },
+    "relativity_pdf23_pp52-53": {
+      "normalized_reference": "fixtures/einstein/pdf23_pp52-53.normalized.md",
+      "expected_oracle": "fixtures/einstein/relativity_pdf23_pp52-53.expected.json",
+      "expected_sequence_count": 15,
+      "reference_loaded_after_generation": true,
+      "comparison_policy": "reference is structural evaluation material only; generated wording remains canonical raw text"
+    }
+  }
+}
