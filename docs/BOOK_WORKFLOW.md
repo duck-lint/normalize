@@ -59,13 +59,17 @@ an external raw-text path and may declare manually supplied page spans. It is
 not the recommended contract for a new scanned book. V1 records are not
 silently reinterpreted or rewritten.
 
-## BookProfile v1
+## BookProfile contracts
 
-`book-profile-v1` describes physical calibration only: source DPI, page IDs,
-content bounds, orientation, deskew, and measurement provenance. It is bound
-to the physical manifest identity. It does not depend on OCR wording, transcript
-identity, or external text hashes. A profile can be drafted and frozen from a
-v2 manifest with no lexical source.
+`book-manifest-v1` pairs with `book-profile-v1`. That legacy controlled
+workflow preserves the historical `manifest_sha256` binding, including its
+external text identity.
+
+`book-manifest-v2` pairs with `book-profile-v2`. Its explicit
+`physical_manifest_sha256` binds calibration to physical source identity only.
+It does not depend on OCR wording, transcript identity, or external text
+hashes. A v2 profile can be drafted and frozen with no lexical source. The two
+profile versions are validated only with their matching manifest versions.
 
 Profile bounds use source-image pixels before orientation. The profile cannot
 override OCR settings, alignment costs, structural thresholds, or other engine
@@ -80,12 +84,22 @@ repeated to construct text evidence. Observations retain page ID, source image
 hash, observer identity, token IDs/text/confidence/anchors, and factual
 diagnostics. Failed pages remain present with failed, empty observations.
 
-`single-observer-transcript-v1` projects each page's observed tokens in the
-existing Tesseract row order. It preserves page boundaries and creates ordered
-page transcript ranges automatically. This is a lexical sequence only; it
-does not introduce paragraph, heading, or other document structure. Current
-confidence and malformed-observation diagnostics are carried into review.
-Tesseract confidence is observer evidence, not a correctness score.
+`single-observer-transcript-v1` is the scan-derived transcription baseline. It
+projects each page's observed word rows in Tesseract TSV row order, including
+word rows whose spatial geometry was rejected. It preserves page boundaries
+and creates ordered page and token ranges automatically. This is a lexical
+sequence only; it does not introduce paragraph, heading, or other document
+structure. Confidence and malformed-observation diagnostics are carried into
+review. Tesseract confidence is observer evidence, not a correctness score.
+
+This transcript is not independent verification of wording. Its lexical
+tokens and spatial anchors come from the same recognizer, so successful
+alignment to those anchors establishes spatial association and structure only;
+it does not confirm lexical correctness. Additional observers or an external
+text source may support future lexical reconciliation without changing
+BookManifest or BookProfile identity. In this release, external lexical text
+is wired through the legacy v1 controlled path; attaching it to a v2 run is
+not yet supported.
 
 Legacy v1 manifests with complete contiguous spans can still use their
 independent text as explicit external lexical evidence. The low-level

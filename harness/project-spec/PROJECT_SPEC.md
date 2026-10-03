@@ -28,6 +28,13 @@ That experiment is historical evidence, not the production input contract.
 Production accepts scan-only books and records OCR as lexical evidence in a
 derived `LexicalTranscript`; external text remains optional.
 
+The current `single-observer-transcript-v1` is a scan-derived transcription
+baseline, not independent wording verification. Its transcript tokens and
+spatial anchors originate from the same observer. Alignment can associate
+wording with page geometry and support structural reconstruction, but cannot
+confirm that wording is correct. External text is currently wired through the
+legacy v1 controlled workflow; attaching it to a v2 run is future work.
+
 The first implementation milestone MUST test this thesis across multiple books before any full reconstruction pipeline is built.
 
 ---
