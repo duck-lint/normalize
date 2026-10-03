@@ -110,6 +110,15 @@ def _review_diagnostics(document_value: Mapping[str, Any], page_states: list[dic
                                 "reason": state.get("error"), "source_sha256": state.get("source_sha256")})
         diagnostics.extend({"page_id": page_id, **item} for item in state.get("geometry_diagnostics", []))
     diagnostics.extend(dict(item) for item in lexical_diagnostics)
+    for page_state, alignment in zip(page_states, document_value.get("alignments", [])):
+        lexical_tokens = alignment.get("lexical_tokens", []) if isinstance(alignment, dict) else []
+        for index in alignment.get("unmatched_lexical_indices", []) if isinstance(alignment, dict) else []:
+            token = lexical_tokens[index] if isinstance(index, int) and index < len(lexical_tokens) else {}
+            diagnostics.append({"code": "unmatched_lexical_token", "page_id": page_state["page_id"],
+                                "token_index": index, "token": token})
+        for anchor_id in alignment.get("unmatched_anchor_ids", []) if isinstance(alignment, dict) else []:
+            diagnostics.append({"code": "unmatched_geometry_anchor", "page_id": page_state["page_id"],
+                                "anchor_id": anchor_id})
     diagnostics.extend(dict(item) for item in document_value.get("diagnostics", []))
     unique: dict[str, dict[str, Any]] = {}
     for item in diagnostics:
@@ -139,6 +148,10 @@ def run_book(manifest: BookManifest, profile: BookProfile, output_dir: Path,
     validate_profile_for_manifest(profile, manifest, require_frozen=True)
     if sha256_file(manifest.path) != manifest.record_sha256:
         raise BookContractError("book manifest changed after it was loaded; reload it and validate the profile again")
+    if manifest.canonical_source is not None and (
+            manifest.canonical_source_sha256 is None
+            or sha256_file(manifest.canonical_source) != manifest.canonical_source_sha256):
+        raise BookContractError("canonical source changed after manifest validation; reload the v1 manifest and profile")
     if any(page.source_sha256 is None for page in manifest.pages):
         raise BookContractError("whole-book run requires source-validated page images")
 
@@ -315,7 +328,10 @@ def run_book(manifest: BookManifest, profile: BookProfile, output_dir: Path,
          "physical_sha256": manifest.physical_sha256, "record_sha256": manifest.record_sha256,
          "book_id": manifest.book_id, "page_order": [page.page_id for page in manifest.pages]},
         {"path": str(profile.path) if profile.path else None, "profile_id": profile.profile_id,
-         "revision": profile.revision, "state": profile.state, "sha256": profile.sha256},
+         "schema": profile.schema, "revision": profile.revision, "state": profile.state,
+         "manifest_sha256": profile.manifest_sha256,
+         "physical_manifest_sha256": profile.physical_manifest_sha256,
+         "sha256": profile.sha256},
         {"transcript_id": transcript_id, "method": transcript_method,
          "external_source": external_record,
          "observation_ids": [item.sha256 for item in observations]},

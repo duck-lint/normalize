@@ -14,7 +14,9 @@ from typing import Any, Mapping
 
 BOOK_MANIFEST_SCHEMA = "book-manifest-v1"
 BOOK_MANIFEST_V2_SCHEMA = "book-manifest-v2"
-BOOK_PROFILE_SCHEMA = "book-profile-v1"
+BOOK_PROFILE_V1_SCHEMA = "book-profile-v1"
+BOOK_PROFILE_V2_SCHEMA = "book-profile-v2"
+BOOK_PROFILE_SCHEMA = BOOK_PROFILE_V1_SCHEMA
 CALIBRATION_SOURCES = {"human", "measured", "detector", "imported"}
 
 
@@ -81,7 +83,7 @@ class BookProfile:
     profile_id: str
     revision: int
     book_id: str
-    manifest_sha256: str
+    manifest_sha256: str | None
     source_dpi: int
     source_dpi_source: str
     source_dpi_note: str
@@ -92,6 +94,8 @@ class BookProfile:
     frozen_at: str | None
     path: Path | None = None
     frozen_content_sha256: str | None = None
+    physical_manifest_sha256: str | None = None
+    schema: str = BOOK_PROFILE_V1_SCHEMA
 
     @property
     def page_calibrations(self) -> Mapping[str, PageCalibration]:
@@ -328,11 +332,22 @@ def _parse_calibration(record: Any, index: int) -> PageCalibration:
 def load_profile(path: Path) -> BookProfile:
     path = path.resolve()
     raw = _load_json(path, "book profile")
-    required = {"schema", "profile_id", "revision", "book_id", "manifest_sha256", "source_dpi",
-                "source_dpi_provenance", "state", "calibration_pages", "created_at", "frozen_at",
-                "frozen_content_sha256", "pages"}
-    if set(raw) != required or raw.get("schema") != BOOK_PROFILE_SCHEMA:
-        raise BookContractError(f"{path}: invalid BookProfile v1 shape/schema")
+    schema = raw.get("schema")
+    common_fields = {"schema", "profile_id", "revision", "book_id", "source_dpi",
+                     "source_dpi_provenance", "state", "calibration_pages", "created_at",
+                     "frozen_at", "frozen_content_sha256", "pages"}
+    if schema == BOOK_PROFILE_V1_SCHEMA:
+        required = common_fields | {"manifest_sha256"}
+        manifest_hash = raw.get("manifest_sha256")
+        physical_hash = None
+    elif schema == BOOK_PROFILE_V2_SCHEMA:
+        required = common_fields | {"physical_manifest_sha256"}
+        manifest_hash = None
+        physical_hash = raw.get("physical_manifest_sha256")
+    else:
+        raise BookContractError(f"{path}: schema must be {BOOK_PROFILE_V1_SCHEMA} or {BOOK_PROFILE_V2_SCHEMA}")
+    if set(raw) != required:
+        raise BookContractError(f"{path}: invalid {schema} shape")
     profile_id = raw["profile_id"]
     if not isinstance(profile_id, str) or not profile_id.strip():
         raise BookContractError("profile_id must be a non-empty string")
@@ -340,9 +355,10 @@ def load_profile(path: Path) -> BookProfile:
     book_id = raw["book_id"]
     if not isinstance(book_id, str) or not book_id:
         raise BookContractError("book_id must be a non-empty string")
-    manifest_hash = raw["manifest_sha256"]
-    if not isinstance(manifest_hash, str) or len(manifest_hash) != 64 or any(char not in "0123456789abcdef" for char in manifest_hash):
-        raise BookContractError("manifest_sha256 must be a SHA-256 digest")
+    identity_hash = manifest_hash if schema == BOOK_PROFILE_V1_SCHEMA else physical_hash
+    identity_field = "manifest_sha256" if schema == BOOK_PROFILE_V1_SCHEMA else "physical_manifest_sha256"
+    if not isinstance(identity_hash, str) or len(identity_hash) != 64 or any(char not in "0123456789abcdef" for char in identity_hash):
+        raise BookContractError(f"{identity_field} must be a SHA-256 digest")
     dpi = _positive_int(raw["source_dpi"], "source_dpi")
     dpi_provenance = raw["source_dpi_provenance"]
     if not isinstance(dpi_provenance, dict) or set(dpi_provenance) != {"source", "note"}:
@@ -374,7 +390,8 @@ def load_profile(path: Path) -> BookProfile:
         raise BookContractError("calibration_pages contains duplicate page IDs")
     frozen_digest = raw["frozen_content_sha256"]
     profile = BookProfile(profile_id, revision, book_id, manifest_hash, dpi, dpi_source, dpi_note,
-                          state, tuple(calibration_pages), pages, created_at, frozen_at, path, frozen_digest)
+                          state, tuple(calibration_pages), pages, created_at, frozen_at, path,
+                          frozen_digest, physical_hash, schema)
     if state == "frozen":
         if not isinstance(frozen_digest, str) or len(frozen_digest) != 64 or frozen_digest != _freeze_digest(profile):
             raise BookContractError("frozen profile integrity digest mismatch")
@@ -384,12 +401,11 @@ def load_profile(path: Path) -> BookProfile:
 
 
 def profile_record(profile: BookProfile) -> dict[str, Any]:
-    return {
-        "schema": BOOK_PROFILE_SCHEMA,
+    record = {
+        "schema": profile.schema,
         "profile_id": profile.profile_id,
         "revision": profile.revision,
         "book_id": profile.book_id,
-        "manifest_sha256": profile.manifest_sha256,
         "source_dpi": profile.source_dpi,
         "source_dpi_provenance": {"source": profile.source_dpi_source, "note": profile.source_dpi_note},
         "state": profile.state,
@@ -405,6 +421,13 @@ def profile_record(profile: BookProfile) -> dict[str, Any]:
             for page in profile.pages
         ],
     }
+    if profile.schema == BOOK_PROFILE_V1_SCHEMA:
+        record["manifest_sha256"] = profile.manifest_sha256
+    elif profile.schema == BOOK_PROFILE_V2_SCHEMA:
+        record["physical_manifest_sha256"] = profile.physical_manifest_sha256
+    else:
+        raise BookContractError(f"unsupported profile schema {profile.schema!r}")
+    return record
 
 
 def _freeze_digest(profile: BookProfile) -> str:
@@ -416,8 +439,18 @@ def _freeze_digest(profile: BookProfile) -> str:
 def validate_profile_for_manifest(profile: BookProfile, manifest: BookManifest, *, require_frozen: bool = False) -> None:
     if profile.book_id != manifest.book_id:
         raise BookContractError(f"profile.book_id {profile.book_id!r} does not match manifest.book_id {manifest.book_id!r}")
-    if profile.manifest_sha256 != manifest.physical_sha256:
-        raise BookContractError("profile.manifest_sha256 does not match the physical book identity")
+    if manifest.schema == BOOK_MANIFEST_SCHEMA:
+        if profile.schema != BOOK_PROFILE_V1_SCHEMA:
+            raise BookContractError("book-manifest-v1 requires book-profile-v1")
+        if profile.manifest_sha256 != manifest.sha256:
+            raise BookContractError("profile.manifest_sha256 does not match the loaded v1 manifest identity")
+    elif manifest.schema == BOOK_MANIFEST_V2_SCHEMA:
+        if profile.schema != BOOK_PROFILE_V2_SCHEMA:
+            raise BookContractError("book-manifest-v2 requires book-profile-v2")
+        if profile.physical_manifest_sha256 != manifest.physical_sha256:
+            raise BookContractError("profile.physical_manifest_sha256 does not match physical book identity")
+    else:
+        raise BookContractError(f"unsupported manifest schema {manifest.schema!r}")
     if profile.source_dpi != manifest.source_dpi:
         raise BookContractError("profile.source_dpi does not match manifest.source_dpi")
     manifest_ids = [page.page_id for page in manifest.pages]
@@ -451,12 +484,15 @@ def freeze_profile(profile: BookProfile, manifest: BookManifest) -> BookProfile:
     candidate = BookProfile(profile.profile_id, profile.revision, profile.book_id, profile.manifest_sha256,
                             profile.source_dpi, profile.source_dpi_source, profile.source_dpi_note,
                             "frozen", profile.calibration_pages, profile.pages,
-                            profile.created_at, datetime.now(UTC).isoformat(), profile.path)
+                            profile.created_at, datetime.now(UTC).isoformat(), profile.path,
+                            physical_manifest_sha256=profile.physical_manifest_sha256,
+                            schema=profile.schema)
     frozen = BookProfile(candidate.profile_id, candidate.revision, candidate.book_id,
                          candidate.manifest_sha256, candidate.source_dpi, candidate.source_dpi_source,
                          candidate.source_dpi_note, candidate.state, candidate.calibration_pages,
                          candidate.pages, candidate.created_at, candidate.frozen_at,
-                         candidate.path, _freeze_digest(candidate))
+                         candidate.path, _freeze_digest(candidate),
+                         candidate.physical_manifest_sha256, candidate.schema)
     validate_profile_for_manifest(frozen, manifest, require_frozen=True)
     return frozen
 
@@ -467,7 +503,9 @@ def revise_profile(profile: BookProfile, manifest: BookManifest) -> BookProfile:
     return BookProfile(profile.profile_id, profile.revision + 1, profile.book_id, profile.manifest_sha256,
                        profile.source_dpi, profile.source_dpi_source, profile.source_dpi_note,
                        "draft", profile.calibration_pages, profile.pages,
-                       datetime.now(UTC).isoformat(), None)
+                       datetime.now(UTC).isoformat(), None,
+                       physical_manifest_sha256=profile.physical_manifest_sha256,
+                       schema=profile.schema)
 
 
 def save_profile(profile: BookProfile, path: Path) -> None:
@@ -495,10 +533,16 @@ def draft_profile_from_record(record: Mapping[str, Any], manifest: BookManifest,
     if not isinstance(pages_value, list):
         raise BookContractError("calibration pages must be a list")
     pages = tuple(_parse_calibration(value, index) for index, value in enumerate(pages_value))
-    profile = BookProfile(profile_id, 1, manifest.book_id, manifest.physical_sha256, dpi,
-                          dpi_source, dpi_note, "draft",
-                          tuple(calibration_page_ids), pages,
-                          datetime.now(UTC).isoformat(), None)
+    if manifest.schema == BOOK_MANIFEST_SCHEMA:
+        profile = BookProfile(profile_id, 1, manifest.book_id, manifest.sha256, dpi,
+                              dpi_source, dpi_note, "draft", tuple(calibration_page_ids), pages,
+                              datetime.now(UTC).isoformat(), None, schema=BOOK_PROFILE_V1_SCHEMA)
+    else:
+        profile = BookProfile(profile_id, 1, manifest.book_id, None, dpi, dpi_source, dpi_note,
+                              "draft", tuple(calibration_page_ids), pages,
+                              datetime.now(UTC).isoformat(), None,
+                              physical_manifest_sha256=manifest.physical_sha256,
+                              schema=BOOK_PROFILE_V2_SCHEMA)
     validate_profile_for_manifest(profile, manifest)
     return profile
 
@@ -511,4 +555,6 @@ def revised_draft_from_record(record: Mapping[str, Any], manifest: BookManifest,
     return BookProfile(draft.profile_id, previous.revision + 1, draft.book_id,
                        draft.manifest_sha256, draft.source_dpi,
                        draft.source_dpi_source, draft.source_dpi_note, "draft",
-                       draft.calibration_pages, draft.pages, draft.created_at, None)
+                       draft.calibration_pages, draft.pages, draft.created_at, None,
+                       physical_manifest_sha256=draft.physical_manifest_sha256,
+                       schema=draft.schema)

@@ -9,6 +9,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import io
+import math
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -74,51 +75,74 @@ class LexicalTranscript:
 def observation_from_geometry(page_id: str, source_image_sha256: str,
                               geometry: Mapping[str, Any], observer: Mapping[str, Any],
                               *, raw_tsv: str | None = None) -> LexicalObservation:
-    """Project token observations from the same recognition pass as geometry."""
-    tokens = sorted((item for item in geometry.get("tokens", []) if isinstance(item, dict)),
-                    key=lambda item: (item.get("source_row", 0), item.get("token_id", "")))
+    """Project word rows independently, attaching geometry when admission succeeded.
+
+    The raw TSV is authoritative for what the observer reported. Geometry is a
+    second projection of that same TSV and may reject a word's spatial fields.
+    """
+    tokens = {item.get("source_row"): item for item in geometry.get("tokens", [])
+              if isinstance(item, dict) and isinstance(item.get("source_row"), int)}
+    geometry_errors = {item.get("source_row"): item for item in geometry.get("error_details", [])
+                       if isinstance(item, dict) and isinstance(item.get("source_row"), int)}
     observations: list[dict[str, Any]] = []
     diagnostics: list[dict[str, Any]] = []
-    for index, token in enumerate(tokens):
-        text = token.get("text")
-        confidence = token.get("confidence")
-        token_id = token.get("token_id") or f"{page_id}:observation:{index + 1}"
-        item = {"observation_id": token_id, "source_row": token.get("source_row"),
-                "text": text if isinstance(text, str) else "", "confidence": confidence,
-                "anchor_id": token.get("token_id"),
-                "physical_line_id": token.get("physical_line_id"),
-                "box": [token.get(key) for key in ("x", "y", "width", "height")]}
-        observations.append(item)
-        if not isinstance(text, str) or not text:
-            diagnostics.append({"code": "empty_observed_text", "observation_id": token_id})
-        if isinstance(confidence, (float, int)) and confidence < 50:
-            diagnostics.append({"code": "observer_confidence_below_50",
-                                "observation_id": token_id, "confidence": confidence})
-        if not isinstance(item["box"], list) or any(not isinstance(v, int) or v < 0 for v in item["box"]):
-            diagnostics.append({"code": "malformed_observation_geometry", "observation_id": token_id})
-        if not item["physical_line_id"]:
-            diagnostics.append({"code": "observation_without_physical_line", "observation_id": token_id})
-    raw_rows: dict[int, list[str]] = {}
     if raw_tsv is not None:
         reader = csv.reader(io.StringIO(raw_tsv), delimiter="\t")
         next(reader, None)
-        raw_rows = {index: row for index, row in enumerate(reader, start=1)}
-    for detail in geometry.get("error_details", []):
-        if isinstance(detail, dict):
-            source_row = detail.get("source_row")
-            row = raw_rows.get(source_row) if isinstance(source_row, int) else None
-            malformed = {"code": "malformed_observation", "observer_code": detail.get("code"),
-                         "observation_id": f"{page_id}:row-{source_row:04d}",
-                         "source_row": source_row, "reason": detail.get("reason")}
-            if row is not None:
-                malformed["raw_fields"] = row
-                malformed["observed_text"] = row[11] if len(row) > 11 else None
-            diagnostics.append(malformed)
+        rows = enumerate(reader, start=1)
+        lexical_rows = []
+        for source_row, row in rows:
+            if len(row) < 12 or row[11] == "":
+                continue
+            try:
+                is_word = int(row[0]) == 5
+            except (ValueError, IndexError):
+                is_word = False
+            if is_word:
+                lexical_rows.append((source_row, row))
+    else:
+        # Compatibility for callers with geometry only. Production always
+        # supplies the original TSV so rejected rows remain observable.
+        lexical_rows = [(source_row, ["", "", "", "", "", "", "", "", "", str(token.get("confidence", "")), str(token.get("text", ""))])
+                        for source_row, token in sorted(tokens.items())]
+
+    for source_row, row in lexical_rows:
+        token = tokens.get(source_row)
+        observed_text = row[11]
+        try:
+            confidence_value = float(row[10])
+            confidence = confidence_value if math.isfinite(confidence_value) else None
+        except (ValueError, OverflowError):
+            confidence = None
+        observation_id = (token.get("token_id") if token else None) or f"{page_id}:row-{source_row:04d}"
+        spatially_valid = token is not None
+        item = {"observation_id": observation_id, "source_row": source_row,
+                "text": observed_text, "confidence": confidence,
+                "spatial_status": "usable" if spatially_valid else "unusable",
+                "anchor_id": token.get("token_id") if token else None,
+                "physical_line_id": token.get("physical_line_id") if token else None,
+                "box": ([token.get(key) for key in ("x_px", "y_px", "width_px", "height_px")]
+                        if token else None)}
+        observations.append(item)
+        if isinstance(confidence, (float, int)) and confidence >= 0 and confidence < 50:
+            diagnostics.append({"code": "observer_confidence_below_50",
+                                "observation_id": observation_id, "confidence": confidence})
+        if not spatially_valid:
+            detail = geometry_errors.get(source_row, {})
+            diagnostics.append({"code": "malformed_spatial_observation",
+                "observation_id": observation_id, "source_row": source_row,
+                "observed_text": observed_text,
+                "confidence": confidence,
+                "reason": detail.get("reason", "geometry parser did not admit a spatial anchor"),
+                "observer_code": detail.get("code")})
+        elif not item["physical_line_id"]:
+            diagnostics.append({"code": "observation_without_physical_line", "observation_id": observation_id})
     if not observations:
         diagnostics.append({"code": "empty_ocr_page", "page_id": page_id})
-    status = "failed" if geometry.get("status") == "failure" else "observed"
+    # This function runs only after successful TSV acquisition. Geometry may
+    # fail to admit rows, but that does not mean lexical observation failed.
     return LexicalObservation(page_id, dict(observer), source_image_sha256,
-                              tuple(observations), tuple(diagnostics), status)
+                              tuple(observations), tuple(diagnostics), "observed")
 
 
 def failed_observation(page_id: str, source_image_sha256: str, error: str,
@@ -150,7 +174,9 @@ def transcript_from_observations(book_id: str, observations: Sequence[LexicalObs
             text = item.get("text")
             if not isinstance(text, str) or not text:
                 continue
-            start = page_start + sum(len(part) for part in page_text_parts) + max(0, len(page_text_parts) - 1)
+            # Each previously emitted token contributes one joining space
+            # before the current token.
+            start = page_start + sum(len(part) for part in page_text_parts) + len(page_text_parts)
             page_text_parts.append(text)
             end = start + len(text)
             page_token_records.append({"observation_id": item["observation_id"],

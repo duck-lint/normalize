@@ -99,6 +99,9 @@ def test_profile_freezes_with_measurement_provenance_and_requires_explicit_revis
     manifest, measurements = _make_book(tmp_path)
     draft = draft_profile_from_record(measurements, manifest, profile_id="synthetic-profile")
     frozen = freeze_profile(draft, manifest)
+    assert frozen.schema == "book-profile-v1"
+    assert frozen.manifest_sha256 == manifest.sha256
+    assert frozen.physical_manifest_sha256 is None
     assert frozen.state == "frozen"
     assert frozen.pages[0].source == "human"
     assert frozen.pages[0].content_bounds == (30, 30, 450, 330)
@@ -238,17 +241,17 @@ def test_changed_source_cannot_reuse_stale_page_geometry(tmp_path):
     assert "source image hash differs from manifest" in result["pages"][1]["error"]
 
 
-def test_external_text_change_does_not_change_physical_profile_identity(tmp_path):
+def test_v1_external_text_change_preserves_legacy_manifest_profile_binding(tmp_path):
     manifest, measurements = _make_book(tmp_path)
     profile = _frozen_profile(manifest, measurements)
-    first = run_book(manifest, profile, tmp_path / "first-run")
     original = manifest.canonical_source.read_text(encoding="utf-8")
     manifest.canonical_source.write_text("X" * len(original), encoding="utf-8")
-    validate_profile_for_manifest(profile, manifest, require_frozen=True)
-    second = run_book(manifest, profile, tmp_path / "second-run")
-    assert first["manifest"]["physical_sha256"] == second["manifest"]["physical_sha256"]
-    assert first["profile"]["sha256"] == second["profile"]["sha256"]
-    assert first["run_id"] != second["run_id"]
+    with pytest.raises(BookContractError, match="canonical source changed after manifest validation"):
+        run_book(manifest, profile, tmp_path / "second-run")
+    reloaded = load_manifest(manifest.path)
+    assert reloaded.sha256 != manifest.sha256
+    with pytest.raises(BookContractError, match="v1 manifest identity"):
+        validate_profile_for_manifest(profile, reloaded)
 
 
 def test_runner_records_page_failure_and_preserves_its_canonical_text(tmp_path, monkeypatch):
@@ -264,7 +267,7 @@ def test_runner_records_page_failure_and_preserves_its_canonical_text(tmp_path, 
     monkeypatch.setattr(BookEngine, "process_page", fail_second)
     output = tmp_path / "failed-run"
     result = run_book(manifest, profile, output, resume=False)
-    assert [row["status"] for row in result["pages"]] == ["needs_review", "failed"]
+    assert [row["status"] for row in result["pages"]] == ["succeeded", "failed"]
     assert result["status"] == "failed"
     markdown = (output / "normalized.md").read_text()
     assert "Beta page." in markdown
