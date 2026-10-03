@@ -8,6 +8,8 @@ import json
 import sys
 from pathlib import Path
 
+from PIL import Image
+
 from .bookrun import run_book
 from .calibration import (
     PROPOSED_FIELDS,
@@ -19,18 +21,21 @@ from .calibration import (
     save_calibration_proposal,
 )
 from .books import (
+    BOOK_MANIFEST_V2_SCHEMA,
     CALIBRATION_SOURCES,
     BookContractError,
     freeze_profile,
     load_manifest,
     load_profile,
     save_profile,
+    sha256_file,
     validate_profile_for_manifest,
 )
 from .environment import check_tesseract
 from .fixtures import FixtureCatalog, MetadataError
 from .geometry import run_geometry
 from .markdown import document_record, emit_markdown
+from .page_interior import PAGE_INTERIOR_METHOD, measure_page_interior
 from .reconstruction import PageSpan, reconstruct_document
 from .rendering import (
     FAILURE,
@@ -71,6 +76,14 @@ def _parser() -> argparse.ArgumentParser:
     validate_profile = calibration_commands.add_parser("validate", help="validate a profile against its manifest")
     validate_profile.add_argument("--manifest", type=Path, required=True)
     validate_profile.add_argument("--profile", type=Path, required=True)
+    measure = calibration_commands.add_parser(
+        "measure", help="experimentally measure physical page interiors and write proposal evidence"
+    )
+    measure.add_argument("--manifest", type=Path, required=True)
+    measure.add_argument("--page-id", action="append", dest="page_ids",
+                         help="measure this page (repeatable; default: all manifest pages)")
+    measure.add_argument("--output", "-o", type=Path, required=True,
+                         help="output path for calibration-proposal-v1")
     draft = calibration_commands.add_parser("draft", help="create an unresolved physical BookProfile v2 draft")
     draft.add_argument("--manifest", type=Path, required=True)
     draft.add_argument("--profile-id", required=True)
@@ -170,6 +183,104 @@ def _run(args: argparse.Namespace) -> int:
         print(json.dumps({"status": "valid", "profile_id": profile.profile_id,
                           "revision": profile.revision, "state": profile.state,
                           "profile_sha256": profile.sha256}, sort_keys=True))
+        return 0
+
+    if args.command == "calibrate" and args.calibration_command == "measure":
+        manifest = load_manifest(args.manifest)
+        if manifest.schema != BOOK_MANIFEST_V2_SCHEMA:
+            raise BookContractError("calibrate measure requires book-manifest-v2")
+
+        evidence_path = args.output.with_suffix(args.output.suffix + ".observations.json")
+        protected_inputs = {args.manifest.resolve(), *(page.image.resolve() for page in manifest.pages)}
+        if args.output.resolve() in protected_inputs or evidence_path.resolve() in protected_inputs:
+            raise BookContractError("calibration outputs must not overwrite the manifest or a source image")
+        if args.output.resolve() == evidence_path.resolve():
+            raise BookContractError("proposal and evidence outputs must be distinct")
+        # Refuse existing outputs so a no-candidate run cannot leave a stale
+        # proposal looking like the result of the current measurement.
+        if args.output.exists() or evidence_path.exists():
+            raise BookContractError("calibration output or evidence path already exists")
+
+        pages_by_id = {page.page_id: page for page in manifest.pages}
+        requested_ids = list(args.page_ids) if args.page_ids else list(pages_by_id)
+        if len(set(requested_ids)) != len(requested_ids):
+            raise BookContractError("--page-id contains a duplicate")
+        unknown_ids = sorted(set(requested_ids) - set(pages_by_id))
+        if unknown_ids:
+            raise BookContractError(f"unknown page IDs: {unknown_ids}")
+        selected_ids = [page.page_id for page in manifest.pages if page.page_id in set(requested_ids)]
+
+        observations = []
+        proposal_pages = []
+        for page_id in selected_ids:
+            page = pages_by_id[page_id]
+            if not page.image.is_file():
+                raise BookContractError(f"page {page_id}: image does not exist: {page.image}")
+            actual_hash = sha256_file(page.image)
+            if page.source_sha256 != actual_hash:
+                raise BookContractError(f"page {page_id}: source SHA-256 does not match manifest")
+            try:
+                with Image.open(page.image) as image:
+                    image.load()
+                    observation = measure_page_interior(image, page_id=page_id)
+                    source_dimensions = list(image.size)
+            except (OSError, ValueError) as exc:
+                raise BookContractError(f"page {page_id}: cannot measure source image: {exc}") from exc
+
+            evidence_row = {
+                **observation.record(page_id),
+                "source_sha256": actual_hash,
+                "source_dimensions_px": source_dimensions,
+            }
+            observations.append(evidence_row)
+            values = {}
+            # Bounds remain useful candidates even when the observation's
+            # method-specific status is partial. Acceptance remains a human act.
+            if observation.content_bounds is not None:
+                values["content_bounds"] = list(observation.content_bounds)
+            if observation.deskew_degrees_clockwise is not None:
+                values["deskew_degrees"] = observation.deskew_degrees_clockwise
+            if values:
+                proposal_pages.append({"page_id": page_id, "values": values})
+
+        evidence_record = {
+            "schema": "page-interior-measurements-v1",
+            "method": PAGE_INTERIOR_METHOD,
+            "physical_manifest_sha256": manifest.physical_sha256,
+            "observations": observations,
+        }
+        evidence_bytes = (
+            json.dumps(evidence_record, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
+        ).encode("utf-8")
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_bytes(evidence_bytes)
+
+        counts = {
+            "observed_pages": len(observations),
+            "proposal_pages": len(proposal_pages),
+            "pages_with_candidate_bounds": sum(row["content_bounds"] is not None for row in observations),
+            "pages_with_deskew_proposals": sum(row["deskew_degrees_clockwise"] is not None for row in observations),
+            "pages_without_generic_proposal_values": len(observations) - len(proposal_pages),
+        }
+        if not proposal_pages:
+            print(json.dumps({"status": "no_candidates", "evidence": str(evidence_path),
+                              "proposal": None, **counts}, sort_keys=True))
+            return 3
+
+        proposal = create_calibration_proposal(
+            manifest,
+            {
+                "source": "detector",
+                "method": PAGE_INTERIOR_METHOD,
+                "evidence_sha256": hashlib.sha256(evidence_bytes).hexdigest(),
+                "note": "Experimental pixel-only physical acquisition evidence; human review required.",
+            },
+            proposal_pages,
+        )
+        save_calibration_proposal(proposal, args.output)
+        print(json.dumps({"status": "proposal_created", "proposal_id": proposal.proposal_id,
+                          "evidence": str(evidence_path), "proposal": str(args.output),
+                          **counts}, sort_keys=True))
         return 0
 
     if args.command == "calibrate" and args.calibration_command == "draft":
