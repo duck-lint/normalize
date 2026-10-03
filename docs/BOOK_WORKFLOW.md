@@ -1,74 +1,103 @@
 # Whole-book workflow architecture
 
-Normalize separates fixed engine semantics from data describing a particular
-book, from orchestration state, and from review evidence.
+Normalize accepts physical scans as a first-class source. An independent,
+complete transcription can strengthen lexical evidence, but it is optional.
+
+> An external complete transcription is optional. Scan-only books are a
+> first-class production input.
+>
+> OCR is lexical evidence, not independent lexical authority.
 
 ```text
-BOOK SOURCE (ordered page images + canonical raw text)
-                    ↓
-              BookManifest
-                │       │
-                │       └── calibration measurements
-                │                    ↓
-                │               BookProfile
-                │                    ↓ freeze
-                └────────────────────┐
-                                     ↓
-                               GLOBAL ENGINE
-                                     ↓
-                                  BookRun
-                               /           \
-                              ↓             ↓
-                     normalized.md     ReviewReport
+BOOK SOURCE: ordered page images
+             ↓
+       BookManifest v2 ───── optional ExternalLexicalSource (v1 controlled input)
+             │                                  │
+             ├── calibration → BookProfile     │
+             ↓                                  │
+       page observation                        │
+        ├─ geometry / spatial evidence          │
+        └─ LexicalObservation                   │
+                    └──────────────┬────────────┘
+                                   ↓
+                          LexicalTranscript
+                                   │
+                     transcript + geometry
+                                   ↓
+                            reconstruction
+                                   ↓
+                                BookRun
+                              /         \
+                    normalized.md    ReviewReport
 ```
 
-> Per-book calibration is allowed to describe the book. It is not permission
-> to tune the engine until the book passes.
+## Authority layers
 
-## Global Engine
-
-The engine owns fixed preprocessing, OCR, geometry, canonical alignment,
-reconstruction, and Markdown semantics. The v1 book adapter applies calibrated
-source-pixel bounds, quarter-turn orientation, the established bicubic
-expanded white-fill rigid deskew, and the fixed 144-DPI LANCZOS sampling
-transform. It calls the shared raster preprocessing stage. It then uses the
-existing Tesseract `eng --psm 6` geometry observer and the existing downstream
-stages. Book identifiers and calibration provenance do not select algorithms.
-Engine configuration is identified in every run record; no profile field can
-override algorithmic thresholds or OCR settings.
+- Source pixels are authoritative for physical page content, geometry, layout,
+  and acquisition evidence.
+- Recognition systems report lexical observations from those pixels. OCR text
+  is evidence and retains the observer's wording, confidence, and provenance.
+- An independently obtained edition-matching text is optional stronger lexical
+  evidence. It remains identified as an external source.
+- `LexicalTranscript` is the working lexical input to reconstruction. A
+  scan-derived transcript is derived recognition output, can be uncertain, and
+  is never called canonical merely because no other text exists.
+- Markdown is derived from the transcript, spatial evidence, and structural
+  inference. Explicit human corrections belong in a separate future review
+  layer and do not overwrite observer records.
 
 ## BookManifest
 
-`book-manifest-v1` describes an ordered collection of physical page images,
-stable page IDs, source hashes (computed at manifest load when not supplied), source DPI, canonical raw-text path,
-and optional half-open canonical character spans. Page images are a first
-class source; a book need not first be assembled into a PDF. A whole-book run
-requires spans for every page, in source order, covering the canonical text.
-Normalize refuses to guess missing spans.
+`book-manifest-v2` is the preferred scanned-book contract. It contains a book
+identifier, source DPI, and ordered page IDs, image references, and source
+hashes. It has no text path or character spans. Its identity is based on the
+physical source identity and order. Changing lexical evidence does not change
+that identity.
+
+`book-manifest-v1` remains a legacy controlled workflow contract. It declares
+an external raw-text path and may declare manually supplied page spans. It is
+not the recommended contract for a new scanned book. V1 records are not
+silently reinterpreted or rewritten.
 
 ## BookProfile v1
 
-`book-profile-v1` is bound to a manifest identity digest covering the ordered
-page identities/source hashes, canonical source hash and source spans, plus
-the book identifier. It contains source DPI, calibration page IDs, per-page
-content rectangle or full-page/unresolved status, quarter-turn orientation,
-rigid deskew angle, explicit no-transform/unresolved states, source-DPI
-provenance, and measurement source/note provenance. Supported sources are
-`human`, `measured`, `detector`, and `imported`. Content bounds use source-image
-pixels before orientation.
+`book-profile-v1` describes physical calibration only: source DPI, page IDs,
+content bounds, orientation, deskew, and measurement provenance. It is bound
+to the physical manifest identity. It does not depend on OCR wording, transcript
+identity, or external text hashes. A profile can be drafted and frozen from a
+v2 manifest with no lexical source.
 
-V1 deliberately excludes paragraph spacing thresholds, OCR confidence cutoffs,
-alignment weights, heading/display scores, and other algorithm knobs. Those
-belong to the global engine, not the book profile.
+Profile bounds use source-image pixels before orientation. The profile cannot
+override OCR settings, alignment costs, structural thresholds, or other engine
+semantics. Manual measurements enter as a draft and `normalize calibrate
+freeze` writes a frozen value with an integrity digest.
 
-Manual measurement is the supported calibration workflow. Measurements enter
-as a draft and are validated against the manifest and source image dimensions;
-`normalize calibrate freeze` writes a frozen value with an integrity digest.
-Normal loading rejects edited frozen contents. A run requires that frozen
-state. Recalibration uses an explicit new revision via the
-calibration API; it never retunes or rewrites a profile during a run.
+## Page observations and transcripts
 
-Typical command sequence:
+One page observation pass invokes Tesseract once. Its TSV response supplies
+both existing geometry anchors and a `LexicalObservation`; recognition is not
+repeated to construct text evidence. Observations retain page ID, source image
+hash, observer identity, token IDs/text/confidence/anchors, and factual
+diagnostics. Failed pages remain present with failed, empty observations.
+
+`single-observer-transcript-v1` projects each page's observed tokens in the
+existing Tesseract row order. It preserves page boundaries and creates ordered
+page transcript ranges automatically. This is a lexical sequence only; it
+does not introduce paragraph, heading, or other document structure. Current
+confidence and malformed-observation diagnostics are carried into review.
+Tesseract confidence is observer evidence, not a correctness score.
+
+Legacy v1 manifests with complete contiguous spans can still use their
+independent text as explicit external lexical evidence. The low-level
+`normalize reconstruct --raw --geometry --spans` command also remains available
+for controlled experiments.
+
+## BookRun and resumability
+
+`normalize-book-run-v2` records the physical manifest and profile identities,
+page observation identities, transcript method and identity, optional external
+source, reconstruction engine, outputs, and review diagnostics. A scan-only
+run needs only ordered page images and a frozen physical profile:
 
 ```text
 normalize book validate --manifest book.json
@@ -77,37 +106,21 @@ normalize calibrate freeze --manifest book.json --measurements calibration.json 
 normalize run --manifest book.json --profile profile.json --output book-run/
 ```
 
-To freeze revised measurements, pass `--previous-profile profile.json` and the
-same `--profile-id`; the new profile revision increments explicitly.
-
-## BookRun and resumability
-
-`normalize run` processes pages in manifest order and writes `run.json`,
-`normalized.md`, `provenance.json`, `review.json`, and per-page geometry,
-alignment, and processing records under `pages/<page-id>/`. Run identity binds
-manifest, profile, canonical text, engine/build, and fixed config hashes.
-
-Page geometry is independently cached by source hash, page calibration, and
-engine identity. Matching completed page results can be reused; changed source,
-calibration, or engine identity invalidates that page's cached observation.
-Alignment and reconstruction are regenerated from the current canonical
-source on every run. A failed page is recorded and processing continues. Its
-canonical span remains in output with absent spatial evidence, and the page
-failure is surfaced in review rather than silently omitting its words.
+The per-page cache contains geometry and lexical observation from one OCR pass.
+It depends on source pixels, physical calibration, and observation engine
+identity. Transcript and reconstruction outputs are regenerated from cached
+observations, so transcript-method or external-text changes do not require
+reprocessing unchanged page images. A failed page remains in manifest order,
+has an empty failed lexical observation, and makes the run failed with review
+evidence.
 
 ## Review and correction boundary
 
-The review report aggregates actual stage diagnostics: page failures, geometry
-errors/uncertainties, unmatched canonical material, unmatched OCR anchors,
-alignment ambiguity, and reconstruction diagnostics. It does not score,
-correct, or feed changes back into engine/profile state.
+Review aggregates actual observer uncertainty, OCR failures, geometry errors,
+unmatched transcript material, unmatched spatial anchors, and ambiguous
+alignment. It does not score correctness or feed changes back into engine or
+profile state. Human corrections must be explicit, separately identified, and
+must preserve the original observation.
 
-Future manual corrections belong in a separately identified correction layer:
-
-```text
-source evidence → engine result → review/correction layer → reviewed projection
-```
-
-They must not overwrite source observations or mutate a frozen BookProfile.
-The existing fixture-PDF preprocessing commands remain available as low-level
-fixture tooling and are not the definition of a book source.
+Fixture-PDF preprocessing remains available as low-level tooling and does not
+define the production book source contract.

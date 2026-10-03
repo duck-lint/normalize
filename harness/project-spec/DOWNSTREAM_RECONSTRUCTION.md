@@ -1,6 +1,12 @@
 # Downstream reconstruction contract
 
-The production downstream boundary is:
+> This document records the original low-level raw-text reconstruction
+> boundary used by controlled fixtures. Production book runs now adapt a
+> `LexicalTranscript` plus ordered page geometry into the same reconstruction
+> implementation. Scan-only OCR wording is derived evidence, not canonical
+> text. External raw text remains optional. See `docs/BOOK_WORKFLOW.md`.
+
+The original low-level downstream boundary is:
 
 ```text
 canonical raw source + geometry-probe-v1 pages + source page spans
@@ -9,10 +15,10 @@ canonical raw source + geometry-probe-v1 pages + source page spans
     → normalized Markdown + provenance sidecar
 ```
 
-## Authority
+## Historical fixture authority
 
-Raw source text supplies all emitted words. OCR text only locates canonical
-tokens against geometry. A token with no usable anchor remains in output and
+For this explicit raw-text path, supplied text provides emitted words. OCR
+locates lexical tokens against geometry. A token with no usable anchor remains in output and
 is listed as unmatched. OCR-only anchors remain in the alignment result and
 never enter prose. `*.expected.json` and `*.normalized.md` are acceptance
 material; the production reconstruction modules do not import or read them.

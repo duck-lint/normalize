@@ -17,9 +17,10 @@ Highest authority first:
    - page ordering after explicit preprocessing;
    - visible indentation, spacing, block placement, headings, page furniture, and other typography/layout evidence.
 
-2. **User-provided raw/browser-extracted source text**
-   - authoritative for lexical wording by default;
-   - preserved unchanged as the canonical textual substrate.
+2. **Lexical evidence with explicit provenance**
+   - scan-derived recognition observations provide the initial lexical evidence;
+   - an independently obtained edition-matching source is optional stronger evidence;
+   - neither is silently relabeled canonical by the pipeline.
 
 3. **Explicit project contracts in `PROJECT_SPEC.md`**
    - authoritative for intended behavior, scope, outputs, stage gates, and acceptance criteria.
@@ -27,10 +28,10 @@ Highest authority first:
 4. **Deterministic geometric reconstruction**
    - authorized to infer structural boundaries only from observable layout evidence and declared rules.
 
-5. **OCR output**
-   - authorized as a locating/alignment instrument;
-   - non-authoritative for wording;
-   - Tesseract paragraph/block labels are evidence, not truth.
+5. **OCR / recognition output**
+   - records what an observer reported and may supply lexical wording when no independent source exists;
+   - remains uncertain evidence, not independent lexical authority;
+   - paragraph/block labels and confidence values are evidence, not truth.
 
 6. **Textual heuristics**
    - may support structure classification;
@@ -52,9 +53,9 @@ Highest authority first:
 
 Agents MUST preserve these invariants:
 
-### 2.1 Lexical immutability
+### 2.1 Lexical provenance
 
-The original raw/browser text is immutable. The input may be fully flattened or may preserve physical extraction line breaks. Those line breaks may assist alignment when present, but they do not establish paragraph or block boundaries.
+Source observations and external lexical sources are immutable inputs to a run. The derived `LexicalTranscript` is the lexical input to reconstruction and retains provenance to those inputs. External text may be fully flattened or preserve physical extraction line breaks; those breaks may assist alignment, but do not establish paragraph or block boundaries.
 
 Structural reconstruction may insert Markdown syntax or boundaries into a derived output, but MUST NOT silently alter lexical characters or treat extraction line wrapping as layout authority.
 
@@ -70,17 +71,15 @@ The system is not required to force a decision.
 
 `unresolved` is preferable to an unsupported structural claim.
 
-### 2.4 OCR is not canonical text
+### 2.4 Recognition is lexical evidence
 
-Agents MUST NOT respond to poor OCR by making Tesseract transcription authoritative.
-
-The project exists specifically because OCR can be poor at letters while still useful at geometry.
+Agents MUST NOT describe a scan-derived transcript as verified or canonical. The transcript preserves the observer's actual output and factual uncertainty. A human correction is a separate explicit layer.
 
 ### 2.5 Derived artifacts are not source authority
 
-Reconstructed Markdown, normalized text, alignment maps, and probe reports are derived artifacts. In the fixture contract, `*.raw.md` is the lexical substrate, `*.expected.json` is a human-reviewed structural oracle, and `*.normalized.md` is an inspectable reference projection only; the latter two do not replace raw lexical authority.
+Reconstructed Markdown, normalized text, alignment maps, and probe reports are derived artifacts. In the historical controlled fixture contract, `*.raw.md` was independent lexical input and `*.expected.json` was a human-reviewed structural oracle. That experiment does not make external text a production prerequisite.
 
-The original PDF and original extracted text remain the upstream authorities.
+The original scans and any explicitly supplied external lexical source remain upstream evidence.
 
 ### 2.6 Provenance is structural
 
