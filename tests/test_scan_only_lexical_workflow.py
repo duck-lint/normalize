@@ -201,6 +201,17 @@ def test_real_geometry_schema_maps_accepted_word_to_lexical_observation():
     assert word["physical_line_id"] == token["physical_line_id"]
     assert not any(item["code"] == "malformed_observation_geometry" for item in observation.diagnostics)
 
+    geometry_only = observation_from_geometry("page-1", "c" * 64, geometry,
+        {"identity_sha256": "observer"}, raw_tsv=None)
+    projected_word = geometry_only.observations[0]
+    assert projected_word["text"] == "word,"
+    assert projected_word["confidence"] == 87.5
+    assert projected_word["box"] == [20, 30, 60, 15]
+    assert projected_word["anchor_id"] == token["token_id"]
+    assert projected_word["physical_line_id"] == token["physical_line_id"]
+    assert not any(item["code"] == "malformed_spatial_observation"
+                   for item in geometry_only.diagnostics)
+
 
 def test_three_token_ranges_are_exact_across_pages_and_empty_page():
     def observation(page_id: str, words: list[str]) -> LexicalObservation:

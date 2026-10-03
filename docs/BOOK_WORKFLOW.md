@@ -9,26 +9,28 @@ complete transcription can strengthen lexical evidence, but it is optional.
 > OCR is lexical evidence, not independent lexical authority.
 
 ```text
-BOOK SOURCE: ordered page images
-             ↓
-       BookManifest v2 ───── optional ExternalLexicalSource (v1 controlled input)
-             │                                  │
-             ├── calibration → BookProfile     │
-             ↓                                  │
-       page observation                        │
-        ├─ geometry / spatial evidence          │
-        └─ LexicalObservation                   │
-                    └──────────────┬────────────┘
-                                   ↓
-                          LexicalTranscript
-                                   │
-                     transcript + geometry
-                                   ↓
-                            reconstruction
-                                   ↓
-                                BookRun
-                              /         \
-                    normalized.md    ReviewReport
+V2 SCAN-ONLY PRODUCTION PATH (available now)
+ordered page images → BookManifest v2 → calibration → BookProfile v2
+                              ↓
+                     page observation
+                      ├─ geometry / spatial evidence
+                      └─ LexicalObservation
+                              ↓
+                   LexicalTranscript
+                              ↓
+                reconstruction → BookRun
+                               /       \
+                    normalized.md   ReviewReport
+
+V1 EXTERNAL-TEXT CONTROLLED PATH (available now)
+BookManifest v1 + external raw text + explicit spans
+                         ↓
+             reconstruction with page geometry
+
+FUTURE V2 RECONCILIATION CAPABILITY
+additional observers or external lexical evidence
+                         ↓
+         reconciliation with a v2 LexicalTranscript
 ```
 
 ## Authority layers

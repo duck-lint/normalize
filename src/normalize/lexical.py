@@ -86,12 +86,11 @@ def observation_from_geometry(page_id: str, source_image_sha256: str,
                        if isinstance(item, dict) and isinstance(item.get("source_row"), int)}
     observations: list[dict[str, Any]] = []
     diagnostics: list[dict[str, Any]] = []
+    lexical_rows: list[tuple[int, str, float | None, Mapping[str, Any] | None]] = []
     if raw_tsv is not None:
         reader = csv.reader(io.StringIO(raw_tsv), delimiter="\t")
         next(reader, None)
-        rows = enumerate(reader, start=1)
-        lexical_rows = []
-        for source_row, row in rows:
+        for source_row, row in enumerate(reader, start=1):
             if len(row) < 12 or row[11] == "":
                 continue
             try:
@@ -99,21 +98,28 @@ def observation_from_geometry(page_id: str, source_image_sha256: str,
             except (ValueError, IndexError):
                 is_word = False
             if is_word:
-                lexical_rows.append((source_row, row))
+                try:
+                    confidence_value = float(row[10])
+                    confidence = confidence_value if math.isfinite(confidence_value) else None
+                except (ValueError, OverflowError):
+                    confidence = None
+                lexical_rows.append((source_row, row[11], confidence, tokens.get(source_row)))
     else:
-        # Compatibility for callers with geometry only. Production always
-        # supplies the original TSV so rejected rows remain observable.
-        lexical_rows = [(source_row, ["", "", "", "", "", "", "", "", "", str(token.get("confidence", "")), str(token.get("text", ""))])
-                        for source_row, token in sorted(tokens.items())]
+        # Geometry-only callers can project admitted tokens directly. Rejected
+        # TSV rows cannot be recovered here because raw observer output was not
+        # supplied, so this path makes no claim about those lexical rows.
+        for source_row, token in sorted(tokens.items()):
+            text = token.get("text")
+            if not isinstance(text, str) or not text:
+                continue
+            try:
+                confidence_value = float(token.get("confidence"))
+                confidence = confidence_value if math.isfinite(confidence_value) else None
+            except (TypeError, ValueError, OverflowError):
+                confidence = None
+            lexical_rows.append((source_row, text, confidence, token))
 
-    for source_row, row in lexical_rows:
-        token = tokens.get(source_row)
-        observed_text = row[11]
-        try:
-            confidence_value = float(row[10])
-            confidence = confidence_value if math.isfinite(confidence_value) else None
-        except (ValueError, OverflowError):
-            confidence = None
+    for source_row, observed_text, confidence, token in lexical_rows:
         observation_id = (token.get("token_id") if token else None) or f"{page_id}:row-{source_row:04d}"
         spatially_valid = token is not None
         item = {"observation_id": observation_id, "source_row": source_row,
