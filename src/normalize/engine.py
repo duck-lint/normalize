@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import io
+import inspect
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -16,6 +17,7 @@ from pytesseract import Output
 from .books import BookPage, PageCalibration, stable_digest
 from .geometry import GeometryError, _PreprocessedPage, _engine_record, _page_geometry
 from .markdown import emit_markdown
+from .lexical import observation_from_geometry
 from .rendering import preprocess_page_pixels
 from .reconstruction import NormalizedDocument, PageSpan, reconstruct_document
 
@@ -30,10 +32,21 @@ def _observe_image_geometry(image: Image.Image, page_id: str, *, book_id: str,
     """
     if not page_id or not book_id or page_index < 0 or dpi <= 0:
         raise ValueError("page identity, non-negative order, and positive DPI are required")
+    tsv = _recognize_tsv(image, page_id)
+    return _geometry_from_tsv(tsv, image, page_id, book_id=book_id, page_index=page_index,
+                              dpi=dpi, source_image=source_image, source_sha256=source_sha256)
+
+
+def _recognize_tsv(image: Image.Image, page_id: str) -> str:
     try:
-        tsv = pytesseract.image_to_data(image, lang="eng", config="--psm 6", output_type=Output.STRING)
+        return pytesseract.image_to_data(image, lang="eng", config="--psm 6", output_type=Output.STRING)
     except Exception as exc:
         raise GeometryError("tesseract_invocation", f"Tesseract failed on page {page_id}: {exc}") from exc
+
+
+def _geometry_from_tsv(tsv: str, image: Image.Image, page_id: str, *, book_id: str,
+                       page_index: int, dpi: int, source_image: str,
+                       source_sha256: str) -> dict[str, Any]:
     page = _PreprocessedPage(page_id, Path("."), image.width, image.height, False,
                              {"output_path": "in-memory"})
     record = _page_geometry(
@@ -49,6 +62,19 @@ def _observe_image_geometry(image: Image.Image, page_id: str, *, book_id: str,
         "dpi": dpi, "preprocessed_dimensions_px": [image.width, image.height],
     }
     return record
+
+
+def _observe_image(image: Image.Image, page_id: str, *, book_id: str,
+                   page_index: int, dpi: int, source_image: str,
+                   source_sha256: str, observer: dict[str, Any]) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Return spatial and lexical evidence from one Tesseract invocation."""
+    if not page_id or not book_id or page_index < 0 or dpi <= 0:
+        raise ValueError("page identity, non-negative order, and positive DPI are required")
+    tsv = _recognize_tsv(image, page_id)
+    geometry = _geometry_from_tsv(tsv, image, page_id, book_id=book_id, page_index=page_index,
+                                  dpi=dpi, source_image=source_image, source_sha256=source_sha256)
+    lexical = observation_from_geometry(page_id, source_sha256, geometry, observer, raw_tsv=tsv).record()
+    return geometry, lexical
 
 
 @dataclass(frozen=True)
@@ -113,6 +139,22 @@ class BookEngine:
             "identity_sha256": stable_digest({**self.config.record(), "tesseract_version": tesseract_version}),
         }
 
+    @property
+    def observation_identity(self) -> dict[str, Any]:
+        identity = self.identity
+        source_digest = hashlib.sha256()
+        for module_name in ("engine.py", "geometry.py", "rendering.py"):
+            source_digest.update(module_name.encode("utf-8"))
+            source_digest.update((Path(__file__).parent / module_name).read_bytes())
+        # The per-token observation adapter is part of page-observation
+        # semantics; transcript assembly is deliberately outside this cache key.
+        source_digest.update(inspect.getsource(observation_from_geometry).encode("utf-8"))
+        return {**{key: identity[key] for key in (
+            "contract", "target_dpi", "ocr_language", "ocr_config", "rotation_resampling",
+            "rotation_expand", "rotation_fill_rgb", "downsample_resampling", "dimension_rounding",
+            "tesseract_version", "tesseract_executable", "identity_sha256")},
+            "observation_source_sha256": source_digest.hexdigest()}
+
     def preprocess(self, image: Image.Image, calibration: PageCalibration, source_dpi: int) -> tuple[Image.Image, dict[str, Any]]:
         """Apply crop, rigid rotation, and fixed target-DPI sampling in order."""
         try:
@@ -142,7 +184,7 @@ class BookEngine:
                 prepared, transform_record = self.preprocess(image, calibration, source_dpi)
         except (OSError, ValueError) as exc:
             raise ValueError(f"page {page.page_id}: cannot decode/preprocess source image: {exc}") from exc
-        geometry = _observe_image_geometry(
+        geometry, lexical = _observe_image(
             prepared,
             page.page_id,
             book_id=book_id,
@@ -150,6 +192,7 @@ class BookEngine:
             dpi=self.config.target_dpi,
             source_image=str(page.image),
             source_sha256=source_sha256,
+            observer=self.observation_identity,
         )
         encoded = io.BytesIO()
         prepared.save(encoded, format="PNG", optimize=False)
@@ -161,6 +204,7 @@ class BookEngine:
             "transforms": transform_record,
             "processed_pixel_sha256": hashlib.sha256(encoded.getvalue()).hexdigest(),
             "geometry": geometry,
+            "lexical_observation": lexical,
         }
 
     def reconstruct(self, canonical_source: str, source_id: str,

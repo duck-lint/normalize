@@ -235,15 +235,20 @@ def test_changed_source_cannot_reuse_stale_page_geometry(tmp_path):
     result = run_book(manifest, profile, output)
     assert [row["cache_hit"] for row in result["pages"]] == [True, False]
     assert result["pages"][1]["status"] == "failed"
-    assert "source hash differs from manifest" in result["pages"][1]["error"]
+    assert "source image hash differs from manifest" in result["pages"][1]["error"]
 
 
-def test_canonical_source_change_requires_manifest_reload_and_profile_refreeze(tmp_path):
+def test_external_text_change_does_not_change_physical_profile_identity(tmp_path):
     manifest, measurements = _make_book(tmp_path)
     profile = _frozen_profile(manifest, measurements)
-    manifest.canonical_source.write_text("changed canonical source\n", encoding="utf-8")
-    with pytest.raises(BookContractError, match="canonical source changed after manifest validation"):
-        run_book(manifest, profile, tmp_path / "stale-canonical-run")
+    first = run_book(manifest, profile, tmp_path / "first-run")
+    original = manifest.canonical_source.read_text(encoding="utf-8")
+    manifest.canonical_source.write_text("X" * len(original), encoding="utf-8")
+    validate_profile_for_manifest(profile, manifest, require_frozen=True)
+    second = run_book(manifest, profile, tmp_path / "second-run")
+    assert first["manifest"]["physical_sha256"] == second["manifest"]["physical_sha256"]
+    assert first["profile"]["sha256"] == second["profile"]["sha256"]
+    assert first["run_id"] != second["run_id"]
 
 
 def test_runner_records_page_failure_and_preserves_its_canonical_text(tmp_path, monkeypatch):
@@ -259,7 +264,7 @@ def test_runner_records_page_failure_and_preserves_its_canonical_text(tmp_path, 
     monkeypatch.setattr(BookEngine, "process_page", fail_second)
     output = tmp_path / "failed-run"
     result = run_book(manifest, profile, output, resume=False)
-    assert [row["status"] for row in result["pages"]] == ["succeeded", "failed"]
+    assert [row["status"] for row in result["pages"]] == ["needs_review", "failed"]
     assert result["status"] == "failed"
     markdown = (output / "normalized.md").read_text()
     assert "Beta page." in markdown
@@ -301,7 +306,7 @@ def test_review_aggregates_diagnostics_without_mutating_markdown(tmp_path, monke
     run_book(manifest, profile, output)
     emitted = (output / "normalized.md").read_bytes()
     review = json.loads((output / "review.json").read_text())
-    assert review["schema"] == "normalize-review-v1"
+    assert review["schema"] == "normalize-review-v2"
     assert (output / "normalized.md").read_bytes() == emitted
     after = engine.preprocess(Image.open(manifest.pages[0].image), profile.pages[0], profile.source_dpi)[0].tobytes()
     assert before == after

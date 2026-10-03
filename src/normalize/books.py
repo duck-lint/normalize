@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 BOOK_MANIFEST_SCHEMA = "book-manifest-v1"
+BOOK_MANIFEST_V2_SCHEMA = "book-manifest-v2"
 BOOK_PROFILE_SCHEMA = "book-profile-v1"
 CALIBRATION_SOURCES = {"human", "measured", "detector", "imported"}
 
@@ -52,12 +53,14 @@ class BookPage:
 class BookManifest:
     book_id: str
     source_dpi: int
-    canonical_source: Path
+    canonical_source: Path | None
     pages: tuple[BookPage, ...]
     path: Path
     sha256: str
     record_sha256: str
     canonical_source_sha256: str | None
+    schema: str
+    physical_sha256: str
 
 
 @dataclass(frozen=True)
@@ -118,20 +121,33 @@ def _positive_int(value: Any, field: str) -> int:
 def load_manifest(path: Path, *, validate_sources: bool = True) -> BookManifest:
     path = path.resolve()
     raw = _load_json(path, "book manifest")
-    if set(raw) != {"schema", "book_id", "source_dpi", "canonical_source", "pages"}:
-        raise BookContractError(f"{path}: manifest fields must be schema, book_id, source_dpi, canonical_source, pages")
-    if raw["schema"] != BOOK_MANIFEST_SCHEMA:
-        raise BookContractError(f"{path}: schema must be {BOOK_MANIFEST_SCHEMA}")
+    schema = raw.get("schema")
+    if schema == BOOK_MANIFEST_SCHEMA:
+        required_manifest_fields = {"schema", "book_id", "source_dpi", "canonical_source", "pages"}
+        if set(raw) != required_manifest_fields:
+            raise BookContractError(
+                f"{path}: book-manifest-v1 fields must be {sorted(required_manifest_fields)}"
+            )
+    elif schema == BOOK_MANIFEST_V2_SCHEMA:
+        required_manifest_fields = {"schema", "book_id", "source_dpi", "pages"}
+        if set(raw) != required_manifest_fields:
+            raise BookContractError(
+                f"{path}: book-manifest-v2 fields must be {sorted(required_manifest_fields)}"
+            )
+    else:
+        raise BookContractError(f"{path}: schema must be {BOOK_MANIFEST_SCHEMA} or {BOOK_MANIFEST_V2_SCHEMA}")
     book_id = raw["book_id"]
     if not isinstance(book_id, str) or not book_id.strip():
         raise BookContractError(f"{path}: book_id must be a non-empty string")
     dpi = _positive_int(raw["source_dpi"], "source_dpi")
-    canonical_ref = raw["canonical_source"]
-    if not isinstance(canonical_ref, str) or not canonical_ref:
-        raise BookContractError(f"{path}: canonical_source must be a path string")
-    canonical_path = (path.parent / canonical_ref).resolve()
-    if validate_sources and not canonical_path.is_file():
-        raise BookContractError(f"canonical_source: file does not exist: {canonical_path}")
+    canonical_path: Path | None = None
+    if schema == BOOK_MANIFEST_SCHEMA:
+        canonical_ref = raw["canonical_source"]
+        if not isinstance(canonical_ref, str) or not canonical_ref:
+            raise BookContractError(f"{path}: canonical_source must be a path string")
+        canonical_path = (path.parent / canonical_ref).resolve()
+        if validate_sources and not canonical_path.is_file():
+            raise BookContractError(f"canonical_source: file does not exist: {canonical_path}")
     page_records = raw["pages"]
     if not isinstance(page_records, list) or not page_records:
         raise BookContractError(f"{path}: pages must be a non-empty ordered list")
@@ -140,8 +156,12 @@ def load_manifest(path: Path, *, validate_sources: bool = True) -> BookManifest:
     previous_span_end = 0
     for index, record in enumerate(page_records):
         field = f"pages[{index}]"
-        if not isinstance(record, dict) or set(record) - {"page_id", "image", "source_sha256", "canonical_span"} or not {"page_id", "image"} <= set(record):
-            raise BookContractError(f"{field}: expected page_id, image, optional source_sha256 and canonical_span")
+        allowed_page_fields = {"page_id", "image", "source_sha256"}
+        if schema == BOOK_MANIFEST_SCHEMA:
+            allowed_page_fields.add("canonical_span")
+        if (not isinstance(record, dict) or set(record) - allowed_page_fields
+                or not {"page_id", "image"} <= set(record)):
+            raise BookContractError(f"{field}: page fields are invalid for {schema}")
         page_id, image_ref = record["page_id"], record["image"]
         if not isinstance(page_id, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]*", page_id):
             raise BookContractError(f"{field}.page_id must be a path-safe stable identifier")
@@ -154,9 +174,11 @@ def load_manifest(path: Path, *, validate_sources: bool = True) -> BookManifest:
         if validate_sources and not image_path.is_file():
             raise BookContractError(f"{field}.image: file does not exist: {image_path}")
         expected_hash = record.get("source_sha256")
+        if schema == BOOK_MANIFEST_V2_SCHEMA and expected_hash is None:
+            raise BookContractError(f"{field}.source_sha256 is required for book-manifest-v2")
         if expected_hash is not None and (not isinstance(expected_hash, str) or len(expected_hash) != 64 or any(c not in "0123456789abcdef" for c in expected_hash)):
             raise BookContractError(f"{field}.source_sha256 must be a lowercase SHA-256 digest")
-        span_value = record.get("canonical_span")
+        span_value = record.get("canonical_span") if schema == BOOK_MANIFEST_SCHEMA else None
         span = None
         if span_value is not None:
             if not isinstance(span_value, dict) or set(span_value) != {"start", "end"}:
@@ -170,13 +192,15 @@ def load_manifest(path: Path, *, validate_sources: bool = True) -> BookManifest:
             span = CanonicalSpan(start, end)
         pages.append(BookPage(page_id, image_path, expected_hash, span))
     canonical_hash = None
-    if validate_sources:
+    if validate_sources and schema == BOOK_MANIFEST_SCHEMA:
+        assert canonical_path is not None
         try:
             canonical_bytes = canonical_path.read_bytes()
             canonical_length = len(canonical_bytes.decode("utf-8"))
             canonical_hash = hashlib.sha256(canonical_bytes).hexdigest()
         except (OSError, UnicodeDecodeError) as exc:
             raise BookContractError(f"canonical_source: must be readable UTF-8: {exc}") from exc
+    if validate_sources:
         actual_pages = []
         for index, page in enumerate(pages):
             if page.canonical_span and page.canonical_span.end > canonical_length:
@@ -189,36 +213,52 @@ def load_manifest(path: Path, *, validate_sources: bool = True) -> BookManifest:
             actual_pages.append(BookPage(page.page_id, page.image, actual_hash, page.canonical_span))
         pages = actual_pages
     record_hash = sha256_file(path)
-    identity_hash = stable_digest({
-        "schema": BOOK_MANIFEST_SCHEMA,
+    physical_hash = stable_digest({
+        "schema": "normalize-physical-book-identity-v1",
         "book_id": book_id,
         "source_dpi": dpi,
-        "canonical_source_sha256": canonical_hash,
+        "ordered_pages": [
+            {"page_id": page.page_id, "source_sha256": page.source_sha256}
+            for page in pages
+        ],
+    })
+    legacy_identity_hash = stable_digest({
+        "schema": schema,
+        "book_id": book_id,
+        "source_dpi": dpi,
+        "canonical_source_sha256": canonical_hash if schema == BOOK_MANIFEST_SCHEMA else None,
         "ordered_pages": [{"page_id": page.page_id, "image": str(page.image),
                            "source_sha256": page.source_sha256,
                            "canonical_span": None if page.canonical_span is None else
                            {"start": page.canonical_span.start, "end": page.canonical_span.end}}
                           for page in pages],
     })
-    return BookManifest(book_id, dpi, canonical_path, tuple(pages), path, identity_hash, record_hash, canonical_hash)
+    # V2 is a physical-source contract. V1 preserves its historical full
+    # record identity for controlled lexical fixtures.
+    identity_hash = physical_hash if schema == BOOK_MANIFEST_V2_SCHEMA else legacy_identity_hash
+    return BookManifest(book_id, dpi, canonical_path, tuple(pages), path, identity_hash,
+                        record_hash, canonical_hash, schema, physical_hash)
 
 
 def manifest_record(manifest: BookManifest, *, relative_to: Path | None = None) -> dict[str, Any]:
     """Serialize the declared source order and materialized hashes."""
     root = (relative_to or manifest.path.parent).resolve()
-    return {
-        "schema": BOOK_MANIFEST_SCHEMA,
+    record = {
+        "schema": manifest.schema,
         "book_id": manifest.book_id,
         "source_dpi": manifest.source_dpi,
-        "canonical_source": os.path.relpath(manifest.canonical_source, root),
         "pages": [
             {"page_id": page.page_id, "image": os.path.relpath(page.image, root),
-             "source_sha256": page.source_sha256,
+             **({"source_sha256": page.source_sha256} if page.source_sha256 else {}),
              **({"canonical_span": {"start": page.canonical_span.start, "end": page.canonical_span.end}}
-                if page.canonical_span else {})}
+                if manifest.schema == BOOK_MANIFEST_SCHEMA and page.canonical_span else {})}
             for page in manifest.pages
         ],
     }
+    if manifest.schema == BOOK_MANIFEST_SCHEMA:
+        assert manifest.canonical_source is not None
+        record["canonical_source"] = os.path.relpath(manifest.canonical_source, root)
+    return record
 
 
 def save_manifest(manifest: BookManifest, path: Path) -> None:
@@ -376,8 +416,8 @@ def _freeze_digest(profile: BookProfile) -> str:
 def validate_profile_for_manifest(profile: BookProfile, manifest: BookManifest, *, require_frozen: bool = False) -> None:
     if profile.book_id != manifest.book_id:
         raise BookContractError(f"profile.book_id {profile.book_id!r} does not match manifest.book_id {manifest.book_id!r}")
-    if profile.manifest_sha256 != manifest.sha256:
-        raise BookContractError("profile.manifest_sha256 does not match the loaded manifest")
+    if profile.manifest_sha256 != manifest.physical_sha256:
+        raise BookContractError("profile.manifest_sha256 does not match the physical book identity")
     if profile.source_dpi != manifest.source_dpi:
         raise BookContractError("profile.source_dpi does not match manifest.source_dpi")
     manifest_ids = [page.page_id for page in manifest.pages]
@@ -455,7 +495,7 @@ def draft_profile_from_record(record: Mapping[str, Any], manifest: BookManifest,
     if not isinstance(pages_value, list):
         raise BookContractError("calibration pages must be a list")
     pages = tuple(_parse_calibration(value, index) for index, value in enumerate(pages_value))
-    profile = BookProfile(profile_id, 1, manifest.book_id, manifest.sha256, dpi,
+    profile = BookProfile(profile_id, 1, manifest.book_id, manifest.physical_sha256, dpi,
                           dpi_source, dpi_note, "draft",
                           tuple(calibration_page_ids), pages,
                           datetime.now(UTC).isoformat(), None)
