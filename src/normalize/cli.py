@@ -121,8 +121,11 @@ def _run(args: argparse.Namespace) -> int:
         manifest = load_manifest(args.manifest)
         print(json.dumps({"status": "valid", "book_id": manifest.book_id,
                           "manifest_sha256": manifest.sha256,
+                          "physical_sha256": manifest.physical_sha256,
+                          "schema": manifest.schema,
                           "page_order": [page.page_id for page in manifest.pages],
-                          "canonical_source": str(manifest.canonical_source)}, ensure_ascii=False, sort_keys=True))
+                          "external_lexical_source": (str(manifest.canonical_source)
+                              if manifest.canonical_source else None)}, ensure_ascii=False, sort_keys=True))
         return 0
 
     if args.command == "calibrate" and args.calibration_command == "validate":

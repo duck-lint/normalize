@@ -44,7 +44,7 @@ def test_cli_generates_output_with_only_raw_geometry_and_span_inputs(tmp_path):
 
     assert exit_code == 0
     assert output.read_text(encoding="utf-8").strip() == "Canonical word."
-    assert json.loads(sidecar.read_text(encoding="utf-8"))["blocks"][0]["canonical_spans"]
+    assert json.loads(sidecar.read_text(encoding="utf-8"))["blocks"][0]["lexical_spans"]
     # This isolated input directory has no structural reference files. Runtime
     # generation therefore cannot depend on normalized or expected fixtures.
     assert set(path.name for path in tmp_path.iterdir()) == {

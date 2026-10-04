@@ -99,6 +99,9 @@ def test_profile_freezes_with_measurement_provenance_and_requires_explicit_revis
     manifest, measurements = _make_book(tmp_path)
     draft = draft_profile_from_record(measurements, manifest, profile_id="synthetic-profile")
     frozen = freeze_profile(draft, manifest)
+    assert frozen.schema == "book-profile-v1"
+    assert frozen.manifest_sha256 == manifest.sha256
+    assert frozen.physical_manifest_sha256 is None
     assert frozen.state == "frozen"
     assert frozen.pages[0].source == "human"
     assert frozen.pages[0].content_bounds == (30, 30, 450, 330)
@@ -235,15 +238,20 @@ def test_changed_source_cannot_reuse_stale_page_geometry(tmp_path):
     result = run_book(manifest, profile, output)
     assert [row["cache_hit"] for row in result["pages"]] == [True, False]
     assert result["pages"][1]["status"] == "failed"
-    assert "source hash differs from manifest" in result["pages"][1]["error"]
+    assert "source image hash differs from manifest" in result["pages"][1]["error"]
 
 
-def test_canonical_source_change_requires_manifest_reload_and_profile_refreeze(tmp_path):
+def test_v1_external_text_change_preserves_legacy_manifest_profile_binding(tmp_path):
     manifest, measurements = _make_book(tmp_path)
     profile = _frozen_profile(manifest, measurements)
-    manifest.canonical_source.write_text("changed canonical source\n", encoding="utf-8")
+    original = manifest.canonical_source.read_text(encoding="utf-8")
+    manifest.canonical_source.write_text("X" * len(original), encoding="utf-8")
     with pytest.raises(BookContractError, match="canonical source changed after manifest validation"):
-        run_book(manifest, profile, tmp_path / "stale-canonical-run")
+        run_book(manifest, profile, tmp_path / "second-run")
+    reloaded = load_manifest(manifest.path)
+    assert reloaded.sha256 != manifest.sha256
+    with pytest.raises(BookContractError, match="v1 manifest identity"):
+        validate_profile_for_manifest(profile, reloaded)
 
 
 def test_runner_records_page_failure_and_preserves_its_canonical_text(tmp_path, monkeypatch):
@@ -301,7 +309,7 @@ def test_review_aggregates_diagnostics_without_mutating_markdown(tmp_path, monke
     run_book(manifest, profile, output)
     emitted = (output / "normalized.md").read_bytes()
     review = json.loads((output / "review.json").read_text())
-    assert review["schema"] == "normalize-review-v1"
+    assert review["schema"] == "normalize-review-v2"
     assert (output / "normalized.md").read_bytes() == emitted
     after = engine.preprocess(Image.open(manifest.pages[0].image), profile.pages[0], profile.source_dpi)[0].tobytes()
     assert before == after

@@ -4,12 +4,9 @@
 
 ## 1. Purpose
 
-Build a local, deterministic pipeline that reconstructs useful Markdown document structure from:
+Build a local, deterministic pipeline that reconstructs useful Markdown document structure from user-owned scanned pages. Recognition observations provide a derived lexical transcript; an independently obtained edition-matching text is optional stronger lexical evidence.
 
-1. a user-owned scanned PDF, which is authoritative for page geometry and observable layout; and
-2. a raw/browser-extracted text or Markdown source, which may be fully flattened or preserve physical line breaks and is authoritative for lexical wording unless an explicit repair is authorized.
-
-The system MUST reunite **what the source says** with **where it appears on the page**.
+The system MUST derive useful structured Markdown from available lexical evidence and observable page layout, retaining provenance and uncertainty.
 
 Symphony owns agent runtime/lifecycle. This repository harness MUST define only project goal, scope, contracts, authority, acceptance criteria, and stop conditions. It MUST NOT define agent orchestration, retry policy, model selection, or lifecycle behavior.
 
@@ -23,9 +20,20 @@ A proof-of-concept test on an Einstein scan showed:
 - Tesseract layout geometry was materially better: paragraph starts were recoverable from stable first-line indentation even when OCR tokens were wrong.
 - Approximate alignment between noisy OCR tokens and raw-extracted text is therefore a plausible bridge from page geometry back to the cleaner text stream.
 
-This empirical split is the core project thesis:
+This empirical split was the thesis of the initial controlled experiment:
 
-> **raw/browser extraction is lexical authority; OCR is a geometry/alignment instrument.**
+> **The experiment used independent raw text as lexical input while OCR supplied geometry/alignment evidence.**
+
+That experiment is historical evidence, not the production input contract.
+Production accepts scan-only books and records OCR as lexical evidence in a
+derived `LexicalTranscript`; external text remains optional.
+
+The current `single-observer-transcript-v1` is a scan-derived transcription
+baseline, not independent wording verification. Its transcript tokens and
+spatial anchors originate from the same observer. Alignment can associate
+wording with page geometry and support structural reconstruction, but cannot
+confirm that wording is correct. External text is currently wired through the
+legacy v1 controlled workflow; attaching it to a v2 run is future work.
 
 The first implementation milestone MUST test this thesis across multiple books before any full reconstruction pipeline is built.
 
@@ -33,7 +41,7 @@ The first implementation milestone MUST test this thesis across multiple books b
 
 ## 3. Primary Goal
 
-Given a scanned PDF and its corresponding raw extracted text, produce a structure map that can identify, with explicit confidence:
+Given scanned pages and available lexical evidence, produce a structure map that can identify, with explicit uncertainty:
 
 - printed page boundaries;
 - physical text lines;
@@ -45,7 +53,7 @@ Given a scanned PDF and its corresponding raw extracted text, produce a structur
 - cross-page paragraph continuation;
 - source-text spans corresponding to those layout structures.
 
-The system MUST be capable of inserting paragraph/heading boundaries into a derived projection of the raw text without silently rewriting its wording.
+The system MUST be capable of inserting paragraph/heading boundaries into a derived projection of the `LexicalTranscript` without silently rewriting lexical observations.
 
 ---
 
@@ -53,7 +61,7 @@ The system MUST be capable of inserting paragraph/heading boundaries into a deri
 
 The project MUST NOT, unless this specification is explicitly revised:
 
-- replace raw/browser text with Tesseract transcription;
+- silently claim that Tesseract transcription is verified wording;
 - optimize Tesseract for book-quality OCR;
 - use an LLM to freely rewrite, re-paragraph, summarize, or “clean up” source prose;
 - infer exact publisher paragraph boundaries from semantics when page geometry does not support them;
@@ -72,8 +80,8 @@ The implementation MUST obey `AUTHORITY.md`.
 At a high level:
 
 1. source scan pixels are authoritative for observable layout;
-2. raw/browser extraction is authoritative for lexical wording, whether fully flattened or physical-line-preserving;
-3. OCR text is non-authoritative and may be used only to locate/alignment-match geometry;
+2. recognition output is lexical evidence and may provide the scan-derived transcript;
+3. an independent edition-matching external text is optional stronger evidence;
 4. deterministic layout heuristics may classify structure;
 5. semantic inference may only resolve explicitly ambiguous cases if later authorized;
 6. uncertain structure MUST be represented as uncertain rather than silently invented.
@@ -105,7 +113,7 @@ PaddleOCR or another OCR engine MUST NOT be added during the first probe merely 
 The pipeline is conceptually:
 
 ```text
-scanned PDF
+ordered scanned pages
     ↓
 page rendering / orientation / spread splitting
     ↓
@@ -113,7 +121,7 @@ positioned OCR tokens + line geometry
     ↓
 layout features and candidate structural boundaries
     ↓
-approximate alignment to raw/browser text
+LexicalTranscript + approximate alignment to spatial anchors
     ↓
 source-text span ↔ page-geometry map
     ↓
@@ -139,7 +147,8 @@ A positioned token record SHOULD resemble:
 }
 ```
 
-An alignment record SHOULD map that evidence to the canonical text:
+An alignment record SHOULD map that evidence to the lexical transcript (the
+historical fixture example used an independent raw-text source):
 
 ```json
 {
@@ -176,7 +185,7 @@ The exact schema may evolve, but these distinctions MUST remain.
 
 ### 8.1 Purpose
 
-Before building a general reconstruction engine, prove or falsify the thesis that Tesseract-derived geometry can recover useful document topology while raw text remains lexical authority.
+The initial research gate tested whether Tesseract-derived geometry could recover useful topology while independent raw text supplied wording. That is historical evidence about the experiment, not a production requirement.
 
 ### 8.2 Probe corpus
 
@@ -188,6 +197,9 @@ Use the intentionally selected source classes already represented by the reposit
 The current probe/MVP gate requires only these two source classes and their existing core/stretch fixtures. Gärdenfors and any fourth prose/philosophy source are deferred validation, not current acceptance inputs. Additional books and layout classes may be added later without changing the current gate.
 
 ### 8.3 Probe inputs
+
+These are inputs to the historical controlled probe, not mandatory inputs to
+current production runs.
 
 For each fixture:
 
@@ -299,10 +311,15 @@ Preprocessing MUST NOT permanently alter the source PDF.
 
 ## 11. Alignment Contract
 
-Alignment is between:
+For production book runs, alignment is between:
 
 - noisy OCR token/line sequences; and
-- canonical raw/browser source text.
+- `LexicalTranscript` tokens derived from lexical observations or explicit
+  external lexical evidence.
+
+The low-level fixture/research interface may still align OCR to independently
+supplied raw text. That controlled path does not make external text mandatory
+for a production scanned-book run.
 
 Requirements:
 
@@ -398,7 +415,9 @@ Every projected structural edit SHOULD be traceable to:
 - classification rule;
 - confidence.
 
-The system MUST preserve the original raw/browser-extracted text unchanged.
+The system MUST preserve input lexical observations and any external lexical
+source unchanged. Derived transcript text and Markdown remain identified as
+derived artifacts.
 
 A reconstructed Markdown file is a derived artifact, never a replacement authority.
 

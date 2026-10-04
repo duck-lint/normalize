@@ -1,5 +1,11 @@
 # Normalize — MVP Implementation Plan
 
+> Historical implementation plan: this sequence describes the original
+> controlled experiment, which supplied independent raw text to isolate
+> geometry/reconstruction. It is not the current production input contract.
+> Current scanned-book runs use physical `BookManifest v2` plus a derived
+> `LexicalTranscript`; external text is optional. See `docs/BOOK_WORKFLOW.md`.
+
 ## Goal
 
 Reach MVP through vertical slices that preserve the project’s authority model:

@@ -1,4 +1,4 @@
-"""Deterministic Markdown projection of reconstructed canonical blocks."""
+"""Deterministic Markdown projection of reconstructed transcript blocks."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from .reconstruction import NormalizedDocument
 
 
 def emit_markdown(document: NormalizedDocument) -> str:
-    """Emit structure while sourcing every visible word from canonical spans."""
+    """Emit structure while sourcing every visible word from lexical input."""
     output = []
     blocks = document.blocks
     index = 0
@@ -38,13 +38,13 @@ def emit_markdown(document: NormalizedDocument) -> str:
 def document_record(document: NormalizedDocument) -> Mapping[str, object]:
     """Machine-readable sidecar retaining links from blocks to source and geometry."""
     return {
-        "schema": "normalized-document-v1",
+        "schema": "normalized-document-v2",
         "source_id": document.source_id,
         "blocks": [
             {
                 "kind": block.kind,
                 "text": block.text,
-                "canonical_spans": [list(span) for span in block.canonical_spans],
+                "lexical_spans": [list(span) for span in block.canonical_spans],
                 "page_ids": list(block.page_ids),
                 "physical_line_ids": list(block.physical_line_ids),
                 "anchor_ids": list(block.anchor_ids),
@@ -55,7 +55,7 @@ def document_record(document: NormalizedDocument) -> Mapping[str, object]:
         ],
         "alignments": [
             {
-                "canonical_tokens": [
+                "lexical_tokens": [
                     {"source_id": t.source_id, "start": t.start, "end": t.end, "text": t.text, "match_form": t.match_form}
                     for t in result.canonical_tokens
                 ],
@@ -65,7 +65,7 @@ def document_record(document: NormalizedDocument) -> Mapping[str, object]:
                      "cost": link.cost, "ambiguous": link.ambiguous}
                     for link in result.links
                 ],
-                "unmatched_canonical_indices": list(result.unmatched_canonical_indices),
+                "unmatched_lexical_indices": list(result.unmatched_canonical_indices),
                 "unmatched_anchor_ids": list(result.unmatched_anchor_ids),
                 "diagnostics": list(result.diagnostics),
             }
