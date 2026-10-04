@@ -29,6 +29,9 @@ _PRODUCER_FIELDS = {"source", "method", "evidence_sha256", "note"}
 _PROPOSAL_FIELDS = {
     "schema", "proposal_id", "book_id", "physical_manifest_sha256", "producer", "pages",
 }
+_UNACCEPTED_DRAFT_NOTE = (
+    "Calibration workflow draft; all physical calibration values are unresolved and none are accepted."
+)
 
 
 @dataclass(frozen=True)
@@ -202,7 +205,7 @@ def create_empty_calibration_draft(manifest: BookManifest, *, profile_id: str) -
             {"page_id": page.page_id, "content_bounds": None, "content_status": "unresolved",
              "orientation_degrees": None, "orientation_status": "unresolved",
              "deskew_degrees": None, "deskew_status": "unresolved",
-             "source": "human", "note": "No calibration proposal accepted; awaiting review."}
+             "source": "human", "note": _UNACCEPTED_DRAFT_NOTE}
             for page in manifest.pages
         ],
     }
@@ -324,7 +327,11 @@ def accept_calibration_proposal(
                                deskew_status="no_transform" if value == 0 else "measured")
 
         note_line = _acceptance_note(proposal, requested_fields)
-        note_parts = current.note.splitlines()
+        # This statement describes only a brand-new unresolved row. Remove it
+        # once an acceptance is recorded, while preserving any real acceptance
+        # history already present in the row note.
+        note_parts = [line for line in current.note.splitlines()
+                      if line != _UNACCEPTED_DRAFT_NOTE]
         if note_line not in note_parts:
             note_parts.append(note_line)
         updated_pages[page_id] = replace(current, **updates, source="human",

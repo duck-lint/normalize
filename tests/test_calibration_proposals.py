@@ -91,6 +91,35 @@ def test_sparse_proposal_is_path_independent_and_valid_without_a_profile(tmp_pat
     assert same.proposal_id == proposal.proposal_id
 
 
+def test_empty_profile_draft_note_describes_unresolved_values_without_claiming_measurement(tmp_path):
+    manifest = _manifest(tmp_path, pages=1)
+    draft = create_empty_calibration_draft(manifest, profile_id="empty-note")
+    note = draft.page_calibrations["page-001"].note
+    assert "unresolved" in note
+    assert "none are accepted" in note
+    assert "measured" not in note
+
+
+@pytest.mark.parametrize(("field", "value"), [
+    ("content_bounds", [10, 12, 190, 238]),
+    ("deskew_degrees", -0.2),
+])
+def test_partial_acceptance_replaces_empty_draft_note(tmp_path, field, value):
+    manifest = _manifest(tmp_path, pages=1)
+    draft = create_empty_calibration_draft(manifest, profile_id=f"accept-{field}")
+    proposal = _proposal(manifest, [{"page_id": "page-001", "values": {field: value}}])
+
+    accepted, _ = accept_calibration_proposal(
+        proposal, manifest, draft, accepted_pages={"page-001": [field]},
+    )
+
+    note = accepted.page_calibrations["page-001"].note
+    assert f"Human accepted {field}" in note
+    assert proposal.proposal_id in note
+    assert "none are accepted" not in note
+    assert "all physical calibration values are unresolved" not in note
+
+
 def test_proposal_round_trip_and_tampering_are_detected(tmp_path):
     manifest = _manifest(tmp_path)
     proposal = _proposal(manifest, [_row("page-001", orientation=90)])
@@ -171,6 +200,7 @@ def test_accept_bounds_only_preserves_other_fields_and_records_authorization(tmp
     assert accepted.state == "draft" and accepted.revision == draft.revision
     assert accepted.physical_manifest_sha256 == manifest.physical_sha256
     assert "Human accepted content_bounds" in page.note
+    assert "none are accepted" not in page.note
     assert record["schema"] == "calibration-acceptance-v1"
     assert record["input_profile_sha256"] == draft.sha256
     assert record["output_profile_sha256"] == accepted.sha256
@@ -191,7 +221,37 @@ def test_accept_deskew_only_preserves_human_bounds_and_is_idempotent(tmp_path):
     assert page.deskew_status == "measured"
     assert page.source == "human"
     assert "deskew_degrees" in page.note
+    assert "none are accepted" not in page.note
     assert first.sha256 == second.sha256
+
+
+def test_later_proposal_acceptance_preserves_prior_acceptance_history(tmp_path):
+    manifest = _manifest(tmp_path, pages=1)
+    draft = create_empty_calibration_draft(manifest, profile_id="history")
+    first_proposal = create_calibration_proposal(
+        manifest, _producer(method="first-method-v1", evidence="c" * 64),
+        [_row("page-001", bounds=[10, 10, 180, 220])],
+    )
+    first_draft, _ = accept_calibration_proposal(
+        first_proposal, manifest, draft,
+        accepted_pages={"page-001": ["content_bounds"]},
+    )
+
+    second_proposal = create_calibration_proposal(
+        manifest, _producer(method="second-method-v1", evidence="d" * 64),
+        [_row("page-001", deskew=0.2)],
+    )
+    second_draft, _ = accept_calibration_proposal(
+        second_proposal, manifest, first_draft,
+        accepted_pages={"page-001": ["deskew_degrees"]},
+    )
+
+    note = second_draft.page_calibrations["page-001"].note
+    assert first_proposal.proposal_id in note
+    assert second_proposal.proposal_id in note
+    assert "first-method-v1" in note
+    assert "second-method-v1" in note
+    assert "none are accepted" not in note
 
 
 def test_accept_orientation_only_and_all_proposed_fields_for_selected_pages(tmp_path):
