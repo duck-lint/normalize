@@ -326,12 +326,13 @@ def test_cli_validates_freezes_and_invokes_the_book_runner(tmp_path, monkeypatch
     from normalize import cli
 
     manifest, measurements = _make_book(tmp_path)
-    measurements_path = tmp_path / "measurements.json"
-    measurements_path.write_text(json.dumps(measurements), encoding="utf-8")
+    draft_path = tmp_path / "draft-profile.json"
+    save_profile(draft_profile_from_record(measurements, manifest,
+                                           profile_id="synthetic-profile"), draft_path)
     assert cli.main(["book", "validate", "--manifest", str(manifest.path)]) == 0
     profile_path = tmp_path / "frozen-profile.json"
     assert cli.main(["calibrate", "freeze", "--manifest", str(manifest.path),
-                     "--measurements", str(measurements_path), "--profile-id", "synthetic-profile",
+                     "--profile", str(draft_path),
                      "--output", str(profile_path)]) == 0
     profile = load_profile(profile_path)
     called = {}

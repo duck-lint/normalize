@@ -9,18 +9,30 @@ complete transcription can strengthen lexical evidence, but it is optional.
 > OCR is lexical evidence, not independent lexical authority.
 
 ```text
-V2 SCAN-ONLY PRODUCTION PATH (available now)
-ordered page images → BookManifest v2 → calibration → BookProfile v2
-                              ↓
-                     page observation
-                      ├─ geometry / spatial evidence
-                      └─ LexicalObservation
-                              ↓
-                   LexicalTranscript
-                              ↓
-                reconstruction → BookRun
-                               /       \
-                    normalized.md   ReviewReport
+V2 PHYSICAL SOURCE / CALIBRATION PATH
+ordered page images
+        ↓
+BookManifest v2
+        ↓
+any calibration proposer
+        ↓
+CalibrationProposal ─── method-specific evidence (by digest)
+        ↓
+human review → explicit calibrate accept
+        ↓
+BookProfile v2 draft → calibrate freeze
+        │
+        └──────────────────────────────────────────┐
+                                                   ↓
+PAGE OBSERVATION                              page pixels
+        ├─ geometry / spatial evidence              │
+        └─ LexicalObservation ← one OCR pass ───────┘
+                    ↓
+          LexicalTranscript
+                    ↓
+    reconstruction → BookRun
+                     /       \
+          normalized.md   ReviewReport
 
 V1 EXTERNAL-TEXT CONTROLLED PATH (available now)
 BookManifest v1 + external raw text + explicit spans
@@ -75,8 +87,59 @@ profile versions are validated only with their matching manifest versions.
 
 Profile bounds use source-image pixels before orientation. The profile cannot
 override OCR settings, alignment costs, structural thresholds, or other engine
-semantics. Manual measurements enter as a draft and `normalize calibrate
-freeze` writes a frozen value with an integrity digest.
+semantics.
+
+## Calibration proposals and acceptance
+
+`calibration-proposal-v1` is a physical-source-bound evidence artifact. It
+contains a stable content-derived proposal identity, `book_id`,
+`physical_manifest_sha256`, generic producer provenance (`source`, `method`,
+`evidence_sha256`, and `note`), and ordered sparse per-page values. A page may
+propose `content_bounds`, `orientation_degrees`, and/or `deskew_degrees`.
+Omitted fields mean no proposal for that field; null is not used to mean
+unresolved or to clear an existing value. Proposal identity excludes local
+paths and output locations. Method-specific evidence stays outside this
+contract and is referenced by its digest.
+
+CalibrationProposal values are proposed evidence, not profile authority.
+Accepting a proposal is an explicit human authorization event. It does not
+rewrite or upgrade the quality of the originating evidence.
+
+Create an unresolved `book-profile-v2` draft for the physical manifest, then
+create and inspect a proposal. Proposal validation checks it against the
+manifest without requiring a profile:
+
+```text
+normalize calibrate draft --manifest book.json --profile-id my-book \
+  --output profile-draft.json
+normalize calibrate proposal create --manifest book.json --values values.json \
+  --evidence measurement-evidence.json --source imported \
+  --method scanner-import-v1 --note "Imported physical calibration" \
+  --output proposal.json
+normalize calibrate proposal validate --manifest book.json --proposal proposal.json
+```
+
+Acceptance requires an explicit page selection (`--page-id` or `--all`) and an
+explicit field selection (`--field` or `--all-fields`). It changes only the
+selected values in the input v2 draft and writes a new draft plus a structured
+acceptance record. `content_bounds` maps to `content_status=measured` after
+human authorization; orientation and deskew map to their existing measured or
+no-transform states. Other values, fields, and pages retain their prior
+values. Accepted rows use `source=human` and retain the proposal ID, producer,
+method, and evidence digest in their note. Partial or uncertain evidence may
+still be accepted; core preserves its reference without interpreting its
+method-specific meaning.
+
+```text
+normalize calibrate accept --manifest book.json --profile profile-draft.json \
+  --proposal proposal.json --page-id page-001 --field deskew \
+  --output accepted-profile.json
+normalize calibrate freeze --manifest book.json --profile accepted-profile.json \
+  --output frozen-profile.json
+```
+
+Acceptance keeps the draft revision and never freezes it. Freezing is a
+separate profile integrity operation.
 
 ## Page observations and transcripts
 
@@ -117,8 +180,8 @@ run needs only ordered page images and a frozen physical profile:
 
 ```text
 normalize book validate --manifest book.json
-normalize calibrate freeze --manifest book.json --measurements calibration.json \
-  --profile-id my-book --output profile.json
+normalize calibrate freeze --manifest book.json --profile accepted-profile.json \
+  --output profile.json
 normalize run --manifest book.json --profile profile.json --output book-run/
 ```
 

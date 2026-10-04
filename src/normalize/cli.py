@@ -3,18 +3,27 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
 
 from .bookrun import run_book
+from .calibration import (
+    PROPOSED_FIELDS,
+    accept_calibration_proposal,
+    create_calibration_proposal,
+    create_empty_calibration_draft,
+    load_calibration_proposal,
+    save_acceptance_record,
+    save_calibration_proposal,
+)
 from .books import (
+    CALIBRATION_SOURCES,
     BookContractError,
-    draft_profile_from_record,
     freeze_profile,
     load_manifest,
     load_profile,
-    revised_draft_from_record,
     save_profile,
     validate_profile_for_manifest,
 )
@@ -57,16 +66,42 @@ def _parser() -> argparse.ArgumentParser:
     book_commands = book.add_subparsers(dest="book_command", required=True)
     validate_manifest = book_commands.add_parser("validate", help="validate a book manifest and its page sources")
     validate_manifest.add_argument("--manifest", type=Path, required=True)
-    calibrate = commands.add_parser("calibrate", help="validate or freeze book calibration measurements")
+    calibrate = commands.add_parser("calibrate", help="propose, accept, validate, or freeze physical calibration")
     calibration_commands = calibrate.add_subparsers(dest="calibration_command", required=True)
     validate_profile = calibration_commands.add_parser("validate", help="validate a profile against its manifest")
     validate_profile.add_argument("--manifest", type=Path, required=True)
     validate_profile.add_argument("--profile", type=Path, required=True)
-    freeze = calibration_commands.add_parser("freeze", help="validate supplied measurements and freeze profile v1")
+    draft = calibration_commands.add_parser("draft", help="create an unresolved physical BookProfile v2 draft")
+    draft.add_argument("--manifest", type=Path, required=True)
+    draft.add_argument("--profile-id", required=True)
+    draft.add_argument("--output", "-o", type=Path, required=True)
+    proposal = calibration_commands.add_parser("proposal", help="create or validate a generic physical calibration proposal")
+    proposal_commands = proposal.add_subparsers(dest="proposal_command", required=True)
+    proposal_create = proposal_commands.add_parser("create", help="import sparse physical values as a calibration proposal")
+    proposal_create.add_argument("--manifest", type=Path, required=True)
+    proposal_create.add_argument("--values", type=Path, required=True, help="JSON object containing ordered sparse page values")
+    proposal_create.add_argument("--evidence", type=Path, required=True, help="method-specific evidence file; only its SHA-256 is recorded")
+    proposal_create.add_argument("--source", choices=sorted(CALIBRATION_SOURCES), required=True)
+    proposal_create.add_argument("--method", required=True)
+    proposal_create.add_argument("--note", required=True)
+    proposal_create.add_argument("--output", type=Path, required=True)
+    proposal_validate = proposal_commands.add_parser("validate", help="validate a proposal against BookManifest v2")
+    proposal_validate.add_argument("--manifest", type=Path, required=True)
+    proposal_validate.add_argument("--proposal", type=Path, required=True)
+    accept = calibration_commands.add_parser("accept", help="explicitly accept proposed fields into a draft profile")
+    accept.add_argument("--manifest", type=Path, required=True)
+    accept.add_argument("--profile", type=Path, required=True, help="mutable BookProfile v2 draft")
+    accept.add_argument("--proposal", type=Path, required=True)
+    page_selection = accept.add_mutually_exclusive_group(required=True)
+    page_selection.add_argument("--page-id", action="append", dest="page_ids")
+    page_selection.add_argument("--all", action="store_true", help="select every page present in the proposal")
+    field_selection = accept.add_mutually_exclusive_group(required=True)
+    field_selection.add_argument("--field", action="append", choices=["content-bounds", "orientation", "deskew"], dest="fields")
+    field_selection.add_argument("--all-fields", action="store_true", help="accept every value actually proposed for each selected page")
+    accept.add_argument("--output", "-o", type=Path, required=True)
+    freeze = calibration_commands.add_parser("freeze", help="freeze an explicitly accepted profile draft")
     freeze.add_argument("--manifest", type=Path, required=True)
-    freeze.add_argument("--measurements", type=Path, required=True)
-    freeze.add_argument("--profile-id", required=True)
-    freeze.add_argument("--previous-profile", type=Path, help="create the next revision from this frozen profile")
+    freeze.add_argument("--profile", type=Path, required=True)
     freeze.add_argument("--output", "-o", type=Path, required=True)
     book_run = commands.add_parser("run", help="process an ordered book with a frozen profile")
     book_run.add_argument("--manifest", type=Path, required=True)
@@ -137,16 +172,82 @@ def _run(args: argparse.Namespace) -> int:
                           "profile_sha256": profile.sha256}, sort_keys=True))
         return 0
 
+    if args.command == "calibrate" and args.calibration_command == "draft":
+        manifest = load_manifest(args.manifest)
+        draft_profile = create_empty_calibration_draft(manifest, profile_id=args.profile_id)
+        if draft_profile.schema != "book-profile-v2":
+            raise BookContractError("calibrate draft requires book-manifest-v2")
+        save_profile(draft_profile, args.output)
+        print(json.dumps({"status": "draft_created", "profile_id": draft_profile.profile_id,
+                          "profile_state": draft_profile.state, "profile": str(args.output)}, sort_keys=True))
+        return 0
+
+    if args.command == "calibrate" and args.calibration_command == "proposal":
+        manifest = load_manifest(args.manifest)
+        if args.proposal_command == "create":
+            if args.output.resolve() in {args.values.resolve(), args.evidence.resolve()}:
+                raise BookContractError("proposal output must not overwrite its values or evidence input")
+            raw_values = json.loads(args.values.read_text(encoding="utf-8"))
+            if not isinstance(raw_values, dict) or set(raw_values) != {"pages"}:
+                raise BookContractError("proposal values file must contain exactly a pages array")
+            if not isinstance(raw_values["pages"], list):
+                raise BookContractError("proposal values.pages must be an array")
+            evidence_digest = hashlib.sha256(args.evidence.read_bytes()).hexdigest()
+            proposal_artifact = create_calibration_proposal(
+                manifest,
+                {"source": args.source, "method": args.method,
+                 "evidence_sha256": evidence_digest, "note": args.note},
+                raw_values["pages"],
+            )
+            save_calibration_proposal(proposal_artifact, args.output)
+            print(json.dumps({"status": "proposal_created", "proposal_id": proposal_artifact.proposal_id,
+                              "pages": len(proposal_artifact.pages), "output": str(args.output)}, sort_keys=True))
+            return 0
+        proposal_artifact = load_calibration_proposal(args.proposal, manifest)
+        print(json.dumps({"status": "valid", "proposal_id": proposal_artifact.proposal_id,
+                          "book_id": proposal_artifact.book_id,
+                          "physical_manifest_sha256": proposal_artifact.physical_manifest_sha256,
+                          "pages": len(proposal_artifact.pages)}, sort_keys=True))
+        return 0
+
+    if args.command == "calibrate" and args.calibration_command == "accept":
+        manifest = load_manifest(args.manifest)
+        proposal_artifact = load_calibration_proposal(args.proposal, manifest)
+        profile = load_profile(args.profile)
+        if args.output.resolve() == args.profile.resolve():
+            raise BookContractError("acceptance output must be separate from its input profile")
+        if args.output.resolve() == args.proposal.resolve():
+            raise BookContractError("acceptance output must be separate from its proposal")
+        if args.all:
+            selected_page_ids = [page["page_id"] for page in proposal_artifact.pages]
+        else:
+            selected_page_ids = args.page_ids
+        aliases = {"content-bounds": "content_bounds", "orientation": "orientation_degrees",
+                   "deskew": "deskew_degrees"}
+        selected_fields = [aliases[value] for value in args.fields] if args.fields else None
+        proposal_fields = {page["page_id"]: page["values"] for page in proposal_artifact.pages}
+        accepted_pages = {
+            page_id: (selected_fields if selected_fields is not None
+                      else [field for field in PROPOSED_FIELDS if field in proposal_fields[page_id]])
+            for page_id in selected_page_ids
+        }
+        accepted_profile, acceptance = accept_calibration_proposal(
+            proposal_artifact, manifest, profile, accepted_pages=accepted_pages,
+        )
+        save_profile(accepted_profile, args.output)
+        acceptance_path = args.output.with_suffix(args.output.suffix + ".acceptance.json")
+        save_acceptance_record(acceptance, acceptance_path)
+        print(json.dumps({"status": "accepted_to_draft", "profile_id": accepted_profile.profile_id,
+                          "profile_state": accepted_profile.state,
+                          "accepted_pages": len(acceptance["accepted_pages"]),
+                          "profile": str(args.output), "acceptance": str(acceptance_path)}, sort_keys=True))
+        return 0
+
     if args.command == "calibrate" and args.calibration_command == "freeze":
         manifest = load_manifest(args.manifest)
-        measurements = json.loads(args.measurements.read_text(encoding="utf-8"))
-        if args.previous_profile:
-            previous = load_profile(args.previous_profile)
-            if args.profile_id != previous.profile_id:
-                raise BookContractError("--profile-id must match --previous-profile.profile_id")
-            draft = revised_draft_from_record(measurements, manifest, previous)
-        else:
-            draft = draft_profile_from_record(measurements, manifest, profile_id=args.profile_id)
+        draft = load_profile(args.profile)
+        if args.output.resolve() == args.profile.resolve():
+            raise BookContractError("freeze output must be separate from its input draft")
         frozen = freeze_profile(draft, manifest)
         save_profile(frozen, args.output)
         print(json.dumps({"status": "frozen", "profile_id": frozen.profile_id,
