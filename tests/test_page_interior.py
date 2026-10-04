@@ -7,7 +7,8 @@ import pytest
 from PIL import Image, ImageDraw
 
 from normalize import cli
-from normalize.books import load_manifest, load_profile, validate_profile_for_manifest
+from normalize.books import load_manifest, load_profile
+from normalize.calibration import load_calibration_proposal
 from normalize.page_interior import measure_page_interior
 
 
@@ -51,6 +52,32 @@ def _synthetic_scan(
     return Image.alpha_composite(background_layer, page_layer).convert("RGB")
 
 
+def _write_manifest(root, images, *, schema="book-manifest-v2", book_id="synthetic-pages"):
+    root.mkdir(parents=True, exist_ok=True)
+    pages = []
+    for page_id, image in images:
+        image_path = root / f"{page_id}.png"
+        image.save(image_path)
+        pages.append({"page_id": page_id, "image": image_path.name,
+                      "source_sha256": hashlib.sha256(image_path.read_bytes()).hexdigest()})
+    record = {"schema": schema, "book_id": book_id, "source_dpi": 300, "pages": pages}
+    if schema == "book-manifest-v1":
+        (root / "raw.txt").write_text("fixture", encoding="utf-8")
+        record["canonical_source"] = "raw.txt"
+        for page in record["pages"]:
+            page["canonical_span"] = {"start": 0, "end": 7}
+    manifest_path = root / "manifest.json"
+    manifest_path.write_text(json.dumps(record), encoding="utf-8")
+    return manifest_path
+
+
+def _run_measure(manifest_path, proposal_path, *page_ids):
+    arguments = ["calibrate", "measure", "--manifest", str(manifest_path), "--output", str(proposal_path)]
+    for page_id in page_ids:
+        arguments.extend(["--page-id", page_id])
+    return cli.main(arguments)
+
+
 @pytest.mark.parametrize("background", [(255, 255, 255), (0, 0, 0), (250, 250, 250)])
 def test_translated_page_is_measured_against_light_and_dark_scanner_beds(background):
     result = measure_page_interior(_synthetic_scan(background=background, page_box=(170, 155, 670, 855)))
@@ -87,6 +114,29 @@ def test_edge_shadow_and_near_edge_printed_mark_remain_measurable():
     # A near-edge printed mark remains within the proposed crop.
     assert left < 130 + 18
     assert top < 120 + 40
+
+
+def test_raster_clipped_sheet_edge_is_reported_as_partial_evidence():
+    result = measure_page_interior(_synthetic_scan(page_box=(0, 120, 690, 900)))
+
+    assert result.status == "partial"
+    assert result.content_bounds is not None
+    assert result.edges["left"]["status"] == "unobserved_raster_clip"
+    assert "page_edge_not_visible" in result.failures
+
+
+def test_non_rectangular_edge_evidence_leaves_rigid_orientation_unresolved():
+    image = Image.new("RGB", (900, 1100), "black")
+    ImageDraw.Draw(image).polygon(
+        [(130, 120), (690, 120), (620, 900), (180, 900)],
+        fill=(247, 242, 228),
+    )
+
+    result = measure_page_interior(image)
+
+    assert result.deskew_degrees_clockwise is None
+    assert "orientation_unresolved" in result.failures
+    assert result.status == "partial"
 
 
 def test_sparse_and_large_internal_blank_pages_use_the_page_surface_not_ink_bounds():
@@ -130,48 +180,165 @@ def test_white_page_on_indistinguishable_white_bed_is_unresolved_without_a_guess
     assert "background_indistinguishable" in result.failures
 
 
-def test_measure_command_writes_mutable_profile_and_preserves_human_rows_by_default(tmp_path):
-    source_path = tmp_path / "scan.001.jpg"
-    _synthetic_scan().save(source_path, quality=95)
-    source_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
-    manifest_path = tmp_path / "manifest.json"
-    manifest_path.write_text(json.dumps({
-        "schema": "book-manifest-v1",
-        "book_id": "synthetic-loose-page",
-        "source_dpi": 300,
-        "canonical_source": "canonical-source-required.txt",
-        "pages": [{
-            "page_id": "scan-001",
-            "image": source_path.name,
-            "source_sha256": source_hash,
-        }],
-    }), encoding="utf-8")
-    profile_path = tmp_path / "profile.json"
+def test_neutral_white_page_on_dark_bed_is_unresolved_by_current_chroma_method():
+    image = Image.new("RGB", (900, 1100), (0, 0, 0))
+    ImageDraw.Draw(image).rectangle((130, 120, 690, 900), fill=(255, 255, 255))
 
-    assert cli.main([
-        "calibrate", "measure", "--manifest", str(manifest_path),
-        "--output", str(profile_path),
-    ]) == 0
-    manifest = load_manifest(manifest_path, validate_sources=False)
-    profile = load_profile(profile_path)
-    validate_profile_for_manifest(profile, manifest)
-    assert profile.state == "draft"
-    assert profile.pages[0].source == "detector"
-    assert profile_path.with_suffix(".json.observations.json").is_file()
+    result = measure_page_interior(image)
 
-    record = json.loads(profile_path.read_text(encoding="utf-8"))
-    record["pages"][0]["source"] = "human"
-    record["pages"][0]["note"] = "Human-reviewed crop."
-    profile_path.write_text(json.dumps(record), encoding="utf-8")
+    assert result.status == "unresolved"
+    assert result.content_bounds is None
+    assert "background_indistinguishable" in result.failures
 
-    assert cli.main([
-        "calibrate", "measure", "--manifest", str(manifest_path),
-        "--profile", str(profile_path), "--output", str(profile_path),
-    ]) == 0
-    assert load_profile(profile_path).pages[0].source == "human"
 
-    assert cli.main([
-        "calibrate", "measure", "--manifest", str(manifest_path),
-        "--profile", str(profile_path), "--replace-human", "--output", str(profile_path),
-    ]) == 0
-    assert load_profile(profile_path).pages[0].source == "detector"
+def test_measure_emits_core_proposal_and_exact_evidence_digest_then_accepts_and_freezes(tmp_path):
+    manifest_path = _write_manifest(tmp_path / "book", [("page-001", _synthetic_scan(angle_degrees=0.7))])
+    proposal_path = tmp_path / "proposal.json"
+    assert _run_measure(manifest_path, proposal_path) == 0
+    evidence_path = proposal_path.with_suffix(".json.observations.json")
+    proposal_bytes = proposal_path.read_bytes()
+    evidence_bytes = evidence_path.read_bytes()
+    manifest = load_manifest(manifest_path)
+    proposal = load_calibration_proposal(proposal_path, manifest)
+    values = proposal.pages[0]["values"]
+
+    assert proposal.producer["source"] == "detector"
+    assert proposal.producer["method"] == "lab-paper-chroma-largest-component-v1"
+    assert proposal.producer["evidence_sha256"] == hashlib.sha256(evidence_bytes).hexdigest()
+    assert "human review" in proposal.producer["note"]
+    assert "content_bounds" in values and "deskew_degrees" in values
+    assert "orientation_degrees" not in values
+    assert not (tmp_path / "profile.json").exists()
+
+    draft_path = tmp_path / "draft.json"
+    assert cli.main(["calibrate", "draft", "--manifest", str(manifest_path),
+                     "--profile-id", "synthetic", "--output", str(draft_path)]) == 0
+    accepted_path = tmp_path / "accepted.json"
+    assert cli.main(["calibrate", "accept", "--manifest", str(manifest_path),
+        "--profile", str(draft_path), "--proposal", str(proposal_path),
+        "--all", "--all-fields", "--output", str(accepted_path)]) == 0
+    acceptance = json.loads(accepted_path.with_suffix(".json.acceptance.json").read_text())
+    profile = load_profile(accepted_path)
+    accepted_page = profile.page_calibrations["page-001"]
+    assert accepted_page.content_bounds == tuple(values["content_bounds"])
+    assert accepted_page.source == "human"
+    assert proposal.proposal_id in accepted_page.note
+    assert proposal.producer["method"] in accepted_page.note
+    assert proposal.producer["evidence_sha256"] in accepted_page.note
+    assert acceptance["proposal_id"] == proposal.proposal_id
+
+    frozen_path = tmp_path / "frozen.json"
+    assert cli.main(["calibrate", "freeze", "--manifest", str(manifest_path),
+                     "--profile", str(accepted_path), "--output", str(frozen_path)]) == 0
+    assert load_profile(frozen_path).state == "frozen"
+    assert proposal_path.read_bytes() == proposal_bytes
+    assert evidence_path.read_bytes() == evidence_bytes
+
+
+def test_partial_bounds_remain_proposable_and_acceptance_does_not_change_evidence(tmp_path):
+    manifest_path = _write_manifest(
+        tmp_path / "clipped", [("page-clipped", _synthetic_scan(page_box=(0, 120, 690, 900)))],
+    )
+    proposal_path = tmp_path / "partial-proposal.json"
+    assert _run_measure(manifest_path, proposal_path) == 0
+    evidence_path = proposal_path.with_suffix(".json.observations.json")
+    evidence_before = evidence_path.read_bytes()
+    proposal_before = proposal_path.read_bytes()
+    evidence = json.loads(evidence_before)
+    manifest = load_manifest(manifest_path)
+    proposal = load_calibration_proposal(proposal_path, manifest)
+
+    observation = evidence["observations"][0]
+    assert observation["status"] == "partial"
+    assert observation["edges"]["left"]["status"] == "unobserved_raster_clip"
+    assert observation["content_bounds"] is not None
+    assert proposal.pages[0]["values"]["content_bounds"] == observation["content_bounds"]
+
+    draft_path = tmp_path / "partial-draft.json"
+    cli.main(["calibrate", "draft", "--manifest", str(manifest_path),
+              "--profile-id", "partial", "--output", str(draft_path)])
+    accepted_path = tmp_path / "partial-accepted.json"
+    assert cli.main(["calibrate", "accept", "--manifest", str(manifest_path),
+        "--profile", str(draft_path), "--proposal", str(proposal_path),
+        "--page-id", "page-clipped", "--field", "content-bounds",
+        "--output", str(accepted_path)]) == 0
+    accepted = load_profile(accepted_path).page_calibrations["page-clipped"]
+    assert accepted.content_bounds == tuple(observation["content_bounds"])
+    assert accepted.content_status == "measured"
+    assert accepted.source == "human"
+    assert proposal.proposal_id in accepted.note
+    assert evidence_path.read_bytes() == evidence_before
+    assert proposal_path.read_bytes() == proposal_before
+    assert json.loads(evidence_path.read_bytes())["observations"][0]["status"] == "partial"
+
+
+def test_unresolved_deskew_is_omitted_and_all_fields_accepts_only_bounds(tmp_path):
+    image = Image.new("RGB", (900, 1100), "black")
+    ImageDraw.Draw(image).polygon(
+        [(130, 120), (690, 120), (620, 900), (180, 900)], fill=(247, 242, 228),
+    )
+    manifest_path = _write_manifest(tmp_path / "unresolved", [("page-skew", image)])
+    proposal_path = tmp_path / "unresolved-proposal.json"
+    assert _run_measure(manifest_path, proposal_path) == 0
+    evidence_path = proposal_path.with_suffix(".json.observations.json")
+    evidence = json.loads(evidence_path.read_text())
+    proposal = load_calibration_proposal(proposal_path, load_manifest(manifest_path))
+    observation = evidence["observations"][0]
+
+    assert observation["status"] == "partial"
+    assert "orientation_unresolved" in observation["failures"]
+    assert "content_bounds" in proposal.pages[0]["values"]
+    assert "deskew_degrees" not in proposal.pages[0]["values"]
+    assert "orientation_degrees" not in proposal.pages[0]["values"]
+
+    draft_path = tmp_path / "unresolved-draft.json"
+    cli.main(["calibrate", "draft", "--manifest", str(manifest_path),
+              "--profile-id", "unresolved", "--output", str(draft_path)])
+    accepted_path = tmp_path / "unresolved-accepted.json"
+    assert cli.main(["calibrate", "accept", "--manifest", str(manifest_path),
+        "--profile", str(draft_path), "--proposal", str(proposal_path),
+        "--all", "--all-fields", "--output", str(accepted_path)]) == 0
+    accepted = load_profile(accepted_path).page_calibrations["page-skew"]
+    assert accepted.content_bounds == tuple(observation["content_bounds"])
+    assert accepted.deskew_degrees is None and accepted.deskew_status == "unresolved"
+    assert accepted.orientation_degrees is None and accepted.orientation_status == "unresolved"
+
+
+def test_no_candidate_writes_evidence_returns_review_status_without_proposal(tmp_path, capsys):
+    white_page_on_black = Image.new("RGB", (900, 1100), "black")
+    ImageDraw.Draw(white_page_on_black).rectangle((130, 120, 690, 900), fill="white")
+    manifest_path = _write_manifest(tmp_path / "no-candidate", [("page-white", white_page_on_black)])
+    proposal_path = tmp_path / "no-candidates.json"
+
+    assert _run_measure(manifest_path, proposal_path) == 3
+    result = json.loads(capsys.readouterr().out)
+    assert result["status"] == "no_candidates"
+    assert result["proposal"] is None
+    assert result["pages_without_generic_proposal_values"] == 1
+    assert proposal_path.with_suffix(".json.observations.json").is_file()
+    assert not proposal_path.exists()
+
+
+def test_selected_page_order_follows_manifest_and_duplicate_ids_are_rejected(tmp_path):
+    manifest_path = _write_manifest(tmp_path / "ordered", [
+        ("page-a", _synthetic_scan()), ("page-b", _synthetic_scan(page_box=(150, 130, 700, 890))),
+    ])
+    proposal_path = tmp_path / "ordered-proposal.json"
+    assert _run_measure(manifest_path, proposal_path, "page-b", "page-a") == 0
+    evidence = json.loads(proposal_path.with_suffix(".json.observations.json").read_text())
+    proposal = load_calibration_proposal(proposal_path, load_manifest(manifest_path))
+    assert [row["page_id"] for row in evidence["observations"]] == ["page-a", "page-b"]
+    assert [row["page_id"] for row in proposal.pages] == ["page-a", "page-b"]
+
+    assert _run_measure(manifest_path, tmp_path / "duplicate.json", "page-a", "page-a") == 2
+
+
+def test_measure_rejects_v1_manifest_and_hash_mismatch(tmp_path):
+    image = _synthetic_scan()
+    legacy_path = _write_manifest(tmp_path / "legacy", [("page-old", image)], schema="book-manifest-v1")
+    assert _run_measure(legacy_path, tmp_path / "legacy-proposal.json") == 2
+
+    current_path = _write_manifest(tmp_path / "hash", [("page-hash", image)])
+    changed = tmp_path / "hash" / "page-hash.png"
+    changed.write_bytes(b"changed source bytes")
+    assert _run_measure(current_path, tmp_path / "hash-proposal.json") == 2

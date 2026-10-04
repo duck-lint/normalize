@@ -186,9 +186,12 @@ def _run(args: argparse.Namespace) -> int:
         return 0
 
     if args.command == "calibrate" and args.calibration_command == "measure":
-        manifest = load_manifest(args.manifest)
+        manifest = load_manifest(args.manifest, validate_sources=False)
         if manifest.schema != BOOK_MANIFEST_V2_SCHEMA:
             raise BookContractError("calibrate measure requires book-manifest-v2")
+        # Re-load with source validation enabled only after establishing the
+        # physical-only contract; this verifies every declared image/hash.
+        manifest = load_manifest(args.manifest)
 
         evidence_path = args.output.with_suffix(args.output.suffix + ".observations.json")
         protected_inputs = {args.manifest.resolve(), *(page.image.resolve() for page in manifest.pages)}

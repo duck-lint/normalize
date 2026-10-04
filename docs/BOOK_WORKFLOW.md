@@ -14,9 +14,11 @@ ordered page images
         ↓
 BookManifest v2
         ↓
-any calibration proposer
-        ↓
-CalibrationProposal ─── method-specific evidence (by digest)
+experimental page-interior measurement
+        ├── page-interior-measurements-v1
+        │      detailed method-specific evidence
+        └── calibration-proposal-v1
+               generic sparse candidate values
         ↓
 human review → explicit calibrate accept
         ↓
@@ -140,6 +142,41 @@ normalize calibrate freeze --manifest book.json --profile accepted-profile.json 
 
 Acceptance keeps the draft revision and never freezes it. Freezing is a
 separate profile integrity operation.
+
+## Experimental pixel-based measurement
+
+`normalize calibrate measure` is an experimental proposer. It accepts a
+validated `book-manifest-v2` and source pixels, with optional repeated
+`--page-id` selection. For `--output proposal.json`, it writes:
+
+- `proposal.json.observations.json`: `page-interior-measurements-v1` with the
+  method/version, physical manifest identity, source hashes and dimensions,
+  detector status, physical boundary, candidate bounds, deskew evidence,
+  per-edge support, failures, and uncertainty;
+- `proposal.json`: a generic `calibration-proposal-v1` created through the core
+  calibration API. Its producer references the exact evidence-file bytes by
+  SHA-256.
+
+The detector never writes accepted calibration directly into BookProfile.
+Its proposal may include candidate `content_bounds` even when the detailed
+observation is partial. The partial status and edge limitations remain in the
+method-specific evidence; only explicit human acceptance authorizes a
+candidate into BookProfile. Resolved `deskew_degrees` may be proposed. An
+unresolved deskew and unmeasured quarter-turn orientation are omitted rather
+than filled with guessed defaults. Pages with no proposal values remain in the
+evidence artifact but are omitted from the generic proposal. If no selected
+page yields a candidate, the command writes evidence, returns review status 3,
+and does not write a proposal.
+
+```text
+normalize calibrate measure --manifest book.json --output proposal.json
+normalize calibrate draft --manifest book.json --profile-id my-book \
+  --output profile-draft.json
+normalize calibrate accept --manifest book.json --profile profile-draft.json \
+  --proposal proposal.json --all --all-fields --output accepted-profile.json
+normalize calibrate freeze --manifest book.json --profile accepted-profile.json \
+  --output frozen-profile.json
+```
 
 ## Page observations and transcripts
 
