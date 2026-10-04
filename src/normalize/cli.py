@@ -77,7 +77,7 @@ def _parser() -> argparse.ArgumentParser:
     measure.add_argument("--profile-id", help="identity for a new draft profile")
     measure.add_argument("--replace-human", action="store_true", help="replace human profile rows while retaining detector evidence in the sidecar")
     measure.add_argument("--output", "-o", type=Path, required=True)
-    freeze = calibration_commands.add_parser("freeze", help="validate supplied measurements and freeze profile v1")
+    freeze = calibration_commands.add_parser("freeze", help="validate supplied measurements and freeze a profile")
     freeze.add_argument("--manifest", type=Path, required=True)
     freeze.add_argument("--measurements", type=Path, required=True)
     freeze.add_argument("--profile-id", required=True)
@@ -153,14 +153,17 @@ def _run(args: argparse.Namespace) -> int:
         return 0
 
     if args.command == "calibrate" and args.calibration_command == "measure":
-        # Acquisition measurement can precede the canonical lexical source.
-        # The manifest contract is still loaded, then every scan is checked
-        # directly so omitting the canonical file cannot hide a missing image
-        # or a stale declared source digest.
+        # Measurement is a physical-only operation. Reject the legacy v1
+        # controlled-text contract instead of quietly binding detector output
+        # to its historical lexical-inclusive identity.
         manifest = load_manifest(args.manifest, validate_sources=False)
+        if manifest.schema != "book-manifest-v2":
+            raise BookContractError("calibrate measure requires book-manifest-v2")
         if args.profile:
             base_profile = load_profile(args.profile)
             validate_profile_for_manifest(base_profile, manifest)
+            if base_profile.schema != "book-profile-v2":
+                raise BookContractError("calibrate measure requires book-profile-v2")
             if base_profile.state != "draft":
                 raise BookContractError("--profile must be a mutable draft")
         else:
@@ -196,8 +199,13 @@ def _run(args: argparse.Namespace) -> int:
             )
             proposed_rows[page_id] = {
                 "page_id": page_id,
-                "content_bounds": list(observation.content_bounds) if observation.content_bounds else None,
-                "content_status": "measured" if observation.content_bounds else "unresolved",
+                # BookProfile currently has no partial-bound status. Keep a
+                # partial rectangle in the evidence sidecar and leave the
+                # profile bound unresolved until a human accepts it.
+                "content_bounds": (list(observation.content_bounds)
+                                   if observation.content_bounds and observation.status == "measured" else None),
+                "content_status": ("measured" if observation.content_bounds and observation.status == "measured"
+                                   else "unresolved"),
                 "orientation_degrees": 0,
                 "orientation_status": "no_transform",
                 "deskew_degrees": observation.deskew_degrees_clockwise,
@@ -221,9 +229,19 @@ def _run(args: argparse.Namespace) -> int:
             calibration_pages = list(dict.fromkeys([*base_profile.calibration_pages, *selected_ids]))
             profile_id = base_profile.profile_id
         else:
-            if set(selected_ids) != set(pages_by_id):
-                raise BookContractError("a partial measurement requires --profile to supply the remaining draft rows")
-            page_rows = [proposed_rows[page.page_id] for page in manifest.pages]
+            # Unselected pages remain explicit unresolved rows in the draft;
+            # selected IDs alone populate calibration provenance.
+            unresolved_rows = {
+                page_id: {
+                    "page_id": page_id, "content_bounds": None, "content_status": "unresolved",
+                    "orientation_degrees": None, "orientation_status": "unresolved",
+                    "deskew_degrees": None, "deskew_status": "unresolved", "source": "detector",
+                    "note": f"{PAGE_INTERIOR_METHOD}; not measured by this invocation",
+                }
+                for page_id in pages_by_id if page_id not in proposed_rows
+            }
+            page_rows = [proposed_rows.get(page.page_id, unresolved_rows.get(page.page_id))
+                         for page in manifest.pages]
             calibration_pages = selected_ids
             profile_id = args.profile_id or f"{manifest.book_id}-page-interior-draft"
 
@@ -246,7 +264,7 @@ def _run(args: argparse.Namespace) -> int:
         evidence_path.write_text(json.dumps({
             "schema": "page-interior-measurements-v1",
             "method": PAGE_INTERIOR_METHOD,
-            "manifest_sha256": manifest.sha256,
+            "physical_manifest_sha256": manifest.physical_sha256,
             "observations": observations,
         }, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         print(json.dumps({

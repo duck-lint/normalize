@@ -89,6 +89,29 @@ def test_edge_shadow_and_near_edge_printed_mark_remain_measurable():
     assert top < 120 + 40
 
 
+def test_raster_clipped_sheet_edge_is_reported_as_partial_evidence():
+    result = measure_page_interior(_synthetic_scan(page_box=(0, 120, 690, 900)))
+
+    assert result.status == "partial"
+    assert result.content_bounds is not None
+    assert result.edges["left"]["status"] == "unobserved_raster_clip"
+    assert "page_edge_not_visible" in result.failures
+
+
+def test_non_rectangular_edge_evidence_leaves_rigid_orientation_unresolved():
+    image = Image.new("RGB", (900, 1100), "black")
+    ImageDraw.Draw(image).polygon(
+        [(130, 120), (690, 120), (620, 900), (180, 900)],
+        fill=(247, 242, 228),
+    )
+
+    result = measure_page_interior(image)
+
+    assert result.deskew_degrees_clockwise is None
+    assert "orientation_unresolved" in result.failures
+    assert result.status == "partial"
+
+
 def test_sparse_and_large_internal_blank_pages_use_the_page_surface_not_ink_bounds():
     sparse = measure_page_interior(_synthetic_scan(content="sparse"))
     blank = measure_page_interior(_synthetic_scan(content="blank"))
@@ -130,18 +153,28 @@ def test_white_page_on_indistinguishable_white_bed_is_unresolved_without_a_guess
     assert "background_indistinguishable" in result.failures
 
 
+def test_neutral_white_page_on_dark_bed_is_unresolved_by_current_chroma_method():
+    image = Image.new("RGB", (900, 1100), (0, 0, 0))
+    ImageDraw.Draw(image).rectangle((130, 120, 690, 900), fill=(255, 255, 255))
+
+    result = measure_page_interior(image)
+
+    assert result.status == "unresolved"
+    assert result.content_bounds is None
+    assert "background_indistinguishable" in result.failures
+
+
 def test_measure_command_writes_mutable_profile_and_preserves_human_rows_by_default(tmp_path):
-    source_path = tmp_path / "scan.001.jpg"
+    source_path = tmp_path / "page.jpg"
     _synthetic_scan().save(source_path, quality=95)
     source_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_text(json.dumps({
-        "schema": "book-manifest-v1",
+        "schema": "book-manifest-v2",
         "book_id": "synthetic-loose-page",
         "source_dpi": 300,
-        "canonical_source": "canonical-source-required.txt",
         "pages": [{
-            "page_id": "scan-001",
+            "page_id": "page-001",
             "image": source_path.name,
             "source_sha256": source_hash,
         }],
@@ -156,8 +189,16 @@ def test_measure_command_writes_mutable_profile_and_preserves_human_rows_by_defa
     profile = load_profile(profile_path)
     validate_profile_for_manifest(profile, manifest)
     assert profile.state == "draft"
+    assert profile.schema == "book-profile-v2"
+    assert profile.physical_manifest_sha256 == manifest.physical_sha256
     assert profile.pages[0].source == "detector"
-    assert profile_path.with_suffix(".json.observations.json").is_file()
+    evidence_path = profile_path.with_suffix(".json.observations.json")
+    assert evidence_path.is_file()
+    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    assert evidence["physical_manifest_sha256"] == manifest.physical_sha256
+    assert evidence["observations"][0]["method"] == "lab-paper-chroma-largest-component-v1"
+    assert not (tmp_path / "canonical-source-required.txt").exists()
+    assert not (tmp_path / "transcript.json").exists()
 
     record = json.loads(profile_path.read_text(encoding="utf-8"))
     record["pages"][0]["source"] = "human"
@@ -168,10 +209,50 @@ def test_measure_command_writes_mutable_profile_and_preserves_human_rows_by_defa
         "calibrate", "measure", "--manifest", str(manifest_path),
         "--profile", str(profile_path), "--output", str(profile_path),
     ]) == 0
-    assert load_profile(profile_path).pages[0].source == "human"
+    retained_human_row = load_profile(profile_path).pages[0]
+    assert retained_human_row.source == "human"
+    assert retained_human_row.note == "Human-reviewed crop."
+    assert retained_human_row.content_bounds == profile.pages[0].content_bounds
 
     assert cli.main([
         "calibrate", "measure", "--manifest", str(manifest_path),
         "--profile", str(profile_path), "--replace-human", "--output", str(profile_path),
     ]) == 0
     assert load_profile(profile_path).pages[0].source == "detector"
+
+
+def test_partial_measurement_keeps_bounds_in_evidence_not_profile(tmp_path):
+    source_path = tmp_path / "clipped.png"
+    _synthetic_scan(page_box=(0, 120, 690, 900)).save(source_path)
+    manifest_path = tmp_path / "manifest.json"
+    manifest_path.write_text(json.dumps({
+        "schema": "book-manifest-v2", "book_id": "synthetic-clipped", "source_dpi": 300,
+        "pages": [{"page_id": "page-1", "image": source_path.name,
+                   "source_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest()}],
+    }), encoding="utf-8")
+    profile_path = tmp_path / "profile.json"
+
+    assert cli.main(["calibrate", "measure", "--manifest", str(manifest_path),
+                     "--output", str(profile_path)]) == 0
+    manifest = load_manifest(manifest_path)
+    profile = load_profile(profile_path)
+    evidence = json.loads(profile_path.with_suffix(".json.observations.json").read_text())
+    assert evidence["observations"][0]["status"] == "partial"
+    assert evidence["observations"][0]["content_bounds"] is not None
+    assert profile.pages[0].content_bounds is None
+    assert profile.pages[0].content_status == "unresolved"
+    validate_profile_for_manifest(profile, manifest)
+
+
+def test_measure_command_rejects_legacy_manifest_profile_contract(tmp_path):
+    source_path = tmp_path / "scan.png"
+    _synthetic_scan().save(source_path)
+    manifest_path = tmp_path / "manifest-v1.json"
+    manifest_path.write_text(json.dumps({
+        "schema": "book-manifest-v1", "book_id": "legacy", "source_dpi": 300,
+        "canonical_source": "raw.txt",
+        "pages": [{"page_id": "page-1", "image": source_path.name,
+                   "source_sha256": hashlib.sha256(source_path.read_bytes()).hexdigest()}],
+    }), encoding="utf-8")
+    assert cli.main(["calibrate", "measure", "--manifest", str(manifest_path),
+                     "--output", str(tmp_path / "profile.json")]) == 2

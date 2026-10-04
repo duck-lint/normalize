@@ -9,18 +9,26 @@ complete transcription can strengthen lexical evidence, but it is optional.
 > OCR is lexical evidence, not independent lexical authority.
 
 ```text
-V2 SCAN-ONLY PRODUCTION PATH (available now)
-ordered page images → BookManifest v2 → calibration → BookProfile v2
-                              ↓
-                     page observation
-                      ├─ geometry / spatial evidence
-                      └─ LexicalObservation
-                              ↓
-                   LexicalTranscript
-                              ↓
-                reconstruction → BookRun
-                               /       \
-                    normalized.md   ReviewReport
+PHYSICAL SOURCE / CALIBRATION (v2 production path)
+ordered page images
+        ↓
+BookManifest v2
+        ↓
+calibration measurement (manual or pixel-based proposal)
+        ↓
+BookProfile v2 draft ── human review ── freeze
+        │
+        └──────────────────────────────────────────┐
+                                                   ↓
+PAGE OBSERVATION                              page pixels
+        ├─ geometry / spatial evidence              │
+        └─ LexicalObservation ← one OCR pass ───────┘
+                    ↓
+          LexicalTranscript
+                    ↓
+    reconstruction → BookRun
+                     /       \
+          normalized.md   ReviewReport
 
 V1 EXTERNAL-TEXT CONTROLLED PATH (available now)
 BookManifest v1 + external raw text + explicit spans
@@ -32,6 +40,9 @@ additional observers or external lexical evidence
                          ↓
          reconciliation with a v2 LexicalTranscript
 ```
+
+> Pixel-based page measurement proposes physical calibration observations. It
+> does not determine wording or document structure.
 
 ## Authority layers
 
@@ -77,6 +88,29 @@ Profile bounds use source-image pixels before orientation. The profile cannot
 override OCR settings, alignment costs, structural thresholds, or other engine
 semantics. Manual measurements enter as a draft and `normalize calibrate
 freeze` writes a frozen value with an integrity digest.
+
+### Pixel-based page measurement
+
+`normalize calibrate measure` accepts `book-manifest-v2` and reads only the
+listed source rasters. It records a versioned `PageInteriorObservation` for
+each selected page in a separate evidence sidecar and writes a mutable
+`book-profile-v2` draft. The current method is
+`lab-paper-chroma-largest-component-v1`; it is an experimental measurement
+method whose thresholds may be replaced without changing manifest or profile
+identity. The command has no OCR, transcript, reconstruction, or wording
+inputs, and it does not freeze a profile.
+
+The profile contract has no partial-bound state. When a detector observation
+is partial, its candidate bounds and per-edge evidence stay in the sidecar;
+the generated profile row leaves content bounds unresolved until a human
+accepts them. A resolved deskew may still be proposed independently. Existing
+human rows remain unchanged unless `--replace-human` is explicitly supplied;
+the raw detector observation is retained in the sidecar either way.
+
+Run `normalize calibrate measure --manifest book.json --page-id page-001
+--output profile-draft.json` to measure a subset. Unmeasured pages remain
+explicitly unresolved in a newly created draft. With `--profile draft.json`,
+the command updates selected non-human rows and retains the rest.
 
 ## Page observations and transcripts
 
