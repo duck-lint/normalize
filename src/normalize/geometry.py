@@ -331,7 +331,9 @@ def _row_error(code: str, row: int, reason: str) -> dict[str, Any]:
 def parse_tsv_rows(tsv: str, width: int, height: int) -> tuple[list[_Token], list[dict[str, Any]]]:
     """Admit TSV rows using the closed, deterministic Slice 2 token table."""
 
-    reader = csv.reader(io.StringIO(tsv), delimiter="\t")
+    # Tesseract TSV uses physical tabs/newlines, not CSV quoting. A literal
+    # quote recognized as a word must not absorb later records.
+    reader = csv.reader(io.StringIO(tsv), delimiter="\t", quoting=csv.QUOTE_NONE)
     try:
         header = next(reader)
     except StopIteration:

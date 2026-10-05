@@ -82,6 +82,23 @@ def test_token_admission_ignores_sentinel_rows_and_collapses_exact_duplicates():
     assert tokens[0].source_row == 1
 
 
+def test_literal_quote_in_tesseract_text_does_not_change_physical_tsv_rows():
+    # Tesseract emits tab/newline framing without CSV quoting. A quote-only OCR
+    # token must therefore remain data and cannot absorb subsequent records.
+    tsv = _tsv(
+        _row("", level="4", word="0", x="0", y="5", width="0", height="0", confidence="-1"),
+        _row('"', word="1", x="10", y="20"),
+        _row('"word', word="2", x="45", y="20"),
+        _row('word"', word="3", x="90", y="20"),
+    )
+
+    tokens, errors = parse_tsv_rows(tsv, 200, 100)
+
+    assert errors == []
+    assert [(token.source_row, token.text) for token in tokens] == [
+        (2, '"'), (3, '"word'), (4, 'word"')]
+
+
 @pytest.mark.parametrize(
     ("row", "code"),
     (
