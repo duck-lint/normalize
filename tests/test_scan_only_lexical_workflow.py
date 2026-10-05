@@ -15,7 +15,7 @@ from normalize.cli import main
 from normalize.engine import BookEngine
 from normalize.lexical import (LexicalObservation, failed_observation,
                                observation_from_geometry, transcript_from_observations)
-from normalize.geometry import _PreprocessedPage, _engine_record, _page_geometry
+from normalize.geometry import TSV_HEADER, _PreprocessedPage, _engine_record, _page_geometry
 
 
 def _scan_book(tmp_path: Path):
@@ -211,6 +211,41 @@ def test_real_geometry_schema_maps_accepted_word_to_lexical_observation():
     assert projected_word["physical_line_id"] == token["physical_line_id"]
     assert not any(item["code"] == "malformed_spatial_observation"
                    for item in geometry_only.diagnostics)
+
+
+def test_literal_quotes_keep_geometry_and_lexical_tsv_projections_in_sync():
+    header = "\t".join(TSV_HEADER)
+    rows = [
+        "4\t1\t1\t1\t0\t0\t0\t0\t0\t0\t-1\t",
+        '5\t1\t1\t1\t1\t1\t10\t20\t20\t12\t37.331131\t"',
+        '5\t1\t1\t1\t1\t2\t40\t20\t30\t12\t91.5\t"word',
+        '5\t1\t1\t1\t1\t3\t80\t20\t30\t12\t92.5\tword"',
+        '5\t1\t1\t1\t1\t4\t120\t20\t40\t12\t93.5\t"word"',
+        "5\t1\t1\t1\t1\t5\t170\t20\t40\t12\t94.5\treader's",
+        "5\t1\t1\t1\t1\t6\t220\t20\t35\t12\t95.5\tafter",
+    ]
+    raw_tsv = header + "\n" + "\n".join(rows) + "\n"
+    provenance = {"fixture_id": "synthetic", "fixture_pdf_page_index_1_based": 1,
+        "source_pdf_page_index_1_based": 1, "dpi": 144, "metadata_order": ["page-1"]}
+    geometry = _page_geometry(_PreprocessedPage("page-1", Path("."), 300, 100, False,
+        {"output_path": "synthetic.png"}), raw_tsv, _engine_record(), provenance)
+
+    observations = observation_from_geometry("page-1", "e" * 64, geometry,
+        {"identity_sha256": "observer"}, raw_tsv=raw_tsv)
+
+    assert [token["source_row"] for token in geometry["tokens"]] == [2, 3, 4, 5, 6, 7]
+    assert [token["text"] for token in geometry["tokens"]] == [
+        '"', '"word', 'word"', '"word"', "reader's", "after"]
+    assert [(item["source_row"], item["text"]) for item in observations.observations] == [
+        (2, '"'), (3, '"word'), (4, 'word"'), (5, '"word"'),
+        (6, "reader's"), (7, "after")]
+    assert observations.observations[0]["confidence"] == 37.331131
+    assert observations.observations[0]["box"] == [10, 20, 20, 12]
+    for token, observation in zip(geometry["tokens"], observations.observations):
+        assert observation["anchor_id"] == token["token_id"]
+        assert observation["box"] == [token[key] for key in ("x_px", "y_px", "width_px", "height_px")]
+    assert len({item["source_row"] for item in observations.observations}) == 6
+    assert all("\n5\t" not in item["text"] for item in observations.observations)
 
 
 def test_three_token_ranges_are_exact_across_pages_and_empty_page():

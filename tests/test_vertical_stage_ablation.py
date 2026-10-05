@@ -63,6 +63,13 @@ def test_fidelity_gate_rejects_an_injected_control_mismatch_before_writing(
         return result
 
     monkeypatch.setattr(ablation, "_control_pipeline", mismatching_control)
+    # This test exercises the injected fidelity failure, not the research
+    # script's frozen source-hash guard. Accept the checked-out parser revision
+    # so the run reaches the behavior under test.
+    monkeypatch.setattr(
+        ablation, "GEOMETRY_SHA256",
+        ablation.sha256(ROOT / "src/normalize/geometry.py"),
+    )
     output = tmp_path / "rejected-run"
     with pytest.raises(AssertionError, match="production-fidelity gate"):
         ablation.run(output, write_manifest=False)

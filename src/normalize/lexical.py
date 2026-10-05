@@ -88,7 +88,9 @@ def observation_from_geometry(page_id: str, source_image_sha256: str,
     diagnostics: list[dict[str, Any]] = []
     lexical_rows: list[tuple[int, str, float | None, Mapping[str, Any] | None]] = []
     if raw_tsv is not None:
-        reader = csv.reader(io.StringIO(raw_tsv), delimiter="\t")
+        # Keep framing aligned with geometry: quotes are literal OCR text in
+        # Tesseract TSV, never CSV syntax.
+        reader = csv.reader(io.StringIO(raw_tsv), delimiter="\t", quoting=csv.QUOTE_NONE)
         next(reader, None)
         for source_row, row in enumerate(reader, start=1):
             if len(row) < 12 or row[11] == "":
