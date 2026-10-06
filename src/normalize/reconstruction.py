@@ -94,9 +94,16 @@ def _page_lines(page: PageSpan, alignment: AlignmentResult, source: str, source_
         bottom = record.get("bottom_px")
         height = record.get("line_height_px")
         width = page.geometry.get("width_px")
-        center = (record.get("left_px", 0) + record.get("right_px", 0)) / 2
-        centered = bool(width and abs(center - width / 2) <= width * 0.11)
-        lines.append(_Line(page.page_id, line_id, tuple(indices), left, record.get("right_px"), top, bottom, height,
+        right = record.get("right_px")
+        # Null line bounds are an explicit geometry abstention. Keep them
+        # nullable and let spatial classifications that need them abstain.
+        centered = bool(
+            width
+            and isinstance(left, (int, float))
+            and isinstance(right, (int, float))
+            and abs(((left + right) / 2) - width / 2) <= width * 0.11
+        )
+        lines.append(_Line(page.page_id, line_id, tuple(indices), left, right, top, bottom, height,
                            record.get("vertical_gap_to_next_px"), centered))
     # Canonical material without a usable anchor remains in sequence. Attach it
     # to its nearest canonical neighbor's line; if neither exists, keep an
@@ -175,10 +182,12 @@ def _make_blocks(source: str, source_id: str, pages: Sequence[PageSpan], alignme
                               and typical_height and line.height >= typical_height * 1.05]
         heading_indices: set[int] = set()
         if candidate_headings:
-            last_candidate = max(candidate_headings, key=lambda item: item.top or 0)
+            # Candidate headings already require a measured top coordinate.
+            last_candidate = max(candidate_headings, key=lambda item: item.top)
             following = next((line for line in lines if line.top is not None and last_candidate.bottom is not None
                               and line.top >= last_candidate.bottom and line not in candidate_headings), None)
-            if following and typical_height and following.top - (last_candidate.bottom or 0) >= typical_height * 1.5:
+            if (following and typical_height
+                    and following.top - last_candidate.bottom >= typical_height * 1.5):
                 heading_indices = {index for line in candidate_headings for index in line.token_indices}
                 for title_line in candidate_headings:
                     for number_line in lines:
@@ -283,11 +292,12 @@ def _make_blocks(source: str, source_id: str, pages: Sequence[PageSpan], alignme
             elif line_index > 0 and pending_text:
                 prior = lines[line_index - 1]
                 page_width = page.geometry.get("width_px", 0)
-                indent_px = (line.left - body_left) if body_left is not None and line.left is not None else 0
+                indent_px = line.left - body_left if body_left is not None and line.left is not None else None
                 # A paragraph indent is modest relative to type size. A much
                 # larger offset is more consistent with a detached line
                 # fragment than with a first-line paragraph inset.
-                plausible_indent = bool(typical_height and typical_height * 1.4 <= indent_px <= typical_height * 3.0)
+                plausible_indent = bool(typical_height and indent_px is not None
+                                        and typical_height * 1.4 <= indent_px <= typical_height * 3.0)
                 same_physical_band = bool(line.line_id and line.line_id == prior.line_id)
                 band_already_in_paragraph = bool(line.line_id and line.line_id in pending_lines)
                 geometry_order_conflict = bool(line.top is not None and prior.top is not None and line.top < prior.top)
@@ -296,7 +306,10 @@ def _make_blocks(source: str, source_id: str, pages: Sequence[PageSpan], alignme
                                         "previous_line_id": prior.line_id, "line_id": line.line_id,
                                         "previous_top_px": prior.top, "top_px": line.top,
                                         "note": "alignment maps later canonical material above earlier geometry; no boundary inferred from this transition"})
-                starts_new_left_edge = bool(line.left is not None and prior.left is not None and line.left - prior.left >= (typical_height or 0) * 0.8)
+                starts_new_left_edge = bool(
+                    typical_height is not None and line.left is not None and prior.left is not None
+                    and line.left - prior.left >= typical_height * 0.8
+                )
                 indented = bool(not geometry_order_conflict and not same_physical_band and not band_already_in_paragraph and body_left is not None and typical_height and line.left is not None
                                 and plausible_indent
                                 and starts_new_left_edge
@@ -309,8 +322,8 @@ def _make_blocks(source: str, source_id: str, pages: Sequence[PageSpan], alignme
                     pending_evidence.update({"first_line_indent_px": (line.left - body_left) if indented else None,
                                              "vertical_gap_px": line.gap_after if large_gap else None})
             elif line_index == 0 and page_index > 0 and pending_text:
-                page_indent = (line.left - body_left) if body_left is not None and line.left is not None else 0
-                page_start_indent = bool(body_left is not None and typical_height and line.left is not None
+                page_indent = line.left - body_left if body_left is not None and line.left is not None else None
+                page_start_indent = bool(body_left is not None and typical_height and page_indent is not None
                                          and typical_height * 1.4 <= page_indent <= typical_height * 3.0)
                 if page_start_indent:
                     flush()
