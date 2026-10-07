@@ -9,8 +9,7 @@ output_dir = Path("./output")
 output_dir.mkdir(exist_ok=True)
 
 pipeline = PPStructureV3(
-    engine="paddle_dynamic",
-    enable_mkldnn=False,
+    device="gpu:0",
 )
 
 images = sorted(
