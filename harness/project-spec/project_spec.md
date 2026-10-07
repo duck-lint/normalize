@@ -13,3 +13,6 @@
 - note-call superscripts in prose must survive and remain linkable to their note;
 - page furniture such as page numbers/running headers may be excluded from body Markdown but must remain observable in the raw Paddle artifact;
 - raw Paddle output must be preserved unmodified before Normalize applies any policy or repair.
+  - Save Paddle's machine-readable result for each source JPG as the original observation artifact.
+  - Normalize reads that artifact and writes separate derived outputs; it never edits or replaces the original observation.
+  - This keeps failures attributable: we can tell whether Paddle missed something or Normalize changed it.
