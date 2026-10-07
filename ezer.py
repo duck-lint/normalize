@@ -2,14 +2,21 @@ from pathlib import Path
 from paddleocr import PPStructureV3
 
 input_dir = Path(
-    "/mnt/f/books/PNGs/McCarthy, Cormac — Stella Maris"
+    "/mnt/f/books/PNGs/Waterfield, Robin — The First Philosophers"
 )
 
-output_dir = Path("./output")
+output_dir = Path("./output/The First Philosophers")
 output_dir.mkdir(exist_ok=True)
 
 pipeline = PPStructureV3(
     device="gpu:0",
+    markdown_ignore_labels=[
+        "number",
+        "header",
+        "footer",
+        "footer_image",
+        "aside_text",
+    ],
 )
 
 images = sorted(
