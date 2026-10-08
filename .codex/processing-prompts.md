@@ -27,7 +27,7 @@ Footnote linking itself is out of scope for this pass. Only verify that the note
 If the pixels do not clearly establish a repair, report the issue but set proposed to null and confidence to "uncertain".
 
 Complete:
-1. review/findings.json — every finding must use the entry template currently present in the file.
+1. review/findings.json — every finding must use the entry template currently present in the file. In the "observed" line, only add the content in question verbatim. Do not add commentary that isn't there—use "evidence" for this. That will allow easy visual comparison of "observed" and "proposed".
 2. review/summary.md — short counts by category and a list of unresolved/high-risk pages.
 
 Never set the review status yourself.
