@@ -1,6 +1,6 @@
 # 1
 
-Please audit the complete PaddleOCR output for Robin Waterfield, The First Philosophers against the corresponding source page scans.
+Please audit the complete PaddleOCR output for the present book in the repo against the corresponding source page scans.
 
 This is a REVIEW-ONLY pass. Do not modify source scans, Paddle JSON, Paddle Markdown, or any derived Markdown.
 
@@ -22,12 +22,12 @@ Pay particular attention to:
 - reading-order errors;
 - substantive material mistakenly treated as page furniture.
 
-Footnote linking itself is out of scope for this pass. Only verify that the note-call marker and note text were observed correctly enough for a later deterministic linker.
+Footnote linking itself is out of scope for this pass. Only verify that the note-call marker and note text were observed correctly enough for a later deterministic linker, post lexical repair.
 
 If the pixels do not clearly establish a repair, report the issue but set proposed to null and confidence to "uncertain".
 
 Complete:
-1. review/findings.jsonl — every finding must use the entry template currently present in the file.
+1. review/findings.json — every finding must use the entry template currently present in the file.
 2. review/summary.md — short counts by category and a list of unresolved/high-risk pages.
 
 Never set the review status yourself.
@@ -36,17 +36,18 @@ Preserve the raw Paddle artifacts unchanged.
 
 # 2
 
-Execute the human-reviewed repairs in review/first-philosophers/findings.jsonl.
+Execute the human-reviewed repairs in review/findings.json.
 
 This is an EXECUTION pass, not another audit.
 
 Treat the review object as human authority.
 
-Apply a finding only when:
-- review.status == "approve" → apply proposed;
+Status legend:
+- review.status == "approved" → apply proposed;
 - review.status == "replace" → apply review.replacement.
+- review.status == null → carryover into post repair report.
 
-Do not apply findings with status pending, reject, or any other value.
+Do not apply findings with status pending, rejected, or any other value.
 
 Do not discover, propose, or perform any new repairs during this pass.
 
