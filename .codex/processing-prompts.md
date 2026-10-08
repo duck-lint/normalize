@@ -1,6 +1,6 @@
 # 1
 
-Please audit the complete PaddleOCR output with the corresponding source page scans.
+Please audit the complete PaddleOCR output for the present book in the repo against the corresponding source page scans.
 
 This is a REVIEW-ONLY pass. Do not modify source scans, Paddle JSON, Paddle Markdown, or any derived Markdown.
 
@@ -22,12 +22,19 @@ Pay particular attention to:
 - reading-order errors;
 - substantive material mistakenly treated as page furniture.
 
-Footnote linking itself is out of scope for this pass. Only verify that the note-call marker and note text were observed correctly enough for a later deterministic linker.
+Footnote linking itself is out of scope for this pass. Only verify that the note-call marker and note text were observed correctly enough for a later deterministic linker, post lexical repair.
 
 If the pixels do not clearly establish a repair, report the issue but set proposed to null and confidence to "uncertain".
 
 Complete:
-1. review/findings.json — every finding must use the entry template currently present in the file.
+1. review/findings.json — every finding must use the entry template currently present in the file. In the "observed" line, only add the content in question verbatim. Do not add commentary that isn't there—use "evidence" for this. That will allow easy visual comparison of "observed" and "proposed". 
+Bad:
+  "observed": "\u0027affiliated places\u0027 is transcribed as \u0027afficiated places\u0027.",
+  "proposed": "affiliated places",
+Good:
+  "observed": "afficiated places",
+  "proposed": "affiliated places",
+
 2. review/summary.md — short counts by category and a list of unresolved/high-risk pages.
 
 Never set the review status yourself.
@@ -42,12 +49,12 @@ This is an EXECUTION pass, not another audit.
 
 Treat the review object as human authority.
 
-Apply a finding only when:
+Status legend:
 - review.status == "approved" → apply proposed;
 - review.status == "replace" → apply review.replacement.
-- review.status == null → carryover into new findings report
+- review.status == null → carryover into post repair report.
 
-Do not apply findings with status pending, reject, or any other value.
+Do not apply findings with status pending, rejected, or any other value.
 
 Do not discover, propose, or perform any new repairs during this pass.
 
