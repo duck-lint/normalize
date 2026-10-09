@@ -1,18 +1,21 @@
-# Process
-1. scan book with Canon imageFORMULA R30 Office Document Scanner
-2. get JPGs from scans
-3. run JPGs through PaddleOCR, producing x1 `.md` per JPG
-4. normalize and append `.md` files with an output report flagging any leftover ambigous text.
+# Current scope and authority
 
-# Authority
-- JPG scans retain lexical and structural authority, not `.md` files from PaddleOCR
+Normalize currently implements only this workflow:
 
-# Invariants
-- superscripts in prose must be preserved in `.md` prose and reflected in Obsidian `.md` syntax ([^1] superscipt in prose linked to lines after main book body text)
-- substantive footnotes/endnotes must never be dropped;
-- note-call superscripts in prose must survive and remain linkable to their note;
-- page furniture such as page numbers/running headers may be excluded from body Markdown but must remain observable in the raw Paddle artifact;
-- raw Paddle output must be preserved unmodified before Normalize applies any policy or repair.
-  - Save Paddle's machine-readable result for each source JPG as the original observation artifact.
-  - Normalize reads that artifact and writes separate derived outputs; it never edits or replaces the original observation.
-  - This keeps failures attributable: we can tell whether Paddle missed something or Normalize changed it.
+1. Scans → raw PaddleOCR JSON and Markdown.
+2. Raw Paddle output → probe report of candidate errors, with deterministic
+   punctuation-space proposals already supplied by the probe.
+3. Extractor → second report containing unchanged copies of punctuation-space
+   findings only.
+4. Codex in a separate book workspace → approve accepted proposals in report two;
+   leave exception statuses unchanged, optionally add notes, and copy exceptions
+   into report three.
+5. Human-run executor → insert only explicitly approved proposed spaces from
+   report two into separate derived Markdown.
+
+Source scan pixels determine whether a proposed space belongs. Codex owns only
+status/note edits in report two and the exceptions report. The executor owns only
+mechanical application of approved proposals. Raw scans, raw Paddle output, and
+the full probe report remain unchanged. No lexical replacement, alternative
+replacement field, batch authorization stage, footnote linking, concatenation,
+or compatibility path belongs to the current implementation.

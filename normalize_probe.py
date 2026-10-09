@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Experimental read-only OCR anomaly scan for two book ZIPs. Not a repair tool."""
+"""Read-only PaddleOCR probe. Report candidates; propose only punctuation spaces."""
 import argparse
 from collections import Counter
 import ctypes
@@ -40,7 +40,7 @@ class Spellcheck:
     def __init__(self, aff="/usr/share/hunspell/en_US.aff", dic="/usr/share/hunspell/en_US.dic"):
         libpath = find_library("hunspell-1.7")
         if not libpath or not Path(aff).is_file() or not Path(dic).is_file():
-            raise RuntimeError("This experiment requires installed Hunspell and en_US .aff/.dic files")
+            raise RuntimeError("The probe requires installed Hunspell and en_US .aff/.dic files")
         self.lib = ctypes.CDLL(libpath)
         self.lib.Hunspell_create.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
         self.lib.Hunspell_create.restype = ctypes.c_void_p
@@ -102,12 +102,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scans", type=Path, required=True, help="ZIP of source page images")
     parser.add_argument("--paddle", type=Path, required=True, help="ZIP of Paddle per-page JSON and Markdown")
-    parser.add_argument("--out", type=Path, required=True, help="New editable findings JSON path")
-    parser.add_argument("--propose-whitespace", action="store_true",
-                        help="Pre-fill deterministic ASCII-space proposals for punctuation-only findings")
+    parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     args = parser.parse_args()
     if args.out.exists():
-        parser.error("Output exists; refusing to overwrite prior human reviews")
+        parser.error("Output exists; refusing to overwrite the probe report")
 
     spelling = Spellcheck()
     findings = []
@@ -127,7 +125,7 @@ def main():
         def emit(page, rule, observed, start=None, end=None, block=None, source_sha=None, triggers=None):
             ref = str(start) if start is not None else f"block-{block}" if block is not None else "page"
             trigger_list = triggers if triggers is not None else [rule]
-            proposal = whitespace_proposal(observed, trigger_list) if args.propose_whitespace else None
+            proposal = whitespace_proposal(observed, trigger_list)
             findings.append({
                 "id": f"{page}:{rule}:{ref}", "page": page, "rule": rule,
                 "triggers": trigger_list,
@@ -137,7 +135,7 @@ def main():
                 "observed": observed, "proposed": proposal,
                 "proposal_source": "deterministic_whitespace" if proposal is not None else None,
                 "evidence": None,
-                "review": {"status": None, "replacement": None, "note": None},
+                "review": {"status": None, "note": None},
             })
 
         for page in sorted(set(images) | set(markdown) | set(json_files)):
@@ -156,16 +154,20 @@ def main():
             if not text.strip():
                 emit(page, "empty_markdown", "Markdown is empty", source_sha=digest)
 
-            spans = []
+            punctuation_spans = []
+            lexical_spans = []
             for rule, pattern in ADJACENCY.items():
                 for match in pattern.finditer(text):
                     start, end = full_span(text, rule, match)
-                    spans.append((start, end, rule))
+                    target = punctuation_spans if rule in {"punctuation_letter", "period_capital"} else lexical_spans
+                    target.append((start, end, rule))
             for match in WORDS.finditer(text):
                 if not spelling.recognizes(match.group()):
-                    spans.append((*match.span(), "unrecognized_token"))
+                    lexical_spans.append((*match.span(), "unrecognized_token"))
 
-            for start, end, triggers in combine_spans(spans):
+            # A lexical overlap must not swallow a punctuation proposal. Each
+            # family remains a separate finding; extraction only copies records.
+            for start, end, triggers in combine_spans(punctuation_spans) + combine_spans(lexical_spans):
                 start_byte = len(text[:start].encode("utf-8"))
                 end_byte = len(text[:end].encode("utf-8"))
                 emit(page, triggers[0], text[start:end], start_byte, end_byte,
@@ -191,11 +193,13 @@ def main():
         raise RuntimeError("Finding IDs are not unique")
     # A combined finding may have more than one detection rule.
     counts = dict(sorted(Counter(rule for f in findings for rule in f["triggers"]).items()))
-    result = {"pilot": True, "inputs": {"source_zip_sha256": scans_hash,
+    result = {"inputs": {"source_zip_sha256": scans_hash,
               "paddle_zip_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
               "page_count": len(images), "counts_by_rule": counts, "findings": findings}
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    with args.out.open("x", encoding="utf-8", newline="\n") as handle:
+        json.dump(result, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
     print(f"{len(images)} images; {len(findings)} candidate findings")
     print(json.dumps(counts, indent=2))
     print(f"Report: {args.out}")

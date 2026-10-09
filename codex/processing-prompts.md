@@ -1,188 +1,55 @@
-# 1
+# Codex task: review proposed punctuation spaces in a book workspace
 
-Please audit the complete PaddleOCR output for the present book in the repo against the corresponding source page scans.
+Run this task in the workspace repository containing the book scans, raw Paddle
+artifacts, and reports. This is not a task to edit the Normalize tooling repository.
 
-This is a REVIEW-ONLY pass. Do not modify source scans, Paddle JSON, Paddle Markdown, or any derived Markdown.
+Inputs (replace these paths with the actual book-workspace paths):
 
-For every page, compare:
-- the source scan;
-- the corresponding Paddle _res.json;
-- the corresponding Paddle .md.
+- `review/whitespace.json`: report two, copied by the extractor from the probe.
+- Source page scans, using each finding's `source_image` path relative to the
+  source-image root. For paths such as `scans/page001.jpg`, that root is
+  the book workspace; for paths without a `scans/` prefix, it is the scans directory.
+- Raw Paddle Markdown, using `paddle_markdown` relative to the extracted Paddle
+  root, if needed to locate the passage. Choose the root in the same way as
+  for scan paths, without adding a duplicate directory prefix. `start_byte` and `end_byte` are
+  offsets in the original UTF-8 Markdown bytes, not character indices.
 
-Report only concrete transcription or structure defects supported by the source pixels. Do not make stylistic edits, modernize spelling, regularize punctuation, improve prose, or infer missing wording from context alone.
+Review every finding in report two against its corresponding source scan. Look
+for proposed spaces that do not belong, including abbreviations such as `U.S.A`,
+initials, and punctuation that is correctly adjacent in the printing. The probe's
+proposal is a candidate, not evidence that the source contains a space. If the
+scan is missing, unreadable, or ambiguous, do not approve the finding.
 
-Pay particular attention to:
-- OCR character/word errors;
-- fused or missing spaces;
-- incorrect dehyphenation;
-- omitted substantive text;
-- note-call numerals/superscripts;
-- footnote text and footnote numbering;
-- headings misclassified as prose or prose misclassified as headings;
-- reading-order errors;
-- substantive material mistakenly treated as page furniture.
+Work in manageable page groups so every proposal is reviewed. Do not load the
+whole book into one context window or infer approvals from absence of objections.
 
-Footnote linking itself is out of scope for this pass. Only verify that the note-call marker and note text were observed correctly enough for a later deterministic linker, post lexical repair.
+Edit `review/whitespace.json` in place:
 
-If the pixels do not clearly establish a repair, report the issue but set proposed to null and confidence to "uncertain".
+- For each accepted proposal, set `review.status` to exactly `"approved"`.
+- For a proposal that does not belong, or cannot be verified, leave its status
+  unchanged and optionally explain the objection in `review.note`.
+- Edit only `review.status` and `review.note`. Preserve all findings, their order,
+  and every other value, including IDs, triggers, observed/proposed text, offsets,
+  paths, hashes, and report metadata. Do not revise proposals or add alternatives.
 
-Complete:
-- review/findings.json — every finding must use the entry template currently present in the file. In the "observed" line, only add the content in question verbatim. Do not add commentary that isn't there—use "evidence" for this. That will allow easy visual comparison of "observed" and "proposed". 
-Bad:
-  "observed": "\u0027affiliated places\u0027 is transcribed as \u0027afficiated places\u0027.",
-  "proposed": "affiliated places",
-Good:
-  "observed": "afficiated places",
-  "proposed": "affiliated places",
-
-Never set the review status yourself.
-
-Preserve the raw Paddle artifacts unchanged.
-
-# 2
-
-Execute the human-reviewed repairs in review/findings.json.
-
-This is an EXECUTION pass, not another audit.
-
-Treat the review object as human authority.
-
-Status legend:
-- review.status == "approved" → apply proposed;
-- review.status == "replace" → apply review.replacement.
-- review.status == null → carryover into post repair report.
-
-Do not apply findings with status pending, rejected, or any other value.
-
-Do not discover, propose, or perform any new repairs during this pass.
-
-Never modify:
-- source scans;
-- raw Paddle _res.json;
-- raw Paddle .md;
-- the human review decisions.
-
-Write repaired page Markdown to a separate derived directory, preserving one output file per input page and the original page ordering.
-
-Copy unchanged pages into that derived directory unchanged.
-
-For every executed repair, write an execution record containing:
-- finding ID;
-- page;
-- original text;
-- final replacement;
-- whether the replacement came from proposed or review.replacement.
-
-Fail rather than guess if an approved finding cannot be located unambiguously in its stated page.
-
-Do not perform footnote linking or book concatenation. Those are later deterministic stages.
-
-# AGENTS.md
-
-## Purpose
-
-This repository contains scanned-book OCR artifacts and reviewed repairs.
-
-The goal is faithful transcription and structure preservation, not editorial improvement.
-
-## Source of truth
-
-Authority order:
-
-1. source scan pixels
-2. human review decisions
-3. raw PaddleOCR JSON / Markdown as machine observations
-4. derived repaired Markdown
-
-Raw source scans and raw PaddleOCR artifacts must never be modified.
-
-## Audit pass
-
-When auditing:
-
-- compare each Paddle page against its corresponding source scan;
-- report only concrete defects supported by the pixels;
-- do not edit files except the designated review report files;
-- do not modernize spelling, punctuation, wording, or style;
-- do not infer missing text from context alone;
-- if evidence is unclear, mark the finding uncertain.
-
-## Repair pass
-
-When repairing:
-
-- apply only findings explicitly approved by the human reviewer;
-- do not discover or perform additional repairs;
-- use the approved replacement exactly;
-- if an approved repair cannot be applied unambiguously, stop and report it;
-- write repaired Markdown to the designated derived-output directory;
-- never modify source scans, raw Paddle JSON, raw Paddle Markdown, or review decisions.
-
-## Verification
-
-Every repair must correspond to an approved finding.
-
-No approved finding = no permitted content change.
-
-Any unrelated diff is a failure.
-
-## Scope
-
-Footnote linking and whole-book concatenation are separate deterministic stages unless explicitly requested.
-
-# findings.json template
-
-```
-[
-  {
-    "id": "",
-    "page": "",
-    "category": "",
-    "source_image": "",
-    "paddle_json": "",
-    "paddle_markdown": "",
-    "observed": "",
-    "proposed": "", 
-    "evidence": "",
-    "confidence": "",
-    "review": {
-      "status": "",
-      "replacement": "", 
-      "note": ""
-    }
-  }
-]
-```
-
-# Codex task: Find objections to deterministic whitespace proposals
-
-You are reviewing an OCR-derived digital reconstruction against scans of the physical source. **Your job is to find and report changes that do not belong.** Do not affirm or rewrite individual correct-looking proposals.
-
-## Inputs
-
-- `whitespace_batch.json`: the ONLY findings report for this task. It contains exclusively punctuation/period-adjacency candidates selected from a separate full probe report. **Do not read or request the full probe report or other defect categories.**
-- Source page images, accessible via each entry's `source_image` (resolve relative paths using the project's source-image root).
-- Original page Markdown, if useful for **locating** the exact occurrence using `paddle_markdown` and UTF-8 `start_byte`/`end_byte` offsets. The image, never the Markdown, remains the transcription authority.
-
-The proposed change for each entry inserts ASCII spaces without changing existing characters. Some insertions may be inappropriate (for example, abbreviations, initials, or typography matching the physical source). Look for these and for any cases you cannot verify visually.
-
-## Review procedure
-
-Work through the batch in manageable page groups rather than loading thousands of findings into one prompt, using the image associated with each page. For every proposal, compare `observed` and `proposed` to the physical printing in the relevant area. Focus on **disproving** the proposed insertion, not on justifying it. Record an exception if the proposal conflicts with the image or if the image is unreadable, missing, or insufficient to establish the placement of the space.
-
-A page belongs in `checked_pages` only after you have actually inspected the source image and reviewed *all* whitespace findings for that page. Do not mark unfinished pages as checked. If you cannot inspect a page, leave it unchecked and list at least one affected finding as an exception explaining why that page could not be inspected; the human must be told which pages remain unchecked. An empty exception list is acceptable only after thorough review of the pages you declare checked.
-
-## Output
-
-Write a **separate** `whitespace_exceptions.json` file:
+Write report three to `review/whitespace_exceptions.json`:
 
 ```json
 {
-  "checked_pages": ["<actual page id>"],
-  "exceptions": [
-    {"id": "<exact finding id>", "reason": "<evidence from scan or uncertainty>"}
-  ]
+  "findings": []
 }
 ```
 
-Include only exceptions; never enumerate approvals. Use exact page and finding IDs from the whitespace batch. Do not edit the batch, original scanner report, source images, Paddle artifacts, review statuses, or Markdown. Do not perform repairs. The human will decide whether to batch-authorize all uncontested proposals.
+Populate `findings` with complete copies of every non-approved finding from the
+edited report two, including any note you added. Include exceptions and uncertain
+cases only; use an empty list if all proposals were reviewed and accepted. Do not
+invent a separate exception schema or summarize away finding fields.
+
+Do not read the full probe report for this task. Do not edit scans, raw Paddle
+artifacts, Markdown, scripts, or prompts. Do not execute repairs. The human runs
+`execute_repairs.py` afterward over the edited report two. Report three records
+exceptions; it never authorizes execution.
+
+If you cannot finish, leave unreviewed statuses unchanged, include those findings
+in report three, and state which pages or findings remain unreviewed. Never call
+an incomplete review complete.
