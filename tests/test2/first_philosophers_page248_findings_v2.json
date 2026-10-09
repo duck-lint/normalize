@@ -1,0 +1,532 @@
+{
+  "pilot": true,
+  "inputs": {
+    "source_zip_sha256": "901d723b270da4d29af07d0690dab5ddcc3ded1e1b4e28c1003927244e9a76e6",
+    "paddle_zip_sha256": "cdfa95a101228517318ce8625d6d3bb40ed1a0e518fa28022da97b04722da125",
+    "dictionary_sha256": {
+      "aff": "70fe5778717d097ce2f3326baaa5c1e4d2206d81a5a81d3ea8e11c4770806dd5",
+      "dic": "829a043cf078d1e80e886289a13823454977f442a239a859d2133ea61944aa60"
+    }
+  },
+  "page_count": 1,
+  "counts_by_rule": {
+    "lower_upper": 1,
+    "period_capital": 4,
+    "punctuation_letter": 8,
+    "unrecognized_token": 15
+  },
+  "findings": [
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:16",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 16,
+      "end_byte": 22,
+      "json_block_id": null,
+      "observed": "ABDERA",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:36",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token",
+        "period_capital"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 36,
+      "end_byte": 81,
+      "json_block_id": null,
+      "observed": "wathefirstndgretstoftheophis.T1islistoffirsts",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:152",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 152,
+      "end_byte": 156,
+      "json_block_id": null,
+      "observed": ",and",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:period_capital:219",
+      "page": "the-first-philosophers_248",
+      "rule": "period_capital",
+      "triggers": [
+        "period_capital"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 219,
+      "end_byte": 225,
+      "json_block_id": null,
+      "observed": ".Since",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:593",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 593,
+      "end_byte": 599,
+      "json_block_id": null,
+      "observed": "Abdera",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:1049",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1049,
+      "end_byte": 1055,
+      "json_block_id": null,
+      "observed": ",there",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:period_capital:1161",
+      "page": "the-first-philosophers_248",
+      "rule": "period_capital",
+      "triggers": [
+        "period_capital",
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1161,
+      "end_byte": 1171,
+      "json_block_id": null,
+      "observed": ".Indeed,it",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:1229",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1229,
+      "end_byte": 1240,
+      "json_block_id": null,
+      "observed": "ourearliest",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:1326",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1326,
+      "end_byte": 1330,
+      "json_block_id": null,
+      "observed": "Meno",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:1389",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1389,
+      "end_byte": 1393,
+      "json_block_id": null,
+      "observed": ",and",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:1494",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter",
+        "lower_upper",
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1494,
+      "end_byte": 1510,
+      "json_block_id": null,
+      "observed": ",whichProtagoras",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:1956",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 1956,
+      "end_byte": 1961,
+      "json_block_id": null,
+      "observed": ",into",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2024",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2024,
+      "end_byte": 2030,
+      "json_block_id": null,
+      "observed": "Agreat",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2031",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2031,
+      "end_byte": 2040,
+      "json_block_id": null,
+      "observed": "manyyears",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:punctuation_letter:2053",
+      "page": "the-first-philosophers_248",
+      "rule": "punctuation_letter",
+      "triggers": [
+        "punctuation_letter",
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2053,
+      "end_byte": 2076,
+      "json_block_id": null,
+      "observed": ",itbecameclarioncallfor",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2077",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2077,
+      "end_byte": 2093,
+      "json_block_id": null,
+      "observed": "therejectionbyhe",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:period_capital:2271",
+      "page": "the-first-philosophers_248",
+      "rule": "period_capital",
+      "triggers": [
+        "period_capital"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2271,
+      "end_byte": 2274,
+      "json_block_id": null,
+      "observed": ".In",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2325",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2325,
+      "end_byte": 2339,
+      "json_block_id": null,
+      "observed": "constitutionof",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2344",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2344,
+      "end_byte": 2355,
+      "json_block_id": null,
+      "observed": "newcolonyof",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2356",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2356,
+      "end_byte": 2362,
+      "json_block_id": null,
+      "observed": "Thurii",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2371",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2371,
+      "end_byte": 2398,
+      "json_block_id": null,
+      "observed": "anominallypanhelleniccolony",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    },
+    {
+      "id": "the-first-philosophers_248:unrecognized_token:2524",
+      "page": "the-first-philosophers_248",
+      "rule": "unrecognized_token",
+      "triggers": [
+        "unrecognized_token",
+        "punctuation_letter"
+      ],
+      "source_image": "Waterfield, Robin — The First Philosophers/the-first-philosophers_248.png",
+      "paddle_markdown": "The First Philosophers/the-first-philosophers_248.md",
+      "paddle_json": "The First Philosophers/the-first-philosophers_248_res.json",
+      "source_md_sha256": "328516fb60d3e7bfefb28a909108b0bd9f2d1bf693ee1ee5c952469c4bf651fe",
+      "start_byte": 2524,
+      "end_byte": 2564,
+      "json_block_id": null,
+      "observed": "opposingitiosibleboutg,toutkiclaimthoftm",
+      "proposed": null,
+      "evidence": null,
+      "review": {
+        "status": null,
+        "replacement": null,
+        "note": null
+      }
+    }
+  ]
+}
