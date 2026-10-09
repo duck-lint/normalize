@@ -5,6 +5,7 @@ handoff and one executor; other repairs are out of scope.
 
 1. `paddle_scan.py` processes page scans into raw PaddleOCR JSON and Markdown.
 2. `normalize_probe.py` reads that output and writes the full candidate report.
+   It records exact original UTF-8 byte spans and bounded OCR locating context.
    It supplies deterministic space proposals for `punctuation_letter`
    (`,;:!?` followed by an ASCII letter) and `period_capital` (a period followed
    by an ASCII capital). Lexical and structural candidates can appear in this
@@ -15,7 +16,8 @@ handoff and one executor; other repairs are out of scope.
    is copied intact, including its proposal and `review` object. The extractor
    does not calculate, alter, approve, or repair anything.
 4. Codex runs in a **book workspace repository**, using the
-   [review prompt](codex/processing-prompts.md). It compares proposals to scans,
+   [review prompt](codex/processing-prompts.md), with scans and the whitespace
+   report available. It uses the report context to locate passages in images,
    sets accepted findings to `review.status: "approved"` in report two, leaves
    exception statuses unchanged, and optionally adds `review.note`. It writes
    complete copies of non-approved findings into report three.
@@ -72,6 +74,12 @@ Report two initially looks like this (illustrative values):
       "start_byte": 11,
       "end_byte": 16,
       "json_block_id": null,
+      "ocr_context": {
+        "provenance": "raw_paddle_markdown",
+        "start_byte": 0,
+        "end_byte": 17,
+        "text": "Hello world,word."
+      },
       "observed": ",word",
       "proposed": ", word",
       "proposal_source": "deterministic_whitespace",
@@ -82,8 +90,9 @@ Report two initially looks like this (illustrative values):
 }
 ```
 
-Give Codex the prompt, report two, and both input-directory roots in the book
-workspace. For `U.S.A`, the probe will propose spaces, the extractor will carry
+Give Codex the prompt, report two, and the scans root in a separate review
+workspace containing only the scans and whitespace report. Keep the original
+Paddle directory and report one in the execution environment. For `U.S.A`, the probe will propose spaces, the extractor will carry
 that finding unchanged, and Codex should leave its status `null` and copy it into
 `review/whitespace_exceptions.json`. Accepted proposals get `"approved"` in report
 two. Codex never edits the raw text or runs the executor.
@@ -98,6 +107,38 @@ python /path/to/normalize/execute_repairs.py \
   --baseline review/probe.json --report review/whitespace.json \
   --paddle paddle --out repaired --execute
 ```
+
+## Locating a finding without original Paddle files
+
+The probe already records `start_byte`/`end_byte` for each finding, and the
+extractor copies those fields unchanged. The probe now also supplies `ocr_context`
+for every finding that has a Markdown span. It contains a `raw_paddle_markdown`
+provenance label, exact original byte offsets for the excerpt, and its unchanged
+text: the finding plus up to 160 Unicode characters on each side. Boundaries are
+chosen in characters before conversion to byte offsets, so multibyte UTF-8 text
+is not split; CRLF and Markdown syntax are preserved.
+
+Finding and context offsets address the same original Markdown bytes. Subtract
+`ocr_context.start_byte` from the finding offsets to identify the target within
+`ocr_context.text.encode("utf-8")`. This distinguishes the target from nearby
+matching strings while giving Codex bounded surrounding text for locating the
+passage in the source image. The offsets are not image coordinates. No image
+bounding box is fabricated. The excerpt is OCR-derived and can itself contain
+errors; it is a locating hint, never independent evidence of correct wording or
+spacing. Ambiguous printed occurrences remain unapproved.
+
+The extractor still performs only selection and complete-record copying. It
+neither generates context nor changes the original repair span. The executor's
+baseline comparison protects the new context fields as well as existing fields.
+Regenerate the probe and whitespace reports for this contract; no older-report
+compatibility path is provided.
+
+The review prompt no longer requires raw Markdown/JSON, the full probe report,
+or tooling in the review workspace. The human-run executor still requires the
+untouched baseline and original Paddle directory in its separate environment.
+For an actual access restriction, original artifacts and any repository history
+containing them must be outside the review process's accessible environment;
+these scripts do not configure Codex's filesystem permissions.
 
 ## Baseline and execution provenance
 
@@ -122,7 +163,7 @@ Paddle directory. The original directory and all reports remain unchanged.
 | Paddle `.md` | Unchanged | Approved spaces inserted; unchanged pages copied verbatim |
 | Paddle `_res.json` and other JSON | Unchanged | Copied byte-for-byte; still the original machine observations |
 | Paddle images/assets and other files | Unchanged | Copied byte-for-byte; original relative paths preserved |
-| Source scans | Unchanged | Not copied by the executor; remain in the separate scans directory |
+| Source scans | Unchanged | Copied unchanged if inside the Paddle directory; otherwise remain separate |
 | Review reports | Unchanged | Not edited or copied by the executor |
 | `execution_report.json` | Not present in raw input | Records executed IDs, original offsets, text changes, and input/output hashes |
 
@@ -157,4 +198,6 @@ python -m unittest discover -s tests -v
 Tests cover the actual directory → probe → copy → status edits → execution
 handoff, including abbreviations, lexical overlap, Unicode offsets, multiple
 repairs on one page, unchanged JSON/assets/source files, non-approved statuses,
-and refusal of unauthorized report changes or unsafe output placement.
+original/context byte-span identity and unchanged extraction, a review handoff
+without Paddle files, and refusal of unauthorized report changes or unsafe
+output placement.

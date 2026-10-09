@@ -9,7 +9,8 @@ WHITESPACE_TRIGGERS = {"punctuation_letter", "period_capital"}
 
 def extract(report):
     # The probe owns proposals, offsets, IDs, and initial review values. This
-    # stage only selects records; it never builds or rewrites a proposal.
+    # stage only selects records, including original byte spans and OCR locating
+    # context; it never builds or rewrites any of them or generates proposals.
     return {
         "inputs": report["inputs"],
         "findings": [

@@ -4,6 +4,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import shutil
 import sys
 import tempfile
 import unittest
@@ -14,6 +15,7 @@ sys.path.insert(0, str(ROOT))
 
 from execute_repairs import build, check_against_baseline, write_output
 from extract_whitespace import extract
+from normalize_probe import CONTEXT_CHARACTERS, ocr_context
 
 
 class WhitespaceWorkflowTests(unittest.TestCase):
@@ -75,6 +77,65 @@ class WhitespaceWorkflowTests(unittest.TestCase):
         punctuation['extra_provenance'] = {'preserve': True}
         copied = next(f for f in extract(changed)['findings'] if f['id'] == punctuation['id'])
         self.assertEqual(copied, punctuation)
+
+    def test_probe_logs_exact_context_and_extractor_carries_all_byte_spans(self):
+        originals = {f['id']: f for f in self.baseline['findings']}
+        for finding in self.report['findings']:
+            context = finding['ocr_context']
+            self.assertEqual(context['provenance'], 'raw_paddle_markdown')
+            self.assertEqual(self.raw[context['start_byte']:context['end_byte']],
+                             context['text'].encode('utf-8'))
+            relative_start = finding['start_byte'] - context['start_byte']
+            relative_end = finding['end_byte'] - context['start_byte']
+            self.assertEqual(context['text'].encode('utf-8')[relative_start:relative_end],
+                             finding['observed'].encode('utf-8'))
+            self.assertEqual(finding['start_byte'], originals[finding['id']]['start_byte'])
+            self.assertEqual(finding['end_byte'], originals[finding['id']]['end_byte'])
+            self.assertEqual(context, originals[finding['id']]['ocr_context'])
+        self.assertIn('élan', self.report['findings'][0]['ocr_context']['text'])
+        self.assertIn('\r\n', self.report['findings'][0]['ocr_context']['text'])
+
+    def test_context_is_bounded_and_keeps_utf8_boundaries_for_repeated_spans(self):
+        text = 'é' * 200 + ' first,Next ' + '界' * 400 + ' second,Next ' + 'é' * 200
+        raw = text.encode('utf-8')
+        positions = [text.index(',Next'), text.rindex(',Next')]
+        contexts = []
+        for start in positions:
+            end = start + len(',Next')
+            context = ocr_context(text, start, end)
+            contexts.append(context)
+            self.assertEqual(raw[context['start_byte']:context['end_byte']],
+                             context['text'].encode('utf-8'))
+            self.assertEqual(len(context['text']), 2 * CONTEXT_CHARACTERS + len(',Next'))
+            relative_start = len(text[:start].encode('utf-8')) - context['start_byte']
+            self.assertEqual(context['text'].encode('utf-8')[relative_start:relative_start + 5], b',Next')
+        self.assertNotEqual(contexts[0]['text'], contexts[1]['text'])
+        self.assertNotEqual(contexts[0]['start_byte'], contexts[1]['start_byte'])
+
+    def test_review_handoff_needs_no_raw_paddle_files_or_baseline_in_review_workspace(self):
+        reviewer = self.workspace / 'reviewer'
+        (reviewer / 'review').mkdir(parents=True)
+        shutil.copytree(self.scans, reviewer / 'Example Book/imgs/source')
+        report_path = reviewer / 'review/whitespace.json'
+        shutil.copyfile(self.report_path, report_path)
+        loaded = json.loads(report_path.read_bytes())
+        for finding in loaded['findings']:
+            self.assertTrue((reviewer / 'Example Book/imgs/source' / finding['source_image']).is_file())
+            context = finding['ocr_context']
+            start = finding['start_byte'] - context['start_byte']
+            end = finding['end_byte'] - context['start_byte']
+            self.assertEqual(context['text'].encode('utf-8')[start:end], finding['observed'].encode('utf-8'))
+        self.assertEqual(list(reviewer.rglob('*.md')), [])
+        self.assertEqual(list(reviewer.rglob('*_res.json')), [])
+        self.assertEqual(list(reviewer.rglob('probe.json')), [])
+        reviewed = self.reviewed()
+        report_path.write_text(json.dumps(reviewed), encoding='utf-8')
+        exceptions = {'findings': [f for f in reviewed['findings'] if f['review']['status'] != 'approved']}
+        (reviewer / 'review/whitespace_exceptions.json').write_text(json.dumps(exceptions), encoding='utf-8')
+        # The separate execution environment still has the untouched baseline/raw files.
+        check_against_baseline(json.loads(report_path.read_bytes()), self.baseline)
+        derived, _ = build(json.loads(report_path.read_bytes()), self.paddle)
+        self.assertEqual(derived['pages/page001.md'], 'élan, word. Next U.S.A today, zqxwvv.\r\n'.encode('utf-8'))
 
     def test_lexical_overlap_does_not_swallow_whitespace_finding(self):
         lexical = next(f for f in self.baseline['findings'] if f['observed'] == 'zqxwvv')
@@ -147,6 +208,8 @@ class WhitespaceWorkflowTests(unittest.TestCase):
             lambda r: r['findings'][0].update(start_byte=0),
             lambda r: r['findings'][0].update(observed='different'),
             lambda r: r['findings'][0].update(triggers=['lower_upper']),
+            lambda r: r['findings'][0]['ocr_context'].update(text='altered context'),
+            lambda r: r['findings'][0]['ocr_context'].update(start_byte=99),
             lambda r: r['findings'][0]['review'].update(replacement='arbitrary'),
             lambda r: r['findings'].pop(),
             lambda r: r['findings'].reverse(),

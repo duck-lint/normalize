@@ -18,6 +18,7 @@ ADJACENCY = {
 }
 WORDS = re.compile(r"(?<![A-Za-z])[A-Za-z]{4,}(?![A-Za-z])")
 WHITESPACE = re.compile(r"\s+")
+CONTEXT_CHARACTERS = 160
 
 
 def sha256(data):
@@ -98,6 +99,22 @@ def whitespace_proposal(observed, triggers):
     return proposed if proposed != observed else None
 
 
+def ocr_context(text, start, end):
+    """A bounded raw OCR excerpt for locating, never evidence of the printing.
+
+    Character slicing keeps UTF-8 boundaries intact. Both context and finding
+    ranges address the SAME original Markdown bytes, including raw newlines.
+    """
+    context_start = max(0, start - CONTEXT_CHARACTERS)
+    context_end = min(len(text), end + CONTEXT_CHARACTERS)
+    return {
+        "provenance": "raw_paddle_markdown",
+        "start_byte": len(text[:context_start].encode("utf-8")),
+        "end_byte": len(text[:context_end].encode("utf-8")),
+        "text": text[context_start:context_end],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scans", type=Path, required=True, help="Directory of source page images (searched recursively)")
@@ -126,7 +143,7 @@ def main():
         markdown = names_by_stem(paddle, ".md")
         json_files = names_by_stem(paddle, "_res.json")
 
-        def emit(page, rule, observed, start=None, end=None, block=None, source_sha=None, triggers=None):
+        def emit(page, rule, observed, start=None, end=None, block=None, source_sha=None, triggers=None, context=None):
             ref = str(start) if start is not None else f"block-{block}" if block is not None else "page"
             trigger_list = triggers if triggers is not None else [rule]
             proposal = whitespace_proposal(observed, trigger_list)
@@ -136,6 +153,7 @@ def main():
                 "source_image": images.get(page), "paddle_markdown": markdown.get(page),
                 "paddle_json": json_files.get(page), "source_md_sha256": source_sha,
                 "start_byte": start, "end_byte": end, "json_block_id": block,
+                "ocr_context": context,
                 "observed": observed, "proposed": proposal,
                 "proposal_source": "deterministic_whitespace" if proposal is not None else None,
                 "evidence": None,
@@ -175,7 +193,8 @@ def main():
                 start_byte = len(text[:start].encode("utf-8"))
                 end_byte = len(text[:end].encode("utf-8"))
                 emit(page, triggers[0], text[start:end], start_byte, end_byte,
-                     source_sha=digest, triggers=triggers)
+                     source_sha=digest, triggers=triggers,
+                     context=ocr_context(text, start, end))
 
             try:
                 data = json.loads(paddle[json_files[page]].read_bytes())

@@ -4,10 +4,12 @@ Normalize currently implements only this workflow:
 
 1. Scans directory → raw PaddleOCR JSON and Markdown in a Paddle directory.
 2. Raw Paddle output directory → probe report of candidate errors, with deterministic
-   punctuation-space proposals already supplied by the probe.
+   punctuation-space proposals, original UTF-8 spans, and bounded OCR context
+   already supplied by the probe.
 3. Extractor → second report containing unchanged copies of punctuation-space
    findings only.
-4. Codex in a separate book workspace → approve accepted proposals in report two;
+4. Codex in a separate review workspace with scans and report two → use the
+   OCR context only to locate passages in the images, then approve accepted proposals;
    leave exception statuses unchanged, optionally add notes, and copy exceptions
    into report three.
 5. Human-run executor → insert only explicitly approved proposed spaces from
@@ -26,3 +28,11 @@ review contract; report two supplies approvals. All offsets refer to original
 UTF-8 Markdown bytes. Multiple approved edits on one page are validated together,
 then applied from right to left; overlapping ranges are errors. Output must be a
 new directory outside raw Paddle input. No manual backup/copy step is required.
+
+Each context excerpt carries raw-Paddle provenance, its original Markdown byte
+range, and unchanged text. Finding ranges remain original repair coordinates;
+they are not pixel coordinates. The extractor copies all context and spans
+unchanged. Raw Paddle artifacts and report one belong to the separate execution
+environment, not the reviewer inputs. The prompt must not require the reviewer
+to open or hash files it cannot access. Ambiguous source occurrences remain
+unapproved; context never replaces pixel inspection as approval evidence.
