@@ -2,29 +2,25 @@
 """Apply approved punctuation-space proposals from the edited second report.
 
 The human runs this command. Without --execute it validates and previews only.
-Raw Paddle files and all three reports remain unchanged.
+Copies the full Paddle directory to a NEW output directory, then repairs only
+the copied Markdown. Original artifacts and all three reports remain unchanged.
 """
 import argparse
 from collections import defaultdict
 import copy
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
-import zipfile
+from pathlib import Path
+import shutil
+import tempfile
 
+from artifact_directory import directory_files, directory_sha256
 from extract_whitespace import extract
 from normalize_probe import whitespace_proposal
 
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
-
-
-def safe_relative(member):
-    path = PurePosixPath(member)
-    if not member or path.is_absolute() or ".." in path.parts or "\\" in member:
-        raise ValueError(f"Unsafe ZIP member path: {member!r}")
-    return Path(*path.parts)
 
 
 def check_against_baseline(report, baseline):
@@ -45,14 +41,12 @@ def check_against_baseline(report, baseline):
         raise ValueError("Only review.status and review.note may change in report two")
 
 
-def build(report, paddle_zip):
-    if digest(paddle_zip.read_bytes()) != report["inputs"]["paddle_zip_sha256"]:
-        raise ValueError("Paddle ZIP differs from the probe input")
-    with zipfile.ZipFile(paddle_zip) as archive:
-        names = archive.namelist()
-        if len(set(names)) != len(names):
-            raise ValueError("Duplicate ZIP member paths")
-        raw_pages = {name: archive.read(name) for name in names if name.endswith(".md")}
+def build(report, paddle_dir):
+    files = directory_files(paddle_dir)
+    if directory_sha256(files) != report["inputs"]["paddle_dir_sha256"]:
+        raise ValueError("Paddle directory differs from the probe input")
+    raw_pages = {name: path.read_bytes() for name, path in files.items()
+                 if name.lower().endswith(".md")}
 
     edits = defaultdict(list)
     seen_ids = set()
@@ -97,45 +91,76 @@ def build(report, paddle_zip):
             records.append({"id": fid, "paddle_markdown": path,
                             "start_byte": start, "end_byte": end,
                             "observed": raw_pages[path][start:end].decode("utf-8"),
-                            "proposed": replacement.decode("utf-8")})
-    summary = {"approved_findings": len(records),
+                            "proposed": replacement.decode("utf-8"),
+                            "source_md_sha256": digest(raw_pages[path])})
+    for record in records:
+        record["derived_md_sha256"] = digest(derived[record["paddle_markdown"]])
+    summary = {"source_paddle_dir_sha256": report["inputs"]["paddle_dir_sha256"],
+               "artifact_policy": {"markdown": "derived; approved spaces applied",
+                                   "json_and_other_files": "unchanged raw Paddle observations/assets"},
+               "approved_findings": len(records),
                "page_count": len(raw_pages),
                "changed_pages": sum(derived[path] != raw_pages[path] for path in raw_pages),
                "changes": sorted(records, key=lambda item: (item["paddle_markdown"], item["start_byte"]))}
     return derived, summary
 
 
+def validate_output_location(paddle_dir, out):
+    if out.resolve().is_relative_to(paddle_dir.resolve()):
+        raise ValueError("Output must be outside the original Paddle directory")
+    if out.exists():
+        raise ValueError(f"Output already exists: {out}")
+
+
+def write_output(paddle_dir, out, derived, summary):
+    """Publish a copied artifact directory only after validation and repair finish."""
+    validate_output_location(paddle_dir, out)
+    if "execution_report.json" in directory_files(paddle_dir):
+        raise ValueError("Input already contains execution_report.json; use original Paddle output")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    # Stage outside the original directory. A failed copy/check/repair cannot
+    # publish a partial result as the requested output or modify the source.
+    with tempfile.TemporaryDirectory(prefix=f".{out.name}-", dir=out.parent) as temporary:
+        staged = Path(temporary) / "artifacts"
+        shutil.copytree(paddle_dir, staged)
+        if directory_sha256(directory_files(staged)) != summary["source_paddle_dir_sha256"]:
+            raise ValueError("Paddle input changed during copying; no repaired output published")
+        for member, content in derived.items():
+            destination = staged / member
+            if destination.read_bytes() != content:
+                destination.write_bytes(content)
+        (staged / "execution_report.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        validate_output_location(paddle_dir, out)
+        staged.rename(out)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--baseline", required=True, type=Path, help="Untouched full probe report (report one)")
+    parser.add_argument("--baseline", required=True, type=Path, help="Untouched report one; validates that only status/note changed in report two")
     parser.add_argument("--report", required=True, type=Path, help="Whitespace report edited by Codex (report two)")
-    parser.add_argument("--paddle", required=True, type=Path, help="Original Paddle ZIP")
-    parser.add_argument("--out", required=True, type=Path, help="New derived Markdown directory")
+    parser.add_argument("--paddle", required=True, type=Path, help="Original Paddle output directory; read-only")
+    parser.add_argument("--out", required=True, type=Path, help="New full Paddle copy; only its Markdown is repaired")
     parser.add_argument("--execute", action="store_true", help="Write the validated derived pages")
     args = parser.parse_args()
     try:
-        report = json.loads(args.report.read_bytes())
-        baseline = json.loads(args.baseline.read_bytes())
+        validate_output_location(args.paddle, args.out)
+        report_bytes = args.report.read_bytes()
+        baseline_bytes = args.baseline.read_bytes()
+        report = json.loads(report_bytes)
+        baseline = json.loads(baseline_bytes)
         check_against_baseline(report, baseline)
         derived, summary = build(report, args.paddle)
+        summary["source_report_sha256"] = digest(report_bytes)
+        summary["source_baseline_sha256"] = digest(baseline_bytes)
         print(f"Validated {summary['page_count']} pages; {summary['approved_findings']} approved "
               f"proposals; {summary['changed_pages']} pages would change.")
         if not args.execute:
             print("Dry run; pass --execute to write derived Markdown.")
             return
-        if args.out.exists():
-            raise ValueError(f"Output already exists: {args.out}")
-        for member in derived:
-            safe_relative(member)
-        args.out.mkdir(parents=True)
-        for member, content in sorted(derived.items()):
-            destination = args.out / safe_relative(member)
-            destination.parent.mkdir(parents=True, exist_ok=True)
-            destination.write_bytes(content)
-        (args.out / "execution_report.json").write_text(
-            json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        write_output(args.paddle, args.out, derived, summary)
         print(f"Wrote: {args.out}")
-    except (ValueError, KeyError, TypeError, OSError, zipfile.BadZipFile) as exc:
+    except (ValueError, KeyError, TypeError, OSError) as exc:
         parser.exit(2, f"ERROR: {exc}\n")
 
 

@@ -6,9 +6,9 @@ import ctypes
 from ctypes.util import find_library
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
-import zipfile
+from artifact_directory import directory_files, directory_sha256
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -24,11 +24,11 @@ def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def names_by_stem(archive, suffix):
+def names_by_stem(files, suffix):
     out = {}
-    for name in archive.namelist():
-        if name.endswith(suffix) and not name.endswith("/"):
-            stem = PurePosixPath(name).name.removesuffix(suffix)
+    for name in files:
+        if name.lower().endswith(suffix):
+            stem = Path(name).name[:-len(suffix)]
             if stem in out:
                 raise ValueError(f"Duplicate {suffix} for {stem}")
             out[stem] = name
@@ -100,19 +100,23 @@ def whitespace_proposal(observed, triggers):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--scans", type=Path, required=True, help="ZIP of source page images")
-    parser.add_argument("--paddle", type=Path, required=True, help="ZIP of Paddle per-page JSON and Markdown")
+    parser.add_argument("--scans", type=Path, required=True, help="Directory of source page images (searched recursively)")
+    parser.add_argument("--paddle", type=Path, required=True, help="Original Paddle output directory (searched recursively)")
     parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     args = parser.parse_args()
     if args.out.exists():
         parser.error("Output exists; refusing to overwrite the probe report")
 
+    if any(args.out.resolve().is_relative_to(root.resolve()) for root in (args.scans, args.paddle)):
+        parser.error("Write the report outside the raw input directories")
+    scans = directory_files(args.scans)
+    paddle = directory_files(args.paddle)
+    scans_hash = directory_sha256(scans)
+    paddle_hash = directory_sha256(paddle)
     spelling = Spellcheck()
     findings = []
-    scans_hash = sha256(args.scans.read_bytes())
-    paddle_hash = sha256(args.paddle.read_bytes())
 
-    with zipfile.ZipFile(args.scans) as scans, zipfile.ZipFile(args.paddle) as paddle:
+    try:
         images = {}
         for suffix in (".png", ".jpg", ".jpeg"):
             for stem, name in names_by_stem(scans, suffix).items():
@@ -148,7 +152,7 @@ def main():
             if page not in markdown or page not in json_files:
                 continue
 
-            raw = paddle.read(markdown[page])
+            raw = paddle[markdown[page]].read_bytes()
             digest = sha256(raw)
             text = raw.decode("utf-8")
             if not text.strip():
@@ -174,7 +178,7 @@ def main():
                      source_sha=digest, triggers=triggers)
 
             try:
-                data = json.loads(paddle.read(json_files[page]))
+                data = json.loads(paddle[json_files[page]].read_bytes())
             except (json.JSONDecodeError, UnicodeDecodeError) as exc:
                 emit(page, "invalid_json", str(exc), source_sha=digest)
                 continue
@@ -187,14 +191,15 @@ def main():
                     emit(page, f"json_markdown_difference:{label}", content,
                          block=block.get("block_id"), source_sha=digest)
 
-    spelling.close()
+    finally:
+        spelling.close()
     findings.sort(key=lambda f: (f["page"], f["start_byte"] if f["start_byte"] is not None else -1, f["rule"], str(f["json_block_id"])))
     if len({f["id"] for f in findings}) != len(findings):
         raise RuntimeError("Finding IDs are not unique")
     # A combined finding may have more than one detection rule.
     counts = dict(sorted(Counter(rule for f in findings for rule in f["triggers"]).items()))
-    result = {"inputs": {"source_zip_sha256": scans_hash,
-              "paddle_zip_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
+    result = {"inputs": {"source_dir_sha256": scans_hash,
+              "paddle_dir_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
               "page_count": len(images), "counts_by_rule": counts, "findings": findings}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x", encoding="utf-8", newline="\n") as handle:

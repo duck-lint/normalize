@@ -6,13 +6,12 @@ artifacts, and reports. This is not a task to edit the Normalize tooling reposit
 Inputs (replace these paths with the actual book-workspace paths):
 
 - `review/whitespace.json`: report two, copied by the extractor from the probe.
-- Source page scans, using each finding's `source_image` path relative to the
-  source-image root. For paths such as `scans/page001.jpg`, that root is
-  the book workspace; for paths without a `scans/` prefix, it is the scans directory.
-- Raw Paddle Markdown, using `paddle_markdown` relative to the extracted Paddle
-  root, if needed to locate the passage. Choose the root in the same way as
-  for scan paths, without adding a duplicate directory prefix. `start_byte` and `end_byte` are
-  offsets in the original UTF-8 Markdown bytes, not character indices.
+- Source page scans: resolve each `source_image` relative to the source scans
+  directory supplied to the probe's `--scans` argument.
+- Original Paddle Markdown: resolve `paddle_markdown` relative to the original
+  Paddle directory supplied to `--paddle`, if needed to locate the passage.
+  `start_byte` and `end_byte` are offsets in the original UTF-8 Markdown bytes,
+  not character indices. Never use a repaired directory to resolve these offsets.
 
 Review every finding in report two against its corresponding source scan. Look
 for proposed spaces that do not belong, including abbreviations such as `U.S.A`,

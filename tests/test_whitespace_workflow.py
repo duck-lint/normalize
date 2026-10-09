@@ -1,4 +1,4 @@
-"""Verify report authority and the actual CLI handoff using tiny book ZIPs."""
+"""Verify report authority and the actual CLI handoff using tiny book directories."""
 import copy
 import hashlib
 import json
@@ -7,12 +7,13 @@ import subprocess
 import sys
 import tempfile
 import unittest
-import zipfile
 
-from execute_repairs import build, check_against_baseline, safe_relative
-from extract_whitespace import extract
-
+# Direct script invocation puts tests/, not the checkout root, on sys.path.
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
+from execute_repairs import build, check_against_baseline, write_output
+from extract_whitespace import extract
 
 
 class WhitespaceWorkflowTests(unittest.TestCase):
@@ -23,18 +24,20 @@ class WhitespaceWorkflowTests(unittest.TestCase):
         self.text = 'élan,word.Next U.S.A today,zqxwvv.\r\n'
         self.raw = self.text.encode('utf-8')
         self.unchanged = b'An unchanged page.\r\n'
-        self.scans = self.workspace / 'scans.zip'
-        self.paddle = self.workspace / 'paddle.zip'
-        with zipfile.ZipFile(self.scans, 'w') as archive:
-            # The read-only probe records image paths; it does not inspect pixels.
-            archive.writestr('scans/page001.jpg', b'image fixture')
-            archive.writestr('scans/page002.jpg', b'image fixture')
-        with zipfile.ZipFile(self.paddle, 'w') as archive:
-            for page, raw in [('page001', self.raw), ('page002', self.unchanged)]:
-                archive.writestr(f'paddle/{page}.md', raw)
-                archive.writestr(f'paddle/{page}_res.json', json.dumps({
-                    'parsing_res_list': [{'block_id': 0, 'block_label': 'text',
-                                          'block_content': raw.decode('utf-8')}]}))
+        self.scans = self.workspace / 'scans'
+        self.paddle = self.workspace / 'paddle'
+        self.scans.mkdir()
+        (self.paddle / 'pages').mkdir(parents=True)
+        # The read-only probe records image paths; it does not inspect pixels.
+        (self.scans / 'page001.JPG').write_bytes(b'image fixture')
+        (self.scans / 'page002.jpg').write_bytes(b'image fixture')
+        for page, raw in [('page001', self.raw), ('page002', self.unchanged)]:
+            (self.paddle / f'pages/{page}.md').write_bytes(raw)
+            (self.paddle / f'pages/{page}_res.json').write_text(json.dumps({
+                'parsing_res_list': [{'block_id': 0, 'block_label': 'text',
+                                      'block_content': raw.decode('utf-8')}]}), encoding='utf-8')
+        (self.paddle / 'assets').mkdir()
+        (self.paddle / 'assets/crop.png').write_bytes(b'raw asset fixture')
         self.baseline_path = self.workspace / 'review/probe.json'
         self.report_path = self.workspace / 'review/whitespace.json'
         self.run_cli('normalize_probe.py', '--scans', str(self.scans),
@@ -103,19 +106,25 @@ class WhitespaceWorkflowTests(unittest.TestCase):
         self.assertEqual(len(exceptions['findings']), 1)
         self.assertIsNone(exceptions['findings'][0]['review']['status'])
         snapshots = {path: path.read_bytes() for path in
-                     [self.paddle, self.scans, self.baseline_path, self.report_path, exceptions_path]}
+                     [*self.paddle.rglob('*'), *self.scans.rglob('*'),
+                      self.baseline_path, self.report_path, exceptions_path] if path.is_file()}
         output = self.workspace / 'repaired'
         args = ['--baseline', str(self.baseline_path), '--report', str(self.report_path),
                 '--paddle', str(self.paddle), '--out', str(output)]
         self.run_cli('execute_repairs.py', *args)
         self.assertFalse(output.exists())
         self.run_cli('execute_repairs.py', *args, '--execute')
-        self.assertEqual((output / 'paddle/page001.md').read_bytes(),
+        self.assertEqual((output / 'pages/page001.md').read_bytes(),
                          'élan, word. Next U.S.A today, zqxwvv.\r\n'.encode('utf-8'))
-        self.assertEqual((output / 'paddle/page002.md').read_bytes(), self.unchanged)
+        self.assertEqual((output / 'pages/page002.md').read_bytes(), self.unchanged)
         log = json.loads((output / 'execution_report.json').read_bytes())
         self.assertEqual(log['approved_findings'], 2)
         self.assertEqual(log['changed_pages'], 1)
+        final_hash = hashlib.sha256((output / 'pages/page001.md').read_bytes()).hexdigest()
+        self.assertTrue(all(record['derived_md_sha256'] == final_hash for record in log['changes']))
+        for path in self.paddle.rglob('*'):
+            if path.is_file() and path.suffix != '.md':
+                self.assertEqual((output / path.relative_to(self.paddle)).read_bytes(), path.read_bytes())
         for path, raw in snapshots.items():
             self.assertEqual(path.read_bytes(), raw)
         # A repeated invocation cannot overwrite the derived output.
@@ -129,7 +138,7 @@ class WhitespaceWorkflowTests(unittest.TestCase):
                     finding['review']['status'] = status
                 check_against_baseline(reviewed, self.baseline)
                 derived, summary = build(reviewed, self.paddle)
-                self.assertEqual(derived['paddle/page001.md'], self.raw)
+                self.assertEqual(derived['pages/page001.md'], self.raw)
                 self.assertEqual(summary['approved_findings'], 0)
 
     def test_only_status_and_note_can_change(self):
@@ -141,7 +150,7 @@ class WhitespaceWorkflowTests(unittest.TestCase):
             lambda r: r['findings'][0]['review'].update(replacement='arbitrary'),
             lambda r: r['findings'].pop(),
             lambda r: r['findings'].reverse(),
-            lambda r: r['inputs'].update(paddle_zip_sha256='altered'),
+            lambda r: r['inputs'].update(paddle_dir_sha256='altered'),
         ]
         for mutate in mutations:
             with self.subTest(mutation=mutate):
@@ -169,11 +178,20 @@ class WhitespaceWorkflowTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     build(report, self.paddle)
 
-    def test_changed_paddle_archive_is_refused(self):
-        with zipfile.ZipFile(self.paddle, 'a') as archive:
-            archive.writestr('unexpected.txt', 'change')
-        with self.assertRaisesRegex(ValueError, 'Paddle ZIP differs'):
-            build(self.reviewed(), self.paddle)
+    def test_changed_paddle_directory_is_refused(self):
+        for name, content in [('unexpected.txt', b'new file'),
+                              ('pages/page001_res.json', b'changed JSON'),
+                              ('assets/crop.png', b'changed asset')]:
+            with self.subTest(name=name):
+                path = self.paddle / name
+                before = path.read_bytes() if path.exists() else None
+                path.write_bytes(content)
+                with self.assertRaisesRegex(ValueError, 'Paddle directory differs'):
+                    build(self.reviewed(), self.paddle)
+                if before is None:
+                    path.unlink()
+                else:
+                    path.write_bytes(before)
 
     def test_overlapping_approved_ranges_are_refused(self):
         report = self.reviewed()
@@ -201,10 +219,28 @@ class WhitespaceWorkflowTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(self.report_path.read_bytes(), raw)
 
-    def test_unsafe_output_paths_are_refused(self):
-        for name in ['../outside.md', '/outside.md', 'folder\\outside.md']:
-            with self.subTest(name=name), self.assertRaises(ValueError):
-                safe_relative(name)
+    def test_output_cannot_be_nested_inside_original_paddle(self):
+        self.report_path.write_text(json.dumps(self.reviewed()), encoding='utf-8')
+        output = self.paddle / 'repaired'
+        self.run_cli('execute_repairs.py', '--baseline', str(self.baseline_path),
+                     '--report', str(self.report_path), '--paddle', str(self.paddle),
+                     '--out', str(output), '--execute', expected=2)
+        self.assertFalse(output.exists())
+
+    def test_changed_input_during_copy_cannot_publish_output(self):
+        derived, summary = build(self.reviewed(), self.paddle)
+        (self.paddle / 'pages/page001_res.json').write_bytes(b'changed after validation')
+        output = self.workspace / 'repaired'
+        with self.assertRaisesRegex(ValueError, 'changed during copying'):
+            write_output(self.paddle, output, derived, summary)
+        self.assertFalse(output.exists())
+        self.assertEqual(list(self.workspace.glob('.repaired-*')), [])
+
+    def test_reports_cannot_be_written_inside_raw_inputs(self):
+        output = self.paddle / 'probe.json'
+        self.run_cli('normalize_probe.py', '--scans', str(self.scans),
+                     '--paddle', str(self.paddle), '--out', str(output), expected=2)
+        self.assertFalse(output.exists())
 
 
 if __name__ == '__main__':
