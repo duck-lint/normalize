@@ -51,8 +51,9 @@ those values; do not prefix a scan path with the Paddle root or choose a page by
 its printed page number. If the book root cannot be identified unambiguously,
 report the candidate paths and request the missing location before editing.
 
-Load `review/whitespace.json` as JSON and keep its initial contents available for
-an integrity comparison. Its top-level object contains `inputs` and `findings`.
+Load `review/whitespace.json` as JSON and keep an unedited snapshot in memory or
+temporary storage outside the repository for the final integrity comparison.
+Its top-level object contains `inputs` and `findings`.
 Every finding's nonempty `triggers` list contains only `punctuation_letter`
 and/or `period_capital`. A fresh finding has `review.status: null` and
 `review.note: null`. If the report is missing, malformed, or contains other
@@ -157,7 +158,8 @@ If your report edits fail these checks, correct them within the permitted fields
 before claiming completion. Do not edit or use `review/findings.json` for this
 work. Do not run OCR, the probe, extractor, executor, or project tests. Do not edit
 source scans, Paddle artifacts, Markdown, scripts, or prompts. The two designated
-review reports are the only files you may write.
+review reports are the only repository files you may write; temporary state
+for the integrity comparison must stay outside the repository.
 
 Finish by reporting the actual book directory, both output report paths, the
 input finding count, approvals added in this run, final approved/non-approved
