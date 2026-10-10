@@ -16,8 +16,10 @@
   <aside class="sidebar">
     <label class="small-heading" for="search">LEXICAL FORMS</label>
     <input id="search" type="search" placeholder="Search vocabulary …" autocomplete="off">
-    <div class="filter-row"><select id="filter" aria-label="Filter vocabulary"><option value="all">All forms</option><option value="pending">Pending</option><option value="suggested">Codex suggested</option><option value="conflicts">Conflicting evidence</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option><option value="eligible">Eligible for admission</option></select><select id="sort" aria-label="Sort vocabulary"><option value="frequency">By frequency</option><option value="suggestion">By suggestions</option><option value="alphabetical">Alphabetical</option></select></div>
+    <div class="filter-row"><select id="statusFilter" aria-label="Lexicon decision status"><option value="all">Status: All</option><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option></select><select id="repairFilter" aria-label="OCR repair proposal filter"><option value="all">Repairs: All</option><option value="any">Any proposed</option><option value="all-proposed">All proposed</option><option value="all-verified">All independently approved</option><option value="mixed">Mixed proposals</option><option value="none">No proposals</option></select></div>
+    <div class="filter-row"><select id="evidenceFilter" aria-label="Vocabulary evidence filter"><option value="all">Evidence: All</option><option value="suggested">Codex suggested</option><option value="eligible">Eligible for admission</option></select><select id="sort" aria-label="Sort vocabulary"><option value="frequency">By frequency</option><option value="suggestion">By suggestions</option><option value="alphabetical">Alphabetical</option></select></div>
     <div class="list-summary" id="listSummary">Loading…</div>
+    <div class="bulk-tools"><button id="bulkReject" class="bulk-reject" disabled>Bulk reject 0 eligible forms</button><small>Only pending words whose every occurrence has an independently approved OCR repair. This changes lexicon decisions only.</small></div>
     <div id="wordList" class="word-list" role="listbox" aria-label="Words"></div>
     <div class="sidebar-bottom"><span>↑↓ Move · A Accept · R Reject · K Skip</span><span>←→ Occurrences · / Search</span></div>
   </aside>
@@ -53,6 +55,7 @@
   </section>
 </main>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="bulkDialog"><h2>Reject filtered lexical forms</h2><p>This rejects <strong id="bulkCount"></strong> currently visible, pending lexical types where <strong>every occurrence has an independently approved OCR repair</strong>. It does not change any spacing or character repair, and it never admits a word to the lexicon.</p><p id="bulkExcluded" class="source-disclaimer"></p><div class="bulk-preview" id="bulkPreview"></div><label class="confirmation"><input id="bulkAcknowledged" type="checkbox"><span>I've reviewed this filtered group and intend to reject these words <strong>from the global lexicon admission batch only</strong>.</span></label><div class="dialog-actions"><button id="cancelBulk" class="secondary">Cancel</button><button id="confirmBulk" class="reject" disabled>Reject these lexical forms</button></div></dialog>
 <dialog id="exportDialog"><h2>Review export</h2><p>This creates a new, hash-bound approvals JSON. It does not execute repairs or update the lexicon.</p><div id="exportSummary"></div><div class="dialog-actions"><button id="cancelExport" class="secondary">Cancel</button><button id="confirmExport" class="primary">Generate approval file</button></div></dialog>
 </body>
 </html>
