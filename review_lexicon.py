@@ -275,9 +275,10 @@ class ReviewHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         target = urlparse(self.path)
-        if target.path in ('/', '/app.js', '/style.css'):
-            file_name = {'/': 'index.html', '/app.js': 'app.js', '/style.css': 'style.css'}[target.path]
+        if target.path in ('/', '/metrics.js', '/app.js', '/style.css'):
+            file_name = {'/': 'index.html', '/metrics.js': 'metrics.js', '/app.js': 'app.js', '/style.css': 'style.css'}[target.path]
             mime = {'index.html': 'text/html; charset=utf-8',
+                    'metrics.js': 'text/javascript; charset=utf-8',
                     'app.js': 'text/javascript; charset=utf-8',
                     'style.css': 'text/css; charset=utf-8'}[file_name]
             self._send(200, (UI_DIR / file_name).read_bytes(), mime)
