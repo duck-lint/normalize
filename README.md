@@ -20,8 +20,8 @@ immutable snapshots, CLI usage, chained reprobe provenance, and recovery.
    marks), not ASCII fragments of accented words. Structural HTML, Markdown
    code and link destinations, and TeX command names are excluded from lexical
    checks without changing source text or byte offsets. Punctuation-space
-   proposal patterns remain unchanged; there is no lexicon or segmentation
-   stage yet.
+   proposal patterns remain unchanged. The separate lexical stage uses
+   English, German and French Hunspell dictionaries plus the human lexicon.
 3. `extract_whitespace.py` copies findings whose nonempty trigger set contains
    only `punctuation_letter` and/or `period_capital` into report two. Each finding
    is copied intact, including its proposal and `review` object. The extractor
@@ -49,11 +49,14 @@ match their Paddle `.md` and `_res.json` stems and must be unique within each
 artifact type, even across subdirectories. Image suffixes are case insensitive.
 
 Use Python 3.11 or newer. PaddleOCR and its matching PaddlePaddle runtime must
-already be installed for step one. The probe requires `libhunspell-1.7` and the
-English dictionary files `/usr/share/hunspell/en_US.aff` and `en_US.dic`. On Ubuntu
-these are supplied by `libhunspell-1.7-0` and `hunspell-en-us`. Extraction and
-execution use the Python standard library only and do not instantiate Hunspell
-or PaddleOCR. Artifact directories must contain regular files/directories, not
+already be installed for step one. The probe and segmentation sidecar require
+`libhunspell-1.7` and **all three** Hunspell dictionary pairs:
+`/usr/share/hunspell/{en_US,de_DE,fr_FR}.{aff,dic}`. On Ubuntu install
+`libhunspell-1.7-0 hunspell-en-us hunspell-de-de hunspell-fr-classical`.
+Use `--hunspell-dir` for both commands if files live elsewhere. Missing pairs
+cause a hard error, never a silent English-only fallback. All six file hashes
+are recorded by language in `inputs.dictionary_sha256`. Extraction and execution
+use the standard library only; they do not instantiate Hunspell or PaddleOCR. Artifact directories must contain regular files/directories, not
 symlinks to outside content.
 
 ```bash
