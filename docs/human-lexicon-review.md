@@ -43,6 +43,43 @@ approved, mixed, or none), and **Codex suggestion / admission eligibility**.
 These filters compose, so you can isolate pending forms with proposed repairs,
 inspect their occurrence chips and original scans, then filter remaining pending
 vocabulary without reopening anything already decided.
+### Live scope metrics and faster navigation
+
+The left sidebar now reports **the counts within your active search/filter
+combination**, not just the whole book:
+
+- **Showing X / Y lexical forms**: distinct canonical word groups in the
+  filtered list versus the total groups in the frozen review report.
+- **X / Y occurrences**: actual source findings represented by those groups.
+  A single form can represent many occurrences, so these figures differ.
+- **Pending / Accepted / Rejected forms**: human *lexicon admission* decisions
+  in the filtered list, not occurrence repair decisions.
+- **Proposed repair occurrences** versus **Approved repair occurrences**:
+  proposed replacements can be rejected/unverified, so these numbers are not
+  synonymous. Both count source occurrences, not unique words.
+- **Admission-eligible forms**: types with at least one still-unrepaired
+  occurrence that could support a human lexicon admission if the source scan
+  confirms it, excluding already-known lexicon entries.
+
+These metrics, together with the bulk rejection button's eligible-form count,
+refresh immediately when you change a filter, search, save a decision or
+complete a batch. The main header continues to show *whole-book* progress,
+so there is always a clear distinction between global totals and current scope.
+
+Use **Clear filters** to remove search/status/repair/evidence constraints while
+retaining your preferred sort. The current-position indicator shows where the
+selected word sits in the filtered forms; arrow buttons or Up/Down navigate
+within that list. **Next pending** (or **N** when not typing) jumps to the next
+undecided word that matches the current filters, wrapping at the end.
+
+When deciding a word in the **Pending** view, it disappears from that view.
+The reviewer automatically advances to the next visible word near that
+position, rather than showing a now-hidden entry or returning to the start.
+When a filter matches no forms, the interface shows an empty-result message.
+All operations remain local and read-only except for the existing explicit
+progress/approval writes; counts, sorting and navigation never alter
+source scans, OCR proposals, or vocabulary admissions.
+
 The right pane displays original scan pixels, the selected occurrence and its
 exact UTF-8-aligned OCR context. The context is a locating hint only.
 
