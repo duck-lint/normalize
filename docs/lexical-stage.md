@@ -10,11 +10,28 @@ The existence of a plausible word or recurring token is NOT evidence that OCR is
 
 Two distinct authorizations: review.status = "approved" on a reviewed finding enables the *specific proposed replacement*, once the human explicitly runs the executor. A **separate human-authored approval file** with approved = true authorizes persistent lexicon admission of an *unrepaired observed occurrence*. Codex suggestions are never admissions.
 
+Baseline recognition checks en_US, de_DE, and fr_FR Hunspell (with each
+locale's own affix rules), then the separate human-approved lexicon. Every
+pair is mandatory; if one is missing the probe stops. The probe records all
+six file hashes under inputs.dictionary_sha256[language], preserving the
+conditions under which a candidate was detected. A matching word does NOT
+prove which language it belongs to or that the OCR matches the scan;
+cross-language recognition can hide some OCR mistakes. Greek and historical
+spellings can remain unknown.
+
 The persistent lexicon is JSON: lexicon.json is an empty starting template in the tools repo. It may instead live under a shared, long-lived path outside the per-book workspaces. Each entry carries the exact word, a human note, and an approval record linking it to a finding, the unchanged full probe report hash and scan-directory hash. NFC and casefold are used only in membership checks; the OCR text is never normalized. The lexicon file's exact SHA-256 is recorded by probes and required by execution. Changes become visible only when a subsequent probe explicitly reads the updated file.
 
 ## Commands for one book
 
-The earlier Paddle and punctuation phases proceed as documented in process.md. Start with an existing **verified whitespace stage** called whitespace-repaired, a scans directory, a shared lexicon, and the Normalize tools directory. Before the next commands, ensure the whitespace executor has completed successfully.
+The earlier Paddle and punctuation phases proceed as documented in
+process.md. On Ubuntu install:
+
+    sudo apt-get install libhunspell-1.7-0 hunspell-en-us hunspell-de-de hunspell-fr-classical
+
+The default dictionary directory is /usr/share/hunspell. If using another
+directory, pass --hunspell-dir to both normalize_probe.py and
+suggest_segments.py so their snapshot hashes match.
+ Start with an existing **verified whitespace stage** called whitespace-repaired, a scans directory, a shared lexicon, and the Normalize tools directory. Before the next commands, ensure the whitespace executor has completed successfully.
 
 1. Full lexical baseline:
     python /tooling/normalize_probe.py --scans scans --paddle whitespace-repaired --lexicon /shared/lexicon.json --out review/probe2.json
@@ -51,7 +68,7 @@ Only words actually observed in an unrepaired unrecognized_token finding from th
 
 ## Deterministic segmentation policy
 
-The optional sidecar builds a recognized-word frequency table from the previous derived Markdown, excluding embedded markup; valid segment pieces must be recognized by English Hunspell OR the custom human-approved lexicon. It ranks known-word-only partitions deterministically using in-book occurrence frequencies. The scoring is a heuristic and does not establish source correctness. A complete word already recognized by the lexicon cannot be segmented just for being unrecognized by English spellcheck. The sidecar is NOT consumed by the executor. Session 1 must inspect printed pixels before endorsing any suggestion.
+The optional sidecar builds a recognized-word frequency table from the previous derived Markdown, excluding embedded markup; valid segment pieces must be recognized by English, German, or French Hunspell OR the custom human-approved lexicon. It ranks known-word-only partitions deterministically using in-book occurrence frequencies. The scoring is a heuristic and does not establish source correctness. A complete word already recognized by any dictionary or the custom lexicon cannot be segmented just because another dictionary rejects it. The sidecar is NOT consumed by the executor. Session 1 must inspect printed pixels before endorsing any suggestion.
 
 ## Mechanical and provenance invariants
 
@@ -72,3 +89,24 @@ Do not run independent writers against a shared lexicon concurrently. Stale hash
     python -m unittest discover -s tests -v
 
 The regression suite uses a miniature book to test the entire prior punctuation workflow followed by the lexical stage, distinct Codex report authority, human admission file, exact replacements, reprobe and chained mismatch provenance. It also tests stale inputs, tampering and segmentation coupling.
+
+
+## Cutover from the English-only pilot
+
+Keep the original source scans, Paddle output, validated whitespace-derived
+directory and its execution ledger unchanged. **Neither OCR nor punctuation
+repairs need to be rerun.** Generate a new Probe 2 from the existing
+whitespace-repaired directory with the installed three-language dictionaries,
+the same persistent lexicon snapshot and a new output filename.
+
+The previous English-only Probe 2, lexical extraction, Codex proposer/verifier
+outputs and human review progress belong to the OLD candidate population and
+must be archived as immutable history rather than fed into the new lexical
+executor. Re-extract the lexical findings, regenerate optional segmentation
+hints, repeat the two visual Codex sessions, and begin a fresh human lexicon
+review for the newly generated report. Do not copy earlier approvals across
+changed finding populations or hashes. The previous review is still useful as
+empirical comparison evidence, but cannot authorize new snapshot operations.
+
+Dictionary additions affect lexical *recognition*, not existing repaired
+Markdown/JSON. They do not import French or German terms into lexicon.json.
