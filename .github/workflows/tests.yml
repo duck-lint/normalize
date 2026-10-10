@@ -10,9 +10,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - name: Install English German French probe dictionaries
         run: sudo apt-get update && sudo apt-get install -y libhunspell-1.7-0 hunspell-en-us hunspell-de-de hunspell-fr-classical
       - name: Validate five-step handoff
         run: |
           python tests/test_whitespace_workflow.py
           python -m unittest discover -s tests -v
+      - name: Validate local review UI JavaScript
+        run: |
+          node --check review_ui/app.js
+          node --check review_ui/metrics.js
+          node --test tests/test_review_ui_metrics.cjs
