@@ -194,6 +194,7 @@ def main():
     p.add_argument("--proposals", type=Path, required=True, help="Frozen output of proposer Codex session")
     p.add_argument("--reviewed", type=Path, required=True, help="Output of independent verifier session")
     p.add_argument("--paddle", type=Path, required=True, help="Verified whitespace-stage derivative")
+    p.add_argument("--scans", type=Path, required=True, help="Original source scans; independently hashed before execution")
     p.add_argument("--lexicon", type=Path, required=True, help="Persistent reviewed lexicon")
     p.add_argument("--lexicon-approvals", type=Path, help="Separate explicitly human-authored approvals")
     p.add_argument("--out", type=Path, required=True, help="New lexical-stage derivative")
@@ -202,10 +203,13 @@ def main():
     args = p.parse_args()
     try:
         validate_paths(args.paddle, args.out, args.lexicon)
+        scan_files = directory_files(args.scans)
         baseline_raw = args.baseline.read_bytes()
         proposals_raw = args.proposals.read_bytes()
         reviewed_raw = args.reviewed.read_bytes()
         baseline, proposals, reviewed = map(json.loads, (baseline_raw, proposals_raw, reviewed_raw))
+        if directory_sha256(scan_files) != baseline["inputs"]["source_dir_sha256"]:
+            raise ValueError("Source scans changed since lexical probe")
         validate_handoffs(baseline, proposals, reviewed)
         lexicon, lexicon_hash, _ = read_lexicon(args.lexicon)
         approvals_raw = args.lexicon_approvals.read_bytes() if args.lexicon_approvals else None
@@ -257,6 +261,8 @@ def main():
         if not args.execute:
             print("Dry run only. Add --execute to publish derived artifacts and commit vocabulary.")
             return
+        if directory_sha256(directory_files(args.scans)) != baseline["inputs"]["source_dir_sha256"]:
+            raise ValueError("Source scans changed during lexical validation")
         publish(args.paddle, args.out, derived, ledger)
         try:
             commit_lexicon(args.lexicon, lexicon_hash, target_bytes)
