@@ -173,6 +173,57 @@ class HumanLexiconReviewTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Invalid review'):
             self.make_session()
 
+    def test_bulk_rejection_is_only_for_unanimously_verified_repair_types(self):
+        self.assertEqual(self.session.groups['schopenhuaer']['verified_repair_count'], 1)
+        self.assertEqual(self.session.groups['newtonic']['verified_repair_count'], 1)
+        before = self.verified.read_bytes()
+        data = {'keys': ['schopenhuaer'], 'acknowledged': True}
+        result = self.session.bulk_reject(data)
+        self.assertEqual(result['rejected'], 1)
+        self.assertEqual(self.session.decisions['schopenhuaer']['decision'], 'rejected')
+        self.assertEqual(self.session.groups['newtonic']['eligible_count'], 1)
+        self.assertNotIn('newtonic', self.session.decisions)
+        self.assertEqual(self.verified.read_bytes(), before)
+        self.assertEqual(self.session.approvals()['entries'], [])
+        self.assertEqual(self.make_session().decisions, self.session.decisions)
+
+    def test_bulk_rejection_fails_atomically_on_mixed_pending_or_invalid_entries(self):
+        for bad in [
+            {'keys': ['newtonic'], 'acknowledged': True},  # mixed proposals
+            {'keys': ['infrequentword'], 'acknowledged': True},  # no repair
+            {'keys': ['schopenhuaer', 'newtonic'], 'acknowledged': True},
+            {'keys': ['schopenhuaer', 'schopenhuaer'], 'acknowledged': True},
+            {'keys': ['schopenhuaer'], 'acknowledged': False},
+            {'keys': [], 'acknowledged': True},
+        ]:
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                self.session.bulk_reject(bad)
+            self.assertFalse(self.session.decisions)
+            self.assertFalse(self.progress.exists())
+        # An accepted decision must never be overwritten by a bulk operation.
+        self.save('newtonic', 'accepted', self.session.groups['newtonic']['occurrences'][0]['id'])
+        with self.assertRaises(ValueError):
+            self.session.bulk_reject({'keys': ['newtonic'], 'acknowledged': True})
+        self.assertEqual(self.session.decisions['newtonic']['decision'], 'accepted')
+
+    def test_bulk_rejection_refuses_stale_scan_snapshot(self):
+        (self.scans / 'page01.png').write_bytes(b'changed scan pixels')
+        with self.assertRaisesRegex(ValueError, 'scans changed'):
+            self.session.bulk_reject({'keys': ['schopenhuaer'], 'acknowledged': True})
+        self.assertFalse(self.progress.exists())
+
+    def test_bulk_rejection_requires_an_independently_approved_repair_for_every_occurrence(self):
+        # A proposal with review.status null cannot be bulk-accepted as a correction.
+        changed = json.loads(self.verified.read_bytes())
+        record = next(f for f in changed['findings'] if f['observed'] == 'Schopenhuaer')
+        record['review']['status'] = None
+        self.verified.write_text(json.dumps(changed, ensure_ascii=False))
+        no_verification = self.make_session()
+        self.assertEqual(no_verification.groups['schopenhuaer']['repair_count'], 1)
+        self.assertEqual(no_verification.groups['schopenhuaer']['verified_repair_count'], 0)
+        with self.assertRaises(ValueError):
+            no_verification.bulk_reject({'keys': ['schopenhuaer'], 'acknowledged': True})
+
     def test_http_scan_serving_and_authorized_post(self):
         server = ThreadingHTTPServer(('127.0.0.1', 0), ReviewHandler)
         server.session = self.session
