@@ -94,6 +94,7 @@ class LexicalWorkflowTests(unittest.TestCase):
     def execute_args(self):
         return ("--baseline", self.probe2, "--proposals", self.proposals_path,
                 "--reviewed", self.reviewed_path, "--paddle", self.whitespace,
+                "--scans", self.scans,
                 "--lexicon", self.lexicon, "--lexicon-approvals", self.approvals_path,
                 "--out", self.lexical_dir)
 
@@ -166,6 +167,26 @@ class LexicalWorkflowTests(unittest.TestCase):
                         "--paddle", self.lexical_dir, "--lexicon", self.lexicon,
                         "--out", post, expected=2)
         self.assertFalse(post.exists())
+
+    def test_resume_lexicon_commit_and_idempotent_resume(self):
+        self.run_script("execute_lexical_repairs.py", *self.execute_args(), "--execute")
+        accepted_bytes = self.lexicon.read_bytes()
+        # Simulate a crash/failure just after the derived folder was published.
+        self.lexicon.write_bytes(self.lex_before)
+        self.run_script("execute_lexical_repairs.py", *self.execute_args(),
+                        "--execute", "--resume-lexicon")
+        self.assertEqual(self.lexicon.read_bytes(), accepted_bytes)
+        # A retry after a completed commit must be safe too.
+        self.run_script("execute_lexical_repairs.py", *self.execute_args(),
+                        "--execute", "--resume-lexicon")
+        self.assertEqual(self.lexicon.read_bytes(), accepted_bytes)
+
+    def test_changed_source_scans_stop_lexical_execution(self):
+        (self.scans / "p001.png").write_bytes(b"changed scan pixels")
+        self.run_script("execute_lexical_repairs.py", *self.execute_args(),
+                        "--execute", expected=2)
+        self.assertFalse(self.lexical_dir.exists())
+        self.assertEqual(self.lexicon.read_bytes(), self.lex_before)
 
     def test_segmentation_uses_lexicon_and_never_changes_characters(self):
         recognized = {"of", "the", "prior", "i"}
