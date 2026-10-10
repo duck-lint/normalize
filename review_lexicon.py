@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import secrets
 import tempfile
+import threading
 from urllib.parse import parse_qs, urlparse
 import webbrowser
 
@@ -114,6 +115,7 @@ class ReviewSession:
             group['eligible_count'] += bool(item['eligible'])
         self.groups = dict(sorted(self.groups.items(), key=lambda pair:
                                   (-pair[1]['count'], -pair[1]['suggested_count'], pair[0])))
+        self.lock = threading.RLock()
         self.decisions = {}
         if paths['progress'].exists():
             state = json.loads(paths['progress'].read_bytes())
@@ -248,7 +250,8 @@ class ReviewHandler(BaseHTTPRequestHandler):
                     'style.css': 'text/css; charset=utf-8'}[file_name]
             self._send(200, (UI_DIR / file_name).read_bytes(), mime)
         elif target.path == '/api/data':
-            manifest = self.server.session.manifest()
+            with self.server.session.lock:
+                manifest = self.server.session.manifest()
             manifest['token'] = self.server.token
             self._json(200, manifest)
         elif target.path == '/api/scan':
@@ -280,11 +283,13 @@ class ReviewHandler(BaseHTTPRequestHandler):
         try:
             data = json.loads(self.rfile.read(int(length)))
             if self.path == '/api/decision':
-                result = self.server.session.save_decision(data)
+                with self.server.session.lock:
+                    result = self.server.session.save_decision(data)
             elif self.path == '/api/export':
                 if data != {}:
                     raise ValueError('Export does not accept fields')
-                result = self.server.session.export()
+                with self.server.session.lock:
+                    result = self.server.session.export()
             else:
                 self._json(404, {'error': 'Not found'})
                 return
