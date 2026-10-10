@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Normalize · Human Lexicon Review</title>
   <link rel="stylesheet" href="/style.css">
+  <script src="/metrics.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
@@ -18,10 +19,19 @@
     <input id="search" type="search" placeholder="Search vocabulary …" autocomplete="off">
     <div class="filter-row"><select id="statusFilter" aria-label="Lexicon decision status"><option value="all">Status: All</option><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option></select><select id="repairFilter" aria-label="OCR repair proposal filter"><option value="all">Repairs: All</option><option value="any">Any proposed</option><option value="all-proposed">All proposed</option><option value="all-verified">All independently approved</option><option value="mixed">Mixed proposals</option><option value="none">No proposals</option></select></div>
     <div class="filter-row"><select id="evidenceFilter" aria-label="Vocabulary evidence filter"><option value="all">Evidence: All</option><option value="suggested">Codex suggested</option><option value="eligible">Eligible for admission</option></select><select id="sort" aria-label="Sort vocabulary"><option value="frequency">By frequency</option><option value="suggestion">By suggestions</option><option value="alphabetical">Alphabetical</option></select></div>
-    <div class="list-summary" id="listSummary">Loading…</div>
+    <div class="scope-heading"><div class="list-summary" id="listSummary" aria-live="polite">Loading…</div><button id="clearFilters" class="clear-filters" type="button">Clear filters</button></div>
+    <div class="scope-metrics" role="group" aria-label="Counts within current filters">
+      <div><strong id="visiblePending">—</strong><span>Pending forms</span></div>
+      <div><strong id="visibleAccepted">—</strong><span>Accepted forms</span></div>
+      <div><strong id="visibleRejected">—</strong><span>Rejected forms</span></div>
+      <div><strong id="visibleProposed">—</strong><span>Proposed repair occurrences</span></div>
+      <div><strong id="visibleVerified">—</strong><span>Approved repair occurrences</span></div>
+      <div><strong id="visibleEligible">—</strong><span>Admission-eligible forms</span></div>
+    </div>
+    <div class="group-navigation"><button id="prevGroup" type="button" title="Previous filtered form">←</button><span id="selectedPosition">0 / 0 forms</span><button id="nextGroup" type="button" title="Next filtered form">→</button><button id="nextPending" type="button" title="Find next pending form in current filters (N)">Next pending</button></div>
     <div class="bulk-tools"><button id="bulkReject" class="bulk-reject" disabled>Bulk reject 0 eligible forms</button><small>Only pending words whose every occurrence has an independently approved OCR repair. This changes lexicon decisions only.</small></div>
     <div id="wordList" class="word-list" role="listbox" aria-label="Words"></div>
-    <div class="sidebar-bottom"><span>↑↓ Move · A Accept · R Reject · K Skip</span><span>←→ Occurrences · / Search</span></div>
+    <div class="sidebar-bottom"><span>↑↓ Move · N Next pending · A Accept · R Reject · K Skip</span><span>←→ Occurrences · / Search</span></div>
   </aside>
   <section class="workarea">
     <div id="empty" class="empty">Loading lexical review…</div>
