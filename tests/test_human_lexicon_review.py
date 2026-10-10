@@ -235,6 +235,11 @@ class HumanLexiconReviewTests(unittest.TestCase):
         with urlopen(origin+'/api/data') as response:
             manifest = json.load(response)
         self.assertEqual(manifest['token'], server.token)
+        with urlopen(origin+'/metrics.js') as response:
+            self.assertIn(b'function summarize', response.read())
+            self.assertIn('javascript', response.headers['Content-Type'])
+        with urlopen(origin+'/') as response:
+            self.assertIn(b'/metrics.js', response.read())
         fid = self.session.groups['newtonic']['occurrences'][0]['id']
         from urllib.parse import quote
         with urlopen(origin+'/api/scan?id='+quote(fid, safe='')) as response:
