@@ -10,10 +10,10 @@ HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
 HTML_TAG = re.compile(r"""</?[A-Za-z][A-Za-z0-9:-]*(?:[^"'<>]|"[^"]*"|'[^']*')*>""")
 HTML_ENTITY = re.compile(r"&(?:#[0-9]+|#x[0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]+);")
 TEX_COMMAND = re.compile(r"\\(?:[A-Za-z@]+|.)", re.DOTALL)
-MARKDOWN_IMAGE = re.compile(r"!\\[[^]\\n]*\\]\\((?:[^()\\n]|\\([^()\\n]*\\))*\\)")
-MARKDOWN_LINK_TARGET = re.compile(r"\\]\\((?:[^()\\n]|\\([^()\\n]*\\))*\\)")
-FENCE_OPEN = re.compile(r"^[ \\t]{0,3}(`{3,}|~{3,})")
-FENCE_CLOSE = re.compile(r"^[ \\t]{0,3}(`+|~+)[ \\t]*$")
+MARKDOWN_IMAGE = re.compile(r"!\[[^]\n]*\]\((?:[^()\n]|\([^()\n]*\))*\)")
+MARKDOWN_LINK_TARGET = re.compile(r"\]\((?:[^()\n]|\([^()\n]*\))*\)")
+FENCE_OPEN = re.compile(r"^[ \t]{0,3}(`{3,}|~{3,})")
+FENCE_CLOSE = re.compile(r"^[ \t]{0,3}(`+|~+)[ \t]*$")
 BACKTICKS = re.compile(r"`+")
 
 
@@ -24,17 +24,17 @@ def word_character(char):
 
 def lexical_visibility(text):
     """Return a positional mask: 1 for text, 0 for structural markup/code."""
-    visible = bytearray(b"\\x01") * len(text)
+    visible = bytearray(b"\x01") * len(text)
 
     def hide(start, end):
-        visible[start:end] = b"\\x00" * (end - start)
+        visible[start:end] = b"\x00" * (end - start)
 
     # Code fences are not transcribed prose. Include unclosed fences through EOF.
     open_at = None
     delimiter = None
     offset = 0
     for line in text.splitlines(keepends=True):
-        body = line.rstrip("\\r\\n")
+        body = line.rstrip("\r\n")
         if open_at is None:
             match = FENCE_OPEN.match(body)
             if match:
