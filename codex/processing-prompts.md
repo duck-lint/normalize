@@ -18,6 +18,13 @@ identified, or the evidence is insufficient.
 Preserve the report's existing schema, proposal values, and execution
 coordinates.
 
+Preserve `inputs.json_markdown_comparison` unchanged. This whitespace review
+uses a raw-Paddle probe (`mode: "raw"`). Do not add or edit suppression fields.
+The executor records applied changes; the later probe independently verifies
+them before recording JSON/Markdown comparison exceptions. The non-approved
+review exceptions report you create is a different artifact and grants no
+comparison authority. See [the process document](../docs/process.md).
+
 Work in manageable source-page groups. Preserve completed decisions and report
 partial progress accurately.
 

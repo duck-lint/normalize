@@ -15,6 +15,11 @@ Normalize currently implements only this workflow:
 5. Human-run executor → insert only explicitly approved proposed spaces from
    report two into copied Markdown. The full Paddle directory is copied to a new
    output first; JSON and assets remain unchanged machine observations.
+6. Repaired output + original scans → Probe 2 of the actual repaired Markdown.
+   The probe verifies the execution ledger, reverses recorded spaces only in an
+   in-memory JSON comparison view, and checks source page/directory hashes.
+   Explained JSON/Markdown discrepancies enter `json_markdown_exceptions`;
+   unrelated differences remain findings. Fresh offsets address actual input.
 
 Source scan pixels determine whether a proposed space belongs. Codex owns only
 status/note edits in report two and the exceptions report. The executor owns only
@@ -22,6 +27,13 @@ mechanical application of approved proposals. Raw scans, raw Paddle output, and
 the full probe report remain unchanged. No lexical replacement, alternative
 replacement field, batch authorization stage, footnote linking, concatenation,
 or compatibility path belongs to the current implementation.
+
+No reviewer-edited comparison flag is added. Execution records alone supply
+comparison semantics after validated application; the extractor copies input
+provenance and findings intact. The review exceptions report is not the probe's
+comparison exceptions audit. Invalid or old execution provenance fails closed.
+This implements a single raw → whitespace stage, not a general history engine.
+See [the maintained process document](../../docs/process.md).
 
 The executor requires untouched report one only to validate the status/note-only
 review contract; report two supplies approvals. All offsets refer to original
