@@ -107,11 +107,13 @@ class ReviewSession:
             group = self.groups.setdefault(key, {'key': key, 'word': finding['observed'],
                                                   'occurrences': [], 'count': 0,
                                                   'suggested_count': 0, 'repair_count': 0,
-                                                  'eligible_count': 0, 'already_known': key in existing})
+                                                  'verified_repair_count': 0, 'eligible_count': 0,
+                                                  'already_known': key in existing})
             group['occurrences'].append(item)
             group['count'] += 1
             group['suggested_count'] += bool(item['suggested'])
             group['repair_count'] += proposed is not None
+            group['verified_repair_count'] += (proposed is not None and item['review_status'] == 'approved')
             group['eligible_count'] += bool(item['eligible'])
         self.groups = dict(sorted(self.groups.items(), key=lambda pair:
                                   (-pair[1]['count'], -pair[1]['suggested_count'], pair[0])))
@@ -158,6 +160,36 @@ class ReviewSession:
             self.decisions.pop(key, None)
         self._save_progress()
         return {'saved': True, 'decisions': self.decisions}
+
+    def bulk_reject(self, data):
+        """One atomic human-confirmed batch of vocabulary rejections, never OCR repairs.
+
+        Restrict to previously undecided lexical forms where ALL occurrences
+        have independently approved OCR repair proposals. A mixed group could
+        contain a genuine word despite another occurrence needing repair.
+        """
+        if (not isinstance(data, dict) or set(data) != {'keys', 'acknowledged'}
+                or data['acknowledged'] is not True or not isinstance(data['keys'], list)
+                or not data['keys'] or len(data['keys']) > 10000
+                or any(not isinstance(k, str) for k in data['keys'])
+                or len(set(data['keys'])) != len(data['keys'])):
+            raise ValueError('Bulk rejection requires a nonempty unique key list and explicit human confirmation')
+        for key in data['keys']:
+            group = self.groups.get(key)
+            if (group is None or key in self.decisions or group['already_known']
+                    or group['repair_count'] != group['count']
+                    or group['verified_repair_count'] != group['count']):
+                raise ValueError(f'Not pending and fully repair-verified: {key}')
+        self._check_unchanged()
+        note = ('Human bulk exclusion from this lexicon admission batch: every '
+                'observed occurrence has an independently approved OCR repair. '
+                'Occurrence-level repair decisions remain unchanged.')
+        for key in data['keys']:
+            self.decisions[key] = {'decision': 'rejected', 'finding_id': None,
+                                   'note': note}
+        self._save_progress()
+        return {'saved': True, 'rejected': len(data['keys']),
+                'decisions': self.decisions}
 
     def _save_progress(self):
         path = self.paths['progress']
@@ -285,6 +317,9 @@ class ReviewHandler(BaseHTTPRequestHandler):
             if self.path == '/api/decision':
                 with self.server.session.lock:
                     result = self.server.session.save_decision(data)
+            elif self.path == '/api/bulk-reject':
+                with self.server.session.lock:
+                    result = self.server.session.bulk_reject(data)
             elif self.path == '/api/export':
                 if data != {}:
                     raise ValueError('Export does not accept fields')
