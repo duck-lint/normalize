@@ -16,7 +16,7 @@ from pathlib import Path
 from artifact_directory import directory_files, directory_sha256
 from lexical_detection import lexical_character, lexical_visibility
 from lexicon_store import canonical, read_lexicon
-from normalize_probe import Spellcheck
+from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR
 
 
 def known_counts(files, recognizes):
@@ -72,6 +72,8 @@ def main():
     p.add_argument("--report", type=Path, required=True, help="Untouched output of extract_lexical.py")
     p.add_argument("--paddle", type=Path, required=True, help="Current derived Markdown directory")
     p.add_argument("--lexicon", type=Path, required=True)
+    p.add_argument("--hunspell-dir", type=Path, default=DEFAULT_DICTIONARY_DIR,
+                   help="Same en_US, de_DE, fr_FR dictionary directory used for the probe")
     p.add_argument("--out", type=Path, required=True, help="Read-only segmentation hint sidecar")
     args = p.parse_args()
     if args.out.exists():
@@ -85,7 +87,10 @@ def main():
     files = directory_files(args.paddle)
     if directory_sha256(files) != report["inputs"]["paddle_dir_sha256"]:
         p.error("Derived OCR snapshot changed since probe")
-    spelling = Spellcheck(lexicon_words=words)
+    try:
+        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=words)
+    except (RuntimeError, OSError, LookupError, UnicodeError) as exc:
+        p.error(f"Cannot initialize all required dictionaries: {exc}")
     try:
         if spelling.digests != report["inputs"]["dictionary_sha256"]:
             p.error("Hunspell dictionary changed since probe")

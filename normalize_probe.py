@@ -2,8 +2,6 @@
 """Read-only PaddleOCR probe. Report candidates; propose only punctuation spaces."""
 import argparse
 from collections import Counter
-import ctypes
-from ctypes.util import find_library
 import hashlib
 import json
 from pathlib import Path
@@ -12,7 +10,8 @@ from artifact_directory import directory_files, directory_sha256
 from lexical_detection import lexical_visibility, unrecognized_spans, word_character
 from lexical_provenance import comparison_views
 from whitespace_provenance import whitespace_proposal
-from lexicon_store import read_lexicon, canonical
+from lexicon_store import read_lexicon
+from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -37,31 +36,6 @@ def names_by_stem(files, suffix):
                 raise ValueError(f"Duplicate {suffix} for {stem}")
             out[stem] = name
     return out
-
-
-class Spellcheck:
-    """Use installed Hunspell with its affix rules, not a homemade book vocabulary."""
-    def __init__(self, aff="/usr/share/hunspell/en_US.aff", dic="/usr/share/hunspell/en_US.dic", lexicon_words=None):
-        libpath = find_library("hunspell-1.7")
-        if not libpath or not Path(aff).is_file() or not Path(dic).is_file():
-            raise RuntimeError("The probe requires installed Hunspell and en_US .aff/.dic files")
-        self.lib = ctypes.CDLL(libpath)
-        self.lib.Hunspell_create.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
-        self.lib.Hunspell_create.restype = ctypes.c_void_p
-        self.lib.Hunspell_spell.argtypes = [ctypes.c_void_p, ctypes.c_char_p]
-        self.lib.Hunspell_spell.restype = ctypes.c_int
-        self.lib.Hunspell_destroy.argtypes = [ctypes.c_void_p]
-        self.handle = self.lib.Hunspell_create(aff.encode(), dic.encode())
-        if not self.handle:
-            raise RuntimeError("Failed to initialize Hunspell")
-        self.digests = {"aff": sha256(Path(aff).read_bytes()), "dic": sha256(Path(dic).read_bytes())}
-        self.lexicon_words = lexicon_words if lexicon_words is not None else set()
-
-    def recognizes(self, word):
-        return canonical(word) in self.lexicon_words or bool(self.lib.Hunspell_spell(self.handle, word.encode("utf-8")))
-
-    def close(self):
-        self.lib.Hunspell_destroy(self.handle)
 
 
 def flatten(text):
@@ -119,6 +93,8 @@ def main():
     parser.add_argument("--paddle", type=Path, required=True, help="Raw Paddle or verified whitespace output directory (searched recursively)")
     parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     parser.add_argument("--lexicon", type=Path, help="Persistent human-approved lexicon snapshot; hash recorded in report")
+    parser.add_argument("--hunspell-dir", type=Path, default=DEFAULT_DICTIONARY_DIR,
+                        help="Directory with en_US, de_DE and fr_FR .aff/.dic pairs (default: /usr/share/hunspell)")
     args = parser.parse_args()
     if args.out.exists():
         parser.error("Output exists; refusing to overwrite the probe report")
@@ -137,7 +113,10 @@ def main():
         _, lexicon_hash, lexicon_words = read_lexicon(args.lexicon) if args.lexicon else (None, None, set())
     except (ValueError, KeyError, TypeError, OSError, json.JSONDecodeError) as exc:
         parser.error(f"Invalid lexicon: {exc}")
-    spelling = Spellcheck(lexicon_words=lexicon_words)
+    try:
+        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=lexicon_words)
+    except (RuntimeError, OSError, LookupError, UnicodeError) as exc:
+        parser.error(f"Cannot initialize all required dictionaries: {exc}")
     findings = []
     comparison_exceptions = []
 
