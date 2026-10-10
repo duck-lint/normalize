@@ -95,6 +95,49 @@ class MultilingualSpellcheckTests(unittest.TestCase):
                     a, b = finding["start_byte"], finding["end_byte"]
                     self.assertEqual(source[a:b], finding["observed"].encode("utf-8"))
 
+    def test_segmentation_cli_uses_exact_probe_dictionary_hashes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scans, paddle = root / "scans", root / "paddle"
+            scans.mkdir()
+            paddle.mkdir()
+            (scans / "page001.png").write_bytes(b"source")
+            raw = "Some liberté from Freiheit and ofthe examples.".encode("utf-8")
+            (paddle / "page001.md").write_bytes(raw)
+            (paddle / "page001_res.json").write_text(json.dumps({
+                "parsing_res_list": [{"block_id": 0, "block_label": "text",
+                                      "block_content": raw.decode("utf-8")}]}))
+            lexicon = root / "lexicon.json"
+            lexicon.write_text('{"format":"normalize_lexicon_v1","entries":[]}\n')
+            baseline = root / "probe2.json"
+            extracted = root / "lexical-extracted.json"
+            hints = root / "hints.json"
+            commands = [
+                ("normalize_probe.py", "--scans", str(scans), "--paddle", str(paddle),
+                 "--lexicon", str(lexicon), "--out", str(baseline)),
+                ("extract_lexical.py", "--report", str(baseline),
+                 "--out", str(extracted)),
+                ("suggest_segments.py", "--report", str(extracted),
+                 "--paddle", str(paddle), "--lexicon", str(lexicon),
+                 "--out", str(hints)),
+            ]
+            for args in commands:
+                result = subprocess.run([sys.executable, str(ROOT / args[0]), *args[1:]],
+                                        capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stderr + result.stdout)
+            probe = json.loads(baseline.read_bytes())
+            extracted_data = json.loads(extracted.read_bytes())
+            sidecar = json.loads(hints.read_bytes())
+            self.assertEqual(sidecar["dictionary_sha256"], probe["inputs"]["dictionary_sha256"])
+            self.assertEqual(
+                sidecar["dictionary_sha256"],
+                extracted_data["inputs"]["dictionary_sha256"])
+            unknown = {f["observed"] for f in extracted_data["findings"]}
+            self.assertNotIn("liberté", unknown)
+            self.assertNotIn("Freiheit", unknown)
+            self.assertIn("ofthe", unknown)
+            self.assertEqual(raw, (paddle / "page001.md").read_bytes())
+
     def test_probe_refuses_missing_dictionary_set_before_emitting_report(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
