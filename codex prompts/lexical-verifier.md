@@ -2,7 +2,7 @@
 
 Target book: {{BOOK_NAME}}
 
-This is a separate, fresh Codex session 2. Access only the FROZEN lexical-proposals.json and the correct source scans. Read the local AGENTS.md. Optional segmentation suggestions or proposal notes are hints, NOT evidence. Do not inspect raw Paddle/Markdown, earlier review transcripts, full probe, executor, or writable shared lexicon.
+Access only the FROZEN lexical-proposals.json and the correct source scans. Read the local AGENTS.md. Optional segmentation suggestions or proposal notes are hints, NOT evidence. Do not inspect raw Paddle/Markdown, earlier review transcripts, full probe, executor, or writable shared lexicon.
 
 Treat every non-null proposed value as an unverified claim from another agent. Locate the exact occurrence on the source scan. Compare ALL differences in the proposed replacement, including every changed, inserted or deleted glyph and word separator, to what was printed. Even a grammatical or dictionary-valid replacement can be wrong. The source may genuinely be printed ambiguously; Greek and Latin lookalikes require especially conservative scrutiny.
 
