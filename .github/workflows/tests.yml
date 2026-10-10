@@ -10,8 +10,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install probe dictionary
-        run: sudo apt-get update && sudo apt-get install -y libhunspell-1.7-0 hunspell-en-us
+      - name: Install English German French probe dictionaries
+        run: sudo apt-get update && sudo apt-get install -y libhunspell-1.7-0 hunspell-en-us hunspell-de-de hunspell-fr-classical
       - name: Validate five-step handoff
         run: |
           python tests/test_whitespace_workflow.py
