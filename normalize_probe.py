@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 from artifact_directory import directory_files, directory_sha256
+from lexical_detection import lexical_visibility, unrecognized_spans, word_character
 from whitespace_provenance import comparison_views, whitespace_proposal
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
@@ -17,7 +18,6 @@ ADJACENCY = {
     "period_capital": re.compile(r"\.[A-Z]"),
     "lower_upper": re.compile(r"[a-z][A-Z]"),
 }
-WORDS = re.compile(r"(?<![A-Za-z])[A-Za-z]{4,}(?![A-Za-z])")
 WHITESPACE = re.compile(r"\s+")
 CONTEXT_CHARACTERS = 160
 
@@ -69,9 +69,12 @@ def full_span(text, rule, match):
     """Expand adjacency hits to whole adjacent tokens; keep other hits intact."""
     start, end = match.span()
     if rule == "lower_upper":
-        while start > 0 and text[start - 1].isascii() and text[start - 1].isalnum():
+        while start > 0 and word_character(text[start - 1]):
             start -= 1
-    if rule in ADJACENCY:
+    if rule == "lower_upper":
+        while end < len(text) and word_character(text[end]):
+            end += 1
+    elif rule in ADJACENCY:
         while end < len(text) and text[end].isascii() and text[end].isalnum():
             end += 1
     return start, end
@@ -175,14 +178,15 @@ def main():
 
             punctuation_spans = []
             lexical_spans = []
+            lexical_visible = lexical_visibility(text)
             for rule, pattern in ADJACENCY.items():
                 for match in pattern.finditer(text):
+                    if rule == "lower_upper" and not all(lexical_visible[match.start():match.end()]):
+                        continue
                     start, end = full_span(text, rule, match)
                     target = punctuation_spans if rule in {"punctuation_letter", "period_capital"} else lexical_spans
                     target.append((start, end, rule))
-            for match in WORDS.finditer(text):
-                if not spelling.recognizes(match.group()):
-                    lexical_spans.append((*match.span(), "unrecognized_token"))
+            lexical_spans.extend(unrecognized_spans(text, spelling.recognizes, lexical_visible))
 
             # A lexical overlap must not swallow a punctuation proposal. Each
             # family remains a separate finding; extraction only copies records.
