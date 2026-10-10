@@ -89,7 +89,7 @@ The repository convention is:
 | --- | --- |
 | `AGENTS.md` | Repository-wide instructions and authority boundaries. |
 | `books/<book>/imgs/source/` | Original source scan images. |
-| `whitespace_reports/<book>/whitespace-only.json` | Extracted whitespace report to review. |
+| `whitespace_reports/<book>/whitespace.json` | Extracted whitespace report to review. |
 | `whitespace_reports/<book>/whitespace_exceptions.json` | Complete non-approved findings report. |
 
 `<book>` represents the actual book directory, not a literal string.
@@ -554,7 +554,7 @@ Do not revoke that approval without human direction.
 
 You may write only the two designated reports for the selected book:
 
-1. `whitespace_reports/<book>/whitespace-only.json`
+1. `whitespace_reports/<book>/whitespace.json`
 2. `whitespace_reports/<book>/whitespace_exceptions.json`
 
 Use the actual resolved report paths if the repository's convention differs.
