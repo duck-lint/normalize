@@ -33,7 +33,12 @@ Re-run the same command to continue from saved progress.
 
 The left pane groups **all unrecognized lexical forms**, including ones
 Codex did *not* suggest, by NFC/casefold. It sorts by frequency by default;
-filter by pending, Codex-suggested, proposed-repair conflicts and other states.
+filter independently by **lexicon decision status** (Pending, Accepted, Rejected),
+**repair proposal evidence** (any proposed repair, all proposed, all independently
+approved, mixed, or none), and **Codex suggestion / admission eligibility**.
+These filters compose, so you can isolate pending forms with proposed repairs,
+inspect their occurrence chips and original scans, then filter remaining pending
+vocabulary without reopening anything already decided.
 The right pane displays original scan pixels, the selected occurrence and its
 exact UTF-8-aligned OCR context. The context is a locating hint only.
 
@@ -42,6 +47,31 @@ occurrence buttons to compare examples; entries for which Codex proposed a
 character/word-boundary repair are visibly marked and **cannot support
 admission**. If the same spelling has both repaired and unrepaired occurrences,
 a warning appears: only an *unrepaired occurrence* may support an admission.
+
+### Batch rejection of repair-only lexical candidates
+
+Choose **Pending** under status, then choose **All independently approved**
+under repair proposals. Browse the grouped lexical forms and their full
+occurrence list as needed. Click **Bulk reject** for a preview showing the exact
+number of *visible pending lexical types* to be affected. A separate explicit
+checkbox and confirmation are required. Search and all active filters define
+the visible subset; accepted or previously rejected decisions are not changed.
+
+**Safety boundary:** bulk rejection only acts on a lexical form if *every*
+occurrence has a proposed OCR change **and** the independent verifier set
+`review.status: "approved"` for every one of those changes. Mixed forms,
+unverified repairs, unrepaired occurrences, already-known vocabulary and
+previously decided forms are excluded, even if they appear in the filtered list.
+A mixed form can be a genuine printed word despite a different occurrence being
+wrong; review those individually. The whole submitted batch is validated before
+any decision is written. Invalid or stale inputs refuse the entire batch.
+
+This bulk command changes **only** the human vocabulary review progress:
+`decision: "rejected"` for the selected lexical types. It does NOT modify
+`lexical-reviewed.json`, change a spacing/character replacement, approve any
+unverified OCR repair, or add words to the shared lexicon. Review rejection is
+not a permanent blacklist; it excludes admission from this particular batch.
+The review decisions remain resumable and can be cleared individually later.
 
 **Accept** requires you to check that you personally inspected the exact scan,
 choose an admissible occurrence, and enter a nonempty evidence note.
