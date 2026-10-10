@@ -30,7 +30,7 @@ The earlier Paddle and punctuation phases proceed as documented in process.md. S
 6. The human inspects the changes, and if desired, authors the human-lexicon-approvals.json file described below. It cannot be produced by either Codex session. The human invokes dry run first and then chooses whether to execute.
 
 Dry-run:
-    python /tooling/execute_lexical_repairs.py --baseline review/probe2.json --proposals review/lexical-proposals.json --reviewed review/lexical-reviewed.json --paddle whitespace-repaired --lexicon /shared/lexicon.json --lexicon-approvals review/human-lexicon-approvals.json --out lexical-repaired
+    python /tooling/execute_lexical_repairs.py --baseline review/probe2.json --proposals review/lexical-proposals.json --reviewed review/lexical-reviewed.json --paddle whitespace-repaired --scans scans --lexicon /shared/lexicon.json --lexicon-approvals review/human-lexicon-approvals.json --out lexical-repaired
 
 Execute: same command with --execute. Without admissions, omit the entire --lexicon-approvals argument pair.
 
