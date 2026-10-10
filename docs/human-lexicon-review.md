@@ -1,8 +1,12 @@
 # Human vocabulary review app
 
 This is the separate **human** acceptance handoff for global lexicon entries.
-It runs *after* the two Codex sessions and *before* lexical execution. You can
-use your already-completed `lexical-reviewed.json`; do not rerun either agent.
+It runs *after* the two Codex sessions and *before* lexical execution.
+During the multilingual dictionary cutover, the new Probe 2 has different
+candidate provenance and potentially different findings. Archive old English-only
+reports/progress, regenerate the lexical extraction and **repeat both Codex
+sessions**. Existing frozen agent outputs are reusable only when the underlying
+probe and dictionary hashes stay unchanged.
 
 ## Launch
 
