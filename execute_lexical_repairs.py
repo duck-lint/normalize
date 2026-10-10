@@ -208,28 +208,40 @@ def main():
         baseline, proposals, reviewed = map(json.loads, (baseline_raw, proposals_raw, reviewed_raw))
         validate_handoffs(baseline, proposals, reviewed)
         lexicon, lexicon_hash, _ = read_lexicon(args.lexicon)
-        if baseline["inputs"].get("lexicon_sha256") != lexicon_hash:
-            raise ValueError("Lexicon changed since probe; regenerate the lexical baseline")
         approvals_raw = args.lexicon_approvals.read_bytes() if args.lexicon_approvals else None
         approvals = json.loads(approvals_raw) if approvals_raw is not None else None
-        updated, admissions = apply_human_admissions(
-            lexicon, approvals, reviewed, baseline, digest(baseline_raw), lexicon_hash)
-        target_bytes = serialize(updated)
         if args.resume_lexicon:
             if not args.execute or not args.out.is_dir():
                 raise ValueError("Resume requires --execute and an existing lexical derivative")
             ledger = json.loads((args.out / LEDGER).read_bytes())
-            if (ledger["source_lexicon_sha256"] != lexicon_hash or
-                    ledger["target_lexicon_sha256"] != digest(target_bytes) or
-                    ledger["source_baseline_sha256"] != digest(baseline_raw) or
-                    ledger["source_proposals_sha256"] != digest(proposals_raw) or
-                    ledger["source_reviewed_sha256"] != digest(reviewed_raw)):
+            if (ledger["source_lexicon_sha256"] != baseline["inputs"].get("lexicon_sha256")
+                    or ledger["source_baseline_sha256"] != digest(baseline_raw)
+                    or ledger["source_proposals_sha256"] != digest(proposals_raw)
+                    or ledger["source_reviewed_sha256"] != digest(reviewed_raw)
+                    or ledger["source_lexicon_approvals_sha256"] !=
+                       (digest(approvals_raw) if approvals_raw is not None else None)):
                 raise ValueError("Published lexical ledger does not match the supplied inputs")
             from lexical_provenance import comparison_views
             comparison_views(directory_files(args.out), baseline["inputs"]["source_dir_sha256"])
+            if lexicon_hash == ledger["target_lexicon_sha256"]:
+                print("Lexicon transition already committed; published derivative verified")
+                return
+            if lexicon_hash != ledger["source_lexicon_sha256"]:
+                raise ValueError("Lexicon changed independently; cannot safely resume")
+            updated, admissions = apply_human_admissions(
+                lexicon, approvals, reviewed, baseline, digest(baseline_raw), lexicon_hash)
+            target_bytes = serialize(updated) if admissions else args.lexicon.read_bytes()
+            if (ledger["target_lexicon_sha256"] != digest(target_bytes)
+                    or ledger["human_approved_lexicon_entries"] != admissions):
+                raise ValueError("Published lexicon transition does not match human approvals")
             commit_lexicon(args.lexicon, lexicon_hash, target_bytes)
             print("Recovered lexicon commit from verified published derivative")
             return
+        if baseline["inputs"].get("lexicon_sha256") != lexicon_hash:
+            raise ValueError("Lexicon changed since probe; regenerate the lexical baseline")
+        updated, admissions = apply_human_admissions(
+            lexicon, approvals, reviewed, baseline, digest(baseline_raw), lexicon_hash)
+        target_bytes = serialize(updated) if admissions else args.lexicon.read_bytes()
         if args.out.exists():
             raise ValueError(f"Output already exists: {args.out}")
         artifacts = directory_files(args.paddle)
