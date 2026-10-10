@@ -26,12 +26,14 @@ def digest(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def comparison_views(files, scans_hash):
+def comparison_views(files, scans_hash, overrides=None, skip_files=()):
     """Reverse recorded edits in memory, then verify the whole source snapshot.
 
     Presence of a ledger requires validation; invalid provenance must never
     silently fall back to a raw comparison or suppress findings.
     """
+    overrides = overrides or {}
+    skip_files = set(skip_files)
     ledger_path = files.get("execution_report.json")
     if ledger_path is None:
         return {}, {}, {"mode": "raw", "execution_report_sha256": None}
@@ -65,7 +67,9 @@ def comparison_views(files, scans_hash):
 
     views = {}
     for path, records in by_page.items():
-        raw = files[path].read_bytes()
+        raw = overrides.get(path)
+        if raw is None:
+            raw = files[path].read_bytes()
         derived_hash = digest(raw)
         ordered = sorted(records, key=lambda r: r["start_byte"])
         shift = 0
@@ -98,8 +102,10 @@ def comparison_views(files, scans_hash):
     # This binds unchanged JSON/assets/pages as well as repaired pages. The
     # ledger is the only added file; the remaining snapshot must reconstruct
     # exactly to the executor's recorded input directory hash.
-    manifest = {name: digest(views[name].encode("utf-8")) if name in views else file_sha256(path)
-                for name, path in files.items() if name != "execution_report.json"}
+    manifest = {name: digest(views[name].encode("utf-8")) if name in views else
+                digest(overrides[name]) if name in overrides else file_sha256(path)
+                for name, path in files.items()
+                if name != "execution_report.json" and name not in skip_files}
     if manifest_sha256(manifest) != ledger["source_paddle_dir_sha256"]:
         raise ValueError("Reconstructed Paddle directory hash mismatch")
     return views, dict(by_page), {

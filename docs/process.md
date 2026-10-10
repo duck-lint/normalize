@@ -1,8 +1,9 @@
 # Current book processing workflow
 
-This document records the implemented steps through punctuation whitespace
-repair and the next probe. Later lexical, structural, and book reconstruction
-stages are not specified or implemented here.
+This document records the independent original punctuation-whitespace stage
+through Probe 2. The **subsequent lexical stage** is implemented separately
+and documented in [lexical-stage.md](lexical-stage.md). Later structural and
+book-reconstruction stages remain out of scope.
 
 ## Names and authority
 
@@ -133,12 +134,14 @@ JSON, assets, and any images within the Paddle directory remain byte-for-byte
 copies. Separate source scans remain separate. Copying policy is unchanged;
 identifying unnecessary images is a separate decision.
 
-This comparison contract handles one punctuation-whitespace execution from raw
-Paddle output. It does not compose multiple repair ledgers or define comparison
-semantics for substitutions, deletions, or structural repairs. Probe 2 can become
-the next stage's operational baseline, but that stage needs its own explicit
-executor and provenance contract. Do not pass Probe 1 offsets to it or pass
-repaired artifacts back into this whitespace executor.
+This punctuation executor handles one punctuation-whitespace execution from
+raw Paddle input. It remains limited to deterministic punctuation spaces.
+The separate lexical executor builds on the **verified Probe 2 derivative**
+with its own origin checks, immutable review handoffs, replacement ledger and
+lexicon approval contract. The next probe composes that lexical ledger and
+this existing whitespace ledger in memory for comparison. Do not pass Probe 1
+offsets to the lexical executor, or repaired artifacts to this whitespace
+executor. See [lexical-stage.md](lexical-stage.md).
 
 For this contract, regenerate Probe 1 and the extracted report, retain/review
 the decisions through the normal handoff, and execute with the updated tooling

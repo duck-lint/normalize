@@ -1,9 +1,12 @@
-# Normalize: punctuation-space repairs
+# Normalize: staged OCR repairs
 
-The current process inserts ASCII spaces after punctuation. There is one review
-handoff and one executor; other repairs are out of scope. The maintained
-[process document](docs/process.md) records the steps, artifacts, authority,
-and provenance through the post-whitespace probe.
+The original stage inserts ASCII spaces after punctuation, preserving raw
+Paddle observations. A new **separate lexical stage** supports reviewed word
+segmentation and character corrections plus an explicitly human-approved
+persistent lexicon; it never widens the original punctuation executor.
+See [punctuation process](docs/process.md) and the complete
+[lexical stage contract](docs/lexical-stage.md) for distinct handoffs,
+immutable snapshots, CLI usage, chained reprobe provenance, and recovery.
 
 1. `paddle_scan.py` processes page scans into raw PaddleOCR JSON and Markdown.
 2. `normalize_probe.py` reads that output and writes the full candidate report.
