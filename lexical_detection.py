@@ -17,9 +17,24 @@ FENCE_CLOSE = re.compile(r"^[ \t]{0,3}(`+|~+)[ \t]*$")
 BACKTICKS = re.compile(r"`+")
 
 
+def lexical_character(char):
+    """Letters and their combining marks belong to lexical words."""
+    return char.isalpha() or unicodedata.category(char).startswith("M")
+
+
+def numeric_character(char):
+    """Include Unicode decimal, digit, and other numeric characters in clusters."""
+    return char.isdigit() or unicodedata.category(char).startswith("N")
+
+
+def token_character(char):
+    """Keep numeric and underscore material attached while deciding word spans."""
+    return lexical_character(char) or numeric_character(char) or char == "_"
+
+
 def word_character(char):
-    """Include non-ASCII letters and combining marks in the same token."""
-    return char.isalnum() or char == "_" or unicodedata.category(char).startswith("M")
+    """Character used by adjacency rules to expand around a lexical token."""
+    return token_character(char)
 
 
 def lexical_visibility(text):
@@ -76,22 +91,40 @@ def lexical_visibility(text):
 
 
 def unrecognized_spans(text, recognizes, visible):
-    """Return original character spans for whole unrecognized Unicode words."""
+    """Return unrecognized alphabetic runs from visible lexical token clusters.
+
+    Numbers stay attached while finding cluster boundaries, preventing identifier
+    fragments from being treated as separate prose words. Within a numeric
+    cluster, however, alphabetic runs remain eligible for lexical checking.
+    """
     spans = []
     pos = 0
     while pos < len(text):
-        if not visible[pos] or not word_character(text[pos]):
+        if not visible[pos] or not token_character(text[pos]):
             pos += 1
             continue
-        start = pos
-        while pos < len(text) and visible[pos] and word_character(text[pos]):
+        cluster_start = pos
+        while pos < len(text) and visible[pos] and token_character(text[pos]):
             pos += 1
-        token = text[start:pos]
-        # Digits/underscores may occur inside identifiers or file names, but
-        # must not cause substrings of those objects to become dictionary hits.
-        if (sum(char.isalpha() for char in token) >= 4
-                and all(char.isalpha() or unicodedata.category(char).startswith("M")
-                        for char in token)
-                and not recognizes(token)):
-            spans.append((start, pos, "unrecognized_token"))
+        cluster_end = pos
+        cluster = text[cluster_start:cluster_end]
+        # Underscores are strong evidence of an identifier or file name. Keep
+        # suppressing that whole cluster instead of reporting its word pieces.
+        if "_" in cluster:
+            continue
+
+        run_start = cluster_start
+        while run_start < cluster_end:
+            if not lexical_character(text[run_start]):
+                run_start += 1
+                continue
+            run_end = run_start + 1
+            while run_end < cluster_end and lexical_character(text[run_end]):
+                run_end += 1
+            token = text[run_start:run_end]
+            # Preserve the existing minimum length so short fragments around
+            # numbers do not become findings, while recovering longer prose runs.
+            if sum(char.isalpha() for char in token) >= 4 and not recognizes(token):
+                spans.append((run_start, run_end, "unrecognized_token"))
+            run_start = run_end
     return spans

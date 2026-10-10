@@ -43,9 +43,24 @@ class LexicalDetectionTests(unittest.TestCase):
         self.assertEqual(self.findings(text), ["outsideword", "morewords"])
         self.assertEqual(self.findings('startword\n```\nnevervisible'), ["startword"])
 
-    def test_identifiers_and_embedded_numbers_are_not_partial_words(self):
+    def test_numeric_clusters_recover_alphabetic_prose_runs(self):
+        cases = {
+            "whilethe19th": ["whilethe"],
+            "the2ndeditionofthetreatise": ["ndeditionofthetreatise"],
+            "3ofthefullactivity": ["ofthefullactivity"],
+            "whichis½₃": ["whichis"],
+            "isonly½": ["isonly"],
+            "worksoutsideofhis1819": ["worksoutsideofhis"],
+        }
+        for text, expected in cases.items():
+            with self.subTest(text=text):
+                self.assertEqual(self.findings(text), expected)
+
+    def test_underscore_identifiers_are_suppressed_and_numeric_edges_are_prose_biased(self):
         text = 'imgs img_in_image_box_117_63 x2wrong wrong3x realword'
-        self.assertEqual(self.findings(text), ["imgs", "realword"])
+        # A numeric edge can separate a misspelled prose run. Underscore clusters
+        # remain identifier-like and are excluded as a whole.
+        self.assertEqual(self.findings(text), ["imgs", "wrong", "wrong", "realword"])
 
     def test_probe_cli_keeps_byte_spans_and_existing_punctuation_proposals(self):
         with tempfile.TemporaryDirectory() as directory:
