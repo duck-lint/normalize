@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
-"""Experimental read-only OCR anomaly scan for two book ZIPs. Not a repair tool."""
+"""Read-only PaddleOCR probe. Report candidates; propose only punctuation spaces."""
 import argparse
 from collections import Counter
 import ctypes
 from ctypes.util import find_library
 import hashlib
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
-import zipfile
+from artifact_directory import directory_files, directory_sha256
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -18,17 +18,18 @@ ADJACENCY = {
 }
 WORDS = re.compile(r"(?<![A-Za-z])[A-Za-z]{4,}(?![A-Za-z])")
 WHITESPACE = re.compile(r"\s+")
+CONTEXT_CHARACTERS = 160
 
 
 def sha256(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def names_by_stem(archive, suffix):
+def names_by_stem(files, suffix):
     out = {}
-    for name in archive.namelist():
-        if name.endswith(suffix) and not name.endswith("/"):
-            stem = PurePosixPath(name).name.removesuffix(suffix)
+    for name in files:
+        if name.lower().endswith(suffix):
+            stem = Path(name).name[:-len(suffix)]
             if stem in out:
                 raise ValueError(f"Duplicate {suffix} for {stem}")
             out[stem] = name
@@ -40,7 +41,7 @@ class Spellcheck:
     def __init__(self, aff="/usr/share/hunspell/en_US.aff", dic="/usr/share/hunspell/en_US.dic"):
         libpath = find_library("hunspell-1.7")
         if not libpath or not Path(aff).is_file() or not Path(dic).is_file():
-            raise RuntimeError("This experiment requires installed Hunspell and en_US .aff/.dic files")
+            raise RuntimeError("The probe requires installed Hunspell and en_US .aff/.dic files")
         self.lib = ctypes.CDLL(libpath)
         self.lib.Hunspell_create.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
         self.lib.Hunspell_create.restype = ctypes.c_void_p
@@ -98,23 +99,41 @@ def whitespace_proposal(observed, triggers):
     return proposed if proposed != observed else None
 
 
+def ocr_context(text, start, end):
+    """A bounded raw OCR excerpt for locating, never evidence of the printing.
+
+    Character slicing keeps UTF-8 boundaries intact. Both context and finding
+    ranges address the SAME original Markdown bytes, including raw newlines.
+    """
+    context_start = max(0, start - CONTEXT_CHARACTERS)
+    context_end = min(len(text), end + CONTEXT_CHARACTERS)
+    return {
+        "provenance": "raw_paddle_markdown",
+        "start_byte": len(text[:context_start].encode("utf-8")),
+        "end_byte": len(text[:context_end].encode("utf-8")),
+        "text": text[context_start:context_end],
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--scans", type=Path, required=True, help="ZIP of source page images")
-    parser.add_argument("--paddle", type=Path, required=True, help="ZIP of Paddle per-page JSON and Markdown")
-    parser.add_argument("--out", type=Path, required=True, help="New editable findings JSON path")
-    parser.add_argument("--propose-whitespace", action="store_true",
-                        help="Pre-fill deterministic ASCII-space proposals for punctuation-only findings")
+    parser.add_argument("--scans", type=Path, required=True, help="Directory of source page images (searched recursively)")
+    parser.add_argument("--paddle", type=Path, required=True, help="Original Paddle output directory (searched recursively)")
+    parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     args = parser.parse_args()
     if args.out.exists():
-        parser.error("Output exists; refusing to overwrite prior human reviews")
+        parser.error("Output exists; refusing to overwrite the probe report")
 
+    if any(args.out.resolve().is_relative_to(root.resolve()) for root in (args.scans, args.paddle)):
+        parser.error("Write the report outside the raw input directories")
+    scans = directory_files(args.scans)
+    paddle = directory_files(args.paddle)
+    scans_hash = directory_sha256(scans)
+    paddle_hash = directory_sha256(paddle)
     spelling = Spellcheck()
     findings = []
-    scans_hash = sha256(args.scans.read_bytes())
-    paddle_hash = sha256(args.paddle.read_bytes())
 
-    with zipfile.ZipFile(args.scans) as scans, zipfile.ZipFile(args.paddle) as paddle:
+    try:
         images = {}
         for suffix in (".png", ".jpg", ".jpeg"):
             for stem, name in names_by_stem(scans, suffix).items():
@@ -124,20 +143,21 @@ def main():
         markdown = names_by_stem(paddle, ".md")
         json_files = names_by_stem(paddle, "_res.json")
 
-        def emit(page, rule, observed, start=None, end=None, block=None, source_sha=None, triggers=None):
+        def emit(page, rule, observed, start=None, end=None, block=None, source_sha=None, triggers=None, context=None):
             ref = str(start) if start is not None else f"block-{block}" if block is not None else "page"
             trigger_list = triggers if triggers is not None else [rule]
-            proposal = whitespace_proposal(observed, trigger_list) if args.propose_whitespace else None
+            proposal = whitespace_proposal(observed, trigger_list)
             findings.append({
                 "id": f"{page}:{rule}:{ref}", "page": page, "rule": rule,
                 "triggers": trigger_list,
                 "source_image": images.get(page), "paddle_markdown": markdown.get(page),
                 "paddle_json": json_files.get(page), "source_md_sha256": source_sha,
                 "start_byte": start, "end_byte": end, "json_block_id": block,
+                "ocr_context": context,
                 "observed": observed, "proposed": proposal,
                 "proposal_source": "deterministic_whitespace" if proposal is not None else None,
                 "evidence": None,
-                "review": {"status": None, "replacement": None, "note": None},
+                "review": {"status": None, "note": None},
             })
 
         for page in sorted(set(images) | set(markdown) | set(json_files)):
@@ -150,29 +170,34 @@ def main():
             if page not in markdown or page not in json_files:
                 continue
 
-            raw = paddle.read(markdown[page])
+            raw = paddle[markdown[page]].read_bytes()
             digest = sha256(raw)
             text = raw.decode("utf-8")
             if not text.strip():
                 emit(page, "empty_markdown", "Markdown is empty", source_sha=digest)
 
-            spans = []
+            punctuation_spans = []
+            lexical_spans = []
             for rule, pattern in ADJACENCY.items():
                 for match in pattern.finditer(text):
                     start, end = full_span(text, rule, match)
-                    spans.append((start, end, rule))
+                    target = punctuation_spans if rule in {"punctuation_letter", "period_capital"} else lexical_spans
+                    target.append((start, end, rule))
             for match in WORDS.finditer(text):
                 if not spelling.recognizes(match.group()):
-                    spans.append((*match.span(), "unrecognized_token"))
+                    lexical_spans.append((*match.span(), "unrecognized_token"))
 
-            for start, end, triggers in combine_spans(spans):
+            # A lexical overlap must not swallow a punctuation proposal. Each
+            # family remains a separate finding; extraction only copies records.
+            for start, end, triggers in combine_spans(punctuation_spans) + combine_spans(lexical_spans):
                 start_byte = len(text[:start].encode("utf-8"))
                 end_byte = len(text[:end].encode("utf-8"))
                 emit(page, triggers[0], text[start:end], start_byte, end_byte,
-                     source_sha=digest, triggers=triggers)
+                     source_sha=digest, triggers=triggers,
+                     context=ocr_context(text, start, end))
 
             try:
-                data = json.loads(paddle.read(json_files[page]))
+                data = json.loads(paddle[json_files[page]].read_bytes())
             except (json.JSONDecodeError, UnicodeDecodeError) as exc:
                 emit(page, "invalid_json", str(exc), source_sha=digest)
                 continue
@@ -185,17 +210,20 @@ def main():
                     emit(page, f"json_markdown_difference:{label}", content,
                          block=block.get("block_id"), source_sha=digest)
 
-    spelling.close()
+    finally:
+        spelling.close()
     findings.sort(key=lambda f: (f["page"], f["start_byte"] if f["start_byte"] is not None else -1, f["rule"], str(f["json_block_id"])))
     if len({f["id"] for f in findings}) != len(findings):
         raise RuntimeError("Finding IDs are not unique")
     # A combined finding may have more than one detection rule.
     counts = dict(sorted(Counter(rule for f in findings for rule in f["triggers"]).items()))
-    result = {"pilot": True, "inputs": {"source_zip_sha256": scans_hash,
-              "paddle_zip_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
+    result = {"inputs": {"source_dir_sha256": scans_hash,
+              "paddle_dir_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
               "page_count": len(images), "counts_by_rule": counts, "findings": findings}
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    args.out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    with args.out.open("x", encoding="utf-8", newline="\n") as handle:
+        json.dump(result, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
     print(f"{len(images)} images; {len(findings)} candidate findings")
     print(json.dumps(counts, indent=2))
     print(f"Report: {args.out}")
