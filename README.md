@@ -13,6 +13,12 @@ and provenance through the post-whitespace probe.
    by an ASCII capital). Lexical and structural candidates can appear in this
    full report but have no repair proposals. Punctuation findings stay separate
    from overlapping lexical findings so extraction does not lose them.
+   Lexical checks operate on whole Unicode-letter tokens (including combining
+   marks), not ASCII fragments of accented words. Structural HTML, Markdown
+   code and link destinations, and TeX command names are excluded from lexical
+   checks without changing source text or byte offsets. Punctuation-space
+   proposal patterns remain unchanged; there is no lexicon or segmentation
+   stage yet.
 3. `extract_whitespace.py` copies findings whose nonempty trigger set contains
    only `punctuation_letter` and/or `period_capital` into report two. Each finding
    is copied intact, including its proposal and `review` object. The extractor
