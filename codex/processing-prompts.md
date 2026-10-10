@@ -91,7 +91,6 @@ The repository convention is:
 | `books/<book>/imgs/source/` | Original source scan images. |
 | `whitespace_reports/<book>/whitespace-only.json` | Extracted whitespace report to review. |
 | `whitespace_reports/<book>/whitespace_exceptions.json` | Complete non-approved findings report. |
-| `probes/<book>/probe.json` | Full probe report; excluded from this review. |
 
 `<book>` represents the actual book directory, not a literal string.
 
@@ -128,7 +127,7 @@ and executor addresses. Their targets need not be present for this review.
 The complete probe report and execution scripts may be present in the
 repository. Their presence does not expand this task.
 
-Do not inspect or retrieve the full probe report, raw Paddle artifacts,
+If present, do not inspect or retrieve the full probe report, raw Paddle artifacts,
 or alternate historical copies to supplement the extracted report.
 
 ## 3. Establish the initial repository state
