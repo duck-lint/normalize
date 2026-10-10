@@ -2,7 +2,7 @@
 
 ## Task configuration
 
-Target book: {{BOOK_NAME}}
+Target book: '{{BOOK_NAME}}'
 
 ## Objective
 
