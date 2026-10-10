@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Normalize · Human Lexicon Review</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="app-header">
+  <div class="brand"><div class="brand-mark">N</div><div><strong>Normalize</strong><span>HUMAN LEXICON REVIEW</span></div></div>
+  <div class="header-right"><div class="stat"><strong id="decisionProgress">—</strong><span>decisions</span></div><div class="stat"><strong id="acceptProgress">—</strong><span>accepted</span></div><button id="export" class="primary">Export approved JSON</button></div>
+</header>
+<main class="layout">
+  <aside class="sidebar">
+    <label class="small-heading" for="search">LEXICAL FORMS</label>
+    <input id="search" type="search" placeholder="Search vocabulary …" autocomplete="off">
+    <div class="filter-row"><select id="filter" aria-label="Filter vocabulary"><option value="all">All forms</option><option value="pending">Pending</option><option value="suggested">Codex suggested</option><option value="conflicts">Conflicting evidence</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option><option value="eligible">Eligible for admission</option></select><select id="sort" aria-label="Sort vocabulary"><option value="frequency">By frequency</option><option value="suggestion">By suggestions</option><option value="alphabetical">Alphabetical</option></select></div>
+    <div class="list-summary" id="listSummary">Loading…</div>
+    <div id="wordList" class="word-list" role="listbox" aria-label="Words"></div>
+    <div class="sidebar-bottom"><span>↑↓ Move · A Accept · R Reject · K Skip</span><span>←→ Occurrences · / Search</span></div>
+  </aside>
+  <section class="workarea">
+    <div id="empty" class="empty">Loading lexical review…</div>
+    <div id="details" hidden>
+      <div class="title-bar"><div><div class="eyebrow">CURRENT LEXICAL FORM</div><h1 id="word"></h1><div id="meta" class="meta"></div></div><div id="decisionBadge" class="decision-badge">Pending</div></div>
+      <div id="conflictWarning" class="warning" hidden><strong>Mixed evidence:</strong> other occurrences of this form have proposed OCR repairs. Check the exact printed spelling of your selected occurrence before admitting it globally.</div>
+      <div id="existingWarning" class="notice" hidden>Already present in the persistent lexicon; no new approval is necessary.</div>
+      <div class="review-layout">
+        <section class="scan-panel">
+          <div class="panel-top"><div><strong>Original source scan</strong><span id="pageLabel"></span></div><div class="page-tools"><label for="zoom">Zoom</label><input id="zoom" type="range" min="70" max="230" value="100"><button id="fit" class="subtle">Fit</button><a id="openScan" target="_blank" rel="noopener noreferrer">Open image ↗</a></div></div>
+          <div id="scanViewport" class="scan-viewport"><img id="scan" alt="Selected printed scan page, the primary source for review"></div>
+          <div class="page-nav"><button id="prevOccurrence" class="secondary">← Previous occurrence</button><span id="occurrencePosition"></span><button id="nextOccurrence" class="secondary">Next occurrence →</button></div>
+        </section>
+        <section class="evidence-panel">
+          <div class="section-label">SELECTED OCCURRENCE</div>
+          <div class="occurrence-info"><div id="selectedPage"></div><code id="selectedId"></code></div>
+          <div class="section-label">OCR CONTEXT · LOCATING HINT ONLY</div>
+          <div class="context" id="context"></div>
+          <div class="source-disclaimer">Context comes from OCR. It is not independent evidence. Inspect the scanned page to verify the precise printed form.</div>
+          <div id="repairInfo" class="repair-info" hidden></div>
+          <div class="section-label">HUMAN DECISION</div>
+          <label class="note-label" for="note">Reason / source evidence</label>
+          <textarea id="note" rows="3" placeholder="E.g., scanned page 42 clearly prints this technical term in Greek; no correction needed…"></textarea>
+          <label class="confirmation"><input type="checkbox" id="inspected"><span>I personally checked this exact occurrence in the original scan.</span></label>
+          <div class="actions"><button id="accept" class="accept">A · Accept word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
+          <div class="explanation">Accept adds the exact spelling to a **generated approval file**, not directly to the lexicon. Reject and Skip never become admissions. Approved OCR repairs remain a separate executor decision.</div>
+        </section>
+      </div>
+      <div class="occur-section"><div class="occur-heading"><strong>Occurrences in this book</strong><span id="occurTotal"></span></div><div id="occurrenceList" class="occur-list"></div></div>
+    </div>
+  </section>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="exportDialog"><h2>Review export</h2><p>This creates a new, hash-bound approvals JSON. It does not execute repairs or update the lexicon.</p><div id="exportSummary"></div><div class="dialog-actions"><button id="cancelExport" class="secondary">Cancel</button><button id="confirmExport" class="primary">Generate approval file</button></div></dialog>
+</body>
+</html>
