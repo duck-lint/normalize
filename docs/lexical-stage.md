@@ -27,7 +27,7 @@ The earlier Paddle and punctuation phases proceed as documented in process.md. S
 
 4. Session 1 reads codex/lexical-proposer.md and ONLY source images, extracted report and optional hints. It produces a new lexical-proposals.json. Preserve extracted report unchanged.
 5. A SEPARATE session 2 reads codex/lexical-verifier.md and ONLY the frozen proposals plus source images. It produces lexical-reviewed.json, changing only review.status/note. Preserve proposals unchanged.
-6. The human inspects the changes, and if desired, authors the human-lexicon-approvals.json file described below. It cannot be produced by either Codex session. The human invokes dry run first and then chooses whether to execute.
+6. **Human lexicon admission:** Launch the [local scan-backed reviewer](human-lexicon-review.md) with the completed \`lexical-reviewed.json\` and the frozen Probe 2/proposal reports. Group repeated vocabulary, inspect source images and explicitly Accept/Reject/Skip lexical types. The application saves review progress and **generates** the executor-compatible \`human-lexicon-approvals.json\` without any hand-authored JSON. Neither Codex review session can admit vocabulary. The human then dry-runs the executor and chooses whether to execute.
 
 Dry-run:
     python /tooling/execute_lexical_repairs.py --baseline review/probe2.json --proposals review/lexical-proposals.json --reviewed review/lexical-reviewed.json --paddle whitespace-repaired --scans scans --lexicon /shared/lexicon.json --lexicon-approvals review/human-lexicon-approvals.json --out lexical-repaired
@@ -41,7 +41,7 @@ Full probe, extracted inventory, proposer report, independent verifier report, h
 
 ## Human approvals schema
 
-The human creates a JSON object with fields:
+The **local human reviewer** in [human-lexicon-review.md](human-lexicon-review.md) creates this JSON automatically. Its format is:
 - format: "human_lexicon_approvals_v1"
 - source_report_sha256: SHA-256 of the original, untouched probe2.json file bytes
 - lexicon_sha256: SHA-256 of the lexicon file bytes from the probe run
