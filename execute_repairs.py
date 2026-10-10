@@ -16,7 +16,7 @@ import tempfile
 
 from artifact_directory import directory_files, directory_sha256
 from extract_whitespace import extract
-from normalize_probe import whitespace_proposal
+from whitespace_provenance import EXECUTION_FORMAT, whitespace_proposal
 
 
 def digest(data):
@@ -43,12 +43,17 @@ def check_against_baseline(report, baseline):
 
 def build(report, paddle_dir):
     files = directory_files(paddle_dir)
+    if report["inputs"]["json_markdown_comparison"]["mode"] != "raw":
+        raise ValueError("Whitespace execution requires a probe of raw Paddle output")
+    if "execution_report.json" in files:
+        raise ValueError("Whitespace execution requires raw Paddle output, not a prior execution")
     if directory_sha256(files) != report["inputs"]["paddle_dir_sha256"]:
         raise ValueError("Paddle directory differs from the probe input")
     raw_pages = {name: path.read_bytes() for name, path in files.items()
                  if name.lower().endswith(".md")}
 
     edits = defaultdict(list)
+    approved_triggers = {}
     seen_ids = set()
     for finding in report["findings"]:
         fid = finding["id"]
@@ -76,6 +81,7 @@ def build(report, paddle_dir):
         if proposed != whitespace_proposal(observed, finding["triggers"]):
             raise ValueError(f"Not the deterministic punctuation-space proposal: {fid}")
         edits[path].append((start, end, proposed.encode("utf-8"), fid))
+        approved_triggers[fid] = finding["triggers"]
 
     derived = dict(raw_pages)
     records = []
@@ -92,10 +98,14 @@ def build(report, paddle_dir):
                             "start_byte": start, "end_byte": end,
                             "observed": raw_pages[path][start:end].decode("utf-8"),
                             "proposed": replacement.decode("utf-8"),
+                            "triggers": approved_triggers[fid],
+                            "json_markdown_comparison": "reverse_executed_punctuation_spaces",
                             "source_md_sha256": digest(raw_pages[path])})
     for record in records:
         record["derived_md_sha256"] = digest(derived[record["paddle_markdown"]])
-    summary = {"source_paddle_dir_sha256": report["inputs"]["paddle_dir_sha256"],
+    summary = {"execution_format": EXECUTION_FORMAT,
+               "source_dir_sha256": report["inputs"]["source_dir_sha256"],
+               "source_paddle_dir_sha256": report["inputs"]["paddle_dir_sha256"],
                "artifact_policy": {"markdown": "derived; approved spaces applied",
                                    "json_and_other_files": "unchanged raw Paddle observations/assets"},
                "approved_findings": len(records),

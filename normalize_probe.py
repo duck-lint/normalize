@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import re
 from artifact_directory import directory_files, directory_sha256
+from whitespace_provenance import comparison_views, whitespace_proposal
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -90,25 +91,16 @@ def combine_spans(spans):
     return combined
 
 
-def whitespace_proposal(observed, triggers):
-    """Insert only ASCII spaces for findings triggered solely by punctuation adjacency."""
-    if not triggers or not set(triggers) <= {"punctuation_letter", "period_capital"}:
-        return None
-    proposed = re.sub(r"([,;:!?])(?=[A-Za-z])", r"\1 ", observed)
-    proposed = re.sub(r"\.(?=[A-Z])", ". ", proposed)
-    return proposed if proposed != observed else None
-
-
-def ocr_context(text, start, end):
-    """A bounded raw OCR excerpt for locating, never evidence of the printing.
+def ocr_context(text, start, end, provenance="raw_paddle_markdown"):
+    """A bounded input Markdown excerpt for locating, never printing evidence.
 
     Character slicing keeps UTF-8 boundaries intact. Both context and finding
-    ranges address the SAME original Markdown bytes, including raw newlines.
+    ranges address the SAME input Markdown bytes, including raw newlines.
     """
     context_start = max(0, start - CONTEXT_CHARACTERS)
     context_end = min(len(text), end + CONTEXT_CHARACTERS)
     return {
-        "provenance": "raw_paddle_markdown",
+        "provenance": provenance,
         "start_byte": len(text[:context_start].encode("utf-8")),
         "end_byte": len(text[:context_end].encode("utf-8")),
         "text": text[context_start:context_end],
@@ -118,7 +110,7 @@ def ocr_context(text, start, end):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scans", type=Path, required=True, help="Directory of source page images (searched recursively)")
-    parser.add_argument("--paddle", type=Path, required=True, help="Original Paddle output directory (searched recursively)")
+    parser.add_argument("--paddle", type=Path, required=True, help="Raw Paddle or verified whitespace output directory (searched recursively)")
     parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     args = parser.parse_args()
     if args.out.exists():
@@ -130,8 +122,13 @@ def main():
     paddle = directory_files(args.paddle)
     scans_hash = directory_sha256(scans)
     paddle_hash = directory_sha256(paddle)
+    try:
+        comparison_text, executed_by_page, comparison = comparison_views(paddle, scans_hash)
+    except (ValueError, KeyError, TypeError, AttributeError, OSError) as exc:
+        parser.error(f"Invalid execution provenance: {exc}")
     spelling = Spellcheck()
     findings = []
+    comparison_exceptions = []
 
     try:
         images = {}
@@ -194,7 +191,9 @@ def main():
                 end_byte = len(text[:end].encode("utf-8"))
                 emit(page, triggers[0], text[start:end], start_byte, end_byte,
                      source_sha=digest, triggers=triggers,
-                     context=ocr_context(text, start, end))
+                     context=ocr_context(text, start, end,
+                         "derived_whitespace_markdown" if comparison["mode"] != "raw"
+                         else "raw_paddle_markdown"))
 
             try:
                 data = json.loads(paddle[json_files[page]].read_bytes())
@@ -203,10 +202,22 @@ def main():
                 continue
             ignored = set(data.get("model_settings", {}).get("markdown_ignore_labels", []))
             md_text = flatten(text)
+            comparison_md = flatten(comparison_text.get(markdown[page], text))
             for block in data.get("parsing_res_list", []):
                 label = block.get("block_label", "unknown")
                 content = flatten(block.get("block_content") or "")
                 if content and label not in ignored and content not in md_text:
+                    if content in comparison_md:
+                        comparison_exceptions.append({
+                            "page": page, "rule": f"json_markdown_difference:{label}",
+                            "json_block_id": block.get("block_id"), "observed": content,
+                            "paddle_markdown": markdown[page], "paddle_json": json_files[page],
+                            "derived_md_sha256": digest,
+                            "reason": "present_in_verified_pre_whitespace_markdown",
+                            "page_executed_finding_ids": [r["id"] for r in executed_by_page[markdown[page]]],
+                            "source_md_sha256": executed_by_page[markdown[page]][0]["source_md_sha256"],
+                        })
+                        continue
                     emit(page, f"json_markdown_difference:{label}", content,
                          block=block.get("block_id"), source_sha=digest)
 
@@ -218,8 +229,10 @@ def main():
     # A combined finding may have more than one detection rule.
     counts = dict(sorted(Counter(rule for f in findings for rule in f["triggers"]).items()))
     result = {"inputs": {"source_dir_sha256": scans_hash,
-              "paddle_dir_sha256": paddle_hash, "dictionary_sha256": spelling.digests},
-              "page_count": len(images), "counts_by_rule": counts, "findings": findings}
+              "paddle_dir_sha256": paddle_hash, "dictionary_sha256": spelling.digests,
+              "json_markdown_comparison": comparison},
+              "page_count": len(images), "counts_by_rule": counts, "findings": findings,
+              "json_markdown_exceptions": comparison_exceptions}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     with args.out.open("x", encoding="utf-8", newline="\n") as handle:
         json.dump(result, handle, ensure_ascii=False, indent=2)

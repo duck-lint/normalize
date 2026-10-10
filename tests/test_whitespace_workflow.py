@@ -305,6 +305,127 @@ class WhitespaceWorkflowTests(unittest.TestCase):
                      '--paddle', str(self.paddle), '--out', str(output), expected=2)
         self.assertFalse(output.exists())
 
+    def publish_reviewed(self):
+        self.report_path.write_text(json.dumps(self.reviewed()), encoding='utf-8')
+        output = self.workspace / 'repaired'
+        self.run_cli('execute_repairs.py', '--baseline', str(self.baseline_path),
+                     '--report', str(self.report_path), '--paddle', str(self.paddle),
+                     '--out', str(output), '--execute')
+        return output
+
+    def reprobe(self, output, expected=0):
+        destination = self.workspace / 'review/probe2.json'
+        self.run_cli('normalize_probe.py', '--scans', str(self.scans),
+                     '--paddle', str(output), '--out', str(destination), expected=expected)
+        if expected:
+            self.assertFalse(destination.exists())
+            return None
+        return json.loads(destination.read_bytes())
+
+    def test_reprobe_excludes_only_executed_differences_and_logs_provenance(self):
+        output = self.publish_reviewed()
+        probe2 = self.reprobe(output)
+        self.assertEqual(self.baseline['inputs']['json_markdown_comparison']['mode'], 'raw')
+        self.assertEqual(self.baseline['json_markdown_exceptions'], [])
+        comparison = probe2['inputs']['json_markdown_comparison']
+        self.assertEqual(comparison['mode'], 'verified_executed_whitespace')
+        self.assertEqual(comparison['executed_findings'], 2)
+        self.assertEqual(comparison['execution_report_sha256'],
+                         hashlib.sha256((output / 'execution_report.json').read_bytes()).hexdigest())
+        self.assertNotIn('json_markdown_difference:text', probe2['counts_by_rule'])
+        self.assertEqual(len(probe2['json_markdown_exceptions']), 1)
+        exception = probe2['json_markdown_exceptions'][0]
+        self.assertEqual(exception['json_block_id'], 0)
+        self.assertEqual(exception['rule'], 'json_markdown_difference:text')
+        self.assertEqual(exception['source_md_sha256'], hashlib.sha256(self.raw).hexdigest())
+        # Unapproved abbreviation and lexical detections remain visible.
+        self.assertEqual(next(f for f in probe2['findings'] if f['proposed'])['observed'], '.S.A')
+        self.assertEqual(probe2['counts_by_rule']['unrecognized_token'],
+                         self.baseline['counts_by_rule']['unrecognized_token'])
+        actual = (output / 'pages/page001.md').read_bytes()
+        for finding in probe2['findings']:
+            if finding['start_byte'] is not None:
+                self.assertEqual(actual[finding['start_byte']:finding['end_byte']],
+                                 finding['observed'].encode('utf-8'))
+                self.assertEqual(finding['source_md_sha256'], hashlib.sha256(actual).hexdigest())
+                self.assertEqual(finding['ocr_context']['provenance'], 'derived_whitespace_markdown')
+        extracted = extract(probe2)
+        self.assertEqual(extracted['inputs'], probe2['inputs'])
+        self.assertEqual(extracted['findings'], [f for f in probe2['findings'] if f['proposed']])
+
+    def test_unrelated_difference_in_same_repaired_block_stays_visible(self):
+        # The block has both a spacing defect and an independent text mismatch.
+        path = self.paddle / 'pages/page001_res.json'
+        data = json.loads(path.read_bytes())
+        data['parsing_res_list'][0]['block_content'] = self.text.replace('today', 'tomorrow')
+        path.write_text(json.dumps(data), encoding='utf-8')
+        self.baseline_path.unlink()
+        self.report_path.unlink()
+        self.run_cli('normalize_probe.py', '--scans', str(self.scans), '--paddle', str(self.paddle),
+                     '--out', str(self.baseline_path))
+        self.run_cli('extract_whitespace.py', '--report', str(self.baseline_path),
+                     '--out', str(self.report_path))
+        self.baseline = json.loads(self.baseline_path.read_bytes())
+        self.report = json.loads(self.report_path.read_bytes())
+        self.assertEqual(self.baseline['counts_by_rule']['json_markdown_difference:text'], 1)
+        probe2 = self.reprobe(self.publish_reviewed())
+        self.assertEqual(probe2['counts_by_rule']['json_markdown_difference:text'], 1)
+        self.assertEqual(probe2['json_markdown_exceptions'], [])
+
+    def test_no_approvals_produce_no_comparison_exceptions(self):
+        derived, summary = build(self.report, self.paddle)
+        output = self.workspace / 'repaired'
+        write_output(self.paddle, output, derived, summary)
+        probe2 = self.reprobe(output)
+        self.assertEqual(probe2['json_markdown_exceptions'], [])
+        self.assertEqual(probe2['counts_by_rule'], self.baseline['counts_by_rule'])
+
+    def test_modified_artifacts_or_scans_refuse_reprobe_without_output(self):
+        output = self.publish_reviewed()
+        for path in [output / 'pages/page001.md', output / 'pages/page002.md',
+                     output / 'pages/page001_res.json', output / 'assets/crop.png',
+                     self.scans / 'page001.JPG']:
+            with self.subTest(path=path):
+                original = path.read_bytes()
+                path.write_bytes(original + b'altered')
+                self.reprobe(output, expected=2)
+                path.write_bytes(original)
+
+    def test_invalid_execution_records_cannot_suppress_findings(self):
+        output = self.publish_reviewed()
+        path = output / 'execution_report.json'
+        original = path.read_bytes()
+        mutations = [
+            lambda r: r.update(execution_format='old_format'),
+            lambda r: r.update(approved_findings=0),
+            lambda r: r['changes'][0].update(start_byte=0),
+            lambda r: r['changes'][0].update(proposed='wrong'),
+            lambda r: r['changes'][0].update(source_md_sha256='wrong'),
+            lambda r: r['changes'][0].update(json_markdown_comparison='skip_block'),
+            lambda r: r['changes'].append(copy.deepcopy(r['changes'][0])),
+            lambda r: r['changes'][0].update(paddle_markdown='../outside.md'),
+        ]
+        for mutate in mutations:
+            with self.subTest(mutation=mutate):
+                ledger = json.loads(original)
+                mutate(ledger)
+                path.write_text(json.dumps(ledger), encoding='utf-8')
+                self.reprobe(output, expected=2)
+        path.write_bytes(b'{broken json')
+        self.reprobe(output, expected=2)
+        path.write_bytes(original)
+
+    def test_execution_semantics_are_not_reviewer_editable(self):
+        reviewed = self.reviewed()
+        reviewed['findings'][0]['json_markdown_comparison'] = 'skip_block'
+        with self.assertRaisesRegex(ValueError, 'Only review.status'):
+            check_against_baseline(reviewed, self.baseline)
+
+    def test_executed_input_cannot_be_reused_for_whitespace_execution(self):
+        output = self.publish_reviewed()
+        with self.assertRaisesRegex(ValueError, 'requires raw Paddle'):
+            build(self.reviewed(), output)
+
 
 if __name__ == '__main__':
     unittest.main()

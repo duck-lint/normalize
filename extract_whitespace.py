@@ -11,6 +11,8 @@ def extract(report):
     # The probe owns proposals, offsets, IDs, and initial review values. This
     # stage only selects records, including original byte spans and OCR locating
     # context; it never builds or rewrites any of them or generates proposals.
+    # inputs also carries the probe's comparison provenance unchanged. No
+    # reviewer-controlled suppression flag or second approval state is created.
     return {
         "inputs": report["inputs"],
         "findings": [

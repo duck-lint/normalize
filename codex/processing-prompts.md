@@ -18,6 +18,13 @@ identified, or the evidence is insufficient.
 Preserve the report's existing schema, proposal values, and execution
 coordinates.
 
+Preserve `inputs.json_markdown_comparison` unchanged. This whitespace review
+uses a raw-Paddle probe (`mode: "raw"`). Do not add or edit suppression fields.
+The executor records applied changes; the later probe independently verifies
+them before recording JSON/Markdown comparison exceptions. The non-approved
+review exceptions report you create is a different artifact and grants no
+comparison authority. See [the process document](../docs/process.md).
+
 Work in manageable source-page groups. Preserve completed decisions and report
 partial progress accurately.
 
@@ -82,9 +89,8 @@ The repository convention is:
 | --- | --- |
 | `AGENTS.md` | Repository-wide instructions and authority boundaries. |
 | `books/<book>/imgs/source/` | Original source scan images. |
-| `whitespace_reports/<book>/whitespace-only.json` | Extracted whitespace report to review. |
+| `whitespace_reports/<book>/whitespace.json` | Extracted whitespace report to review. |
 | `whitespace_reports/<book>/whitespace_exceptions.json` | Complete non-approved findings report. |
-| `probes/<book>/probe.json` | Full probe report; excluded from this review. |
 
 `<book>` represents the actual book directory, not a literal string.
 
@@ -121,7 +127,7 @@ and executor addresses. Their targets need not be present for this review.
 The complete probe report and execution scripts may be present in the
 repository. Their presence does not expand this task.
 
-Do not inspect or retrieve the full probe report, raw Paddle artifacts,
+If present, do not inspect or retrieve the full probe report, raw Paddle artifacts,
 or alternate historical copies to supplement the extracted report.
 
 ## 3. Establish the initial repository state
@@ -548,7 +554,7 @@ Do not revoke that approval without human direction.
 
 You may write only the two designated reports for the selected book:
 
-1. `whitespace_reports/<book>/whitespace-only.json`
+1. `whitespace_reports/<book>/whitespace.json`
 2. `whitespace_reports/<book>/whitespace_exceptions.json`
 
 Use the actual resolved report paths if the repository's convention differs.

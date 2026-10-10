@@ -1,7 +1,9 @@
 # Normalize: punctuation-space repairs
 
 The current process inserts ASCII spaces after punctuation. There is one review
-handoff and one executor; other repairs are out of scope.
+handoff and one executor; other repairs are out of scope. The maintained
+[process document](docs/process.md) records the steps, artifacts, authority,
+and provenance through the post-whitespace probe.
 
 1. `paddle_scan.py` processes page scans into raw PaddleOCR JSON and Markdown.
 2. `normalize_probe.py` reads that output and writes the full candidate report.
@@ -24,6 +26,10 @@ handoff and one executor; other repairs are out of scope.
 5. The human runs `execute_repairs.py` over the edited report two. Only exact
    `"approved"` statuses enable insertion. Report three is for exceptions, not
    execution. There is no separate authorization or merge-back stage.
+6. `normalize_probe.py` probes the repaired directory again. Its execution report
+   is automatically verified and used to exclude only JSON/Markdown mismatches
+   explained by executed punctuation spaces. Remaining detections use the actual
+   repaired Markdown, with fresh offsets and hashes.
 
 ## Files and commands
 
@@ -60,7 +66,7 @@ Report two initially looks like this (illustrative values):
 
 ```json
 {
-  "inputs": {"paddle_dir_sha256": "...", "source_dir_sha256": "...", "dictionary_sha256": {}},
+  "inputs": {"paddle_dir_sha256": "...", "source_dir_sha256": "...", "dictionary_sha256": {}, "json_markdown_comparison": {"mode": "raw", "execution_report_sha256": null}},
   "findings": [
     {
       "id": "page001:punctuation_letter:11",
@@ -106,6 +112,8 @@ python /path/to/normalize/execute_repairs.py \
 python /path/to/normalize/execute_repairs.py \
   --baseline review/probe.json --report review/whitespace.json \
   --paddle paddle --out repaired --execute
+python /path/to/normalize/normalize_probe.py \
+  --scans scans --paddle repaired --out review/probe2.json
 ```
 
 ## Locating a finding without original Paddle files
@@ -171,6 +179,15 @@ The copied JSON is **not a corrected structured transcription**. It continues to
 record what Paddle observed; only Markdown is a repaired derivative. No human
 backup/copy step is required to protect raw artifacts from this executor.
 
+The next probe reads `execution_report.json` automatically. It reconstructs the
+pre-whitespace Markdown in memory and verifies page and whole-directory hashes
+before using it solely for JSON comparison. Excluded mismatches remain auditable
+under `json_markdown_exceptions`; `inputs.json_markdown_comparison` records the
+execution provenance. These differ from Codex's non-approved review exceptions.
+Approval alone does not suppress a comparison. Invalid provenance stops probing.
+Regenerate reports and execution output for this contract; older execution logs
+are rejected. See [the process document](docs/process.md) for the exact boundary.
+
 ## Multiple repairs on one page
 
 All finding offsets refer to the original page's UTF-8 bytes. The executor first
@@ -201,3 +218,6 @@ repairs on one page, unchanged JSON/assets/source files, non-approved statuses,
 original/context byte-span identity and unchanged extraction, a review handoff
 without Paddle files, and refusal of unauthorized report changes or unsafe
 output placement.
+They also cover reprobe comparison exceptions, unchanged lexical findings,
+fresh derived offsets/context, unrelated differences within repaired blocks,
+and rejection of altered execution records, artifacts, or scans.

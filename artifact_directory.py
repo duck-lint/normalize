@@ -29,5 +29,10 @@ def directory_sha256(files):
     # Hash relative names and bytes, not absolute paths, mtimes, or permissions.
     # Moving an unchanged directory does not invalidate its reports.
     manifest = {name: file_sha256(path) for name, path in sorted(files.items())}
+    return manifest_sha256(manifest)
+
+
+def manifest_sha256(manifest):
+    """Use the same snapshot identity for disk files and reconstructed bytes."""
     encoded = json.dumps(manifest, sort_keys=True, ensure_ascii=False).encode('utf-8')
     return hashlib.sha256(encoded).hexdigest()
