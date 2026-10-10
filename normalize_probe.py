@@ -10,7 +10,9 @@ from pathlib import Path
 import re
 from artifact_directory import directory_files, directory_sha256
 from lexical_detection import lexical_visibility, unrecognized_spans, word_character
-from whitespace_provenance import comparison_views, whitespace_proposal
+from lexical_provenance import comparison_views
+from whitespace_provenance import whitespace_proposal
+from lexicon_store import read_lexicon, canonical
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -39,7 +41,7 @@ def names_by_stem(files, suffix):
 
 class Spellcheck:
     """Use installed Hunspell with its affix rules, not a homemade book vocabulary."""
-    def __init__(self, aff="/usr/share/hunspell/en_US.aff", dic="/usr/share/hunspell/en_US.dic"):
+    def __init__(self, aff="/usr/share/hunspell/en_US.aff", dic="/usr/share/hunspell/en_US.dic", lexicon_words=None):
         libpath = find_library("hunspell-1.7")
         if not libpath or not Path(aff).is_file() or not Path(dic).is_file():
             raise RuntimeError("The probe requires installed Hunspell and en_US .aff/.dic files")
@@ -53,9 +55,10 @@ class Spellcheck:
         if not self.handle:
             raise RuntimeError("Failed to initialize Hunspell")
         self.digests = {"aff": sha256(Path(aff).read_bytes()), "dic": sha256(Path(dic).read_bytes())}
+        self.lexicon_words = lexicon_words if lexicon_words is not None else set()
 
     def recognizes(self, word):
-        return bool(self.lib.Hunspell_spell(self.handle, word.encode("utf-8")))
+        return canonical(word) in self.lexicon_words or bool(self.lib.Hunspell_spell(self.handle, word.encode("utf-8")))
 
     def close(self):
         self.lib.Hunspell_destroy(self.handle)
@@ -115,6 +118,7 @@ def main():
     parser.add_argument("--scans", type=Path, required=True, help="Directory of source page images (searched recursively)")
     parser.add_argument("--paddle", type=Path, required=True, help="Raw Paddle or verified whitespace output directory (searched recursively)")
     parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
+    parser.add_argument("--lexicon", type=Path, help="Persistent human-approved lexicon snapshot; hash recorded in report")
     args = parser.parse_args()
     if args.out.exists():
         parser.error("Output exists; refusing to overwrite the probe report")
@@ -129,7 +133,11 @@ def main():
         comparison_text, executed_by_page, comparison = comparison_views(paddle, scans_hash)
     except (ValueError, KeyError, TypeError, AttributeError, OSError) as exc:
         parser.error(f"Invalid execution provenance: {exc}")
-    spelling = Spellcheck()
+    try:
+        _, lexicon_hash, lexicon_words = read_lexicon(args.lexicon) if args.lexicon else (None, None, set())
+    except (ValueError, KeyError, TypeError, OSError, json.JSONDecodeError) as exc:
+        parser.error(f"Invalid lexicon: {exc}")
+    spelling = Spellcheck(lexicon_words=lexicon_words)
     findings = []
     comparison_exceptions = []
 
@@ -234,6 +242,7 @@ def main():
     counts = dict(sorted(Counter(rule for f in findings for rule in f["triggers"]).items()))
     result = {"inputs": {"source_dir_sha256": scans_hash,
               "paddle_dir_sha256": paddle_hash, "dictionary_sha256": spelling.digests,
+              "lexicon_sha256": lexicon_hash,
               "json_markdown_comparison": comparison},
               "page_count": len(images), "counts_by_rule": counts, "findings": findings,
               "json_markdown_exceptions": comparison_exceptions}
