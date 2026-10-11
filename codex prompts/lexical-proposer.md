@@ -14,9 +14,9 @@ batches:
 
 Example for 181 source scans: `1-45`, `46-91`, `92-137`, `138-181`.
 Replace placeholders; remove unused agents. These are example ranges, not
-defaults. The human runs this proposal stage, then the joiner. The verifier
-stage is a **separate fresh Codex session**, started only after the complete
-joined proposal report is frozen.
+defaults. Run all proposer workers, then a **separate fresh Codex
+session** for verifiers. **Do not run the joiner until both sets of workers
+have finished.**
 
 ## Parent agent — dispatch only
 
@@ -104,21 +104,17 @@ agents' artifacts, overwrite any input, run OCR, repairs, joiners, tests,
 or modify repository history. If unable to finish, publish no completed output
 and accurately report what remains.
 
-## Human join — not delegated to Codex
+## Handoff to verification — no join yet
 
-From the tooling checkout, with paths adapted to your actual book workspace:
+Keep each completed proposer output immutable. In a **fresh verifier Codex
+session**, assign the same source-image ranges and use the completed proposer
+batch files as read-only verifier inputs. The verifier workers must see only
+their assigned proposed findings and actual source scans, not the proposers'
+conversations, earlier OCR, or other workers' outputs. This preserves
+independent judgment about the propositions without requiring an intermediate
+merged report.
 
-```bash
-python /path/to/normalize/join_lexical.py \
-  --stage proposals \
-  --baseline review/probe2.json \
-  --source review/lexical.json \
-  --batches review/lexical_batches/proposals/outputs \
-  --out review/lexical-proposals.json
-```
-
-The joiner requires every original occurrence exactly once, imports only
-authorized proposal fields into the original extraction, and runs existing
-lexical executor handoff validation. It cannot prove visual inspection.
-Inspect and freeze the joined proposal artifact before starting the independent
-verifier session. No pipeline orchestration or automatic repair is introduced.
+After all verifier outputs exist, **the human runs `join_lexical.py` once**,
+providing both output directories; see the verifier prompt for the command.
+That one invocation creates the complete `lexical-proposals.json` and
+`lexical-reviewed.json` expected by the unchanged lexical executor.
