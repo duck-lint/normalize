@@ -24,7 +24,7 @@ test('whole-book totals distinguish lexical types from scan occurrences',()=>{
   assert.deepEqual(summarize(all,decisions),{
     forms:5,occurrences:29,pending:3,accepted:1,rejected:1,
     proposedOccurrences:21,verifiedOccurrences:18,
-    eligibleForms:2,bulkEligibleForms:1
+    eligibleForms:2,bulkEligibleForms:1,sourceFaithfulOccurrences:0,bulkSourceFaithfulForms:0
   });
 });
 
@@ -33,7 +33,7 @@ test('filtered status shows the real displayed totals, not the whole book',()=>{
   assert.deepEqual(summarize(pending,decisions),{
     forms:3,occurrences:22,pending:3,accepted:0,rejected:0,
     proposedOccurrences:20,verifiedOccurrences:17,
-    eligibleForms:0,bulkEligibleForms:1
+    eligibleForms:0,bulkEligibleForms:1,sourceFaithfulOccurrences:0,bulkSourceFaithfulForms:0
   });
   const approvedOnly=all.filter(g=>g.verified_repair_count===g.count);
   assert.equal(summarize(approvedOnly,decisions).forms,1);
@@ -60,4 +60,18 @@ test('selection after a filter or status change preserves nearby position',()=>{
   assert.equal(retainedOrNext(all.slice(2),'newtonic',99),'already-known');
   assert.equal(retainedOrNext(all.slice(2),'newtonic',-2),'liberte');
   assert.equal(retainedOrNext([],'newtonic',0),null);
+});
+
+
+test('only fully reviewed source-faithful nonlexical forms qualify for batch exclusion',()=>{
+  const marked={...all[2],source_faithful_count:3};
+  const mixed={...all[1],source_faithful_count:3};
+  const claimed={...all[3],source_faithful_count:7};
+  assert.equal(summarize([marked],{}).sourceFaithfulOccurrences,3);
+  assert.equal(summarize([marked],{}).bulkSourceFaithfulForms,1);
+  assert.equal(summarize([mixed],{}).bulkSourceFaithfulForms,0);
+  assert.equal(summarize([claimed],{}).bulkSourceFaithfulForms,0);
+  assert.equal(summarize([marked],{'liberte':{decision:'rejected'}}).bulkSourceFaithfulForms,0);
+  assert.equal(summarize([{...marked,already_known:true}],{}).bulkSourceFaithfulForms,0);
+  assert.equal(summarize([marked,mixed,claimed],{}).sourceFaithfulOccurrences,13);
 });
