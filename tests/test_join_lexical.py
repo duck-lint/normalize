@@ -119,7 +119,7 @@ class JoinLexicalTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             join("proposals", self.baseline, stale, self.proposal_batches)
         stale = copy.deepcopy(self.proposals)
-        stale["findings"][0]["proposed"] = "unsubstantiated"
+        stale["findings"][0]["observed"] = "changed original observation"
         with self.assertRaises(ValueError):
             join("reviewed", self.baseline, stale, self.review_batches)
 
