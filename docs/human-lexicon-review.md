@@ -89,6 +89,54 @@ character/word-boundary repair are visibly marked and **cannot support
 admission**. If the same spelling has both repaired and unrepaired occurrences,
 a warning appears: only an *unrepaired occurrence* may support an admission.
 
+### Source-faithful printed irregularities: exclude from this lexicon batch
+
+The existing independent lexical verifier now supports an *optional*, strict
+tag in its existing review.note for no-repair findings:
+
+    SOURCE_FAITHFUL_NONLEXICAL_VERIFIED: Scan [page/location] prints "[observed]" exactly; this is a localized printed irregularity, not reusable vocabulary.
+
+The prefix is an annotation of a **conservative lexical triage conclusion**,
+not proof of universal spelling correctness. The verifier must inspect each
+scan occurrence and supply concrete visual evidence in the remainder of its
+note. Only apply it when (a) no OCR repair is warranted because the print and
+observed bytes match, and (b) the observed form is clearly a printed
+irregularity that should *not* be added as a general dictionary word.
+Ambiguous cases, legitimate historical/British spelling such as "skilful",
+Latin, Greek, foreign vocabulary, technical terms and proper names must
+remain for individual lexicon review. A scan match alone is not enough.
+A verifier note is not a human vocabulary decision.
+
+No extra field, new report schema, new Codex pass or executor change is needed:
+the verifier still leaves review.status null on no-proposal findings. The
+current app reads only the frozen reviewed report; it does NOT modify verifier
+notes. In the app, use the independent **Source** filter (any / all / mixed /
+none) and inspect marked occurrences and verifier evidence. The scope panel
+shows marked occurrence counts separately from verified OCR repairs.
+
+For repeated lexical forms, the **Reject source-verified printed
+irregularities** batch action includes a form only when **every** occurrence
+has a qualifying verifier note, no occurrence has a repair proposal,
+the form is not already known, and the human has not previously made a
+decision. It previews the exact filtered list and requires explicit
+acknowledgment; the server rechecks all keys and source hashes before saving
+an atomic batch of ordinary human "rejected" decisions.
+
+This exclusion simply completes the *current human vocabulary-admission
+queue*. It does NOT censor the source text, approve or execute an OCR repair,
+alter frozen lexical reports, permanently blacklist a spelling, or add a word
+to the persistent lexicon. A word with mixed source evidence remains in
+individual review.
+
+**Using this with an existing Codex pass:** you may reuse the unchanged
+lexical-proposals.json and rerun **only the independent verifier** under the
+revised verifier prompt, writing a new lexical-reviewed.json. Changing its
+bytes changes the review snapshot hash. Keep the previous review report and
+progress as immutable history; launch a fresh human review with a new
+--progress and --out. Do not silently transplant previous decisions or edit
+the frozen reviewed JSON by hand. Nothing requires rerunning Probe 2, OCR,
+the whitespace executor, or the lexical proposer.
+
 ### Batch rejection of repair-only lexical candidates
 
 Choose **Pending** under status, then choose **All independently approved**
