@@ -14,17 +14,18 @@ batches:
 
 Example for 181 source scans: `1-45`, `46-91`, `92-137`, `138-181`.
 Replace placeholders; remove unused agents. This verifier run must be a
-**fresh, separate Codex session** after the complete proposal-stage join,
-never a continuation of a proposer worker. The human runs the joiner after
-verification and separately conducts vocabulary review and any execution.
+**fresh, separate Codex session** after all proposer batches have finished,
+never a continuation of a proposer worker. **No intermediate join is needed.**
+The human runs one join after verification and separately conducts vocabulary
+review and any execution.
 
 ## Parent agent — partition and dispatch, not verification
 
-Read `AGENTS.md`. In a scan-only workspace, accept **only** the *frozen full*
-`lexical.json` from the completed proposal join and the original
-source scans. Do not expose raw Paddle/Markdown, full probe, earlier proposer
-threads/batch outputs, segmentation hints, or the writable global lexicon to
-workers. Proposal text and notes are claims/hints, not verification evidence.
+Read `AGENTS.md`. In a scan-only workspace, accept the **completed, frozen
+per-agent proposer JSON files** and original source scans. Each verifier sees
+only its assigned proposer batch, not proposer conversations, raw Paddle /
+Markdown, full probe, segmentation hints, other agents' outputs, or writable
+global lexicon. Proposal text and notes are claims, not verification evidence.
 
 Resolve configured ranges against the ordered source-image sequence, not
 printed page labels or finding positions. Pages without findings still count.
@@ -33,9 +34,11 @@ source-image sequence without gaps or overlaps; resolve to explicit relative
 scan paths and reject traversal outside the scan root. Refuse ambiguous,
 missing or unassigned source-image references in findings.
 
-Construct immutable partial inputs from the frozen proposal artifact. Each
-preserves its `format`, `inputs`, **entire global `vocabulary` inventory**,
-and the assigned findings with all proposal fields in original order.
+Use each completed proposer batch as the corresponding immutable verifier
+input, with the **same source-image ranges**. Each batch already contains
+its `format`, `inputs`, **entire global `vocabulary` inventory**, and
+assigned findings with all proposal fields in original order. Do not merge
+the proposals before dispatching verification.
 
 Use separate exclusive input/output paths, e.g.:
 
@@ -44,7 +47,7 @@ Use separate exclusive input/output paths, e.g.:
 
 The output directory must contain only completed agent JSON outputs. Record
 ranges with zero assigned findings but do not dispatch empty batches.
-Never edit the frozen proposal report.
+Never edit the completed proposer batch outputs.
 
 Spawn identical verifier subagents concurrently up to CLI limits with their
 own partial input, original scans and exclusive output path, and the contract
@@ -96,19 +99,23 @@ Never overwrite the input or canonical proposals, fabricate printed evidence,
 run repairs/joiners/tests/OCR, or access other agents' outputs. If unable
 to complete, publish no completed output; report the obstacle accurately.
 
-## Human join — separate, after all verifiers finish
+## One human-run join after both stages
+
+Once *all* proposer and verifier batch outputs are complete, run this **one**
+command in the Normalize tooling checkout, substituting the actual paths:
 
 ```bash
 python /path/to/normalize/join_lexical.py \
-  --stage reviewed \
   --baseline review/probe2.json \
-  --source review/lexical.json \
-  --batches review/lexical_batches/verification/outputs \
-  --out review/lexical-reviewed.json
+  --extracted review/lexical-extracted.json \
+  --proposal-batches review/lexical_batches/proposals/outputs \
+  --verification-batches review/lexical_batches/verification/outputs \
+  --out-dir review
 ```
 
-The joiner reconstructs the complete verification report from the frozen
-proposals, imports only `review.status` and `review.note`, and validates
-both handoffs using the existing lexical executor's contract. It verifies
-structural integrity, **not** source pixels. The human separately reviews
-vocabulary and decides whether to run `execute_lexical_repairs.py`.
+The joiner independently reconstructs `review/lexical-proposals.json` and
+`review/lexical-reviewed.json` from the untouched lexical extraction and the
+two batches of completed outputs. It validates exact-once coverage, both
+sets' permissions, and the unchanged lexical executor's handoff contract.
+It **does not** certify source pixels. The human then proceeds with normal
+lexicon review and chooses whether to invoke `execute_lexical_repairs.py`.
