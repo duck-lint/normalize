@@ -229,14 +229,7 @@ class HumanLexiconReviewTests(unittest.TestCase):
         verified = json.loads(self.verified.read_bytes())
         target = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
         target['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan page01 prints this form exactly; isolated source typo'
-        self.assertFalse(source_faithful_verified(target))  # proposer has not yet marked it
-        proposals = json.loads(self.propose.read_bytes())
-        p = next(f for f in proposals['findings'] if f['observed'] == 'infrequentword')
-        p['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan page01 prints an isolated word-form error'
-        self.propose.write_text(json.dumps(proposals, ensure_ascii=False))
-        v = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
-        v['proposal_note'] = p['proposal_note']
-        self.assertTrue(source_faithful_verified(v))
+        self.assertTrue(source_faithful_verified(target))  # verifier note alone is sufficient
         self.verified.write_text(json.dumps(verified, ensure_ascii=False))
         fresh = self.make_session()
         self.assertEqual(fresh.groups['infrequentword']['source_faithful_count'], 1)
@@ -259,7 +252,7 @@ class HumanLexiconReviewTests(unittest.TestCase):
         from review_lexicon import SOURCE_FAITHFUL_MARKER, source_faithful_verified
         candidate = next(f for f in json.loads(self.propose.read_bytes())['findings'] if f['observed'] == 'infrequentword')
         candidate = copy.deepcopy(candidate)
-        candidate['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Source page01 visibly prints an isolated irregularity'
+        candidate['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: This proposer hint is insufficient'
         self.assertFalse(source_faithful_verified(candidate))
         candidate['review']['note'] = 'Scan matches this word'
         self.assertFalse(source_faithful_verified(candidate))
@@ -279,14 +272,14 @@ class HumanLexiconReviewTests(unittest.TestCase):
         for f in verified['findings']:
             if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
                 f['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan exactly supports this isolated printed form'
+        # Newtonic has a separate verified repair and cannot be bulk-excluded.
+        # Suppress its proposer suggestion solely to exercise the mixed-evidence case.
         proposals = json.loads(self.propose.read_bytes())
         for f in proposals['findings']:
-            if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
-                f['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan has this irregular printed word'
+            if f['observed'] == 'Newtonic' and f['proposed'] is None:
                 f['lexicon_suggestion'] = None
         for f in verified['findings']:
-            if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
-                f['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan has this irregular printed word'
+            if f['observed'] == 'Newtonic' and f['proposed'] is None:
                 f['lexicon_suggestion'] = None
         self.propose.write_text(json.dumps(proposals, ensure_ascii=False))
         self.verified.write_text(json.dumps(verified, ensure_ascii=False))
@@ -314,11 +307,6 @@ class HumanLexiconReviewTests(unittest.TestCase):
         verified = json.loads(self.verified.read_bytes())
         candidate = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
         candidate['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan page01 clearly retains this printed irregularity'
-        proposals = json.loads(self.propose.read_bytes())
-        p = next(f for f in proposals['findings'] if f['observed'] == 'infrequentword')
-        p['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan confirms this isolated printing irregularity'
-        self.propose.write_text(json.dumps(proposals))
-        candidate['proposal_note'] = p['proposal_note']
         self.verified.write_text(json.dumps(verified))
         fresh = self.make_session()
         server = ThreadingHTTPServer(('127.0.0.1', 0), ReviewHandler)
