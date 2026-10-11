@@ -224,6 +224,98 @@ class HumanLexiconReviewTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             no_verification.bulk_reject({'keys': ['schopenhuaer'], 'acknowledged': True})
 
+    def test_verified_printed_irregularity_bulk_excludes_from_lexicon_only(self):
+        from review_lexicon import SOURCE_FAITHFUL_MARKER, source_faithful_verified
+        verified = json.loads(self.verified.read_bytes())
+        target = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
+        target['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan page01 prints this form exactly; isolated source typo'
+        self.assertTrue(source_faithful_verified(target))
+        self.verified.write_text(json.dumps(verified, ensure_ascii=False))
+        fresh = self.make_session()
+        self.assertEqual(fresh.groups['infrequentword']['source_faithful_count'], 1)
+        self.assertEqual(fresh.groups['infrequentword']['eligible_count'], 1)
+        self.assertEqual(fresh.groups['newtonic']['source_faithful_count'], 0)
+        old_verifier = self.verified.read_bytes()
+        old_lexicon = self.lexicon.read_bytes()
+        result = fresh.bulk_reject_source_faithful({
+            'keys': ['infrequentword'], 'acknowledged': True})
+        self.assertEqual(result['rejected'], 1)
+        self.assertEqual(fresh.decisions['infrequentword']['decision'], 'rejected')
+        self.assertEqual(fresh.approvals()['entries'], [])
+        self.assertEqual(self.verified.read_bytes(), old_verifier)
+        self.assertEqual(self.lexicon.read_bytes(), old_lexicon)
+        self.assertEqual(self.make_session().decisions, fresh.decisions)
+        with self.assertRaisesRegex(ValueError, 'fully source-faithful'):
+            fresh.bulk_reject_source_faithful({'keys':['infrequentword'],'acknowledged':True})
+
+    def test_source_faithful_marker_requires_verifier_not_proposer_and_conservative_evidence(self):
+        from review_lexicon import SOURCE_FAITHFUL_MARKER, source_faithful_verified
+        candidate = next(f for f in self.proposals['findings'] if f['observed'] == 'infrequentword')
+        candidate = copy.deepcopy(candidate)
+        candidate['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: source prints this word'
+        self.assertFalse(source_faithful_verified(candidate))
+        candidate['review']['note'] = 'Scan matches this word'
+        self.assertFalse(source_faithful_verified(candidate))
+        candidate['review']['note'] = SOURCE_FAITHFUL_MARKER + ' short'
+        self.assertFalse(source_faithful_verified(candidate))
+        candidate['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Source prints this exact irregularity'
+        self.assertTrue(source_faithful_verified(candidate))
+        candidate['lexicon_suggestion'] = True
+        self.assertFalse(source_faithful_verified(candidate))
+        candidate['lexicon_suggestion'] = None
+        candidate['proposed'] = 'replacement'
+        self.assertFalse(source_faithful_verified(candidate))
+
+    def test_source_faithful_bulk_reject_is_atomic_for_mixed_evidence_and_stale_scans(self):
+        from review_lexicon import SOURCE_FAITHFUL_MARKER
+        verified = json.loads(self.verified.read_bytes())
+        for f in verified['findings']:
+            if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
+                f['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan exactly supports this isolated printed form'
+        self.verified.write_text(json.dumps(verified, ensure_ascii=False))
+        fresh = self.make_session()
+        self.assertEqual(fresh.groups['newtonic']['source_faithful_count'], 1)
+        self.assertEqual(fresh.groups['newtonic']['count'], 2)
+        for bad in [
+            {'keys':['newtonic'],'acknowledged':True},
+            {'keys':['infrequentword','newtonic'],'acknowledged':True},
+            {'keys':['infrequentword'],'acknowledged':False},
+            {'keys':['infrequentword','infrequentword'],'acknowledged':True},
+            {'keys':[],'acknowledged':True}
+        ]:
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                fresh.bulk_reject_source_faithful(bad)
+            self.assertFalse(self.progress.exists())
+            self.assertFalse(fresh.decisions)
+        (self.scans / 'page01.png').write_bytes(b'tampered')
+        with self.assertRaisesRegex(ValueError, 'scans changed'):
+            fresh.bulk_reject_source_faithful({'keys':['infrequentword'],'acknowledged':True})
+        self.assertFalse(self.progress.exists())
+
+    def test_source_faithful_bulk_http_requires_local_authorization(self):
+        from review_lexicon import SOURCE_FAITHFUL_MARKER
+        verified = json.loads(self.verified.read_bytes())
+        candidate = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
+        candidate['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan page01 clearly retains this printed irregularity'
+        self.verified.write_text(json.dumps(verified))
+        fresh = self.make_session()
+        server = ThreadingHTTPServer(('127.0.0.1', 0), ReviewHandler)
+        server.session = fresh
+        server.token = 'source-review-token'
+        worker = threading.Thread(target=server.serve_forever, daemon=True)
+        worker.start()
+        self.addCleanup(lambda: (server.shutdown(), worker.join(timeout=2), server.server_close()))
+        url = f'http://127.0.0.1:{server.server_port}/api/bulk-reject-source-faithful'
+        payload = json.dumps({'keys':['infrequentword'],'acknowledged':True}).encode()
+        with self.assertRaises(HTTPError) as err:
+            urlopen(Request(url, data=payload, method='POST'))
+        self.assertEqual(err.exception.code, 403)
+        req = Request(url,data=payload,method='POST',headers={
+            'X-Normalize-Review-Token':server.token,'Content-Type':'application/json'})
+        with urlopen(req) as reply:
+            self.assertEqual(json.load(reply)['rejected'], 1)
+        self.assertEqual(fresh.decisions['infrequentword']['decision'], 'rejected')
+
     def test_http_scan_serving_and_authorized_post(self):
         server = ThreadingHTTPServer(('127.0.0.1', 0), ReviewHandler)
         server.session = self.session
