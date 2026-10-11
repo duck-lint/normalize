@@ -140,9 +140,9 @@ def main():
         merged = join(args.stage, read_json(args.baseline), read_json(args.source),
                       [(path.name, read_json(path)) for path in paths])
         args.out.parent.mkdir(parents=True, exist_ok=True)
-        with args.out.open("x", encoding="utf-8", newline="\\n") as stream:
+        with args.out.open("x", encoding="utf-8") as stream:
             json.dump(merged, stream, ensure_ascii=False, indent=2)
-            stream.write("\\n")
+            stream.write(chr(10))
         if args.stage == "proposals":
             selected = sum(f["proposed"] is not None for f in merged["findings"])
             print(f"Joined {len(paths)} proposal batches: {len(merged['findings'])} findings, "
