@@ -21,7 +21,7 @@ verification and separately conducts vocabulary review and any execution.
 ## Parent agent — partition and dispatch, not verification
 
 Read `AGENTS.md`. In a scan-only workspace, accept **only** the *frozen full*
-`lexical-proposals.json` from the completed proposal join and the original
+`lexical.json` from the completed proposal join and the original
 source scans. Do not expose raw Paddle/Markdown, full probe, earlier proposer
 threads/batch outputs, segmentation hints, or the writable global lexicon to
 workers. Proposal text and notes are claims/hints, not verification evidence.
@@ -102,7 +102,7 @@ to complete, publish no completed output; report the obstacle accurately.
 python /path/to/normalize/join_lexical.py \
   --stage reviewed \
   --baseline review/probe2.json \
-  --source review/lexical-proposals.json \
+  --source review/lexical.json \
   --batches review/lexical_batches/verification/outputs \
   --out review/lexical-reviewed.json
 ```
