@@ -22,8 +22,9 @@ def main():
     from paddleocr import PPStructureV3
 
     pipeline = PPStructureV3(
-        device=args.device,
-        markdown_ignore_labels=["number", "header", "footer", "footer_image", "aside_text"],
+       device=args.device,
+        text_recognition_model_name="en_PP-OCRv5_mobile_rec",
+        markdown_ignore_labels=[],
     )
     args.out.mkdir(parents=True)
     for index, image in enumerate(images, start=1):
