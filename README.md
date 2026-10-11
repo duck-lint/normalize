@@ -7,6 +7,12 @@ persistent lexicon; it never widens the original punctuation executor.
 See [punctuation process](docs/process.md) and the complete
 [lexical stage contract](docs/lexical-stage.md) for distinct handoffs,
 immutable snapshots, CLI usage, chained reprobe provenance, and recovery.
+Both lexical Codex review stages now permit manual, nonoverlapping source-scan
+batches: see [parallel proposer](codex%20prompts/lexical-proposer.md) and
+[independent verifier](codex%20prompts/lexical-verifier.md).
+The human joins each stage using `join_lexical.py --stage proposals` or
+`--stage reviewed` before passing the complete artifacts to the **unchanged**
+lexical executor. No pipeline scheduling or lexicon admission is delegated.
 
 1. `paddle_scan.py` processes page scans into raw PaddleOCR JSON and Markdown.
 2. `normalize_probe.py` reads that output and writes the full candidate report.
