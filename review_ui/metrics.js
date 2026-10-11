@@ -7,7 +7,7 @@
     const result = {
       forms: groups.length, occurrences: 0, pending: 0, accepted: 0, rejected: 0,
       proposedOccurrences: 0, verifiedOccurrences: 0, eligibleForms: 0,
-      bulkEligibleForms: 0
+      sourceFaithfulOccurrences: 0, bulkEligibleForms: 0, bulkSourceFaithfulForms: 0
     };
     for (const group of groups) {
       const status = decisions[group.key]?.decision || 'pending';
@@ -15,10 +15,13 @@
       result.occurrences += group.count;
       result.proposedOccurrences += group.repair_count;
       result.verifiedOccurrences += group.verified_repair_count;
+      result.sourceFaithfulOccurrences += group.source_faithful_count || 0;
       if (!group.already_known && group.eligible_count > 0) result.eligibleForms++;
       if (status === 'pending' && !group.already_known &&
           group.repair_count === group.count &&
           group.verified_repair_count === group.count) result.bulkEligibleForms++;
+      if (status === 'pending' && !group.already_known && group.repair_count === 0 &&
+          group.source_faithful_count === group.count) result.bulkSourceFaithfulForms++;
     }
     return result;
   }
