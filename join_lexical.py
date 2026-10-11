@@ -7,6 +7,8 @@ rebuild the complete report in original order and validate executor handoffs.
 import argparse
 import copy
 import json
+import os
+import tempfile
 from pathlib import Path
 
 from execute_lexical_repairs import validate_handoffs
@@ -140,9 +142,15 @@ def main():
         merged = join(args.stage, read_json(args.baseline), read_json(args.source),
                       [(path.name, read_json(path)) for path in paths])
         args.out.parent.mkdir(parents=True, exist_ok=True)
-        with args.out.open("x", encoding="utf-8") as stream:
-            json.dump(merged, stream, ensure_ascii=False, indent=2)
-            stream.write(chr(10))
+        # Stage the complete JSON first; publish by no-clobber hard link.
+        # A failed write or a concurrent output cannot publish a partial report.
+        with tempfile.TemporaryDirectory(prefix=f".{args.out.name}-",
+                                         dir=args.out.parent) as directory:
+            staged = Path(directory) / args.out.name
+            with staged.open("x", encoding="utf-8") as stream:
+                json.dump(merged, stream, ensure_ascii=False, indent=2)
+                stream.write(chr(10))
+            os.link(staged, args.out)
         if args.stage == "proposals":
             selected = sum(f["proposed"] is not None for f in merged["findings"])
             print(f"Joined {len(paths)} proposal batches: {len(merged['findings'])} findings, "
