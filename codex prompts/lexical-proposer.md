@@ -22,7 +22,7 @@ joined proposal report is frozen.
 
 Read the local `AGENTS.md`. Work in the scan-only book review workspace.
 Inputs: the selected book's original source scans, untouched
-`lexical-extracted.json` from Probe 2, and optionally the **read-only**
+`lexical.json` from Probe 2, and optionally the **read-only**
 deterministic segmentation-hints sidecar. No raw Paddle JSON/Markdown, full
 Probe 2, executor, or writable lexicon should be accessible to reviewers.
 Verify actual paths instead of assuming a book title or layout; do not consult
@@ -112,7 +112,7 @@ From the tooling checkout, with paths adapted to your actual book workspace:
 python /path/to/normalize/join_lexical.py \
   --stage proposals \
   --baseline review/probe2.json \
-  --source review/lexical-extracted.json \
+  --source review/lexical.json \
   --batches review/lexical_batches/proposals/outputs \
   --out review/lexical-proposals.json
 ```
