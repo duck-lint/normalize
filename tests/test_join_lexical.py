@@ -12,7 +12,7 @@ sys.path.insert(0, str(ROOT))
 
 from execute_lexical_repairs import validate_handoffs
 from extract_lexical import extract
-from join_lexical import join
+from join_lexical import join, join_all
 
 
 class JoinLexicalTests(unittest.TestCase):
@@ -123,43 +123,57 @@ class JoinLexicalTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             join("reviewed", self.baseline, stale, self.review_batches)
 
-    def test_cli_join_both_stages_and_refuse_incomplete_publication(self):
+    def test_one_join_reconstructs_both_executor_handoffs(self):
+        proposals, reviewed = join_all(self.baseline, self.extracted,
+                                        self.proposal_batches, self.review_batches)
+        self.assertEqual(proposals, self.proposals)
+        self.assertEqual(reviewed, self.reviewed)
+        validate_handoffs(self.baseline, proposals, reviewed)
+
+    def test_cli_one_join_after_both_teams_complete(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             baseline = root / "probe2.json"
             extraction = root / "lexical-extracted.json"
-            batch_dir = root / "outputs"
-            batch_dir.mkdir()
-            proposals_path = root / "lexical-proposals.json"
-            reviewed_path = root / "lexical-reviewed.json"
+            proposal_dir = root / "proposals"
+            verification_dir = root / "verification"
+            result_dir = root / "joined"
+            proposal_dir.mkdir()
+            verification_dir.mkdir()
             baseline.write_text(json.dumps(self.baseline))
             extraction.write_text(json.dumps(self.extracted))
 
-            def command(stage, source, output):
-                return [sys.executable, str(ROOT / "join_lexical.py"), "--stage", stage,
-                        "--baseline", str(baseline), "--source", str(source),
-                        "--batches", str(batch_dir), "--out", str(output)]
+            command = [sys.executable, str(ROOT / "join_lexical.py"),
+                       "--baseline", str(baseline), "--extracted", str(extraction),
+                       "--proposal-batches", str(proposal_dir),
+                       "--verification-batches", str(verification_dir),
+                       "--out-dir", str(result_dir)]
+            for name, report in self.proposal_batches:
+                (proposal_dir / name).write_text(json.dumps(report))
+            for name, report in self.review_batches:
+                (verification_dir / name).write_text(json.dumps(report))
 
-            for name, batch in self.proposal_batches:
-                (batch_dir / name).write_text(json.dumps(batch))
-            (batch_dir / "agent2.json").unlink()
-            result = subprocess.run(command("proposals", extraction, proposals_path),
-                                    capture_output=True, text=True)
-            self.assertNotEqual(result.returncode, 0)
-            self.assertFalse(proposals_path.exists())
-            (batch_dir / "agent2.json").write_text(json.dumps(self.proposal_batches[1][1]))
-            result = subprocess.run(command("proposals", extraction, proposals_path),
-                                    capture_output=True, text=True)
+            # Incomplete verification must not publish even the proposal report.
+            (verification_dir / "agent2.json").unlink()
+            failed = subprocess.run(command, capture_output=True, text=True)
+            self.assertNotEqual(failed.returncode, 0)
+            self.assertFalse((result_dir / "lexical-proposals.json").exists())
+            self.assertFalse((result_dir / "lexical-reviewed.json").exists())
+
+            (verification_dir / "agent2.json").write_text(json.dumps(self.review_batches[1][1]))
+            result = subprocess.run(command, capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads(proposals_path.read_text()), self.proposals)
-            for name, batch in self.review_batches:
-                (batch_dir / name).write_text(json.dumps(batch))
-            result = subprocess.run(command("reviewed", proposals_path, reviewed_path),
-                                    capture_output=True, text=True)
-            self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertEqual(json.loads(reviewed_path.read_text()), self.reviewed)
-            self.assertNotEqual(subprocess.run(command("reviewed", proposals_path, reviewed_path),
-                                               capture_output=True).returncode, 0)
+            self.assertEqual(json.loads((result_dir / "lexical-proposals.json").read_text()),
+                             self.proposals)
+            self.assertEqual(json.loads((result_dir / "lexical-reviewed.json").read_text()),
+                             self.reviewed)
+            self.assertNotEqual(subprocess.run(command, capture_output=True).returncode, 0)
+
+    def test_verification_must_match_its_original_proposer_output(self):
+        batches = copy.deepcopy(self.review_batches)
+        batches[0][1]["findings"][0]["proposed"] = "a different proposition"
+        with self.assertRaisesRegex(ValueError, "Unauthorized verification"):
+            join_all(self.baseline, self.extracted, self.proposal_batches, batches)
 
 
 if __name__ == "__main__":
