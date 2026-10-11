@@ -24,6 +24,23 @@ from lexicon_store import (APPROVAL_FORMAT, apply_human_admissions,
                            canonical, read_lexicon, valid_word)
 
 PROGRESS_FORMAT = 'human_lexicon_review_progress_v1'
+SOURCE_FAITHFUL_MARKER = 'SOURCE_FAITHFUL_NONLEXICAL_VERIFIED:'
+
+
+def source_faithful_verified(finding):
+    """Conservative annotation: independently verified and NOT a general lexicon admission.
+
+    Source fidelity alone is insufficient: a correctly printed genuine word
+    (e.g. a Latin or historical variant) may still merit human admission.
+    """
+    note = finding.get('review', {}).get('note')
+    return (finding.get('proposed') is None
+            and finding.get('review', {}).get('status') is None
+            and finding.get('lexicon_suggestion') is not True
+            and isinstance(note, str)
+            and note.startswith(SOURCE_FAITHFUL_MARKER + ' ')
+            and len(note[len(SOURCE_FAITHFUL_MARKER):].strip()) >= 12)
+
 UI_DIR = Path(__file__).with_name('review_ui')
 
 
@@ -102,12 +119,15 @@ class ReviewSession:
                     'image': source_image, 'context': context_parts(finding),
                     'proposed': proposed, 'review_status': finding['review']['status'],
                     'suggested': finding.get('lexicon_suggestion') is True,
+                    'source_faithful': source_faithful_verified(finding),
+                    'source_note': finding['review'].get('note') if source_faithful_verified(finding) else None,
                     'eligible': proposed is None and finding['review']['status'] is None}
             self.findings[fid] = item
             group = self.groups.setdefault(key, {'key': key, 'word': finding['observed'],
                                                   'occurrences': [], 'count': 0,
                                                   'suggested_count': 0, 'repair_count': 0,
                                                   'verified_repair_count': 0, 'eligible_count': 0,
+                                                  'source_faithful_count': 0,
                                                   'already_known': key in existing})
             group['occurrences'].append(item)
             group['count'] += 1
@@ -115,6 +135,7 @@ class ReviewSession:
             group['repair_count'] += proposed is not None
             group['verified_repair_count'] += (proposed is not None and item['review_status'] == 'approved')
             group['eligible_count'] += bool(item['eligible'])
+            group['source_faithful_count'] += bool(item['source_faithful'])
         self.groups = dict(sorted(self.groups.items(), key=lambda pair:
                                   (-pair[1]['count'], -pair[1]['suggested_count'], pair[0])))
         self.lock = threading.RLock()
@@ -187,6 +208,34 @@ class ReviewSession:
         for key in data['keys']:
             self.decisions[key] = {'decision': 'rejected', 'finding_id': None,
                                    'note': note}
+        self._save_progress()
+        return {'saved': True, 'rejected': len(data['keys']),
+                'decisions': self.decisions}
+
+    def bulk_reject_source_faithful(self, data):
+        """Human-confirmed exclusion of source-faithful nonlexical forms, not OCR repairs.
+
+        Every occurrence must have an explicit independent verifier note.
+        Ineligible/mixed groups cannot be silently swept into the batch.
+        """
+        if (not isinstance(data, dict) or set(data) != {'keys', 'acknowledged'}
+                or data['acknowledged'] is not True or not isinstance(data['keys'], list)
+                or not data['keys'] or len(data['keys']) > 10000
+                or any(not isinstance(k, str) for k in data['keys'])
+                or len(set(data['keys'])) != len(data['keys'])):
+            raise ValueError('Source-faithful bulk exclusion requires unique keys and human confirmation')
+        for key in data['keys']:
+            group = self.groups.get(key)
+            if (group is None or key in self.decisions or group['already_known']
+                    or group['source_faithful_count'] != group['count']
+                    or group['repair_count'] != 0):
+                raise ValueError(f'Not pending and fully source-faithful nonlexical: {key}')
+        self._check_unchanged()
+        note = ('Human bulk lexicon exclusion: every observed occurrence was annotated '
+                'SOURCE_FAITHFUL_NONLEXICAL_VERIFIED by independent scan review. '
+                'No OCR repair decisions or persistent vocabulary changed.')
+        for key in data['keys']:
+            self.decisions[key] = {'decision': 'rejected', 'finding_id': None, 'note': note}
         self._save_progress()
         return {'saved': True, 'rejected': len(data['keys']),
                 'decisions': self.decisions}
@@ -321,6 +370,9 @@ class ReviewHandler(BaseHTTPRequestHandler):
             elif self.path == '/api/bulk-reject':
                 with self.server.session.lock:
                     result = self.server.session.bulk_reject(data)
+            elif self.path == '/api/bulk-reject-source-faithful':
+                with self.server.session.lock:
+                    result = self.server.session.bulk_reject_source_faithful(data)
             elif self.path == '/api/export':
                 if data != {}:
                     raise ValueError('Export does not accept fields')
