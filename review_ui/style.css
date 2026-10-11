@@ -27,3 +27,10 @@ dialog .reject:disabled{opacity:.4}
 .group-navigation #nextPending{margin-left:auto;color:var(--purple);font-size:10px}
 .group-navigation span{font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px;white-space:nowrap}
 @media(max-width:720px){.scope-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Source-fidelity flags are evidence for excluding admission, not OCR edits. */
+.sidebar #sourceFilter{width:100%;font-size:12px;padding:8px}
+.source-info{border-radius:8px;border:1px solid #c4d4df;background:#f1f6fa;color:#31546d;padding:10px 12px;font-size:12px;overflow-wrap:anywhere}
+#sourceBulkDialog{max-width:min(550px,94vw)}
+#sourceBulkDialog .reject{background:#feecea;color:var(--red);border-color:#eccccc}
+#sourceBulkDialog .reject:disabled{opacity:.4}
