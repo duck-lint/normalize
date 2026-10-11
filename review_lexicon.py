@@ -34,7 +34,11 @@ def source_faithful_verified(finding):
     (e.g. a Latin or historical variant) may still merit human admission.
     """
     note = finding.get('review', {}).get('note')
-    return (finding.get('proposed') is None
+    suggestion = finding.get('proposal_note')
+    return (isinstance(suggestion, str)
+            and suggestion.startswith('SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: ')
+            and len(suggestion.split(':', 1)[1].strip()) >= 12
+            and finding.get('proposed') is None
             and finding.get('review', {}).get('status') is None
             and finding.get('lexicon_suggestion') is not True
             and isinstance(note, str)
