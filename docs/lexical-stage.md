@@ -43,51 +43,44 @@ suggest_segments.py so their snapshot hashes match.
     python /tooling/suggest_segments.py --report review/lexical-extracted.json --paddle whitespace-repaired --lexicon /shared/lexicon.json --out review/segmentation-hints.json
 
 4. **Parallel lexical proposals:** In a fresh Codex parent session, configure
-   manual 1-based source-scan ranges in
+   manual 1-based source-image ranges in
    [lexical-proposer.md](../codex%20prompts/lexical-proposer.md).
-   The parent creates nonoverlapping batch inputs from the untouched
-   `lexical-extracted.json` with the complete global vocabulary inventory.
-   Same-role child agents independently inspect their assigned source scans
-   and write only their own completed partial reports; image-access failure
-   stops publication. No agent may write the frozen extraction, run a joiner,
-   execute repairs, or admit vocabulary. Each finding with no proposed
-   replacement must have a concrete `proposal_note` recording its review
-   outcome, otherwise a completely unchanged record would be indistinguishable
-   from unreviewed work.
+   The parent prepares per-agent batch inputs from untouched
+   `lexical-extracted.json`, preserving the complete global vocabulary
+   inventory. Each child independently checks original scans and writes
+   one complete partial proposal report. A worker that cannot actually view
+   the source pixels stops without publishing a completed output.
+   For null propositions, a nonempty `proposal_note` records the reviewed
+   outcome. Keep every completed proposal batch **unchanged** for verification.
 
-   The **human** runs the proposal join, producing a complete frozen artifact:
+5. **Independent parallel verification:** Start a *fresh separate* Codex
+   session with [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
+   Use the completed individual proposer batch JSON files as frozen inputs
+   for the equivalent verifier source-image ranges. No proposal join is
+   necessary between stages. Verifiers have access only to their assigned
+   proposer report and original scans, **not** proposer conversations,
+   unrelated batches, OCR artifacts, segmentation sidecar or writable lexicon.
+   They change only `review.status` and `review.note`, recording a nonempty
+   note on every completed finding.
 
-   ```bash
-   python /tooling/join_lexical.py --stage proposals \
-     --baseline review/probe2.json \
-     --source review/lexical-extracted.json \
-     --batches review/lexical_batches/proposals/outputs \
-     --out review/lexical-proposals.json
-   ```
-
-5. **Independent parallel verification:** Start a *separate fresh* parent
-   Codex session using [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
-   It receives only the complete **frozen joined** proposals and original
-   source scans; never the proposer child transcripts, OCR artifacts,
-   segmentation sidecar, or editable lexicon. Each verifier inspects assigned
-   occurrences and may edit only `review.status` / `review.note`.
-   Every completed finding must have a nonempty verification note.
-   The human runs the second join:
+   **After both sets of agents finish, the human runs the joiner once:**
 
    ```bash
-   python /tooling/join_lexical.py --stage reviewed \
+   python /tooling/join_lexical.py \
      --baseline review/probe2.json \
-     --source review/lexical-proposals.json \
-     --batches review/lexical_batches/verification/outputs \
-     --out review/lexical-reviewed.json
+     --extracted review/lexical-extracted.json \
+     --proposal-batches review/lexical_batches/proposals/outputs \
+     --verification-batches review/lexical_batches/verification/outputs \
+     --out-dir review
    ```
 
-   The joiner checks exact-once finding coverage, immutable global metadata,
-   original order, authorized fields and the existing lexical executor's
-   `validate_handoffs` contract. No additional schema fields, executors,
-   or pipeline orchestrator are introduced. The check proves report integrity,
-   not that visual inspection actually occurred. Inspect the joined results
-   before moving to human vocabulary admission.
+   That single command writes **both** `review/lexical-proposals.json` and
+   `review/lexical-reviewed.json`, reconstructing them from the untouched
+   extraction and exact-once batch outputs, checking stage-specific write
+   permissions and the unchanged lexical executor's `validate_handoffs`.
+   If either group fails validation, neither report is published. The check
+   proves structural integrity, not that images were actually inspected.
+   The human inspects joined results before proceeding.
 
 6. **Human lexicon admission:** Launch the
    [local scan-backed reviewer](human-lexicon-review.md) using completed
