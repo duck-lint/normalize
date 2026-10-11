@@ -229,13 +229,14 @@ class HumanLexiconReviewTests(unittest.TestCase):
         verified = json.loads(self.verified.read_bytes())
         target = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
         target['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan page01 prints this form exactly; isolated source typo'
-        self.assertTrue(source_faithful_verified(target))
+        self.assertFalse(source_faithful_verified(target))  # proposer has not yet marked it
         proposals = json.loads(self.propose.read_bytes())
         p = next(f for f in proposals['findings'] if f['observed'] == 'infrequentword')
         p['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan page01 prints an isolated word-form error'
         self.propose.write_text(json.dumps(proposals, ensure_ascii=False))
         v = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
         v['proposal_note'] = p['proposal_note']
+        self.assertTrue(source_faithful_verified(v))
         self.verified.write_text(json.dumps(verified, ensure_ascii=False))
         fresh = self.make_session()
         self.assertEqual(fresh.groups['infrequentword']['source_faithful_count'], 1)
@@ -278,12 +279,6 @@ class HumanLexiconReviewTests(unittest.TestCase):
         for f in verified['findings']:
             if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
                 f['review']['note'] = SOURCE_FAITHFUL_MARKER + ' Scan exactly supports this isolated printed form'
-        proposals = json.loads(self.propose.read_bytes())
-        p = next(f for f in proposals['findings'] if f['observed'] == 'infrequentword')
-        p['proposal_note'] = 'SOURCE_FAITHFUL_NONLEXICAL_CANDIDATE: Scan page01 prints an isolated word-form error'
-        self.propose.write_text(json.dumps(proposals, ensure_ascii=False))
-        v = next(f for f in verified['findings'] if f['observed'] == 'infrequentword')
-        v['proposal_note'] = p['proposal_note']
         proposals = json.loads(self.propose.read_bytes())
         for f in proposals['findings']:
             if f['observed'] in ('infrequentword', 'Newtonic') and f['proposed'] is None:
