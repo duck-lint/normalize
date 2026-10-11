@@ -40,29 +40,46 @@ python /path/to/normalize/extract_whitespace.py \
   --report review/probe1.json --out review/whitespace-only.json
 ```
 
-Codex then uses [the review prompt](../codex/processing-prompts.md) in a separate
-review workspace containing the whitespace report and scans. It does not run
-execution. The human reviews the resulting decisions before these commands:
+Codex uses the [whitespace review prompt](../codex%20prompts/whitespace.md)
+in a separate scan-only review workspace. The parent maps manually assigned
+source-image ranges to disjoint batch input reports and dispatches equivalent
+subagents. Workers do not share write targets; if source images cannot be
+visually inspected, they stop rather than publish a completed batch.
+The original extraction remains untouched. Batch outputs go in a separate
+directory containing only finished JSON reports.
+
+The human joins the completed outputs before the existing execution step:
 
 ```bash
+python /path/to/normalize/join_whitespace.py \
+  --baseline review/probe1.json --report review/whitespace-only.json \
+  --batches review/batches/outputs \
+  --out review/whitespace-reviewed.json \
+  --exceptions-out review/whitespace_exceptions.json
+
 # Preview only; produces no repaired directory or execution report.
 python /path/to/normalize/execute_repairs.py \
-  --baseline review/probe1.json --report review/whitespace-only.json \
+  --baseline review/probe1.json --report review/whitespace-reviewed.json \
   --paddle paddle --out whitespace-repaired
 
-# Execute into a new directory.
+# Human-authorized execution into a new directory.
 python /path/to/normalize/execute_repairs.py \
-  --baseline review/probe1.json --report review/whitespace-only.json \
+  --baseline review/probe1.json --report review/whitespace-reviewed.json \
   --paddle paddle --out whitespace-repaired --execute
 
-# The execution report is read automatically from this directory.
 python /path/to/normalize/normalize_probe.py \
   --scans scans --paddle whitespace-repaired --out review/probe2.json
 ```
 
+The joiner reconstructs the report from untouched Probe 1, importing only
+review status and note fields. It refuses missing, duplicate, unreviewed,
+out-of-order, and unauthorized findings. It does not certify visual inspection.
+No executor changes or additional approval status are introduced.
+
 Keep reports outside input directories. Existing outputs are refused. Preserve
-the full raw directory, Probe 1, reviewed report, review exceptions, repaired
-directory, execution report, and Probe 2 as separate stage artifacts.
+the full raw directory, Probe 1, extracted report, agent outputs, reviewed
+report, review exceptions, repaired directory, execution report, and Probe 2
+as separate stage artifacts.
 
 ## Two different meanings of exception
 

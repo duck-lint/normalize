@@ -26,15 +26,17 @@ immutable snapshots, CLI usage, chained reprobe provenance, and recovery.
    only `punctuation_letter` and/or `period_capital` into report two. Each finding
    is copied intact, including its proposal and `review` object. The extractor
    does not calculate, alter, approve, or repair anything.
-4. Codex runs in a **book workspace repository**, using the
-   [review prompt](codex/processing-prompts.md), with scans and the whitespace
-   report available. It uses the report context to locate passages in images,
-   sets accepted findings to `review.status: "approved"` in report two, leaves
-   exception statuses unchanged, and optionally adds `review.note`. It writes
-   complete copies of non-approved findings into report three.
-5. The human runs `execute_repairs.py` over the edited report two. Only exact
-   `"approved"` statuses enable insertion. Report three is for exceptions, not
-   execution. There is no separate authorization or merge-back stage.
+4. The human configures source-image ranges in the
+   [parallel whitespace review prompt](codex%20prompts/whitespace.md). One
+   parent Codex agent dispatches identical subagents to disjoint batches.
+   Each visually checks original scan pixels and writes its own batch report;
+   the untouched extraction is never edited.
+5. The human runs `join_whitespace.py` to rebuild a complete reviewed report,
+   accepting only `review.status` and `review.note` changes across exactly-once
+   findings. The joiner also derives an informational exceptions report. After
+   reviewing the joined result, the human runs the **unchanged** executor;
+   only exact `"approved"` statuses enable repair.
+
 6. `normalize_probe.py` probes the repaired directory again. Its execution report
    is automatically verified and used to exclude only JSON/Markdown mismatches
    explained by executed punctuation spaces. Remaining detections use the actual
@@ -108,21 +110,34 @@ Report two initially looks like this (illustrative values):
 }
 ```
 
-Give Codex the prompt, report two, and the scans root in a separate review
-workspace containing only the scans and whitespace report. Keep the original
-Paddle directory and report one in the execution environment. For `U.S.A`, the probe will propose spaces, the extractor will carry
-that finding unchanged, and Codex should leave its status `null` and copy it into
-`review/whitespace_exceptions.json`. Accepted proposals get `"approved"` in report
-two. Codex never edits the raw text or runs the executor.
+Give Codex the unchanged extracted whitespace report and source scans in
+a separate review workspace. Original Paddle output and Probe 1 stay outside
+the agents' accessible environment. The parent maps manually configured
+1-based source-image ranges to disjoint subagent inputs; each worker writes a
+complete batch report or stops without publishing if scans cannot be viewed.
+For `U.S.A`, a proposal must remain unapproved if the source prints no spaces.
+
+The human then joins only completed JSON outputs, held in a directory containing
+no other files. `whitespace.json` remains untouched. The joiner reconstructs
+from Probe 1, rejecting missing, duplicated, unreviewed, out-of-order, and
+unauthorized changes, and writes the final executor-compatible report:
+
+```bash
+python /path/to/normalize/join_whitespace.py \
+  --baseline review/probe.json --report review/whitespace.json \
+  --batches review/batches/outputs \
+  --out review/whitespace-reviewed.json \
+  --exceptions-out review/whitespace_exceptions.json
+```
 
 Then the human can preview or execute:
 
 ```bash
 python /path/to/normalize/execute_repairs.py \
-  --baseline review/probe.json --report review/whitespace.json \
+  --baseline review/probe.json --report review/whitespace-reviewed.json \
   --paddle paddle --out repaired
 python /path/to/normalize/execute_repairs.py \
-  --baseline review/probe.json --report review/whitespace.json \
+  --baseline review/probe.json --report review/whitespace-reviewed.json \
   --paddle paddle --out repaired --execute
 python /path/to/normalize/normalize_probe.py \
   --scans scans --paddle repaired --out review/probe2.json
@@ -153,9 +168,10 @@ baseline comparison protects the new context fields as well as existing fields.
 Regenerate the probe and whitespace reports for this contract; no older-report
 compatibility path is provided.
 
-The review prompt no longer requires raw Markdown/JSON, the full probe report,
-or tooling in the review workspace. The human-run executor still requires the
-untouched baseline and original Paddle directory in its separate environment.
+The subagents do not require raw Markdown/JSON, the full probe report, or
+tooling in their workspace. The human-run joiner needs untouched Probe 1 and
+the extracted report; the executor still requires the original Paddle directory
+in its separate environment.
 For an actual access restriction, original artifacts and any repository history
 containing them must be outside the review process's accessible environment;
 these scripts do not configure Codex's filesystem permissions.
@@ -163,8 +179,8 @@ these scripts do not configure Codex's filesystem permissions.
 ## Baseline and execution provenance
 
 `--baseline` is report one, not a backup of the book and not another approval
-stage. Its purpose is to check that report two is still the exact extracted
-subset, with edits limited to `review.status` and `review.note`. This detects
+stage. The joiner and executor require the reconstructed reviewed report to be
+the exact extracted subset, with edits limited to `review.status` and `review.note`. This detects
 changed proposals, IDs, offsets, paths, or omitted findings. Insertion itself does
 not mathematically require a baseline; this implementation requires it to enforce
 that report-integrity contract. Only the edited second report supplies approvals.
