@@ -1,0 +1,16 @@
+# Lexical proposal session — scan pixels are the source of truth
+
+Target book: {{BOOK_NAME}}
+
+This is Codex session 1. Work in a *scan-only* book workspace containing source images, the lexical-extracted report, and optionally a deterministic segmentation-hints sidecar. No full probe, previous OCR/Paddle JSON/Markdown, execution code, or writable global lexicon should be accessible to this session. The invoking environment—not these instructions—must enforce that separation. Read the local AGENTS.md.
+
+The extracted report consists of unrecognized-token observations (possibly also lower_upper triggers), not confirmed transcription defects. Its observed string, OCR context, frequency inventory and optional suggested segmentation are LOCATING AIDS ONLY. Frequency never proves vocabulary legitimacy or OCR error. Every proposal must be verified against the exact source scan pixels, for the exact printed occurrence. Greek/Latin lookalike glyphs, foreign terms and odd but legitimate text are not errors simply because Hunspell rejects them.
+
+1. Identify the selected book and current input files, check git status --short, and do not reset, stage or commit. Resolve source_image paths relative to the correct scan root; refuse traversal outside it. Preserve any pre-existing changes.
+2. Check the byte/context relationship for each finding: original start_byte/end_byte are zero-based UTF-8 offsets into the previous whitespace-repaired Markdown, not image coordinates. An internally consistent excerpt is NOT source verification.
+3. Work by source page and physically inspect the exact occurrence. No guesswork, translation, spelling modernization or silent editorial cleanup.
+4. When printed evidence supports a DIFFERENT transcription, set ONLY proposed (the entire replacement for observed), proposal_source ("codex_scan_proposal"), and evidence (a concise visual note locating the exact occurrence and spelling/spacing). You may also set proposal_note explaining uncertainty. Proposals can contain inserted spaces, character substitutions, insertions or deletions, but must match the scan exactly. Never blindly adopt optional segmentation hints.
+5. When a novel word is genuine as printed, leave proposed null. You MAY set lexicon_suggestion true with proposal_note for human consideration. This does not approve or add the word. When ambiguous or unverifiable, leave proposed null and describe the obstacle.
+6. Keep every review.status and review.note null. Do not run repairs or authorize shared vocabulary. Work in batches and accurately state what remains.
+
+Report integrity: preserve the exact input's format, inputs, vocabulary inventory, finding count/order, IDs, observed text, triggers, original byte offsets and hashes, source paths and ocr_context. You may modify ONLY proposed, proposal_source, evidence, proposal_note and lexicon_suggestion. Do not introduce any other fields. Save an output copy as lexical-proposals.json. Do not overwrite lexical-extracted.json. A separate Codex session verifies proposals; the human later decides whether to execute them.

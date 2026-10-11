@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Normalize · Human Lexicon Review</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/metrics.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+<header class="app-header">
+  <div class="brand"><div class="brand-mark">N</div><div><strong>Normalize</strong><span>HUMAN LEXICON REVIEW</span></div></div>
+  <div class="header-right"><div class="stat"><strong id="decisionProgress">—</strong><span>decisions</span></div><div class="stat"><strong id="acceptProgress">—</strong><span>accepted</span></div><button id="export" class="primary">Export approved JSON</button></div>
+</header>
+<main class="layout">
+  <aside class="sidebar">
+    <label class="small-heading" for="search">LEXICAL FORMS</label>
+    <input id="search" type="search" placeholder="Search vocabulary …" autocomplete="off">
+    <div class="filter-row"><select id="statusFilter" aria-label="Lexicon decision status"><option value="all">Status: All</option><option value="pending">Pending</option><option value="accepted">Accepted</option><option value="rejected">Rejected</option></select><select id="repairFilter" aria-label="OCR repair proposal filter"><option value="all">Repairs: All</option><option value="any">Any proposed</option><option value="all-proposed">All proposed</option><option value="all-verified">All independently approved</option><option value="mixed">Mixed proposals</option><option value="none">No proposals</option></select></div>
+    <div class="filter-row"><select id="evidenceFilter" aria-label="Vocabulary evidence filter"><option value="all">Evidence: All</option><option value="suggested">Codex suggested</option><option value="eligible">Eligible for admission</option></select><select id="sort" aria-label="Sort vocabulary"><option value="frequency">By frequency</option><option value="suggestion">By suggestions</option><option value="alphabetical">Alphabetical</option></select></div>
+    <div class="scope-heading"><div class="filter-row"><select id="sourceFilter" aria-label="Source-faithful nonlexical verification filter"><option value="all">Source: All</option><option value="any">Any source-faithful verified</option><option value="all-verified">All occurrences verified</option><option value="mixed">Mixed source evidence</option><option value="none">No verified exclusions</option></select></div>
+    <div class="list-summary" id="listSummary" aria-live="polite">Loading…</div><button id="clearFilters" class="clear-filters" type="button">Clear filters</button></div>
+    <div class="scope-metrics" role="group" aria-label="Counts within current filters">
+      <div><strong id="visiblePending">—</strong><span>Pending forms</span></div>
+      <div><strong id="visibleAccepted">—</strong><span>Accepted forms</span></div>
+      <div><strong id="visibleRejected">—</strong><span>Rejected forms</span></div>
+      <div><strong id="visibleProposed">—</strong><span>Proposed repair occurrences</span></div>
+      <div><strong id="visibleVerified">—</strong><span>Approved repair occurrences</span></div>
+      <div><strong id="visibleEligible">—</strong><span>Admission-eligible forms</span></div>
+      <div><strong id="visibleSourceFaithful">—</strong><span>Source-faithful occurrences</span></div>
+    </div>
+    <div class="group-navigation"><button id="prevGroup" type="button" title="Previous filtered form">←</button><span id="selectedPosition">0 / 0 forms</span><button id="nextGroup" type="button" title="Next filtered form">→</button><button id="nextPending" type="button" title="Find next pending form in current filters (N)">Next pending</button></div>
+    <div class="bulk-tools"><button id="bulkReject" class="bulk-reject" disabled>Bulk reject 0 eligible forms</button><small>Only pending words whose every occurrence has an independently approved OCR repair. This changes lexicon decisions only.</small><button id="bulkRejectSource" class="bulk-reject" disabled>Reject 0 verified printed irregularities</button><small>Only pending forms whose every occurrence was independently verified as source-faithful and unsuitable for global vocabulary admission.</small></div>
+    <div id="wordList" class="word-list" role="listbox" aria-label="Words"></div>
+    <div class="sidebar-bottom"><span>↑↓ Move · N Next pending · A Accept · R Reject · K Skip</span><span>←→ Occurrences · / Search</span></div>
+  </aside>
+  <section class="workarea">
+    <div id="empty" class="empty">Loading lexical review…</div>
+    <div id="details" hidden>
+      <div class="title-bar"><div><div class="eyebrow">CURRENT LEXICAL FORM</div><h1 id="word"></h1><div id="meta" class="meta"></div></div><div id="decisionBadge" class="decision-badge">Pending</div></div>
+      <div id="conflictWarning" class="warning" hidden><strong>Mixed evidence:</strong> other occurrences of this form have proposed OCR repairs. Check the exact printed spelling of your selected occurrence before admitting it globally.</div>
+      <div id="existingWarning" class="notice" hidden>Already present in the persistent lexicon; no new approval is necessary.</div>
+      <div class="review-layout">
+        <section class="scan-panel">
+          <div class="panel-top"><div><strong>Original source scan</strong><span id="pageLabel"></span></div><div class="page-tools"><label for="zoom">Zoom</label><input id="zoom" type="range" min="70" max="230" value="100"><button id="fit" class="subtle">Fit</button><a id="openScan" target="_blank" rel="noopener noreferrer">Open image ↗</a></div></div>
+          <div id="scanViewport" class="scan-viewport"><img id="scan" alt="Selected printed scan page, the primary source for review"></div>
+          <div class="page-nav"><button id="prevOccurrence" class="secondary">← Previous occurrence</button><span id="occurrencePosition"></span><button id="nextOccurrence" class="secondary">Next occurrence →</button></div>
+        </section>
+        <section class="evidence-panel">
+          <div class="section-label">SELECTED OCCURRENCE</div>
+          <div class="occurrence-info"><div id="selectedPage"></div><code id="selectedId"></code></div>
+          <div class="section-label">OCR CONTEXT · LOCATING HINT ONLY</div>
+          <div class="context" id="context"></div>
+          <div class="source-disclaimer">Context comes from OCR. It is not independent evidence. Inspect the scanned page to verify the precise printed form.</div>
+          <div id="repairInfo" class="repair-info" hidden></div>
+          <div id="sourceInfo" class="source-info" hidden></div>
+          <div class="section-label">HUMAN DECISION</div>
+          <label class="note-label" for="note">Reason / source evidence</label>
+          <textarea id="note" rows="3" placeholder="E.g., scanned page 42 clearly prints this technical term in Greek; no correction needed…"></textarea>
+          <label class="confirmation"><input type="checkbox" id="inspected"><span>I personally checked this exact occurrence in the original scan.</span></label>
+          <div class="actions"><button id="accept" class="accept">A · Accept word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
+          <div class="explanation">Accept adds the exact spelling to a **generated approval file**, not directly to the lexicon. Reject and Skip never become admissions. Approved OCR repairs remain a separate executor decision.</div>
+        </section>
+      </div>
+      <div class="occur-section"><div class="occur-heading"><strong>Occurrences in this book</strong><span id="occurTotal"></span></div><div id="occurrenceList" class="occur-list"></div></div>
+    </div>
+  </section>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="bulkDialog"><h2>Reject filtered lexical forms</h2><p>This rejects <strong id="bulkCount"></strong> currently visible, pending lexical types where <strong>every occurrence has an independently approved OCR repair</strong>. It does not change any spacing or character repair, and it never admits a word to the lexicon.</p><p id="bulkExcluded" class="source-disclaimer"></p><div class="bulk-preview" id="bulkPreview"></div><label class="confirmation"><input id="bulkAcknowledged" type="checkbox"><span>I've reviewed this filtered group and intend to reject these words <strong>from the global lexicon admission batch only</strong>.</span></label><div class="dialog-actions"><button id="cancelBulk" class="secondary">Cancel</button><button id="confirmBulk" class="reject" disabled>Reject these lexical forms</button></div></dialog>
+<dialog id="sourceBulkDialog"><h2>Reject source-verified printed irregularities</h2><p>This excludes <strong id="sourceBulkCount"></strong> visible, pending lexical forms from <strong>global vocabulary admission only</strong>. Every occurrence must have an independently verified source-faithful nonlexical note. No OCR repairs or shared lexicon entries change.</p><p id="sourceBulkExcluded" class="source-disclaimer"></p><div class="bulk-preview" id="sourceBulkPreview"></div><label class="confirmation"><input id="sourceBulkAcknowledged" type="checkbox"><span>I reviewed this group and intend to exclude these marked forms from this book's <strong>vocabulary admission batch</strong>. Genuine historical/foreign vocabulary must be reviewed separately.</span></label><div class="dialog-actions"><button id="cancelSourceBulk" class="secondary">Cancel</button><button id="confirmSourceBulk" class="reject" disabled>Reject marked lexical forms</button></div></dialog>
+<dialog id="exportDialog"><h2>Review export</h2><p>This creates a new, hash-bound approvals JSON. It does not execute repairs or update the lexicon.</p><div id="exportSummary"></div><div class="dialog-actions"><button id="cancelExport" class="secondary">Cancel</button><button id="confirmExport" class="primary">Generate approval file</button></div></dialog>
+</body>
+</html>
