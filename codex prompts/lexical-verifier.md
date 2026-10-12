@@ -40,6 +40,19 @@ its `format`, `inputs`, **entire global `vocabulary` inventory**, and
 assigned findings with all proposal fields in original order. Do not merge
 the proposals before dispatching verification.
 
+**Mandatory pre-dispatch byte-for-byte gate:** Copy each completed
+`proposals/outputs/agentN.json` to its corresponding
+`verification/inputs/agentN.json` without changing content or overwriting
+an existing input. Compare the two files byte-for-byte (for example,
+`cmp -s "lexical_batches/proposals/outputs/agent1.json" "lexical_batches/verification/inputs/agent1.json"`).
+Repeat for **every** assigned batch; stop if any comparison fails. Never
+generate verifier inputs by re-extracting the original lexical report or
+copying proposer **inputs**: those lack the proposer decisions. Verify that
+every verifier input retains the source proposer's non-null `proposed`,
+`proposal_source`, `evidence`, `proposal_note` and
+`lexicon_suggestion` fields exactly. No verifier may be dispatched until
+all assigned inputs pass this gate.
+
 Use separate exclusive input/output paths, e.g.:
 
 - `lexical_batches/verification/inputs/agent1.json`
