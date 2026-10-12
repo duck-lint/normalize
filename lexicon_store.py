@@ -5,6 +5,7 @@ import unicodedata
 from pathlib import Path
 
 from lexical_detection import lexical_character
+from human_lexical_approvals import HUMAN_APPROVAL_FORMAT
 
 LEXICON_FORMAT = "normalize_lexicon_v1"
 APPROVAL_FORMAT = "human_lexicon_approvals_v1"
@@ -59,11 +60,19 @@ def apply_human_admissions(lexicon, approvals, reviewed, baseline, baseline_hash
     """Require a separate human-written explicit approval file; never infer admissions."""
     if approvals is None:
         return lexicon, []
-    if (not isinstance(approvals, dict) or approvals.get("format") != APPROVAL_FORMAT
+    legacy = approvals.get("format") == APPROVAL_FORMAT if isinstance(approvals, dict) else False
+    modern = approvals.get("format") == HUMAN_APPROVAL_FORMAT if isinstance(approvals, dict) else False
+    keys = ({"format", "source_report_sha256", "lexicon_sha256", "entries"}
+            if legacy else {"format", "source_report_sha256", "source_proposals_sha256",
+                            "source_reviewed_sha256", "source_scans_sha256",
+                            "lexicon_sha256", "entries", "repairs"})
+    if (not (legacy or modern) or set(approvals) != keys
             or approvals.get("source_report_sha256") != baseline_hash
             or approvals.get("lexicon_sha256") != lexicon_hash
             or not isinstance(approvals.get("entries"), list)
-            or set(approvals) != {"format", "source_report_sha256", "lexicon_sha256", "entries"}):
+            or (modern and (not isinstance(approvals.get("repairs"), list)
+                            or approvals.get("source_scans_sha256") !=
+                            baseline["inputs"]["source_dir_sha256"]))):
         raise ValueError("Lexicon approval file not bound to the current report and lexicon")
     by_id = {f["id"]: f for f in reviewed["findings"]}
     base_ids = {f["id"]: f for f in baseline["findings"]}
