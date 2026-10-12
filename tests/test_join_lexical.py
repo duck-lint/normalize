@@ -177,6 +177,19 @@ class JoinLexicalTests(unittest.TestCase):
                              self.reviewed)
             self.assertNotEqual(subprocess.run(command, capture_output=True).returncode, 0)
 
+    def test_verifiers_dispatched_from_unreviewed_proposer_inputs_are_rejected(self):
+        # Regression: all IDs/counts match, but verifier inputs were copied from
+        # proposals/inputs rather than the completed proposals/outputs.
+        wrong_source_batches = self.split(self.extracted)
+        for _, batch in wrong_source_batches:
+            for finding in batch['findings']:
+                finding['review'] = {
+                    'status': None, 'note': 'Inspected assigned original scan'
+                }
+        with self.assertRaisesRegex(ValueError, 'Unauthorized verification-stage edit'):
+            join_all(self.baseline, self.extracted,
+                     self.proposal_batches, wrong_source_batches)
+
     def test_verification_must_match_its_original_proposer_output(self):
         batches = copy.deepcopy(self.review_batches)
         batches[0][1]["findings"][0]["proposed"] = "a different proposition"
