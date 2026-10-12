@@ -42,6 +42,30 @@ suggest_segments.py so their snapshot hashes match.
 3. Optional **deterministic hint sidecar**; it never edits Markdown or approves a proposal:
     python /tooling/suggest_segments.py --report review/lexical-extracted.json --paddle whitespace-repaired --lexicon /shared/lexicon.json --out review/segmentation-hints.json
 
+**Separate workspaces, explicit human transfer:** The Normalize tooling checkout
+runs PaddleOCR, probes, extraction, joins, human lexicon review and execution.
+The isolated Codex review workroot runs **only** scan-based proposal and
+independent verification sessions. The human copies the original scan images,
+untouched extracted `lexical.json` and optional read-only hints *into* the
+workroot, and copies the **entire finished `lexical_batches/` tree** back to
+the correct book's `lexical_reports/` in the tooling checkout before joining.
+Do not copy raw Paddle JSON/Markdown, the full probe, repair outputs,
+executors or writable lexicon into the agent workspace. Example `review/...`
+CLI paths below are placeholders for locations **in the tooling checkout**,
+not files that Codex should be able to access.
+
+**Handoff invariant:** The verifier parent must copy each
+`proposals/outputs/agentN.json` verbatim to
+`verification/inputs/agentN.json` **inside the workroot**, compare them
+byte-for-byte with `cmp`, and abort *before any verifier dispatch* if one
+differs. Copying `proposals/inputs/agentN.json` instead is wrong: it
+discards every proposal and scan-review note. The verifier parent also
+checks that completed verifier outputs differ from those frozen inputs
+**only** in `review.status` and `review.note`; see the executable gates
+in [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
+Never repair a failed verification report by adding proposal fields afterward:
+run fresh independent verification against the correct frozen input.
+
 4. **Parallel lexical proposals:** In a fresh Codex parent session, configure
    manual 1-based source-image ranges in
    [lexical-proposer.md](../codex%20prompts/lexical-proposer.md).
@@ -55,9 +79,11 @@ suggest_segments.py so their snapshot hashes match.
 
 5. **Independent parallel verification:** Start a *fresh separate* Codex
    session with [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
-   Use the completed individual proposer batch JSON files as frozen inputs
-   for the equivalent verifier source-image ranges. No proposal join is
-   necessary between stages. Verifiers have access only to their assigned
+   Use the completed individual proposer **outputs**, not their unreviewed
+   inputs, as frozen verifier inputs for equivalent source-image ranges.
+   The parent must pass its byte-for-byte pre-dispatch gate before spawning
+   verifiers and check immutable fields again when worker outputs return.
+   No proposal join is necessary between stages. Verifiers have access only to their assigned
    proposer report and original scans, **not** proposer conversations,
    unrelated batches, OCR artifacts, segmentation sidecar or writable lexicon.
    They change only `review.status` and `review.note`, recording a nonempty
