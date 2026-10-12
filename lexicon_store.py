@@ -93,7 +93,7 @@ def apply_human_admissions(lexicon, approvals, reviewed, baseline, baseline_hash
         observed_ok = (canonical(entry["word"]) == canonical(original["observed"])
                        and finding["proposed"] is None
                        and finding["review"]["status"] is None)
-        corrected_ok = (finding["proposed"] is not None
+        corrected_ok = (modern and finding["proposed"] is not None
                         and finding["review"]["status"] == "approved"
                         and valid_word(finding["proposed"])
                         and canonical(entry["word"]) == canonical(finding["proposed"]))
