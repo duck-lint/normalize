@@ -107,8 +107,10 @@ class ReviewSession:
             fid = finding['id']
             if fid not in source_by_id or 'unrecognized_token' not in source_by_id[fid]['triggers']:
                 raise ValueError(f'Untracked candidate: {fid}')
-            if not valid_word(finding['observed']):
-                raise ValueError(f'Unexpected lexical form: {fid}')
+            # A merged lower_upper + unrecognized_token probe finding can span
+            # numerals and letters. Retain it for scan audit, but never treat
+            # the entire span as a word eligible for persistent admission.
+            admissible = valid_word(finding['observed'])
             source_image = finding['source_image']
             if (not isinstance(source_image, str) or source_image not in self.images or
                     self.images[source_image].suffix.lower() not in ('.png', '.jpg', '.jpeg')):
@@ -121,14 +123,15 @@ class ReviewSession:
                     'suggested': finding.get('lexicon_suggestion') is True,
                     'source_faithful': source_faithful_verified(finding),
                     'source_note': finding['review'].get('note') if source_faithful_verified(finding) else None,
-                    'eligible': proposed is None and finding['review']['status'] is None}
+                    'eligible': admissible and proposed is None and finding['review']['status'] is None}
             self.findings[fid] = item
             group = self.groups.setdefault(key, {'key': key, 'word': finding['observed'],
                                                   'occurrences': [], 'count': 0,
                                                   'suggested_count': 0, 'repair_count': 0,
                                                   'verified_repair_count': 0, 'eligible_count': 0,
                                                   'source_faithful_count': 0,
-                                                  'already_known': key in existing})
+                                                  'already_known': key in existing,
+                                                  'admissible': admissible})
             group['occurrences'].append(item)
             group['count'] += 1
             group['suggested_count'] += bool(item['suggested'])
