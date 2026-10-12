@@ -60,15 +60,19 @@ for n in 1 2 3 4; do  # EXAMPLE: replace with assigned nonempty batch IDs
   original="$batch_root/proposals/inputs/agent$n.json"
   src="$batch_root/proposals/outputs/agent$n.json"
   dst="$batch_root/verification/inputs/agent$n.json"
-  [[ -f "$original" && -f "$src" ]] || { echo "MISSING proposal batch agent$n" >&2; exit 1; }
+  [[ -f "$original" && -f "$src" && ! -L "$original" && ! -L "$src" ]] || {
+    echo "MISSING or symlinked proposal batch agent$n" >&2; exit 1;
+  }
   if cmp -s -- "$original" "$src"; then
     echo "UNREVIEWED proposer output for agent$n; STOP" >&2; exit 1
   fi
+  [[ ! -L "$dst" ]] || { echo "Symlinked verifier input agent$n; STOP" >&2; exit 1; }
   if [[ ! -e "$dst" ]]; then
     cp -- "$src" "$dst" || exit 1
   fi
   cmp -s -- "$src" "$dst" || { echo "WRONG verifier input agent$n; STOP" >&2; exit 1; }
-  [[ ! -e "$batch_root/verification/outputs/agent$n.json" ]] || {
+  [[ ! -e "$batch_root/verification/outputs/agent$n.json" &&
+     ! -L "$batch_root/verification/outputs/agent$n.json" ]] || {
     echo "Existing verifier output agent$n; STOP, preserve run" >&2; exit 1;
   }
   echo "agent$n: completed proposal copied and verified"
@@ -106,7 +110,7 @@ only the permitted `review` decisions. Run this **read-only** standard-library
 check in the workroot with the same resolved `batch_root` variable:
 
 ```bash
-python - "$batch_root" <<'PY'
+python3 - "$batch_root" <<'PY'
 import copy, json, sys
 from pathlib import Path
 root = Path(sys.argv[1])
