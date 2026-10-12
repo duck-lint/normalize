@@ -42,9 +42,80 @@ suggest_segments.py so their snapshot hashes match.
 3. Optional **deterministic hint sidecar**; it never edits Markdown or approves a proposal:
     python /tooling/suggest_segments.py --report review/lexical-extracted.json --paddle whitespace-repaired --lexicon /shared/lexicon.json --out review/segmentation-hints.json
 
-4. Session 1 reads codex/lexical-proposer.md and ONLY source images, extracted report and optional hints. It produces a new lexical-proposals.json. Preserve extracted report unchanged.
-5. A SEPARATE session 2 reads codex/lexical-verifier.md and ONLY the frozen proposals plus source images. It produces lexical-reviewed.json, changing only review.status/note. Preserve proposals unchanged.
-6. **Human lexicon admission:** Launch the [local scan-backed reviewer](human-lexicon-review.md) with the completed \`lexical-reviewed.json\` and the frozen Probe 2/proposal reports. Group repeated vocabulary, inspect source images and explicitly Accept/Reject/Skip lexical types. The application saves review progress and **generates** the executor-compatible \`human-lexicon-approvals.json\` without any hand-authored JSON. Neither Codex review session can admit vocabulary. The human then dry-runs the executor and chooses whether to execute.
+**Separate workspaces, explicit human transfer:** The Normalize tooling checkout
+runs PaddleOCR, probes, extraction, joins, human lexicon review and execution.
+The isolated Codex review workroot runs **only** scan-based proposal and
+independent verification sessions. The human copies the original scan images,
+untouched extracted `lexical.json` and optional read-only hints *into* the
+workroot, and copies the **entire finished `lexical_batches/` tree** back to
+the correct book's `lexical_reports/` in the tooling checkout before joining.
+Do not copy raw Paddle JSON/Markdown, the full probe, repair outputs,
+executors or writable lexicon into the agent workspace. Example `review/...`
+CLI paths below are placeholders for locations **in the tooling checkout**,
+not files that Codex should be able to access.
+
+**Handoff invariant:** The verifier parent must copy each
+`proposals/outputs/agentN.json` verbatim to
+`verification/inputs/agentN.json` **inside the workroot**, compare them
+byte-for-byte with `cmp`, and abort *before any verifier dispatch* if one
+differs. Copying `proposals/inputs/agentN.json` instead is wrong: it
+discards every proposal and scan-review note. The verifier parent also
+checks that completed verifier outputs differ from those frozen inputs
+**only** in `review.status` and `review.note`; see the executable gates
+in [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
+Never repair a failed verification report by adding proposal fields afterward:
+run fresh independent verification against the correct frozen input.
+
+4. **Parallel lexical proposals:** In a fresh Codex parent session, configure
+   manual 1-based source-image ranges in
+   [lexical-proposer.md](../codex%20prompts/lexical-proposer.md).
+   The parent prepares per-agent batch inputs from untouched
+   `lexical-extracted.json`, preserving the complete global vocabulary
+   inventory. Each child independently checks original scans and writes
+   one complete partial proposal report. A worker that cannot actually view
+   the source pixels stops without publishing a completed output.
+   For null propositions, a nonempty `proposal_note` records the reviewed
+   outcome. Keep every completed proposal batch **unchanged** for verification.
+
+5. **Independent parallel verification:** Start a *fresh separate* Codex
+   session with [lexical-verifier.md](../codex%20prompts/lexical-verifier.md).
+   Use the completed individual proposer **outputs**, not their unreviewed
+   inputs, as frozen verifier inputs for equivalent source-image ranges.
+   The parent must pass its byte-for-byte pre-dispatch gate before spawning
+   verifiers and check immutable fields again when worker outputs return.
+   No proposal join is necessary between stages. Verifiers have access only to their assigned
+   proposer report and original scans, **not** proposer conversations,
+   unrelated batches, OCR artifacts, segmentation sidecar or writable lexicon.
+   They change only `review.status` and `review.note`, recording a nonempty
+   note on every completed finding.
+
+   **After both sets of agents finish, the human runs the joiner once:**
+
+   ```bash
+   python /tooling/join_lexical.py \
+     --baseline review/probe2.json \
+     --extracted review/lexical-extracted.json \
+     --proposal-batches review/lexical_batches/proposals/outputs \
+     --verification-batches review/lexical_batches/verification/outputs \
+     --out-dir review
+   ```
+
+   That single command writes **both** `review/lexical-proposals.json` and
+   `review/lexical-reviewed.json`, reconstructing them from the untouched
+   extraction and exact-once batch outputs, checking stage-specific write
+   permissions and the unchanged lexical executor's `validate_handoffs`.
+   If either group fails validation, neither report is published. The check
+   proves structural integrity, not that images were actually inspected.
+   The human inspects joined results before proceeding.
+
+6. **Human lexicon admission:** Launch the
+   [local scan-backed reviewer](human-lexicon-review.md) using completed
+   `lexical-reviewed.json`, frozen `lexical-proposals.json` and Probe 2.
+   Group recurring forms, inspect original scans, and explicitly
+   Accept/Reject/Skip vocabulary candidates. The app generates
+   `human-lexicon-approvals.json` without hand-editing JSON. Neither Codex
+   session can admit vocabulary. The human then dry-runs the unchanged
+   lexical executor and chooses whether to execute.
 
 Dry-run:
     python /tooling/execute_lexical_repairs.py --baseline review/probe2.json --proposals review/lexical-proposals.json --reviewed review/lexical-reviewed.json --paddle whitespace-repaired --scans scans --lexicon /shared/lexicon.json --lexicon-approvals review/human-lexicon-approvals.json --out lexical-repaired
@@ -54,7 +125,7 @@ Execute: same command with --execute. Without admissions, omit the entire --lexi
 7. Fresh subsequent probe:
     python /tooling/normalize_probe.py --scans scans --paddle lexical-repaired --lexicon /shared/lexicon.json --out review/probe3.json
 
-Full probe, extracted inventory, proposer report, independent verifier report, human approvals, previous output directories, and stage execution ledgers must be preserved as **distinct** artifacts. The new executor forbids applying old offsets to its own derived output.
+Full probe, extracted inventory, stage-specific batch inputs/outputs, joined proposer report, joined independent verifier report, human approvals, previous output directories, and stage execution ledgers must be preserved as **distinct** artifacts. The new executor forbids applying old offsets to its own derived output.
 
 ## Human approvals schema
 
