@@ -113,6 +113,14 @@ class JoinLexicalTests(unittest.TestCase):
                 with self.assertRaises((ValueError, KeyError)):
                     join("reviewed", self.baseline, self.proposals, batches)
 
+    def test_verification_failure_names_unauthorized_field_and_batch(self):
+        batches = copy.deepcopy(self.review_batches)
+        batches[0][1]["findings"][0]["evidence"] = "Verifier rewrote evidence"
+        with self.assertRaisesRegex(
+            ValueError, r"batch=agent1.json; changed_fields=evidence"
+        ):
+            join("reviewed", self.baseline, self.proposals, batches)
+
     def test_frozen_source_and_probe_are_required(self):
         stale = copy.deepcopy(self.extracted)
         stale["findings"][0]["observed"] = "wrong"
