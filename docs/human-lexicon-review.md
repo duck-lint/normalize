@@ -207,6 +207,13 @@ An empty replacement deliberately deletes the observed span. Approving or
 rejecting an OCR repair requires a nonempty direct-scan evidence note and an
 explicit inspection acknowledgment. These are **not vocabulary admissions**.
 
+A valid, single-word corrected replacement can also be **separately**
+admitted to the persistent lexicon, after a second explicit scan-inspection
+acknowledgment in the vocabulary controls. This does not follow automatically
+from approving the repair. An approved repair never licenses admission of the
+misspelled *observed* form; a corrected-word admission is bound to the approved
+replacement and its particular scan occurrence.
+
 Occurrence-level human decisions are saved alongside vocabulary decisions in
 the same progress JSON, and exported as `repairs` in
 `human_lexical_approvals_v2`. Existing `human_lexicon_approvals_v1`
