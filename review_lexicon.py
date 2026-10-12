@@ -196,6 +196,10 @@ class ReviewSession:
             item['review_status'] = (human['decision'] if human and
                                       human['decision'] == 'approved' else None) if human else item['codex_review_status']
             item['human_repair'] = human
+            item['corrected_word_admissible'] = (item['proposed'] is not None
+                and item['review_status'] == 'approved'
+                and valid_word(item['proposed'])
+                and canonical(item['proposed']) not in self.existing)
             item['eligible'] = (item['admissible'] and item['proposed'] is None
                                 and item['review_status'] is None)
             source = self.reviewed_by_id[fid]
@@ -247,20 +251,33 @@ class ReviewSession:
 
     def _validate_decision(self, key, record):
         group = self.groups.get(key)
-        if group is None or not isinstance(record, dict) or set(record) != {'decision', 'finding_id', 'note'}:
+        required = {'decision', 'finding_id', 'note'}
+        if (group is None or not isinstance(record, dict)
+                or set(record) not in (required, required | {'word'})):
             raise ValueError('Malformed or unknown review decision')
         status, fid, note = record['decision'], record['finding_id'], record['note']
-        if (status not in ('accepted', 'rejected') or not isinstance(note, str) or
-                (status == 'accepted' and not note.strip()) or
-                (status == 'accepted' and (
-                    group['already_known'] or fid not in self.findings or
-                    canonical(self.findings[fid]['word']) != key or
-                    not self.findings[fid]['eligible'])) or
-                (status == 'rejected' and fid is not None)):
+        if (status not in ('accepted', 'rejected') or not isinstance(note, str)
+                or (status == 'accepted' and not note.strip())
+                or (status == 'rejected' and (fid is not None or 'word' in record))):
             raise ValueError('Invalid review approval, source occurrence, or note')
+        if status == 'accepted':
+            item = self.findings.get(fid)
+            if item is None or canonical(item['word']) != key:
+                raise ValueError('Invalid review approval, source occurrence, or note')
+            if 'word' in record:
+                word = record['word']
+                if (not valid_word(word) or item['proposed'] is None
+                        or item['review_status'] != 'approved'
+                        or canonical(word) != canonical(item['proposed'])
+                        or canonical(word) in self.existing):
+                    raise ValueError('Corrected-word admission requires approved source repair')
+            elif group['already_known'] or not item['eligible']:
+                raise ValueError('Invalid review approval, source occurrence, or note')
 
     def save_decision(self, data):
-        if not isinstance(data, dict) or set(data) != {'key', 'decision', 'finding_id', 'note', 'inspected'}:
+        ordinary = {'key', 'decision', 'finding_id', 'note', 'inspected'}
+        if (not isinstance(data, dict)
+                or set(data) not in (ordinary, ordinary | {'word'})):
             raise ValueError('Unexpected decision fields')
         key, status = data['key'], data['decision']
         if key not in self.groups or status not in ('accepted', 'rejected', 'pending'):
@@ -268,11 +285,23 @@ class ReviewSession:
         if status == 'accepted' and data['inspected'] is not True:
             raise ValueError('Explicit source-scan inspection acknowledgment is required')
         record = {'decision': status, 'finding_id': data['finding_id'], 'note': data['note']}
+        if 'word' in data:
+            if status != 'accepted':
+                raise ValueError('Only accepted corrected-word decisions can specify a word')
+            record['word'] = data['word']
         if status != 'pending':
             self._validate_decision(key, record)
+            if status == 'accepted':
+                word = record.get('word', self.groups[key]['word'])
+                for other_key, other in self.decisions.items():
+                    if (other_key != key and other['decision'] == 'accepted'
+                            and canonical(other.get('word', self.groups[other_key]['word']))
+                            == canonical(word)):
+                        raise ValueError('This lexicon word was already admitted from another occurrence')
             self.decisions[key] = record
         else:
             self.decisions.pop(key, None)
+        self._check_unchanged()
         self._save_progress()
         return {'saved': True, 'decisions': self.decisions}
 
@@ -368,7 +397,8 @@ class ReviewSession:
             if record['decision'] != 'accepted':
                 continue
             finding = self.findings[record['finding_id']]
-            entries.append({'word': finding['word'], 'finding_id': record['finding_id'],
+            entries.append({'word': record.get('word', finding['word']),
+                            'finding_id': record['finding_id'],
                             'approved': True, 'note': record['note'].strip()})
         entries.sort(key=lambda item: canonical(item['word']))
         repairs = [{'finding_id': fid, **record}
