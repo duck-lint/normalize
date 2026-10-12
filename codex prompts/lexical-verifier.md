@@ -22,7 +22,15 @@ review and any execution.
 ## Parent agent — partition and dispatch, not verification
 
 Read `AGENTS.md`. In a scan-only workspace, accept the **completed, frozen
-per-agent proposer JSON files** and original source scans. Each verifier sees
+per-agent proposer JSON files** and original source scans.
+
+**Workspace boundary:** This is the isolated Codex review workroot, not the
+Normalize tooling checkout. Review sessions use only original scan pixels and
+restricted batch reports. Paddle JSON/Markdown, full probes, repair executors,
+joined reports and the writable lexicon stay in the tooling checkout. The human
+copies the extracted `lexical.json` into this workroot before proposal review
+and copies the finished batch tree back to tooling after both Codex stages.
+Do not access the tooling checkout or run OCR, probes, joins or repairs here. Each verifier sees
 only its assigned proposer batch, not proposer conversations, raw Paddle /
 Markdown, full probe, segmentation hints, other agents' outputs, or writable
 global lexicon. Proposal text and notes are claims, not verification evidence.
@@ -40,19 +48,41 @@ its `format`, `inputs`, **entire global `vocabulary` inventory**, and
 assigned findings with all proposal fields in original order. Do not merge
 the proposals before dispatching verification.
 
-**Mandatory pre-dispatch byte-for-byte gate:** Copy each completed
-`proposals/outputs/agentN.json` to its corresponding
-`verification/inputs/agentN.json` without changing content or overwriting
-an existing input. Compare the two files byte-for-byte (for example,
-`cmp -s "lexical_batches/proposals/outputs/agent1.json" "lexical_batches/verification/inputs/agent1.json"`).
-Repeat for **every** assigned batch; stop if any comparison fails. Never
-generate verifier inputs by re-extracting the original lexical report or
-copying proposer **inputs**: those lack the proposer decisions. Verify that
-every verifier input retains the source proposer's non-null `proposed`,
-`proposal_source`, `evidence`, `proposal_note` and
-`lexicon_suggestion` fields exactly. No verifier may be dispatched until
-all assigned inputs pass this gate.
+**Mandatory pre-dispatch gate (parent only, inside the workroot):** This is a
+required command/check, not merely a description. Discover the real per-book
+`lexical_batches` path and replace the example below; use the configured agent
+IDs (not necessarily four). Run it **before spawning any verifier**:
 
+```bash
+batch_root='lexical_reports/About Vision & Color/lexical_batches'  # EXAMPLE: resolve actual path
+mkdir -p "$batch_root/verification/inputs"
+for n in 1 2 3 4; do  # EXAMPLE: replace with assigned nonempty batch IDs
+  original="$batch_root/proposals/inputs/agent$n.json"
+  src="$batch_root/proposals/outputs/agent$n.json"
+  dst="$batch_root/verification/inputs/agent$n.json"
+  [[ -f "$original" && -f "$src" ]] || { echo "MISSING proposal batch agent$n" >&2; exit 1; }
+  if cmp -s -- "$original" "$src"; then
+    echo "UNREVIEWED proposer output for agent$n; STOP" >&2; exit 1
+  fi
+  if [[ ! -e "$dst" ]]; then
+    cp -- "$src" "$dst" || exit 1
+  fi
+  cmp -s -- "$src" "$dst" || { echo "WRONG verifier input agent$n; STOP" >&2; exit 1; }
+  [[ ! -e "$batch_root/verification/outputs/agent$n.json" ]] || {
+    echo "Existing verifier output agent$n; STOP, preserve run" >&2; exit 1;
+  }
+  echo "agent$n: completed proposal copied and verified"
+done
+```
+
+The **only** source for `verification/inputs/agentN.json` is
+`proposals/outputs/agentN.json`, NEVER `proposals/inputs/agentN.json` or
+a fresh extraction. Matching names, finding counts, hashes embedded in JSON
+or parent summaries do not substitute for byte equality. If any input exists
+but differs, STOP; do not overwrite it or silently repair a past run.
+Do not dispatch ANY verifiers until every configured nonempty batch passes.
+Verify that each child receives the corresponding verified
+`verification/inputs/agentN.json`, not any other similarly named file.
 Use separate exclusive input/output paths, e.g.:
 
 - `lexical_batches/verification/inputs/agent1.json`
@@ -68,6 +98,56 @@ below. Do not verify findings or edit worker decisions as parent. Wait for all,
 report actual completion/failure and output paths. Never invoke the joiner,
 human lexicon review, or executor. Do not stage, commit, reset or alter unrelated
 files.
+
+**Mandatory post-dispatch gate (parent only):** Do not report a verifier batch
+as complete solely because a child says it finished. After workers return,
+compare each new verifier output with its immutable verifier input, ignoring
+only the permitted `review` decisions. Run this **read-only** standard-library
+check in the workroot with the same resolved `batch_root` variable:
+
+```bash
+python - "$batch_root" <<'PY'
+import copy, json, sys
+from pathlib import Path
+root = Path(sys.argv[1])
+inputs = root / 'verification' / 'inputs'
+outputs = root / 'verification' / 'outputs'
+names = {p.name for p in inputs.glob('agent*.json')}
+if not names or names != {p.name for p in outputs.glob('agent*.json')}:
+    raise SystemExit('Missing, extra, or incomplete verifier outputs; STOP')
+for name in sorted(names):
+    proposal = (root / 'proposals' / 'outputs' / name).read_bytes()
+    frozen = (inputs / name).read_bytes()
+    if proposal != frozen:
+        raise SystemExit(f'{name}: verifier input is not frozen proposal; STOP')
+    before = json.loads(frozen)
+    after = json.loads((outputs / name).read_bytes())
+    if set(before) != set(after) or any(
+        before[k] != after[k] for k in before if k != 'findings'
+    ) or len(before['findings']) != len(after['findings']):
+        raise SystemExit(f'{name}: report structure altered; STOP')
+    for i, (a, b) in enumerate(zip(before['findings'], after['findings']), 1):
+        review = b.get('review')
+        if (not isinstance(review, dict) or set(review) != {'status', 'note'}
+                or review['status'] not in (None, 'approved')
+                or not isinstance(review['note'], str)
+                or not review['note'].strip()
+                or (review['status'] == 'approved' and a['proposed'] is None)):
+            raise SystemExit(f'{name} finding {i}: invalid review; STOP')
+        copy_b = copy.deepcopy(b)
+        copy_b['review'] = a['review']
+        if copy_b != a:
+            raise SystemExit(f'{name} finding {i}: frozen proposal changed; STOP')
+    print(f'{name}: complete and immutable outside review fields')
+PY
+```
+
+On failure, preserve all inputs/outputs and report the exact batch; do not
+patch failed verifier files or present them as source-verified. A run that
+received unreviewed proposer inputs requires **new independent verification**
+from the correct frozen outputs, not a retroactive transfer of proposal fields.
+These checks guard data handoffs; only the human's later tooling-checkout join
+reconstructs and validates the complete cross-batch reports.
 
 ## Worker contract — include with each subagent assignment
 
