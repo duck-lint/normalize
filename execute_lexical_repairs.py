@@ -18,6 +18,7 @@ import tempfile
 from artifact_directory import directory_files, directory_sha256
 from extract_lexical import extract
 from lexicon_store import apply_human_admissions, read_lexicon, serialize
+from human_lexical_approvals import effective_review
 from lexical_provenance import EXECUTION_FORMAT, LEDGER
 from whitespace_provenance import comparison_views as whitespace_comparison
 
@@ -85,10 +86,12 @@ def validate_source(baseline, artifacts):
         raise ValueError("Unsupported lexical stage input")
 
 
-def build(baseline, reviewed, artifacts, lexicon_hash, new_lexicon_hash, admitted):
+def build(baseline, reviewed, artifacts, lexicon_hash, new_lexicon_hash, admitted,
+          human_repairs=()):
     pages = {name: file.read_bytes() for name, file in artifacts.items()
              if name.lower().endswith(".md")}
     edits = defaultdict(list)
+    human_by_id = {item["finding_id"]: item for item in human_repairs}
     records = []
     for finding in reviewed["findings"]:
         if finding["review"]["status"] != "approved":
@@ -118,6 +121,8 @@ def build(baseline, reviewed, artifacts, lexicon_hash, new_lexicon_hash, admitte
             records.append({"id": finding["id"], "paddle_markdown": path,
                             "start_byte": start, "end_byte": end,
                             "observed": finding["observed"], "proposed": finding["proposed"],
+                            "authority": ("human_scan_approval" if finding["id"] in human_by_id
+                                          else "codex_independent_verification"),
                             "source_md_sha256": digest(pages[path])})
     for record in records:
         record["derived_md_sha256"] = digest(derived[record["paddle_markdown"]])
@@ -128,6 +133,7 @@ def build(baseline, reviewed, artifacts, lexicon_hash, new_lexicon_hash, admitte
                "source_lexicon_sha256": lexicon_hash,
                "target_lexicon_sha256": new_lexicon_hash,
                "human_approved_lexicon_entries": admitted,
+               "human_occurrence_repair_decisions": list(human_repairs),
                "artifact_policy": "Markdown derivative only; JSON/assets/previous ledger copied",
                "approved_findings": len(records),
                "page_count": len(pages),
@@ -196,7 +202,7 @@ def main():
     p.add_argument("--paddle", type=Path, required=True, help="Verified whitespace-stage derivative")
     p.add_argument("--scans", type=Path, required=True, help="Original source scans; independently hashed before execution")
     p.add_argument("--lexicon", type=Path, required=True, help="Persistent reviewed lexicon")
-    p.add_argument("--lexicon-approvals", type=Path, help="Separate explicitly human-authored approvals")
+    p.add_argument("--lexicon-approvals", type=Path, help="Human approvals JSON (lexicon-only v1 or combined repair/vocabulary v2)")
     p.add_argument("--out", type=Path, required=True, help="New lexical-stage derivative")
     p.add_argument("--execute", action="store_true")
     p.add_argument("--resume-lexicon", action="store_true", help="Recover a failed lexicon commit after derivative publication")
@@ -232,8 +238,13 @@ def main():
                 return
             if lexicon_hash != ledger["source_lexicon_sha256"]:
                 raise ValueError("Lexicon changed independently; cannot safely resume")
+            effective, human_repairs = effective_review(
+                baseline, proposals, reviewed, approvals, digest(baseline_raw),
+                digest(proposals_raw), digest(reviewed_raw), lexicon_hash)
             updated, admissions = apply_human_admissions(
-                lexicon, approvals, reviewed, baseline, digest(baseline_raw), lexicon_hash)
+                lexicon, approvals, effective, baseline, digest(baseline_raw), lexicon_hash)
+            if ledger.get("human_occurrence_repair_decisions", []) != human_repairs:
+                raise ValueError("Published human repair decisions do not match approval file")
             target_bytes = serialize(updated) if admissions else args.lexicon.read_bytes()
             if (ledger["target_lexicon_sha256"] != digest(target_bytes)
                     or ledger["human_approved_lexicon_entries"] != admissions):
@@ -243,20 +254,24 @@ def main():
             return
         if baseline["inputs"].get("lexicon_sha256") != lexicon_hash:
             raise ValueError("Lexicon changed since probe; regenerate the lexical baseline")
+        effective, human_repairs = effective_review(
+            baseline, proposals, reviewed, approvals, digest(baseline_raw),
+            digest(proposals_raw), digest(reviewed_raw), lexicon_hash)
         updated, admissions = apply_human_admissions(
-            lexicon, approvals, reviewed, baseline, digest(baseline_raw), lexicon_hash)
+            lexicon, approvals, effective, baseline, digest(baseline_raw), lexicon_hash)
         target_bytes = serialize(updated) if admissions else args.lexicon.read_bytes()
         if args.out.exists():
             raise ValueError(f"Output already exists: {args.out}")
         artifacts = directory_files(args.paddle)
         validate_source(baseline, artifacts)
-        derived, ledger = build(baseline, reviewed, artifacts, lexicon_hash,
-                                digest(target_bytes), admissions)
+        derived, ledger = build(baseline, effective, artifacts, lexicon_hash,
+                                digest(target_bytes), admissions, human_repairs)
         ledger.update({"source_baseline_sha256": digest(baseline_raw),
                        "source_proposals_sha256": digest(proposals_raw),
                        "source_reviewed_sha256": digest(reviewed_raw),
                        "source_lexicon_approvals_sha256": digest(approvals_raw) if approvals_raw else None})
         print(f"Validated {ledger['page_count']} pages; {ledger['approved_findings']} repairs; "
+              f"{len(human_repairs)} explicit human repair decisions; "
               f"{len(admissions)} human-approved lexicon entries; {ledger['changed_pages']} changed pages")
         if not args.execute:
             print("Dry run only. Add --execute to publish derived artifacts and commit vocabulary.")
