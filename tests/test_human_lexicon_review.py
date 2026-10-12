@@ -207,6 +207,35 @@ class HumanLexiconReviewTests(unittest.TestCase):
         self.assertEqual(self.make_session().decisions['schopenhuaer']['decision'], 'accepted')
         self.assertEqual(self.verified.read_bytes(), self.session.paths['reviewed'].read_bytes())
 
+    def test_repair_and_corrected_word_admission_are_independently_approved(self):
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'Schopenhuaer')
+        self.repair(fid, 'approved', 'Schopenhauer')
+        item = self.session.findings[fid]
+        self.assertTrue(item['corrected_word_admissible'])
+        self.assertFalse(item['eligible'])  # misspelled observed form is ineligible
+        with self.assertRaisesRegex(ValueError, 'source occurrence'):
+            self.save('schopenhuaer', 'accepted', fid,
+                      note='Observed spelling was wrong')
+        self.session.save_decision({
+            'key': 'schopenhuaer', 'decision': 'accepted', 'finding_id': fid,
+            'note': 'I inspected this exact corrected single word in the source scan',
+            'inspected': True, 'word': 'Schopenhauer'})
+        bundle = self.session.approvals()
+        self.assertEqual(bundle['entries'][0]['word'], 'Schopenhauer')
+        self.assertEqual(bundle['repairs'][0]['replacement'], 'Schopenhauer')
+        updated, added = apply_human_admissions(
+            self.session.lexicon, bundle,
+            effective_review(self.session.baseline, self.session.proposals,
+                self.session.reviewed, bundle,
+                *[self.session.snapshots[k] for k in (
+                  'baseline_sha256','proposals_sha256','reviewed_sha256','lexicon_sha256')])[0],
+            self.session.baseline, self.session.snapshots['baseline_sha256'],
+            self.session.snapshots['lexicon_sha256'])
+        self.assertEqual(added[0]['word'], 'Schopenhauer')
+        self.assertEqual(len(updated['entries']), 1)
+        self.assertEqual(self.make_session().decisions['schopenhuaer']['word'], 'Schopenhauer')
+
     def test_human_can_create_repair_and_delete_numeric_span_without_lexicon_admission(self):
         fid = next(f['id'] for f in self.session.reviewed['findings']
                    if f['observed'] == 'infrequentword')
