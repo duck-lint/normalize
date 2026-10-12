@@ -95,6 +95,61 @@ class HumanLexiconReviewTests(unittest.TestCase):
                                            'finding_id': finding_id, 'note': note,
                                            'inspected': inspected})
 
+    def test_numeric_mixed_trigger_findings_are_visible_but_never_admissible(self):
+        # Actual merged probe shapes from The First Philosophers: lexical
+        # reports can contain a longer adjacency span with digits.
+        cases = [('450HerodotusT', None, None),
+                 ('YYlL1u1t', '', 'approved'),
+                 ('8oBio', '80B10', 'approved')]
+        baseline = json.loads(self.base.read_bytes())
+        for n, (word, _, _) in enumerate(cases, 1):
+            text = 'Timeline ' + word + ' marker'
+            finding = copy.deepcopy(baseline['findings'][0])
+            finding.update(id=f'page{n+30:03d}:lower_upper:9',
+                           page=f'page{n+30:03d}', rule='lower_upper',
+                           triggers=['lower_upper', 'unrecognized_token'],
+                           source_image='page01.png', observed=word,
+                           start_byte=9, end_byte=9 + len(word.encode()),
+                           source_md_sha256=hashlib.sha256(text.encode()).hexdigest(),
+                           ocr_context={'provenance': 'derived_whitespace_markdown',
+                                        'start_byte': 0, 'end_byte': len(text.encode()),
+                                        'text': text})
+            baseline['findings'].append(finding)
+        self.base.write_text(json.dumps(baseline))
+        extracted = extract(baseline)
+        proposals = json.loads(self.propose.read_bytes())
+        proposals['findings'].extend(copy.deepcopy(extracted['findings'][-3:]))
+        proposals['vocabulary'] = extracted['vocabulary']
+        for finding, (_, proposed, _) in zip(proposals['findings'][-3:], cases):
+            if proposed is not None:
+                finding.update(proposed=proposed, proposal_source='codex_scan_proposal',
+                               evidence='Scan confirms this exact replacement')
+        self.propose.write_text(json.dumps(proposals))
+        reviewed = json.loads(self.verified.read_bytes())
+        reviewed['findings'] = copy.deepcopy(proposals['findings'])
+        reviewed['vocabulary'] = proposals['vocabulary']
+        for finding, (_, proposed, status) in zip(reviewed['findings'][-3:], cases):
+            finding['review'] = {'status': status,
+                                 'note': 'Independent scan review of merged token'}
+        self.verified.write_text(json.dumps(reviewed))
+        fresh = self.make_session()  # must not reject the complete report
+        for word, proposed, _ in cases:
+            group = fresh.groups[word.casefold()]
+            self.assertFalse(group['admissible'])
+            self.assertEqual(group['eligible_count'], 0)
+            occurrence = group['occurrences'][0]
+            self.assertFalse(occurrence['eligible'])
+            self.assertEqual(occurrence['context'][1], word)
+            self.assertEqual(occurrence['proposed'], proposed)
+            with self.assertRaisesRegex(ValueError, 'Invalid review approval'):
+                fresh.save_decision({'key': group['key'], 'decision': 'accepted',
+                                     'finding_id': occurrence['id'],
+                                     'note': 'Inspected the scan', 'inspected': True})
+        fresh.save_decision({'key': '450herodotust', 'decision': 'rejected',
+                             'finding_id': None, 'note': 'Not a lexical word',
+                             'inspected': False})
+        self.assertEqual(fresh.approvals()['entries'], [])
+
     def test_unique_vocabulary_and_mixed_repair_evidence(self):
         self.assertEqual(len(self.session.groups), 4)
         group = self.session.groups['newtonic']
