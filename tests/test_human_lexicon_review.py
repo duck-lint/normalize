@@ -251,6 +251,34 @@ class HumanLexiconReviewTests(unittest.TestCase):
         self.assertTrue(self.session.findings[fid]['eligible'])
         self.assertEqual(self.session.approvals()['repairs'], [])
 
+    def test_executor_builds_human_deletion_with_original_byte_span_and_authority(self):
+        from execute_lexical_repairs import build
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'infrequentword')
+        self.repair(fid, 'approved', '')
+        bundle = self.session.approvals()
+        effective, repairs = effective_review(
+            self.session.baseline, self.session.proposals, self.session.reviewed, bundle,
+            *[self.session.snapshots[k] for k in (
+              'baseline_sha256', 'proposals_sha256', 'reviewed_sha256', 'lexicon_sha256')])
+        artifacts = {}
+        for finding in self.session.baseline['findings']:
+            name = finding['paddle_markdown']
+            path = self.root / name
+            path.write_text(finding['ocr_context']['text'])
+            artifacts[name] = path
+        self.session.baseline['inputs']['paddle_dir_sha256'] = 'untouched-whitespace-stage'
+        output, ledger = build(self.session.baseline, effective, artifacts,
+                               'source-lexicon-sha', 'target-lexicon-sha', [], repairs)
+        page = next(f['paddle_markdown'] for f in effective['findings'] if f['id'] == fid)
+        self.assertNotIn(b'infrequentword', output[page])
+        self.assertEqual(ledger['human_occurrence_repair_decisions'], repairs)
+        executed = next(r for r in ledger['changes'] if r['id'] == fid)
+        self.assertEqual(executed['authority'], 'human_scan_approval')
+        self.assertEqual(executed['proposed'], '')
+        self.assertEqual(executed['start_byte'], 17)
+        self.assertEqual(executed['end_byte'], 17 + len('infrequentword'))
+
     def test_human_repair_bundle_refuses_changed_frozen_reports_and_duplicate_ids(self):
         fid = next(f['id'] for f in self.session.reviewed['findings']
                    if f['observed'] == 'infrequentword')
