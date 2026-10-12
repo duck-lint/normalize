@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Normalize · Human Lexicon Review</title>
+  <title>Normalize · Human Repair and Lexicon Review</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/metrics.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
 <header class="app-header">
-  <div class="brand"><div class="brand-mark">N</div><div><strong>Normalize</strong><span>HUMAN LEXICON REVIEW</span></div></div>
-  <div class="header-right"><div class="stat"><strong id="decisionProgress">—</strong><span>decisions</span></div><div class="stat"><strong id="acceptProgress">—</strong><span>accepted</span></div><button id="export" class="primary">Export approved JSON</button></div>
+  <div class="brand"><div class="brand-mark">N</div><div><strong>Normalize</strong><span>HUMAN REPAIR + LEXICON REVIEW</span></div></div>
+  <div class="header-right"><div class="stat"><strong id="decisionProgress">—</strong><span>decisions</span></div><div class="stat"><strong id="acceptProgress">—</strong><span>accepted</span></div><button id="export" class="primary">Export human decisions JSON</button></div>
 </header>
 <main class="layout">
   <aside class="sidebar">
@@ -56,12 +56,21 @@
           <div class="source-disclaimer">Context comes from OCR. It is not independent evidence. Inspect the scanned page to verify the precise printed form.</div>
           <div id="repairInfo" class="repair-info" hidden></div>
           <div id="sourceInfo" class="source-info" hidden></div>
-          <div class="section-label">HUMAN DECISION</div>
+          <div class="section-label">OCR REPAIR — SELECTED OCCURRENCE ONLY</div>
+          <div id="codexRepair" class="source-info"></div>
+          <label class="note-label" for="replacement">Exact replacement text (leave empty to delete the observed span)</label>
+          <textarea id="replacement" rows="2" spellcheck="false" aria-label="Human OCR replacement"></textarea>
+          <label class="note-label" for="repairNote">Direct scan evidence / reason for this override</label>
+          <textarea id="repairNote" rows="2" placeholder="What is visibly printed here, and why is this correction or rejection warranted?"></textarea>
+          <label class="confirmation"><input type="checkbox" id="repairInspected"><span>I visually inspected this exact occurrence in the original scan.</span></label>
+          <div class="actions"><button id="approveRepair" class="accept" type="button">Approve this repair</button><button id="rejectRepair" class="reject" type="button">Reject Codex repair</button><button id="clearRepair" class="secondary" type="button">Clear my override</button></div>
+          <div id="repairDecisionInfo" class="source-disclaimer"></div>
+          <div class="section-label">PERSISTENT LEXICON — INDEPENDENT DECISION</div>
           <label class="note-label" for="note">Reason / source evidence</label>
           <textarea id="note" rows="3" placeholder="E.g., scanned page 42 clearly prints this technical term in Greek; no correction needed…"></textarea>
           <label class="confirmation"><input type="checkbox" id="inspected"><span>I personally checked this exact occurrence in the original scan.</span></label>
-          <div class="actions"><button id="accept" class="accept">A · Accept word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
-          <div class="explanation">Accept adds the exact spelling to a **generated approval file**, not directly to the lexicon. Reject and Skip never become admissions. Approved OCR repairs remain a separate executor decision.</div>
+          <div class="actions"><button id="accept" class="accept">A · Admit word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
+          <div class="explanation">Vocabulary admission concerns the observed word form across texts. OCR repair concerns only this exact occurrence. Each decision is independent; neither automatically authorizes the other. No source files change until you run the executor.</div>
         </section>
       </div>
       <div class="occur-section"><div class="occur-heading"><strong>Occurrences in this book</strong><span id="occurTotal"></span></div><div id="occurrenceList" class="occur-list"></div></div>
@@ -71,6 +80,6 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <dialog id="bulkDialog"><h2>Reject filtered lexical forms</h2><p>This rejects <strong id="bulkCount"></strong> currently visible, pending lexical types where <strong>every occurrence has an independently approved OCR repair</strong>. It does not change any spacing or character repair, and it never admits a word to the lexicon.</p><p id="bulkExcluded" class="source-disclaimer"></p><div class="bulk-preview" id="bulkPreview"></div><label class="confirmation"><input id="bulkAcknowledged" type="checkbox"><span>I've reviewed this filtered group and intend to reject these words <strong>from the global lexicon admission batch only</strong>.</span></label><div class="dialog-actions"><button id="cancelBulk" class="secondary">Cancel</button><button id="confirmBulk" class="reject" disabled>Reject these lexical forms</button></div></dialog>
 <dialog id="sourceBulkDialog"><h2>Reject source-verified printed irregularities</h2><p>This excludes <strong id="sourceBulkCount"></strong> visible, pending lexical forms from <strong>global vocabulary admission only</strong>. Every occurrence must have an independently verified source-faithful nonlexical note. No OCR repairs or shared lexicon entries change.</p><p id="sourceBulkExcluded" class="source-disclaimer"></p><div class="bulk-preview" id="sourceBulkPreview"></div><label class="confirmation"><input id="sourceBulkAcknowledged" type="checkbox"><span>I reviewed this group and intend to exclude these marked forms from this book's <strong>vocabulary admission batch</strong>. Genuine historical/foreign vocabulary must be reviewed separately.</span></label><div class="dialog-actions"><button id="cancelSourceBulk" class="secondary">Cancel</button><button id="confirmSourceBulk" class="reject" disabled>Reject marked lexical forms</button></div></dialog>
-<dialog id="exportDialog"><h2>Review export</h2><p>This creates a new, hash-bound approvals JSON. It does not execute repairs or update the lexicon.</p><div id="exportSummary"></div><div class="dialog-actions"><button id="cancelExport" class="secondary">Cancel</button><button id="confirmExport" class="primary">Generate approval file</button></div></dialog>
+<dialog id="exportDialog"><h2>Review export</h2><p>This creates one new hash-bound human decisions JSON with separate occurrence repair overrides and persistent vocabulary admissions. It does not execute repairs or update the lexicon.</p><div id="exportSummary"></div><div class="dialog-actions"><button id="cancelExport" class="secondary">Cancel</button><button id="confirmExport" class="primary">Generate approval file</button></div></dialog>
 </body>
 </html>
