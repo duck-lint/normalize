@@ -20,10 +20,12 @@ import webbrowser
 
 from artifact_directory import directory_files, directory_sha256
 from execute_lexical_repairs import validate_handoffs
+from human_lexical_approvals import HUMAN_APPROVAL_FORMAT, effective_review
 from lexicon_store import (APPROVAL_FORMAT, apply_human_admissions,
                            canonical, read_lexicon, valid_word)
 
-PROGRESS_FORMAT = 'human_lexicon_review_progress_v1'
+PROGRESS_FORMAT = 'human_lexicon_review_progress_v2'
+LEGACY_PROGRESS_FORMAT = 'human_lexicon_review_progress_v1'
 SOURCE_FAITHFUL_MARKER = 'SOURCE_FAITHFUL_NONLEXICAL_VERIFIED:'
 
 
@@ -102,6 +104,8 @@ class ReviewSession:
         self.groups = {}
         self.group_index = {}
         self.findings = {}
+        self.reviewed_by_id = {f['id']: f for f in self.reviewed['findings']}
+        self.repair_decisions = {}
         source_by_id = {f['id']: f for f in self.baseline['findings']}
         for finding in self.reviewed['findings']:
             fid = finding['id']
@@ -123,7 +127,11 @@ class ReviewSession:
                     'suggested': finding.get('lexicon_suggestion') is True,
                     'source_faithful': source_faithful_verified(finding),
                     'source_note': finding['review'].get('note') if source_faithful_verified(finding) else None,
-                    'eligible': admissible and proposed is None and finding['review']['status'] is None}
+                    'eligible': admissible and proposed is None and finding['review']['status'] is None,
+                    'codex_proposed': proposed,
+                    'codex_review_status': finding['review']['status'],
+                    'codex_review_note': finding['review']['note'],
+                    'admissible': admissible}
             self.findings[fid] = item
             group = self.groups.setdefault(key, {'key': key, 'word': finding['observed'],
                                                   'occurrences': [], 'count': 0,
@@ -145,14 +153,96 @@ class ReviewSession:
         self.decisions = {}
         if paths['progress'].exists():
             state = json.loads(paths['progress'].read_bytes())
-            if (not isinstance(state, dict) or state.get('format') != PROGRESS_FORMAT
+            old = isinstance(state, dict) and state.get('format') == LEGACY_PROGRESS_FORMAT
+            keys = ({'format', 'snapshots', 'decisions'} if old else
+                    {'format', 'snapshots', 'decisions', 'repair_decisions'})
+            if (not isinstance(state, dict) or
+                    state.get('format') not in (PROGRESS_FORMAT, LEGACY_PROGRESS_FORMAT)
                     or state.get('snapshots') != self.snapshots
                     or not isinstance(state.get('decisions'), dict)
-                    or set(state) != {'format', 'snapshots', 'decisions'}):
+                    or set(state) != keys
+                    or (not old and not isinstance(state.get('repair_decisions'), dict))):
                 raise ValueError('Saved progress references different source snapshots')
+            self.repair_decisions = state.get('repair_decisions', {})
+            for fid, record in self.repair_decisions.items():
+                self._validate_repair_record(fid, record)
+            self._refresh_repair_views()
             for key, record in state['decisions'].items():
                 self._validate_decision(key, record)
             self.decisions = state['decisions']
+
+    def _validate_repair_record(self, fid, record):
+        original = self.findings.get(fid)
+        if (original is None or not isinstance(record, dict)
+                or set(record) != {'observed', 'decision', 'replacement', 'note'}
+                or record['observed'] != original['word']
+                or not isinstance(record['note'], str) or not record['note'].strip()
+                or record['decision'] not in ('approved', 'rejected')
+                or (record['decision'] == 'approved' and
+                    (not isinstance(record['replacement'], str)
+                     or record['replacement'] == original['word']))
+                or (record['decision'] == 'rejected' and
+                    (record['replacement'] is not None
+                     or original['codex_proposed'] is None))):
+            raise ValueError(f'Invalid human occurrence repair decision: {fid}')
+
+    def _refresh_repair_views(self):
+        for fid, item in self.findings.items():
+            human = self.repair_decisions.get(fid)
+            original = item['codex_proposed']
+            item['proposed'] = (human['replacement'] if human['decision'] == 'approved'
+                                else None) if human else original
+            item['review_status'] = (human['decision'] if human and
+                                      human['decision'] == 'approved' else None) if human else item['codex_review_status']
+            item['human_repair'] = human
+            item['eligible'] = (item['admissible'] and item['proposed'] is None
+                                and item['review_status'] is None)
+            source = self.reviewed_by_id[fid]
+            item['source_faithful'] = (human is None and source_faithful_verified(source))
+            item['source_note'] = source['review']['note'] if item['source_faithful'] else None
+        for group in self.groups.values():
+            items = group['occurrences']
+            group['repair_count'] = sum(i['proposed'] is not None for i in items)
+            group['verified_repair_count'] = sum(
+                i['proposed'] is not None and i['review_status'] == 'approved' for i in items)
+            group['eligible_count'] = sum(bool(i['eligible']) for i in items)
+            group['source_faithful_count'] = sum(bool(i['source_faithful']) for i in items)
+
+    def save_repair_decision(self, data):
+        if not isinstance(data, dict) or set(data) != {
+                'finding_id', 'decision', 'replacement', 'note', 'inspected'}:
+            raise ValueError('Unexpected human repair decision fields')
+        fid = data['finding_id']
+        choice = data['decision']
+        if fid not in self.findings or choice not in ('approved', 'rejected', 'pending'):
+            raise ValueError('Unknown finding or repair decision')
+        if choice != 'pending' and data['inspected'] is not True:
+            raise ValueError('Direct source-scan inspection acknowledgment is required')
+        if choice == 'pending' and data['replacement'] is not None:
+            raise ValueError('Clearing an override must not include a replacement')
+        record = {'observed': self.findings[fid]['word'], 'decision': choice,
+                  'replacement': data['replacement'], 'note': data['note']}
+        if choice != 'pending':
+            self._validate_repair_record(fid, record)
+        self._check_unchanged()
+        prior = self.repair_decisions.get(fid)
+        if choice == 'pending':
+            self.repair_decisions.pop(fid, None)
+        else:
+            self.repair_decisions[fid] = record
+        self._refresh_repair_views()
+        try:
+            for key, decision in self.decisions.items():
+                self._validate_decision(key, decision)
+        except ValueError:
+            if prior is None:
+                self.repair_decisions.pop(fid, None)
+            else:
+                self.repair_decisions[fid] = prior
+            self._refresh_repair_views()
+            raise ValueError('Repair change would invalidate existing vocabulary admission; clear the admission first')
+        self._save_progress()
+        return {'saved': True, 'repair_decisions': self.repair_decisions}
 
     def _validate_decision(self, key, record):
         group = self.groups.get(key)
@@ -247,7 +337,7 @@ class ReviewSession:
         path = self.paths['progress']
         path.parent.mkdir(parents=True, exist_ok=True)
         state = {'format': PROGRESS_FORMAT, 'snapshots': self.snapshots,
-                 'decisions': self.decisions}
+                 'decisions': self.decisions, 'repair_decisions': self.repair_decisions}
         raw = (json.dumps(state, ensure_ascii=False, indent=2) + '\n').encode('utf-8')
         fd, name = tempfile.mkstemp(prefix=f'.{path.name}.', dir=path.parent)
         try:
@@ -304,6 +394,7 @@ class ReviewSession:
         for group in self.groups.values():
             public_groups.append({**group, 'occurrences': group['occurrences']})
         return {'groups': public_groups, 'decisions': self.decisions,
+                'repair_decisions': self.repair_decisions,
                 'output': str(self.paths['output']),
                 'snapshots': self.snapshots}
 
@@ -367,7 +458,10 @@ class ReviewHandler(BaseHTTPRequestHandler):
             return
         try:
             data = json.loads(self.rfile.read(int(length)))
-            if self.path == '/api/decision':
+            if self.path == '/api/repair-decision':
+                with self.server.session.lock:
+                    result = self.server.session.save_repair_decision(data)
+            elif self.path == '/api/decision':
                 with self.server.session.lock:
                     result = self.server.session.save_decision(data)
             elif self.path == '/api/bulk-reject':
