@@ -69,8 +69,8 @@
           <label class="note-label" for="note">Reason / source evidence</label>
           <textarea id="note" rows="3" placeholder="E.g., scanned page 42 clearly prints this technical term in Greek; no correction needed…"></textarea>
           <label class="confirmation"><input type="checkbox" id="inspected"><span>I personally checked this exact occurrence in the original scan.</span></label>
-          <div class="actions"><button id="accept" class="accept">A · Admit word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
-          <div class="explanation">Vocabulary admission concerns the observed word form across texts. OCR repair concerns only this exact occurrence. Each decision is independent; neither automatically authorizes the other. No source files change until you run the executor.</div>
+          <div class="actions"><button id="accept" class="accept">A · Admit observed word</button><button id="acceptCorrected" class="accept" type="button">Admit corrected word</button><button id="reject" class="reject">R · Reject</button><button id="skip" class="secondary">K · Clear / skip</button></div>
+          <div class="explanation">Admit observed word only when this occurrence needs no repair; admit corrected word only when its exact replacement was scan-approved. Both require separate human scan inspection. These choices govern the persistent lexicon; the repair controls above govern only this occurrence. No source files change until you run the executor.</div>
         </section>
       </div>
       <div class="occur-section"><div class="occur-heading"><strong>Occurrences in this book</strong><span id="occurTotal"></span></div><div id="occurrenceList" class="occur-list"></div></div>
