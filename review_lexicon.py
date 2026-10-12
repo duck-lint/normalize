@@ -149,6 +149,7 @@ class ReviewSession:
             group['source_faithful_count'] += bool(item['source_faithful'])
         self.groups = dict(sorted(self.groups.items(), key=lambda pair:
                                   (-pair[1]['count'], -pair[1]['suggested_count'], pair[0])))
+        self._refresh_repair_views()
         self.lock = threading.RLock()
         self.decisions = {}
         if paths['progress'].exists():
@@ -370,11 +371,21 @@ class ReviewSession:
             entries.append({'word': finding['word'], 'finding_id': record['finding_id'],
                             'approved': True, 'note': record['note'].strip()})
         entries.sort(key=lambda item: canonical(item['word']))
-        result = {'format': APPROVAL_FORMAT,
+        repairs = [{'finding_id': fid, **record}
+                   for fid, record in sorted(self.repair_decisions.items())]
+        result = {'format': HUMAN_APPROVAL_FORMAT,
                   'source_report_sha256': self.snapshots['baseline_sha256'],
-                  'lexicon_sha256': self.snapshots['lexicon_sha256'], 'entries': entries}
-        # Exercise the *same* admission validation used by the production executor.
-        apply_human_admissions(self.lexicon, result, self.reviewed, self.baseline,
+                  'source_proposals_sha256': self.snapshots['proposals_sha256'],
+                  'source_reviewed_sha256': self.snapshots['reviewed_sha256'],
+                  'source_scans_sha256': self.snapshots['scans_sha256'],
+                  'lexicon_sha256': self.snapshots['lexicon_sha256'],
+                  'entries': entries, 'repairs': repairs}
+        # Validate both independently against the exact frozen reports.
+        effective, _ = effective_review(
+            self.baseline, self.proposals, self.reviewed, result,
+            self.snapshots['baseline_sha256'], self.snapshots['proposals_sha256'],
+            self.snapshots['reviewed_sha256'], self.snapshots['lexicon_sha256'])
+        apply_human_admissions(self.lexicon, result, effective, self.baseline,
                                self.snapshots['baseline_sha256'], self.snapshots['lexicon_sha256'])
         return result
 
@@ -509,7 +520,7 @@ def run():
         server.session = session
         server.token = secrets.token_urlsafe(32)
         url = f'http://127.0.0.1:{server.server_port}/'
-        print(f'Local human vocabulary reviewer: {url}', flush=True)
+        print(f'Local human lexical repair and vocabulary reviewer: {url}', flush=True)
         print(f'{len(session.groups)} distinct lexical forms, {sum(g["count"] for g in session.groups.values())} occurrences', flush=True)
         print(f'Progress saves to: {progress}; export writes only to: {args.out}', flush=True)
         if not args.no_browser:
