@@ -84,7 +84,14 @@ def join(stage, baseline, source, batches):
                     raise ValueError(f"Unreviewed or invalid verification outcome: {fid}")
                 comparable["review"] = copy.deepcopy(original_finding["review"])
                 if comparable != original_finding:
-                    raise ValueError(f"Unauthorized verification-stage edit: {fid}")
+                    changed = sorted(
+                        key for key in set(comparable) | set(original_finding)
+                        if comparable.get(key) != original_finding.get(key)
+                    )
+                    raise ValueError(
+                        f"Unauthorized verification-stage edit: {fid}; "
+                        f"batch={filename}; changed_fields={','.join(changed)}"
+                    )
                 decisions[fid] = copy.deepcopy(review)
 
     missing = [fid for fid in ids if fid not in decisions]
