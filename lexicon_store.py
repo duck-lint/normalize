@@ -86,11 +86,19 @@ def apply_human_admissions(lexicon, approvals, reviewed, baseline, baseline_hash
         fid = entry["finding_id"]
         finding = by_id.get(fid)
         original = base_ids.get(fid)
-        if (finding is None or original is None
-                or "unrecognized_token" not in original["triggers"]
-                or canonical(entry["word"]) != canonical(original["observed"])
-                or finding["proposed"] is not None or finding["review"]["status"] is not None):
-            raise ValueError(f"Lexicon admission not supported by an unrepaired finding: {fid}")
+        if finding is None or original is None or "unrecognized_token" not in original["triggers"]:
+            raise ValueError(f"Lexicon admission not supported by source finding: {fid}")
+        # Independently authorized: either the observed source-faithful word,
+        # OR the exact approved replacement if it is a single valid lexical form.
+        observed_ok = (canonical(entry["word"]) == canonical(original["observed"])
+                       and finding["proposed"] is None
+                       and finding["review"]["status"] is None)
+        corrected_ok = (finding["proposed"] is not None
+                        and finding["review"]["status"] == "approved"
+                        and valid_word(finding["proposed"])
+                        and canonical(entry["word"]) == canonical(finding["proposed"]))
+        if not (observed_ok or corrected_ok):
+            raise ValueError(f"Lexicon admission not supported by source-verified word: {fid}")
         key = canonical(entry["word"])
         if key in existing:
             raise ValueError(f"Word already admitted in lexicon or approval file: {entry['word']}")
