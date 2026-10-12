@@ -1,6 +1,9 @@
 # Human vocabulary review app
 
-This is the separate **human** acceptance handoff for global lexicon entries.
+This is the separate **human** handoff for two independent judgments:
+per-occurrence source-scan OCR repairs and global lexicon entries.
+Both can be exported in one hash-bound human approvals JSON. No frozen Codex
+proposal or verifier report is modified.
 It runs *after* the two Codex sessions and *before* lexical execution.
 During the multilingual dictionary cutover, the new Probe 2 has different
 candidate provenance and potentially different findings. Archive old English-only
@@ -194,6 +197,41 @@ your earlier `--baseline`, `--proposals` and `--reviewed` arguments.
 **Occurrence repair approvals** in lexical-reviewed.json and **global
 vocabulary admissions** in this approval file remain independent. Do not edit
 the frozen reports to record lexicon decisions.
+
+## Human OCR repair overrides (selected occurrence only)
+
+The source scan is authoritative. At each occurrence the human reviewer may
+**create or replace an OCR proposition and approve it**, reject a Codex
+proposal, or clear the human override to restore the frozen Codex decision.
+An empty replacement deliberately deletes the observed span. Approving or
+rejecting an OCR repair requires a nonempty direct-scan evidence note and an
+explicit inspection acknowledgment. These are **not vocabulary admissions**.
+
+Occurrence-level human decisions are saved alongside vocabulary decisions in
+the same progress JSON, and exported as `repairs` in
+`human_lexical_approvals_v2`. Existing `human_lexicon_approvals_v1`
+files remain supported for lexicon-only execution, and older progress files
+load with no occurrence overrides. The new combined JSON includes hashes of
+Probe 2, frozen Codex proposals, frozen independent verification, scans and
+the original lexicon; the executor rejects stale or altered sources.
+
+The existing `--lexicon-approvals` argument accepts the combined approval
+file. The executor first validates untouched Codex handoffs, then applies
+explicit human overrides to an **in-memory** effective review, checks original
+byte spans and collisions, and produces the normal new Markdown derivative.
+The execution ledger records human decisions and labels the authority for
+each executed repair. Rejected Codex repairs are suppressed; untouched
+occurrences retain their independent verifier decisions. A human repair
+override may make a previously unrepaired occurrence ineligible for vocabulary
+admission, while rejecting a Codex proposition can make it eligible if its
+observed spelling is a valid word. Existing human vocabulary approvals must
+remain supported by an eligible unrepaired occurrence.
+
+Neither saving progress nor exporting the approval file changes OCR text or
+the persistent lexicon. The human still dry-runs the executor and explicitly
+chooses when to execute. No OCR, probe, agent review, or join must be rerun.
+Stop the old local reviewer and launch the updated UI against the **same**
+frozen reports and scans; existing v1 progress is retained.
 
 ## Snapshot and local security
 
