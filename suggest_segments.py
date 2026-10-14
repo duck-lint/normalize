@@ -16,7 +16,7 @@ from pathlib import Path
 from artifact_directory import directory_files, directory_sha256
 from lexical_detection import lexical_character, lexical_visibility
 from lexicon_store import canonical, read_lexicon
-from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR
+from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR, LANGUAGES
 
 
 def known_counts(files, recognizes):
@@ -73,7 +73,11 @@ def main():
     p.add_argument("--paddle", type=Path, required=True, help="Current derived Markdown directory")
     p.add_argument("--lexicon", type=Path, required=True)
     p.add_argument("--hunspell-dir", type=Path, default=DEFAULT_DICTIONARY_DIR,
-                   help="Same en_US, de_DE, fr_FR dictionary directory used for the probe")
+                   help="Same Hunspell directory used for the probe")
+    p.add_argument("--locales", nargs="+", default=list(LANGUAGES), metavar="LOCALE",
+                   help="Same ordered locale list used for the probe")
+    p.add_argument("--historical-names", type=Path,
+                   help="Same immutable historical name list used for the probe")
     p.add_argument("--out", type=Path, required=True, help="Read-only segmentation hint sidecar")
     args = p.parse_args()
     if args.out.exists():
@@ -88,12 +92,15 @@ def main():
     if directory_sha256(files) != report["inputs"]["paddle_dir_sha256"]:
         p.error("Derived OCR snapshot changed since probe")
     try:
-        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=words)
-    except (RuntimeError, OSError, LookupError, UnicodeError) as exc:
+        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=words,
+                              languages=args.locales, historical_names=args.historical_names)
+    except (RuntimeError, OSError, LookupError, UnicodeError, ValueError) as exc:
         p.error(f"Cannot initialize all required dictionaries: {exc}")
     try:
-        if spelling.digests != report["inputs"]["dictionary_sha256"]:
-            p.error("Hunspell dictionary changed since probe")
+        if (spelling.digests != report["inputs"]["dictionary_sha256"]
+                or spelling.historical_names_sha256 !=
+                report["inputs"].get("historical_names_sha256")):
+            p.error("Dictionary locale set or historical-name snapshot changed since probe")
         counts = known_counts(files, spelling.recognizes)
         generated = [{"finding_id": finding["id"], "observed": finding["observed"],
                       "candidates": segments(finding["observed"], spelling.recognizes, counts)}
@@ -104,6 +111,7 @@ def main():
               "source_report_sha256": hashlib.sha256(report_bytes).hexdigest(),
               "lexicon_sha256": lexicon_hash,
               "dictionary_sha256": report["inputs"]["dictionary_sha256"],
+              "historical_names_sha256": report["inputs"].get("historical_names_sha256"),
               "source_artifact_dir_sha256": report["inputs"]["paddle_dir_sha256"],
               "suggestions": generated}
     args.out.parent.mkdir(parents=True, exist_ok=True)

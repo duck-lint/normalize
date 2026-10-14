@@ -10,14 +10,17 @@ The existence of a plausible word or recurring token is NOT evidence that OCR is
 
 Two distinct authorizations: review.status = "approved" on a reviewed finding enables the *specific proposed replacement*, once the human explicitly runs the executor. A **separate human-authored approval file** with approved = true authorizes persistent lexicon admission of an *unrepaired observed occurrence*. Codex suggestions are never admissions.
 
-Baseline recognition checks en_US, de_DE, and fr_FR Hunspell (with each
-locale's own affix rules), then the separate human-approved lexicon. Every
-pair is mandatory; if one is missing the probe stops. The probe records all
-six file hashes under inputs.dictionary_sha256[language], preserving the
-conditions under which a candidate was detected. A matching word does NOT
-prove which language it belongs to or that the OCR matches the scan;
-cross-language recognition can hide some OCR mistakes. Greek and historical
-spellings can remain unknown.
+By default, recognition checks en_US, de_DE, and fr_FR Hunspell (with each
+locale's own affix rules), then the separate human-approved lexicon. The
+`--locales` option permits a required, ordered list such as
+`en_US en_CA en_GB de_DE fr_FR`. The optional `--historical-names` option
+accepts a sourced, capitalized single-token name list and hashes the raw
+file bytes. Missing configured dictionaries fail closed; hashes are recorded
+under `inputs.dictionary_sha256`, and the optional name-list hash under
+`inputs.historical_names_sha256`. Names match capitalized forms only.
+External recognition never admits to the human lexicon and does not establish
+transcription correctness. See [dictionary coverage](dictionary-coverage.md)
+for installation, sourced historical-name imports, provenance and CLI use.
 
 The persistent lexicon is JSON: lexicon.json is an empty starting template in the tools repo. It may instead live under a shared, long-lived path outside the per-book workspaces. Each entry carries the exact word, a human note, and an approval record linking it to a finding, the unchanged full probe report hash and scan-directory hash. NFC and casefold are used only in membership checks; the OCR text is never normalized. The lexicon file's exact SHA-256 is recorded by probes and required by execution. Changes become visible only when a subsequent probe explicitly reads the updated file.
 
