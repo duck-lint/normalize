@@ -1,4 +1,4 @@
-"""Snapshot-bound English, German and French Hunspell recognition.
+"""Snapshot-bound configurable Hunspell and historical-name recognition.
 
 A matching dictionary establishes only lexical recognition, not language,
 correctness of OCR, or source fidelity. It never admits a custom lexicon entry.
@@ -8,10 +8,12 @@ from ctypes.util import find_library
 import hashlib
 import os
 from pathlib import Path
+import re
 
-from lexicon_store import canonical
+from lexicon_store import canonical, valid_word
 
-LANGUAGES = ("en_US", "de_DE", "fr_FR")
+LANGUAGES = ("en_US", "de_DE", "fr_FR")  # Backward-compatible default
+LOCALE_PATTERN = re.compile(r"^[a-z]{2,3}_[A-Z]{2}$")
 DEFAULT_DICTIONARY_DIR = Path("/usr/share/hunspell")
 
 
@@ -20,21 +22,28 @@ def sha256(data):
 
 
 class Spellcheck:
-    """Require all 3 named aff/dic pairs; fail closed when any is unavailable.
+    """Load explicitly configured .aff/.dic pairs and optional sourced names.
 
-    Keep Hunspell's per-dictionary affix rules and character encodings.
-    Membership in the separately human-approved lexicon is checked first.
+    Each locale is mandatory, and every input is hashed for probe provenance.
+    Historical names match only capitalized OCR tokens; they cannot silently
+    suppress ordinary lowercase words. The human lexicon remains separate.
     """
-    def __init__(self, dictionary_dir=DEFAULT_DICTIONARY_DIR, lexicon_words=None):
+    def __init__(self, dictionary_dir=DEFAULT_DICTIONARY_DIR, lexicon_words=None,
+                 languages=LANGUAGES, historical_names=None):
+        self.languages = tuple(languages)
+        if (not self.languages or len(self.languages) != len(set(self.languages))
+                or any(not isinstance(name, str) or
+                       LOCALE_PATTERN.fullmatch(name) is None for name in self.languages)):
+            raise ValueError("Dictionary locales must be unique identifiers like en_CA")
         root = Path(dictionary_dir)
         paths = {}
-        for language in LANGUAGES:
+        for language in self.languages:
             aff = root / (language + ".aff")
             dic = root / (language + ".dic")
             if not aff.is_file() or not dic.is_file():
                 raise RuntimeError(
                     f"Missing Hunspell {language} .aff/.dic in {root}; "
-                    "all en_US, de_DE and fr_FR dictionaries are required")
+                    f"all configured dictionaries are required: {self.languages}")
             paths[language] = (aff, dic)
 
         libpath = find_library("hunspell-1.7")
@@ -53,6 +62,24 @@ class Spellcheck:
         self.encodings = {}
         self.digests = {}
         self.lexicon_words = lexicon_words if lexicon_words is not None else set()
+        self.historical_names = set()
+        self.historical_names_sha256 = None
+        if historical_names is not None:
+            raw = Path(historical_names).read_bytes()
+            if len(raw) > 10_000_000:
+                raise ValueError("Historical name list too large")
+            self.historical_names_sha256 = sha256(raw)
+            for line_number, line in enumerate(raw.decode("utf-8-sig").splitlines(), 1):
+                name = line.strip()
+                if not name or name.startswith("#"):
+                    continue
+                if (name != line or not valid_word(name) or not name[0].isupper()
+                        or len(name) < 4):
+                    raise ValueError(f"Invalid capitalized, single-token name on line {line_number}")
+                key = canonical(name)
+                if key in self.historical_names:
+                    raise ValueError(f"Duplicate historical name on line {line_number}")
+                self.historical_names.add(key)
 
         try:
             for language, (aff, dic) in paths.items():
@@ -76,7 +103,10 @@ class Spellcheck:
     def recognizes(self, word):
         if canonical(word) in self.lexicon_words:
             return True
-        for language in LANGUAGES:
+        if (isinstance(word, str) and word and word[0].isupper()
+                and canonical(word) in self.historical_names):
+            return True
+        for language in self.languages:
             try:
                 encoded = word.encode(self.encodings[language])
             except (UnicodeEncodeError, LookupError):
