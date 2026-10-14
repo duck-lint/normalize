@@ -11,7 +11,7 @@ from lexical_detection import lexical_visibility, unrecognized_spans, word_chara
 from lexical_provenance import comparison_views
 from whitespace_provenance import whitespace_proposal
 from lexicon_store import read_lexicon
-from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR
+from multilingual_spellcheck import Spellcheck, DEFAULT_DICTIONARY_DIR, LANGUAGES
 
 # The rules are explicit and inspectable. Every hit is a *candidate*, not a correction.
 ADJACENCY = {
@@ -94,7 +94,11 @@ def main():
     parser.add_argument("--out", type=Path, required=True, help="New full candidate report JSON path")
     parser.add_argument("--lexicon", type=Path, help="Persistent human-approved lexicon snapshot; hash recorded in report")
     parser.add_argument("--hunspell-dir", type=Path, default=DEFAULT_DICTIONARY_DIR,
-                        help="Directory with en_US, de_DE and fr_FR .aff/.dic pairs (default: /usr/share/hunspell)")
+                        help="Directory containing configured Hunspell .aff/.dic pairs")
+    parser.add_argument("--locales", nargs="+", default=list(LANGUAGES), metavar="LOCALE",
+                        help="Exact Hunspell dictionary set, e.g. en_US en_CA en_GB de_DE fr_FR")
+    parser.add_argument("--historical-names", type=Path,
+                        help="Optional sourced UTF-8 one-name-per-line wordlist (capitalized single tokens)")
     args = parser.parse_args()
     if args.out.exists():
         parser.error("Output exists; refusing to overwrite the probe report")
@@ -114,8 +118,9 @@ def main():
     except (ValueError, KeyError, TypeError, OSError, json.JSONDecodeError) as exc:
         parser.error(f"Invalid lexicon: {exc}")
     try:
-        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=lexicon_words)
-    except (RuntimeError, OSError, LookupError, UnicodeError) as exc:
+        spelling = Spellcheck(dictionary_dir=args.hunspell_dir, lexicon_words=lexicon_words,
+                              languages=args.locales, historical_names=args.historical_names)
+    except (RuntimeError, OSError, LookupError, UnicodeError, ValueError) as exc:
         parser.error(f"Cannot initialize all required dictionaries: {exc}")
     findings = []
     comparison_exceptions = []
@@ -225,8 +230,10 @@ def main():
               "json_markdown_comparison": comparison},
               "page_count": len(images), "counts_by_rule": counts, "findings": findings,
               "json_markdown_exceptions": comparison_exceptions}
+    if spelling.historical_names_sha256 is not None:
+        result["inputs"]["historical_names_sha256"] = spelling.historical_names_sha256
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    with args.out.open("x", encoding="utf-8", newline="\n") as handle:
+    with args.out.open("x", encoding="utf-8", newline="\\n") as handle:
         json.dump(result, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
     print(f"{len(images)} images; {len(findings)} candidate findings")
