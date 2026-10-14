@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from multilingual_spellcheck import Spellcheck
 from prepare_historical_names import prepare
+from audit_dictionary_coverage import compare
 
 
 class DictionaryCoverageTests(unittest.TestCase):
@@ -69,6 +70,31 @@ class DictionaryCoverageTests(unittest.TestCase):
         self.assertEqual(skipped, 2)
         with self.assertRaisesRegex(ValueError, "required"):
             prepare(b"name\nSocrates\n")
+
+    def test_readonly_coverage_distinguishes_unknown_only_and_other_triggers(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            names = Path(tmp) / "names.txt"
+            names.write_text("Xenophontulus\n")
+            spell = Spellcheck(languages=("en_US",), historical_names=names)
+            try:
+                report = {"findings": [
+                    {"observed": "Xenophontulus", "triggers": ["unrecognized_token"]},
+                    {"observed": "Xenophontulus",
+                     "triggers": ["lower_upper", "unrecognized_token"]},
+                    {"observed": "zqxwvv", "triggers": ["unrecognized_token"]},
+                ]}
+                totals = compare(report, spell)
+                self.assertEqual(totals["total_unknown_occurrences"], 3)
+                self.assertEqual(totals["recognized_occurrences"], 2)
+                self.assertEqual(totals["recognized_distinct_forms"], 1)
+                self.assertEqual(totals["sole_unknown_occurrences_recognized"], 1)
+                self.assertEqual(totals["other_triggers_still_active"], 1)
+                self.assertEqual(totals["pending_recognized_occurrences"], 2)
+                decided = compare(report, spell, {"xenophontulus"})
+                self.assertEqual(decided["pending_recognized_occurrences"], 0)
+                self.assertEqual(decided["recognized_occurrences"], 2)
+            finally:
+                spell.close()
 
     def test_probe_filters_sourced_name_without_modifying_raw_markdown(self):
         with tempfile.TemporaryDirectory() as tmp:
