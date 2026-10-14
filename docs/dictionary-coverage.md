@@ -90,6 +90,26 @@ Codex proposals, verification decisions or the persistent lexicon.
 For the optional segmentation sidecar, pass the same
 `--historical-names` path and the same `--locales` list.
 
+## Read-only audit against an already frozen Probe 2
+
+Before changing future recognition settings, measure exactly how much the
+expanded dictionaries *would* recognize in a previous book:
+
+```bash
+python audit_dictionary_coverage.py \
+  --report "output/The First Philosophers/probes/probe2.json" \
+  --progress "output/The First Philosophers/lexical_reports/lexical_progress.json" \
+  --locales en_US en_CA en_GB de_DE fr_FR \
+  --historical-names dictionaries/historical-names-v1.txt
+```
+
+Omit `--historical-names` until you have a sourced list. The audit prints
+counts of recognized occurrences, distinct forms, findings whose *only*
+trigger was nonrecognition, findings whose other triggers remain active, and
+recognized occurrences not already decided in your saved progress. This
+command is **read-only**: it never changes the original baseline, joined
+Codex reports, human decisions, or lexicon.
+
 ## Avoid changing an in-flight book
 
 Do **not** regenerate Probe 2 or alter frozen join reports and review progress
