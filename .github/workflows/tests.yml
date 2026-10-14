@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install English German French probe dictionaries
-        run: sudo apt-get update && sudo apt-get install -y libhunspell-1.7-0 hunspell-en-us hunspell-de-de hunspell-fr-classical
+      - name: Install English variants, German and French probe dictionaries
+        run: sudo apt-get update && sudo apt-get install -y libhunspell-1.7-0 hunspell-en-us hunspell-en-ca hunspell-en-gb hunspell-de-de hunspell-fr-classical
       - name: Validate five-step handoff
         run: |
           python tests/test_whitespace_workflow.py
