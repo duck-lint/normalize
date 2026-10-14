@@ -3,6 +3,9 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const {summarize,retainedOrNext}=require('../review_ui/metrics.js');
+const {Script}=require('node:vm');
+const {readFileSync}=require('node:fs');
+const {join}=require('node:path');
 
 function group(key,count,repairs,verified,eligible,known=false){
   return {key,word:key,count,repair_count:repairs,verified_repair_count:verified,
@@ -74,4 +77,9 @@ test('only fully reviewed source-faithful nonlexical forms qualify for batch exc
   assert.equal(summarize([marked],{'liberte':{decision:'rejected'}}).bulkSourceFaithfulForms,0);
   assert.equal(summarize([{...marked,already_known:true}],{}).bulkSourceFaithfulForms,0);
   assert.equal(summarize([marked,mixed,claimed],{}).sourceFaithfulOccurrences,13);
+});
+
+// Parse the actual client-side reviewer script without running browser APIs.
+test('human review UI script parses after repair/admission controls are added',()=>{
+  assert.doesNotThrow(()=>new Script(readFileSync(join(__dirname,'../review_ui/app.js'),'utf8')));
 });

@@ -17,6 +17,8 @@ from artifact_directory import directory_files, directory_sha256
 from extract_lexical import extract
 from lexicon_store import read_lexicon, sha, apply_human_admissions
 from review_lexicon import ReviewSession, ReviewHandler
+from human_lexical_approvals import HUMAN_APPROVAL_FORMAT, effective_review
+from execute_lexical_repairs import validate_handoffs
 
 
 class HumanLexiconReviewTests(unittest.TestCase):
@@ -149,6 +151,151 @@ class HumanLexiconReviewTests(unittest.TestCase):
                              'finding_id': None, 'note': 'Not a lexical word',
                              'inspected': False})
         self.assertEqual(fresh.approvals()['entries'], [])
+
+    def repair(self, fid, decision, replacement=None, note='Visually inspected the printed scan', inspected=True):
+        return self.session.save_repair_decision({
+            'finding_id': fid, 'decision': decision, 'replacement': replacement,
+            'note': note, 'inspected': inspected})
+
+    def test_human_scan_repairs_override_but_never_mutate_frozen_codex_files(self):
+        before_proposals = self.propose.read_bytes()
+        before_reviewed = self.verified.read_bytes()
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'Schopenhuaer')
+        with self.assertRaisesRegex(ValueError, 'inspection acknowledgment'):
+            self.repair(fid, 'approved', 'Schopenhauer', inspected=False)
+        with self.assertRaisesRegex(ValueError, 'Invalid human occurrence'):
+            self.repair(fid, 'approved', 'Schopenhuaer')
+        self.repair(fid, 'approved', 'Schopenhauer revised')
+        self.assertEqual(self.session.findings[fid]['proposed'], 'Schopenhauer revised')
+        self.assertEqual(self.session.findings[fid]['review_status'], 'approved')
+        self.assertEqual(self.session.findings[fid]['codex_proposed'], 'Schopenhauer')
+        self.assertEqual(self.session.repair_decisions[fid]['decision'], 'approved')
+        self.assertEqual(self.propose.read_bytes(), before_proposals)
+        self.assertEqual(self.verified.read_bytes(), before_reviewed)
+        exported = self.session.approvals()
+        self.assertEqual(exported['format'], HUMAN_APPROVAL_FORMAT)
+        self.assertEqual(exported['entries'], [])
+        effective, repairs = effective_review(
+            self.session.baseline, self.session.proposals, self.session.reviewed,
+            exported, *[self.session.snapshots[k] for k in (
+                'baseline_sha256', 'proposals_sha256', 'reviewed_sha256', 'lexicon_sha256')])
+        edited = next(f for f in effective['findings'] if f['id'] == fid)
+        self.assertEqual(edited['proposed'], 'Schopenhauer revised')
+        self.assertEqual(edited['proposal_source'], 'human_scan_proposal')
+        self.assertEqual(edited['review']['status'], 'approved')
+        self.assertEqual(repairs[0]['finding_id'], fid)
+        validate_handoffs(self.session.baseline, self.session.proposals, self.session.reviewed)
+        self.assertEqual(self.make_session().repair_decisions[fid]['replacement'], 'Schopenhauer revised')
+
+    def test_human_rejection_can_allow_independent_lexicon_admission(self):
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'Schopenhuaer')
+        self.repair(fid, 'rejected')
+        self.assertEqual(self.session.findings[fid]['proposed'], None)
+        self.assertEqual(self.session.findings[fid]['review_status'], None)
+        self.assertTrue(self.session.findings[fid]['eligible'])
+        self.save('schopenhuaer', 'accepted', fid,
+                  note='Human directly inspected the printed form')
+        bundle = self.session.approvals()
+        self.assertEqual(len(bundle['repairs']), 1)
+        self.assertEqual(len(bundle['entries']), 1)
+        # Restoring a repair would invalidate that occurrence's admission.
+        with self.assertRaisesRegex(ValueError, 'clear the admission first'):
+            self.repair(fid, 'pending')
+        self.assertEqual(self.session.repair_decisions[fid]['decision'], 'rejected')
+        self.assertEqual(self.make_session().decisions['schopenhuaer']['decision'], 'accepted')
+        self.assertEqual(self.verified.read_bytes(), self.session.paths['reviewed'].read_bytes())
+
+    def test_repair_and_corrected_word_admission_are_independently_approved(self):
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'Schopenhuaer')
+        self.repair(fid, 'approved', 'Schopenhauer')
+        item = self.session.findings[fid]
+        self.assertTrue(item['corrected_word_admissible'])
+        self.assertFalse(item['eligible'])  # misspelled observed form is ineligible
+        with self.assertRaisesRegex(ValueError, 'source occurrence'):
+            self.save('schopenhuaer', 'accepted', fid,
+                      note='Observed spelling was wrong')
+        self.session.save_decision({
+            'key': 'schopenhuaer', 'decision': 'accepted', 'finding_id': fid,
+            'note': 'I inspected this exact corrected single word in the source scan',
+            'inspected': True, 'word': 'Schopenhauer'})
+        bundle = self.session.approvals()
+        self.assertEqual(bundle['entries'][0]['word'], 'Schopenhauer')
+        self.assertEqual(bundle['repairs'][0]['replacement'], 'Schopenhauer')
+        updated, added = apply_human_admissions(
+            self.session.lexicon, bundle,
+            effective_review(self.session.baseline, self.session.proposals,
+                self.session.reviewed, bundle,
+                *[self.session.snapshots[k] for k in (
+                  'baseline_sha256','proposals_sha256','reviewed_sha256','lexicon_sha256')])[0],
+            self.session.baseline, self.session.snapshots['baseline_sha256'],
+            self.session.snapshots['lexicon_sha256'])
+        self.assertEqual(added[0]['word'], 'Schopenhauer')
+        self.assertEqual(len(updated['entries']), 1)
+        self.assertEqual(self.make_session().decisions['schopenhuaer']['word'], 'Schopenhauer')
+
+    def test_human_can_create_repair_and_delete_numeric_span_without_lexicon_admission(self):
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'infrequentword')
+        self.repair(fid, 'approved', '')
+        self.assertEqual(self.session.findings[fid]['proposed'], '')
+        self.assertEqual(self.session.findings[fid]['review_status'], 'approved')
+        self.assertFalse(self.session.findings[fid]['eligible'])
+        approved = self.session.approvals()
+        self.assertEqual(approved['repairs'][0]['replacement'], '')
+        self.assertEqual(approved['entries'], [])
+        self.repair(fid, 'pending')
+        self.assertEqual(self.session.findings[fid]['proposed'], None)
+        self.assertTrue(self.session.findings[fid]['eligible'])
+        self.assertEqual(self.session.approvals()['repairs'], [])
+
+    def test_executor_builds_human_deletion_with_original_byte_span_and_authority(self):
+        from execute_lexical_repairs import build
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'infrequentword')
+        self.repair(fid, 'approved', '')
+        bundle = self.session.approvals()
+        effective, repairs = effective_review(
+            self.session.baseline, self.session.proposals, self.session.reviewed, bundle,
+            *[self.session.snapshots[k] for k in (
+              'baseline_sha256', 'proposals_sha256', 'reviewed_sha256', 'lexicon_sha256')])
+        artifacts = {}
+        for finding in self.session.baseline['findings']:
+            name = finding['paddle_markdown']
+            path = self.root / name
+            path.write_text(finding['ocr_context']['text'])
+            artifacts[name] = path
+        self.session.baseline['inputs']['paddle_dir_sha256'] = 'untouched-whitespace-stage'
+        output, ledger = build(self.session.baseline, effective, artifacts,
+                               'source-lexicon-sha', 'target-lexicon-sha', [], repairs)
+        page = next(f['paddle_markdown'] for f in effective['findings'] if f['id'] == fid)
+        self.assertNotIn(b'infrequentword', output[page])
+        self.assertEqual(ledger['human_occurrence_repair_decisions'], repairs)
+        executed = next(r for r in ledger['changes'] if r['id'] == fid)
+        self.assertEqual(executed['authority'], 'human_scan_approval')
+        self.assertEqual(executed['proposed'], '')
+        self.assertEqual(executed['start_byte'], 17)
+        self.assertEqual(executed['end_byte'], 17 + len('infrequentword'))
+
+    def test_human_repair_bundle_refuses_changed_frozen_reports_and_duplicate_ids(self):
+        fid = next(f['id'] for f in self.session.reviewed['findings']
+                   if f['observed'] == 'infrequentword')
+        self.repair(fid, 'approved', 'properword')
+        bundle = self.session.approvals()
+        hashes = [self.session.snapshots[k] for k in
+                  ('baseline_sha256','proposals_sha256','reviewed_sha256','lexicon_sha256')]
+        bad = copy.deepcopy(bundle)
+        bad['repairs'].append(copy.deepcopy(bad['repairs'][0]))
+        with self.assertRaisesRegex(ValueError, 'duplicate'):
+            effective_review(self.session.baseline, self.session.proposals,
+                             self.session.reviewed, bad, *hashes)
+        bad = copy.deepcopy(bundle)
+        bad['source_proposals_sha256'] = 'stale'
+        with self.assertRaisesRegex(ValueError, 'not bound'):
+            effective_review(self.session.baseline, self.session.proposals,
+                             self.session.reviewed, bad, *hashes)
 
     def test_unique_vocabulary_and_mixed_repair_evidence(self):
         self.assertEqual(len(self.session.groups), 4)
