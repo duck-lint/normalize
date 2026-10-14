@@ -233,7 +233,7 @@ def main():
     if spelling.historical_names_sha256 is not None:
         result["inputs"]["historical_names_sha256"] = spelling.historical_names_sha256
     args.out.parent.mkdir(parents=True, exist_ok=True)
-    with args.out.open("x", encoding="utf-8", newline="\\n") as handle:
+    with args.out.open("x", encoding="utf-8", newline="\n") as handle:
         json.dump(result, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
     print(f"{len(images)} images; {len(findings)} candidate findings")
