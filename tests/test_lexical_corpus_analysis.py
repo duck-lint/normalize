@@ -16,6 +16,9 @@ from analyze_lexical_corpus import (
     read_json,
 )
 from extract_lexical import extract
+from lexical_corpus_classification import (
+    FORMAT as CLASSIFICATION_FORMAT, build_classification, classify_occurrence,
+)
 
 
 def sha(path):
@@ -248,6 +251,126 @@ class CorpusAnalysisTests(unittest.TestCase):
         self.assertIn("PASS Moderns:", invalid.stdout)
         self.assertIn("1 pass, 1 fail", invalid.stdout)
         self.assertFalse((self.root / "analysis.json").exists())
+
+
+    def test_classification_preserves_every_occurrence_and_both_outcome_axes(self):
+        before = {p: sha(p) for paths in (self.book1, self.book2)
+                  for p in paths.values()}
+        report = build_classification([__import__(
+            "analyze_lexical_corpus").load_book(book) for book in self.load()])
+        self.assertEqual(report["format"], CLASSIFICATION_FORMAT)
+        self.assertEqual(report["summary"]["occurrences"], 11)
+        self.assertEqual(report["summary"]["pending_occurrences"], 6)
+        self.assertEqual(len(report["occurrences"]), 11)
+        self.assertEqual(len({(x["book"], x["finding_id"])
+                             for x in report["occurrences"]}), 11)
+        excluded = next(x for x in report["occurrences"]
+                        if x["observed"] == "Schopenhuaer")
+        self.assertEqual(excluded["disposition"], "bulk_excluded_all_repair_verified")
+        self.assertEqual(excluded["repair_state"], "codex_verified_repair")
+        self.assertEqual(excluded["primary_investigation_route"],
+                         "existing_verified_repair_candidate")
+        other = next(x for x in report["occurrences"] if x["observed"] == "Otherword")
+        self.assertEqual(other["primary_investigation_route"], "previously_triaged")
+        self.assertEqual({p: sha(p) for p in before}, before)
+
+    def test_exact_contraction_prefix_and_unsafe_replacement_are_distinct(self):
+        original = "doesn"
+        prefix = "Before "
+        text = "Before doesn't go away"
+        start = len(prefix.encode("utf-8"))
+        entry = {
+            "book": "Book", "finding_id": "p:unrecognized_token:7", "page": "p",
+            "observed": original, "canonical": original,
+            "disposition": "pending_human_vocabulary_review",
+            "repair_state": "no_verified_repair", "replacement": None,
+            "signals": ["adjacent_apostrophe"],
+            "source_image": "p.png", "paddle_markdown": "p.md",
+            "start_byte": start, "end_byte": start + len(original),
+            "ocr_context": {"text": text, "start_byte": 0,
+                            "end_byte": len(text.encode("utf-8"))},
+            "proposal_note": "SCAN_VERIFIED: observed span is a partial token",
+            "verification_note": "The source has an intact contraction",
+            "human_note": None,
+        }
+        good = classify_occurrence(entry)
+        self.assertEqual(good["primary_investigation_route"],
+                         "tokenizer_boundary_experiment")
+        self.assertIn("exact_contraction_prefix_span", good["clues_not_conclusions"])
+        self.assertEqual(good["proposer_note_tag"], "scan_verified")
+        self.assertFalse(good["repair_may_duplicate_existing_suffix"])
+
+        approved = dict(entry, repair_state="codex_verified_repair",
+                        replacement="doesn't")
+        danger = classify_occurrence(approved)
+        self.assertEqual(danger["primary_investigation_route"], "repair_span_safety_audit")
+        self.assertTrue(danger["repair_may_duplicate_existing_suffix"])
+        approved_curly = dict(approved, replacement="doesn’t")
+        self.assertTrue(classify_occurrence(approved_curly)["repair_may_duplicate_existing_suffix"])
+
+        # A possessive surname is not a contraction-prefix issue.
+        surname_text = "Before Schaffer's claim"
+        surname = dict(entry, observed="Schaffer", canonical="schaffer",
+                       end_byte=start + len("Schaffer"),
+                       ocr_context={"text": surname_text, "start_byte": 0,
+                                    "end_byte": len(surname_text)},
+                       replacement=None)
+        self.assertNotIn("exact_contraction_prefix_span",
+                         classify_occurrence(surname)["clues_not_conclusions"])
+
+    def test_notes_are_hypotheses_not_verdicts_or_repair_approvals(self):
+        word = "didnt"
+        text = "I didnt know"
+        base = {
+            "book": "Stella Maris", "finding_id": "p:unknown:2", "page": "p",
+            "observed": word, "canonical": word, "disposition": "pending_human_vocabulary_review",
+            "repair_state": "no_verified_repair", "replacement": None,
+            "signals": ["contraction_like"], "source_image": "p.png",
+            "paddle_markdown": "p.md", "start_byte": 2, "end_byte": 7,
+            "ocr_context": {"text": text, "start_byte": 0, "end_byte": len(text)},
+            "proposal_note": "SCAN_VERIFIED: retained printed spelling",
+            "verification_note": "Scan prints didnt without an apostrophe",
+            "human_note": None,
+        }
+        scoped = classify_occurrence(base)
+        self.assertEqual(scoped["primary_investigation_route"],
+                         "book_scoped_recognition_experiment")
+        self.assertNotIn("structured_approved_repair_candidate",
+                         scoped["clues_not_conclusions"])
+        uncertain = classify_occurrence(dict(base,
+            proposal_note="SCAN_UNRESOLVED: glyph ambiguous",
+            verification_note="Source remains ambiguous"))
+        self.assertEqual(uncertain["primary_investigation_route"],
+                         "targeted_source_inspection")
+        self.assertEqual(uncertain["proposer_note_tag"], "scan_unresolved")
+        generic = classify_occurrence(dict(base, verification_note="looks like a name"))
+        self.assertEqual(generic["primary_investigation_route"],
+                         "unclassified_review_candidate")
+
+    def test_utf8_context_fail_closed_and_classification_cli(self):
+        entry = {
+            "book": "A", "finding_id": "p:x:1", "page": "p",
+            "observed": "é", "canonical": "é",
+            "disposition": "pending_human_vocabulary_review",
+            "repair_state": "no_verified_repair", "replacement": None,
+            "signals": [], "source_image": "p.png", "paddle_markdown": "p.md",
+            "start_byte": 1, "end_byte": 2,
+            "ocr_context": {"text": "é", "start_byte": 0, "end_byte": 2},
+            "proposal_note": None, "verification_note": None, "human_note": None,
+        }
+        with self.assertRaises(ValueError):
+            classify_occurrence(entry)
+        cmd = [sys.executable, str(ROOT / "analyze_lexical_corpus.py"),
+               "--manifest", str(self.manifest), "--classify",
+               "--out", str(self.root / "classified.json")]
+        first = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertEqual(first.returncode, 0, first.stderr)
+        created, _ = read_json(self.root / "classified.json")
+        self.assertEqual(created["summary"]["occurrences"], 11)
+        self.assertEqual(len(created["occurrences"]), 11)
+        second = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertNotEqual(second.returncode, 0)
+        self.assertIn("already exists", second.stderr)
 
     def test_refuses_manifest_duplicates(self):
         write(self.manifest, {"books": [self.entry(self.book1), self.entry(self.book1)]})
