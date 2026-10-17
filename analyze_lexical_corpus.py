@@ -154,6 +154,38 @@ def effective_state(finding, human):
     return {"state": "no_verified_repair", "replacement": None}
 
 
+
+def describe_handoff_problem(baseline, proposals, reviewed, progress, hashes):
+    """Surface differences for diagnosis; never reconcile or transplant findings."""
+    from extract_lexical import extract
+    expected = extract(baseline)["findings"]
+    actual = proposals.get("findings")
+    if not isinstance(actual, list):
+        return "proposals.findings is not an array"
+    expected_ids = {f["id"] for f in expected}
+    actual_ids = {f["id"] for f in actual if isinstance(f, dict) and isinstance(f.get("id"), str)}
+    missing = sorted(expected_ids - actual_ids)
+    extra = sorted(actual_ids - expected_ids)
+    parts = [
+        f"Probe 2 expects {len(expected)} lexical findings; proposals contain {len(actual)}",
+        f"IDs only in Probe 2: {len(missing)}; only in proposals: {len(extra)}",
+    ]
+    if missing:
+        parts.append(f"example probe-only ID: {missing[0]}")
+    if extra:
+        parts.append(f"example proposal-only ID: {extra[0]}")
+    snapshots = progress.get("snapshots") if isinstance(progress, dict) else None
+    if isinstance(snapshots, dict):
+        for key, actual_hash in (
+                ("baseline_sha256", hashes["probe2"]),
+                ("proposals_sha256", hashes["proposals"]),
+                ("reviewed_sha256", hashes["reviewed"])):
+            recorded = snapshots.get(key)
+            if recorded != actual_hash:
+                parts.append(f"progress.{key} differs from the supplied file (recorded {recorded}, actual {actual_hash})")
+    return "; ".join(parts)
+
+
 def load_book(book):
     name = book["name"]
     paths = {key: book[key] for key in ("probe2", "proposals", "reviewed", "progress")}
@@ -162,7 +194,14 @@ def load_book(book):
     proposed, proposed_hash = inputs["proposals"]
     reviewed, reviewed_hash = inputs["reviewed"]
     progress, progress_hash = inputs["progress"]
-    validate_handoffs(baseline, proposed, reviewed)
+    try:
+        validate_handoffs(baseline, proposed, reviewed)
+    except (ValueError, TypeError, KeyError) as exc:
+        detail = describe_handoff_problem(
+            baseline, proposed, reviewed, progress,
+            {"probe2": baseline_hash, "proposals": proposed_hash,
+             "reviewed": reviewed_hash})
+        raise ValueError(f"{name}: {exc}. {detail}") from exc
 
     if not isinstance(progress, dict) or progress.get("format") not in (
             PROGRESS_FORMAT, LEGACY_PROGRESS_FORMAT):
@@ -393,11 +432,29 @@ def main():
                         help="Maximum ranked forms and patterns per category")
     parser.add_argument("--examples", type=int, default=3,
                         help="Maximum original finding examples per ranked form")
+    parser.add_argument("--check-only", action="store_true",
+                        help="Check every book's frozen handoffs and progress without writing a report")
     args = parser.parse_args()
     if args.top < 1 or args.examples < 1:
         parser.error("--top and --examples must be positive")
     try:
         books = manifest_books(args.manifest.resolve())
+        if args.check_only:
+            if args.out:
+                raise ValueError("--check-only cannot be combined with --out")
+            failed = 0
+            for book in books:
+                try:
+                    load_book(book)
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    failed += 1
+                    print(f"FAIL {book['name']}: {exc}")
+                else:
+                    print(f"PASS {book['name']}: handoffs and saved progress match")
+            print(f"Checked {len(books)} books: {len(books) - failed} pass, {failed} fail")
+            if failed:
+                parser.exit(1)
+            return
         if args.out:
             target = args.out.resolve()
             if target == args.manifest.resolve() or any(
