@@ -143,6 +143,60 @@ change the persistent lexicon, infer a "correct" string, bypass scan review,
 re-run Codex, or decide what is genuinely an OCR error from a rejected
 vocabulary form. They help choose the *next* experiment.
 
+## Full occurrence-level classification (read-only)
+
+The ranked analysis above provides at most `--examples` occurrences per form.
+For the **complete** occurrence-level diagnostic, using the **same manifest**
+and the **same original frozen snapshots**, run:
+
+```bash
+python analyze_lexical_corpus.py --manifest analysis/books.json \\
+  --classify --out analysis/lexical-classification.json
+```
+
+For a user alias, `corpusanalysis --manifest ... --classify --out ...` works too.
+This is a **separate new-only JSON artifact**, with one record for each lexical
+finding, including original IDs, scanned-page names, exact UTF-8 offsets,
+context, human notes, saved decisions, and both disposition and repair state.
+It will fail on mismatched handoffs/progress snapshots and invalid source-context
+byte ranges. It cannot run from the ranked report alone: that export contains
+only sampled contexts per form, not each underlying occurrence.
+
+The classification is deliberately **multiaxial**:
+
+- `disposition` and `repair_state` are the **validated saved workflow
+  states**. A rejected word is not automatically an OCR error.
+- `proposer_note_tag` and `clues_not_conclusions` are **observations or
+  labels inferred from agent prose**; they are NOT proof that the scan matches
+  or differs. `SCAN_VERIFIED`, `SCAN_UNRESOLVED` and `SCAN_BLOCKED` are
+  recorded explicitly, but prose never becomes an approval.
+- `primary_investigation_route` is a **diagnostic hypothesis about the next
+  experiment**, not a classification of OCR correctness and not permission
+  to edit text, add vocabulary or auto-reject findings. The report also carries
+  the `evidence_levels` associated with each record.
+
+The routes distinguish potential repair-span duplication, contraction-prefix
+segmentation, existing verified repairs, previously triaged vocabulary, printed
+book-specific conventions, structured source-faithful nonlexical findings,
+reported scan uncertainty, lexical coverage experiments and genuinely
+unclassified candidates. `summary.routes_pending_occurrences` makes their
+provisional distribution visible; `ranked_route_form_groups` identifies
+high-yield work while `occurrences` preserves **all evidence** for follow-up.
+
+**Safety signal:** When the observed span is exactly the prefix before an
+apostrophe + `t` of an intact contraction (e.g. `doesn` in `doesn't`)
+and a verified proposed replacement includes that already-present suffix,
+the tool raises `repair_may_duplicate_existing_suffix` and places it in
+`repair_span_safety_audit`. This flags an *audit candidate only*; it does not
+change, invalidate or execute the existing proposal. Possessive surnames
+(e.g. `Schaffer's`) do not meet this narrow rule.
+
+**Evidence ceiling:** With only frozen reports, this tool cannot establish that
+an agent's free-text account of a scan is accurate, whether a technically
+plausible word should enter the shared dictionary, or whether a printed
+foreign/Greek fragment can be repaired faithfully. These remain targets for
+scan-backed investigation; the tool makes no attempt to infer missing glyphs.
+
 ## Suggested reading order
 
 First inspect pending-form concentration and cross-book recurrence. Then look
