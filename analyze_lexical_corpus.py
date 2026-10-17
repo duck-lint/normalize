@@ -91,9 +91,10 @@ def signals(finding):
         if (isinstance(left, int) and isinstance(right, int)
                 and 0 <= left < right <= len(raw)
                 and raw[left:right] == word.encode("utf-8")):
-            around = (raw[max(0, left - 4):left] +
-                      raw[right:min(len(raw), right + 4)]).decode("utf-8", "ignore")
-            if any(c in APOSTROPHES for c in around):
+            preceding = raw[:left].decode("utf-8")
+            following = raw[right:].decode("utf-8")
+            if (preceding[-1:] in APOSTROPHES or
+                    following[:1] in APOSTROPHES):
                 labels.append("adjacent_apostrophe")
     return sorted(set(labels)) or ["no_obvious_signal"]
 
@@ -213,6 +214,10 @@ def load_book(book):
                 "proposal_note": f.get("proposal_note"),
                 "verification_note": f["review"].get("note"),
                 "human_note": (human_repairs.get(f["id"]) or {}).get("note"),
+                "source_image": f.get("source_image"),
+                "paddle_markdown": f.get("paddle_markdown"),
+                "start_byte": f.get("start_byte"), "end_byte": f.get("end_byte"),
+                "ocr_context": f.get("ocr_context"),
             })
         forms.append({"book": name, "key": key, "word": members[0]["observed"],
                       "count": len(members), "disposition": status,
@@ -276,6 +281,10 @@ def analyze_books(books, top=50, examples=3):
                 "proposal_note": o["proposal_note"],
                 "verification_note": o["verification_note"],
                 "human_note": o["human_note"],
+                "source_image": o["source_image"],
+                "paddle_markdown": o["paddle_markdown"],
+                "start_byte": o["start_byte"], "end_byte": o["end_byte"],
+                "ocr_context": o["ocr_context"],
             } for o in records[:examples]],
         }
 
