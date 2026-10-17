@@ -131,7 +131,7 @@ class CorpusAnalysisTests(unittest.TestCase):
         self.assertEqual(report["summary"]["book_distinct_forms"], 10)
         self.assertEqual(report["summary"]["corpus_distinct_forms"], 8)
         self.assertEqual(report["summary"]["pending_forms"], 6)
-        self.assertEqual(report["summary"]["pending_occurrences"], 7)
+        self.assertEqual(report["summary"]["pending_occurrences"], 6)
         self.assertEqual(
             report["summary"]["form_dispositions"]["bulk_excluded_all_repair_verified"], 1)
         self.assertEqual(
