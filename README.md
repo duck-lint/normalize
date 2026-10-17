@@ -50,7 +50,7 @@ admission is delegated.
    explained by executed punctuation spaces. Remaining detections use the actual
    repaired Markdown, with fresh offsets and hashes.
 
-## Files and commands
+For the post-Codex, **post-bulk Review UI** cross-book diagnosis before exhaustive\nhuman vocabulary review, see [corpus analysis](docs/post-bulk-corpus-analysis.md).\nThe analyzer preserves pending and bulk-excluded findings separately, joins\noriginal source hashes, and makes no repair or lexicon decisions.\n\n## Files and commands
 
 Keep Normalize scripts in a tooling checkout. Run these commands from a separate
 book workspace. Replace `/path/to/normalize` with the tooling checkout path.
