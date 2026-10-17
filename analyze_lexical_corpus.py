@@ -434,6 +434,8 @@ def main():
                         help="Maximum original finding examples per ranked form")
     parser.add_argument("--check-only", action="store_true",
                         help="Check every book's frozen handoffs and progress without writing a report")
+    parser.add_argument("--classify", action="store_true",
+                        help="Export an occurrence-complete, read-only classification diagnostic")
     args = parser.parse_args()
     if args.top < 1 or args.examples < 1:
         parser.error("--top and --examples must be positive")
@@ -463,7 +465,12 @@ def main():
                 raise ValueError("Output cannot overwrite any input")
             if target.exists():
                 raise ValueError(f"Output already exists: {target}")
-        result = analyze_books(books, top=args.top, examples=args.examples)
+        if args.classify:
+            from lexical_corpus_classification import build_classification
+            result = build_classification([load_book(book) for book in books],
+                                          examples=args.examples)
+        else:
+            result = analyze_books(books, top=args.top, examples=args.examples)
         formatted = json.dumps(result, ensure_ascii=False, indent=2) + "\n"
         if args.out:
             with args.out.open("x", encoding="utf-8") as stream:
