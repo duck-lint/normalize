@@ -65,6 +65,20 @@ python analyze_lexical_corpus.py --manifest analysis/books.json \
   --out analysis/post-bulk-corpus.json
 ```
 
+If a manifest points at an older lexical report or newer re-probe, diagnose
+**all books individually** before creating output:
+
+```bash
+python analyze_lexical_corpus.py --manifest analysis/books.json --check-only
+```
+
+This prints a PASS/FAIL line per book, expected Probe 2 lexical finding counts,
+proposal counts, sample missing/extra IDs, and saved progress snapshot hash
+mismatches. A nonzero exit status means at least one book failed; no output
+file is written. **Do not** filter/rewrite frozen agent findings to match
+a new probe. Use the original exact probe snapshot for that lexical batch
+or rerun lexical proposal/verification and bulk triage against the new probe.
+
 Omit `--out` to print JSON to stdout. Output files are **new-only**; the
 analyzer refuses an existing output or any input path as output. Use
 `--top 100 --examples 5` to enlarge the capped ranked lists and per-form
