@@ -220,6 +220,35 @@ class CorpusAnalysisTests(unittest.TestCase):
                          {(p["observed"], p["replacement"])
                           for p in report["verified_repair_pairs"]})
 
+    def test_per_book_count_mismatch_reports_snapshot_cause(self):
+        proposed, _ = read_json(self.book1["proposals"])
+        proposed["findings"].pop()
+        write(self.book1["proposals"], proposed)
+        with self.assertRaisesRegex(ValueError, "Ancients: Proposal report added or omitted") as raised:
+            self.analyze()
+        message = str(raised.exception)
+        self.assertIn("Probe 2 expects 8 lexical findings; proposals contain 7", message)
+        self.assertIn("IDs only in Probe 2: 1", message)
+        self.assertIn("progress.proposals_sha256 differs", message)
+
+    def test_check_only_reports_every_book_without_publishing(self):
+        cmd = [sys.executable, str(ROOT / "analyze_lexical_corpus.py"),
+               "--manifest", str(self.manifest), "--check-only"]
+        valid = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertEqual(valid.returncode, 0, valid.stderr)
+        self.assertIn("PASS Ancients", valid.stdout)
+        self.assertIn("PASS Moderns", valid.stdout)
+        self.assertIn("2 pass, 0 fail", valid.stdout)
+        proposed, _ = read_json(self.book1["proposals"])
+        proposed["findings"].pop()
+        write(self.book1["proposals"], proposed)
+        invalid = subprocess.run(cmd, capture_output=True, text=True)
+        self.assertEqual(invalid.returncode, 1, invalid.stderr)
+        self.assertIn("FAIL Ancients:", invalid.stdout)
+        self.assertIn("PASS Moderns:", invalid.stdout)
+        self.assertIn("1 pass, 1 fail", invalid.stdout)
+        self.assertFalse((self.root / "analysis.json").exists())
+
     def test_refuses_manifest_duplicates(self):
         write(self.manifest, {"books": [self.entry(self.book1), self.entry(self.book1)]})
         with self.assertRaisesRegex(ValueError, "unique"):
